@@ -35,8 +35,11 @@ reproduced when they are *caught*, as in the original runs; their scripts then p
    reproduced the original log exactly. Conversely, seed 3 game 1, recorded (and reported in the book) as
    the one `unknown`, reproduced as `unknown` under load but returned `unsat` on a quiet machine. No run
    found a violating pair. The book's count "30 unsat, 1 unknown" is therefore machine-dependent.
-2. **Book vs. log, not a reproduction failure (04_ueopl):** the book says Q had 11 to 32 decimal digits;
-   both the original and the artifact logs show 11 to 44.
+   The checker can exit successfully after an `unknown` result. Inspect the per-search verdicts in the logs
+   to distinguish a timeout from a completed search that returned `unsat`.
+2. **UEOPL digit range (04_ueopl).** The published book reports 11 to 44 decimal digits for `Q`. The logs
+   show `log10(Q)~` values of 11 to 44, which the checker computes as the decimal digit count minus one.
+   The 25 random games therefore have `Q` values of 12 to 45 decimal digits.
 3. **C1-C6 boundary witnesses (02_arrival_hardness, `gadget_cp.py`):** all 216 configuration verdicts and
    piece counts are identical to the original results; for some failing configurations z3 returns a
    different witness point than in the original run. Every witness is re-verified in exact arithmetic by
@@ -169,7 +172,7 @@ Expected outputs come from the original run logs, where they exist, and otherwis
 Aggregate over the artifact runs (seeds 1-7 + sanity): 18 gap-test games, 1,800 patterns, 82 with t*=0, smallest positive t*=4/147, bad=[] everywhere; 1,740 Jacobian pieces, 0 failures; fixed point found and second fixed point unsat on all 33; g=1/10 searches unsat on all 31; residual/g maxima 0.0625 (budget), 0.125 (best response), 0.0625 (cutoff); delta 157-812 bits. All match the book. True-constant searches: book 30 unsat + 1 unknown; artifact loaded-machine runs 29 unsat + 2 unknown; with the quiet-machine reruns of seeds 3 and 4, 31 unsat + 0 unknown (see the timing note below).
 
 - **Timing-sensitive searches (seeds 3 and 4, game 1 each).** `check.py` gives the true-constant contraction search a fixed 180 s z3 wall-clock timeout (unchanged here). Its answer therefore depends on machine load: under heavy load seed 4 returned `unknown` where the original log has `unsat`; on a quiet machine seed 4 reproduces `unsat` exactly, and seed 3 returns `unsat` where the original log (and the book's "one timeout") has `unknown`. Across the runs, every completed search returned `unsat`; none found a violating pair.
-- **Book vs. log discrepancy, not a reproduction failure.** The book (item 5) says Q had 11 to 32 decimal digits on the 25 random games. The `log10(Q)~` values printed in both the original and the artifact logs range from 11 to 44 (two games at 40, one at 44). The delta bit range 157-812 does match.
+- In the 25 shipped random-game logs, `log10(Q)~` ranges from 11 to 44 (two games at 40, one at 44), so `Q` has 12 to 45 decimal digits. The delta bit range is 157-812.
 - Runtimes are inflated by load. The original runs took 21-211 s per seed, about 11 minutes for all seven.
 
 
