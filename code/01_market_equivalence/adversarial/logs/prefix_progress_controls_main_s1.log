@@ -1,0 +1,696 @@
+07:59:14 +      0s START   w0 audit_three_target corrupt_price lexmin 0
+07:59:14 +      0s START   w1 audit_three_target corrupt_capacity lexmin 0
+07:59:14 +      0s START   w2 audit_three_target corrupt_drop lexmin 0
+07:59:14 +      0s START   w3 audit_two_target corrupt_price lexmin 0
+07:59:14 +      0s START   w4 audit_two_target corrupt_capacity lexmin 0
+07:59:14 +      0s START   w5 audit_two_target corrupt_drop lexmin 0
+07:59:14 +      0s START   w6 pin_witness#0 corrupt_price lexmin 0
+07:59:14 +      0s START   w7 pin_witness#0 corrupt_capacity lexmin 0
+07:59:14 +      0s START   w8 pin_witness#0 corrupt_drop lexmin 0
+07:59:14 +      0s START   w9 pin_witness#1 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w0 audit_three_target corrupt_price lexmin 0 result=True calls=1 t=0.2s [1/342 done]
+07:59:14 +      0s START   w0 pin_witness#1 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w9 pin_witness#1 corrupt_price lexmin 0 result=True calls=1 t=0.2s [2/342 done]
+07:59:14 +      0s START   w9 pin_witness#1 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w6 pin_witness#0 corrupt_price lexmin 0 result=True calls=1 t=0.2s [3/342 done]
+07:59:14 +      0s START   w6 pin_witness#2 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w9 pin_witness#1 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [4/342 done]
+07:59:14 +      0s START   w9 pin_witness#2 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w3 audit_two_target corrupt_price lexmin 0 result=True calls=1 t=0.2s [5/342 done]
+07:59:14 +      0s START   w3 pin_witness#2 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w1 audit_three_target corrupt_capacity lexmin 0 result=True calls=3 t=0.2s [6/342 done]
+07:59:14 +      0s START   w1 pin_witness#3 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w6 pin_witness#2 corrupt_price lexmin 0 result=True calls=1 t=0.0s [7/342 done]
+07:59:14 +      0s START   w6 pin_witness#3 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w5 audit_two_target corrupt_drop lexmin 0 result=True calls=1 t=0.2s [8/342 done]
+07:59:14 +      0s START   w5 pin_witness#3 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w0 pin_witness#1 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [9/342 done]
+07:59:14 +      0s START   w0 ctl_pos#0 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w8 pin_witness#0 corrupt_drop lexmin 0 result=True calls=1 t=0.2s [10/342 done]
+07:59:14 +      0s START   w8 ctl_pos#0 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w3 pin_witness#2 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [11/342 done]
+07:59:14 +      0s START   w3 ctl_pos#0 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w4 audit_two_target corrupt_capacity lexmin 0 result=True calls=2 t=0.2s [12/342 done]
+07:59:14 +      0s START   w4 ctl_pos#1 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w1 pin_witness#3 corrupt_price lexmin 0 result=True calls=1 t=0.0s [13/342 done]
+07:59:14 +      0s START   w1 ctl_pos#1 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w9 pin_witness#2 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [14/342 done]
+07:59:14 +      0s START   w9 ctl_pos#1 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w0 ctl_pos#0 corrupt_price lexmin 0 result=True calls=1 t=0.0s [15/342 done]
+07:59:14 +      0s START   w0 ctl_pos#2 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w5 pin_witness#3 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [16/342 done]
+07:59:14 +      0s START   w5 ctl_pos#2 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w3 ctl_pos#0 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [17/342 done]
+07:59:14 +      0s START   w3 ctl_pos#2 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w2 audit_three_target corrupt_drop lexmin 0 result=True calls=1 t=0.2s [18/342 done]
+07:59:14 +      0s START   w2 ctl_pos#3 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w8 ctl_pos#0 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [19/342 done]
+07:59:14 +      0s START   w8 ctl_pos#3 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w4 ctl_pos#1 corrupt_price lexmin 0 result=True calls=1 t=0.0s [20/342 done]
+07:59:14 +      0s START   w4 ctl_pos#3 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#1 corrupt_capacity lexmin 0 result=True calls=1 t=0.0s [21/342 done]
+07:59:14 +      0s START   w1 ctl_pos#4 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w7 pin_witness#0 corrupt_capacity lexmin 0 result=True calls=1 t=0.2s [22/342 done]
+07:59:14 +      0s START   w7 ctl_pos#4 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w9 ctl_pos#1 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [23/342 done]
+07:59:14 +      0s START   w9 ctl_pos#4 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w2 ctl_pos#3 corrupt_price lexmin 0 result=True calls=1 t=0.0s [24/342 done]
+07:59:14 +      0s START   w2 ctl_pos#5 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w6 pin_witness#3 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [25/342 done]
+07:59:14 +      0s START   w6 ctl_pos#5 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w0 ctl_pos#2 corrupt_price lexmin 0 result=True calls=1 t=0.0s [26/342 done]
+07:59:14 +      0s START   w0 ctl_pos#5 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w4 ctl_pos#3 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [27/342 done]
+07:59:14 +      0s START   w4 ctl_pos#6 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w9 ctl_pos#4 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [28/342 done]
+07:59:14 +      0s START   w9 ctl_pos#6 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#4 corrupt_price lexmin 0 result=True calls=1 t=0.0s [29/342 done]
+07:59:14 +      0s START   w1 ctl_pos#6 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w3 ctl_pos#2 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [30/342 done]
+07:59:14 +      0s START   w3 ctl_pos#7 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w8 ctl_pos#3 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [31/342 done]
+07:59:14 +      0s START   w8 ctl_pos#7 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w7 ctl_pos#4 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [32/342 done]
+07:59:14 +      0s START   w7 ctl_pos#7 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w2 ctl_pos#5 corrupt_price lexmin 0 result=True calls=1 t=0.0s [33/342 done]
+07:59:14 +      0s START   w2 ctl_pos#8 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w4 ctl_pos#6 corrupt_price lexmin 0 result=True calls=1 t=0.0s [34/342 done]
+07:59:14 +      0s START   w4 ctl_pos#8 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w3 ctl_pos#7 corrupt_price lexmin 0 result=True calls=1 t=0.0s [35/342 done]
+07:59:14 +      0s START   w3 ctl_pos#8 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#6 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [36/342 done]
+07:59:14 +      0s START   w1 ctl_pos#9 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w0 ctl_pos#5 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [37/342 done]
+07:59:14 +      0s START   w0 ctl_pos#9 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w7 ctl_pos#7 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [38/342 done]
+07:59:14 +      0s START   w7 ctl_pos#9 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w2 ctl_pos#8 corrupt_price lexmin 0 result=True calls=1 t=0.0s [39/342 done]
+07:59:14 +      0s START   w2 ctl_pos#10 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w9 ctl_pos#6 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [40/342 done]
+07:59:14 +      0s START   w9 ctl_pos#10 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#9 corrupt_price lexmin 0 result=True calls=1 t=0.0s [41/342 done]
+07:59:14 +      0s START   w1 ctl_pos#10 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w3 ctl_pos#8 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [42/342 done]
+07:59:14 +      0s START   w3 ctl_pos#11 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w7 ctl_pos#9 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [43/342 done]
+07:59:14 +      0s START   w7 ctl_pos#11 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w6 ctl_pos#5 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [44/342 done]
+07:59:14 +      0s START   w6 ctl_pos#11 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w5 ctl_pos#2 corrupt_capacity lexmin 0 result=True calls=3 t=0.1s [45/342 done]
+07:59:14 +      0s START   w5 ctl_pos#12 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#10 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [46/342 done]
+07:59:14 +      0s START   w1 ctl_pos#12 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w2 ctl_pos#10 corrupt_price lexmin 0 result=True calls=1 t=0.0s [47/342 done]
+07:59:14 +      0s START   w2 ctl_pos#12 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w8 ctl_pos#7 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [48/342 done]
+07:59:14 +      0s START   w8 ctl_pos#13 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w0 ctl_pos#9 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [49/342 done]
+07:59:14 +      0s START   w0 ctl_pos#13 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w6 ctl_pos#11 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [50/342 done]
+07:59:14 +      0s START   w6 ctl_pos#13 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w3 ctl_pos#11 corrupt_price lexmin 0 result=True calls=1 t=0.0s [51/342 done]
+07:59:14 +      0s START   w3 ctl_pos#14 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w5 ctl_pos#12 corrupt_price lexmin 0 result=True calls=1 t=0.0s [52/342 done]
+07:59:14 +      0s START   w5 ctl_pos#14 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w4 ctl_pos#8 corrupt_capacity lexmin 0 result=True calls=4 t=0.0s [53/342 done]
+07:59:14 +      0s START   w4 ctl_pos#14 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w2 ctl_pos#12 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [54/342 done]
+07:59:14 +      0s START   w2 ctl_pos#15 corrupt_price lexmin 0
+07:59:14 +      0s DONE    w6 ctl_pos#13 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [55/342 done]
+07:59:14 +      0s START   w6 ctl_pos#15 corrupt_capacity lexmin 0
+07:59:14 +      0s DONE    w8 ctl_pos#13 corrupt_price lexmin 0 result=True calls=1 t=0.0s [56/342 done]
+07:59:14 +      0s START   w8 ctl_pos#15 corrupt_drop lexmin 0
+07:59:14 +      0s DONE    w1 ctl_pos#12 corrupt_capacity lexmin 0 result=True calls=1 t=0.0s [57/342 done]
+07:59:14 +      0s START   w1 audit_three_target ctl_nopatch lexmin 1
+07:59:14 +      0s DONE    w9 ctl_pos#10 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [58/342 done]
+07:59:14 +      0s START   w9 audit_three_target ctl_nopatch lexmax 1
+07:59:14 +      0s DONE    w7 ctl_pos#11 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [59/342 done]
+07:59:14 +      0s START   w7 audit_three_target ctl_nopatch degen 1
+07:59:14 +      0s DONE    w8 ctl_pos#15 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [60/342 done]
+07:59:14 +      0s START   w8 audit_three_target ctl_nopin lexmin 1
+07:59:14 +      0s DONE    w2 ctl_pos#15 corrupt_price lexmin 0 result=True calls=1 t=0.0s [61/342 done]
+07:59:14 +      0s START   w2 audit_three_target ctl_nopin lexmax 1
+07:59:14 +      0s DONE    w3 ctl_pos#14 corrupt_price lexmin 0 result=True calls=1 t=0.0s [62/342 done]
+07:59:14 +      0s START   w3 audit_three_target ctl_nopin degen 1
+07:59:14 +      0s DONE    w6 ctl_pos#15 corrupt_capacity lexmin 0 result=True calls=1 t=0.0s [63/342 done]
+07:59:14 +      0s START   w6 audit_three_target ctl_norepair lexmin 1
+07:59:14 +      0s DONE    w4 ctl_pos#14 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [64/342 done]
+07:59:14 +      0s START   w4 audit_three_target ctl_norepair lexmax 1
+07:59:14 +      0s DONE    w0 ctl_pos#13 corrupt_capacity lexmin 0 result=True calls=4 t=0.0s [65/342 done]
+07:59:14 +      0s START   w0 audit_three_target ctl_norepair degen 1
+07:59:14 +      0s DONE    w5 ctl_pos#14 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [66/342 done]
+07:59:14 +      0s START   w5 audit_three_target ctl_interp lexmin 1
+07:59:16 +      2s DONE    w3 audit_three_target ctl_nopin degen 1 result=True calls=None t=1.9s [67/342 done]
+07:59:16 +      2s START   w3 audit_three_target ctl_interp lexmax 1
+07:59:16 +      2s DONE    w8 audit_three_target ctl_nopin lexmin 1 result=True calls=None t=1.9s [68/342 done]
+07:59:16 +      2s START   w8 audit_three_target ctl_interp degen 1
+07:59:16 +      2s DONE    w2 audit_three_target ctl_nopin lexmax 1 result=True calls=None t=2.0s [69/342 done]
+07:59:16 +      2s START   w2 audit_two_target ctl_nopatch lexmin 1
+07:59:16 +      3s DONE    w2 audit_two_target ctl_nopatch lexmin 1 result=False calls=None t=0.2s [70/342 done]
+07:59:16 +      3s START   w2 audit_two_target ctl_nopatch lexmax 1
+07:59:16 +      3s DONE    w7 audit_three_target ctl_nopatch degen 1 result=False calls=None t=2.3s [71/342 done]
+07:59:16 +      3s START   w7 audit_two_target ctl_nopatch degen 1
+07:59:16 +      3s DONE    w0 audit_three_target ctl_norepair degen 1 result=True calls=None t=2.3s [72/342 done]
+07:59:16 +      3s START   w0 audit_two_target ctl_nopin lexmin 1
+07:59:16 +      3s DONE    w1 audit_three_target ctl_nopatch lexmin 1 result=False calls=None t=2.3s [73/342 done]
+07:59:16 +      3s START   w1 audit_two_target ctl_nopin lexmax 1
+07:59:16 +      3s DONE    w5 audit_three_target ctl_interp lexmin 1 result=True calls=None t=2.3s [74/342 done]
+07:59:16 +      3s START   w5 audit_two_target ctl_nopin degen 1
+07:59:16 +      3s DONE    w6 audit_three_target ctl_norepair lexmin 1 result=True calls=None t=2.3s [75/342 done]
+07:59:16 +      3s START   w6 audit_two_target ctl_norepair lexmin 1
+07:59:16 +      3s DONE    w9 audit_three_target ctl_nopatch lexmax 1 result=False calls=None t=2.4s [76/342 done]
+07:59:16 +      3s START   w9 audit_two_target ctl_norepair lexmax 1
+07:59:16 +      3s DONE    w4 audit_three_target ctl_norepair lexmax 1 result=True calls=None t=2.4s [77/342 done]
+07:59:16 +      3s START   w4 audit_two_target ctl_norepair degen 1
+07:59:16 +      3s DONE    w0 audit_two_target ctl_nopin lexmin 1 result=True calls=None t=0.2s [78/342 done]
+07:59:16 +      3s START   w0 audit_two_target ctl_interp lexmin 1
+07:59:16 +      3s DONE    w2 audit_two_target ctl_nopatch lexmax 1 result=False calls=None t=0.2s [79/342 done]
+07:59:16 +      3s START   w2 audit_two_target ctl_interp lexmax 1
+07:59:16 +      3s DONE    w1 audit_two_target ctl_nopin lexmax 1 result=True calls=None t=0.2s [80/342 done]
+07:59:16 +      3s START   w1 audit_two_target ctl_interp degen 1
+07:59:16 +      3s DONE    w7 audit_two_target ctl_nopatch degen 1 result=False calls=None t=0.2s [81/342 done]
+07:59:16 +      3s START   w7 pin_witness#0 ctl_nopatch lexmin 1
+07:59:16 +      3s DONE    w5 audit_two_target ctl_nopin degen 1 result=True calls=None t=0.2s [82/342 done]
+07:59:16 +      3s START   w5 pin_witness#0 ctl_nopatch lexmax 1
+07:59:17 +      3s DONE    w6 audit_two_target ctl_norepair lexmin 1 result=False calls=None t=0.2s [83/342 done]
+07:59:17 +      3s START   w6 pin_witness#0 ctl_nopatch degen 1
+07:59:17 +      3s DONE    w9 audit_two_target ctl_norepair lexmax 1 result=False calls=None t=0.2s [84/342 done]
+07:59:17 +      3s START   w9 pin_witness#0 ctl_nopin lexmin 1
+07:59:17 +      3s DONE    w0 audit_two_target ctl_interp lexmin 1 result=False calls=None t=0.2s [85/342 done]
+07:59:17 +      3s START   w0 pin_witness#0 ctl_nopin lexmax 1
+07:59:17 +      3s DONE    w4 audit_two_target ctl_norepair degen 1 result=False calls=None t=0.2s [86/342 done]
+07:59:17 +      3s START   w4 pin_witness#0 ctl_nopin degen 1
+07:59:17 +      3s DONE    w2 audit_two_target ctl_interp lexmax 1 result=False calls=None t=0.2s [87/342 done]
+07:59:17 +      3s START   w2 pin_witness#0 ctl_norepair lexmin 1
+07:59:17 +      3s DONE    w1 audit_two_target ctl_interp degen 1 result=False calls=None t=0.2s [88/342 done]
+07:59:17 +      3s START   w1 pin_witness#0 ctl_norepair lexmax 1
+07:59:18 +      4s DONE    w8 audit_three_target ctl_interp degen 1 result=True calls=None t=1.9s [89/342 done]
+07:59:18 +      4s START   w8 pin_witness#0 ctl_norepair degen 1
+07:59:18 +      4s DONE    w3 audit_three_target ctl_interp lexmax 1 result=True calls=None t=2.1s [90/342 done]
+07:59:18 +      4s START   w3 pin_witness#0 ctl_interp lexmin 1
+07:59:18 +      4s DONE    w4 pin_witness#0 ctl_nopin degen 1 result=True calls=None t=1.4s [91/342 done]
+07:59:18 +      4s START   w4 pin_witness#0 ctl_interp lexmax 1
+07:59:18 +      4s DONE    w9 pin_witness#0 ctl_nopin lexmin 1 result=True calls=None t=1.5s [92/342 done]
+07:59:18 +      4s START   w9 pin_witness#0 ctl_interp degen 1
+07:59:18 +      5s DONE    w0 pin_witness#0 ctl_nopin lexmax 1 result=True calls=None t=1.5s [93/342 done]
+07:59:18 +      5s START   w0 pin_witness#1 ctl_nopatch lexmin 1
+07:59:18 +      5s DONE    w7 pin_witness#0 ctl_nopatch lexmin 1 result=True calls=None t=1.8s [94/342 done]
+07:59:18 +      5s START   w7 pin_witness#1 ctl_nopatch lexmax 1
+07:59:18 +      5s DONE    w6 pin_witness#0 ctl_nopatch degen 1 result=True calls=None t=1.8s [95/342 done]
+07:59:18 +      5s START   w6 pin_witness#1 ctl_nopatch degen 1
+07:59:18 +      5s DONE    w5 pin_witness#0 ctl_nopatch lexmax 1 result=True calls=None t=1.9s [96/342 done]
+07:59:18 +      5s START   w5 pin_witness#1 ctl_nopin lexmin 1
+07:59:18 +      5s DONE    w2 pin_witness#0 ctl_norepair lexmin 1 result=True calls=None t=1.8s [97/342 done]
+07:59:18 +      5s START   w2 pin_witness#1 ctl_nopin lexmax 1
+07:59:19 +      5s DONE    w1 pin_witness#0 ctl_norepair lexmax 1 result=True calls=None t=1.9s [98/342 done]
+07:59:19 +      5s START   w1 pin_witness#1 ctl_nopin degen 1
+07:59:20 +      6s DONE    w8 pin_witness#0 ctl_norepair degen 1 result=True calls=None t=1.7s [99/342 done]
+07:59:20 +      6s START   w8 pin_witness#1 ctl_norepair lexmin 1
+07:59:20 +      6s DONE    w3 pin_witness#0 ctl_interp lexmin 1 result=False calls=None t=1.8s [100/342 done]
+07:59:20 +      6s START   w3 pin_witness#1 ctl_norepair lexmax 1
+07:59:20 +      6s DONE    w9 pin_witness#0 ctl_interp degen 1 result=False calls=None t=1.7s [101/342 done]
+07:59:20 +      6s START   w9 pin_witness#1 ctl_norepair degen 1
+07:59:20 +      6s DONE    w4 pin_witness#0 ctl_interp lexmax 1 result=False calls=None t=1.8s [102/342 done]
+07:59:20 +      6s START   w4 pin_witness#1 ctl_interp lexmin 1
+07:59:20 +      7s DONE    w5 pin_witness#1 ctl_nopin lexmin 1 result=True calls=None t=1.9s [103/342 done]
+07:59:20 +      7s START   w5 pin_witness#1 ctl_interp lexmax 1
+07:59:20 +      7s DONE    w1 pin_witness#1 ctl_nopin degen 1 result=True calls=None t=1.8s [104/342 done]
+07:59:20 +      7s START   w1 pin_witness#1 ctl_interp degen 1
+07:59:20 +      7s DONE    w6 pin_witness#1 ctl_nopatch degen 1 result=True calls=None t=2.1s [105/342 done]
+07:59:20 +      7s START   w6 pin_witness#2 ctl_nopatch lexmin 1
+07:59:20 +      7s DONE    w0 pin_witness#1 ctl_nopatch lexmin 1 result=True calls=None t=2.3s [106/342 done]
+07:59:20 +      7s START   w0 pin_witness#2 ctl_nopatch lexmax 1
+07:59:20 +      7s DONE    w2 pin_witness#1 ctl_nopin lexmax 1 result=True calls=None t=2.0s [107/342 done]
+07:59:20 +      7s START   w2 pin_witness#2 ctl_nopatch degen 1
+07:59:21 +      7s DONE    w7 pin_witness#1 ctl_nopatch lexmax 1 result=True calls=None t=2.3s [108/342 done]
+07:59:21 +      7s START   w7 pin_witness#2 ctl_nopin lexmin 1
+07:59:22 +      8s DONE    w2 pin_witness#2 ctl_nopatch degen 1 result=True calls=None t=1.3s [109/342 done]
+07:59:22 +      8s START   w2 pin_witness#2 ctl_nopin lexmax 1
+07:59:22 +      8s DONE    w7 pin_witness#2 ctl_nopin lexmin 1 result=True calls=None t=1.1s [110/342 done]
+07:59:22 +      8s START   w7 pin_witness#2 ctl_nopin degen 1
+07:59:22 +      8s DONE    w0 pin_witness#2 ctl_nopatch lexmax 1 result=True calls=None t=1.3s [111/342 done]
+07:59:22 +      8s START   w0 pin_witness#2 ctl_norepair lexmin 1
+07:59:22 +      8s DONE    w6 pin_witness#2 ctl_nopatch lexmin 1 result=True calls=None t=1.3s [112/342 done]
+07:59:22 +      8s START   w6 pin_witness#2 ctl_norepair lexmax 1
+07:59:22 +      8s DONE    w8 pin_witness#1 ctl_norepair lexmin 1 result=True calls=None t=2.3s [113/342 done]
+07:59:22 +      8s START   w8 pin_witness#2 ctl_norepair degen 1
+07:59:22 +      8s DONE    w9 pin_witness#1 ctl_norepair degen 1 result=True calls=None t=2.2s [114/342 done]
+07:59:22 +      8s START   w9 pin_witness#2 ctl_interp lexmin 1
+07:59:22 +      8s DONE    w3 pin_witness#1 ctl_norepair lexmax 1 result=True calls=None t=2.3s [115/342 done]
+07:59:22 +      8s START   w3 pin_witness#2 ctl_interp lexmax 1
+07:59:22 +      9s DONE    w4 pin_witness#1 ctl_interp lexmin 1 result=False calls=None t=2.3s [116/342 done]
+07:59:22 +      9s START   w4 pin_witness#2 ctl_interp degen 1
+07:59:22 +      9s DONE    w1 pin_witness#1 ctl_interp degen 1 result=False calls=None t=2.1s [117/342 done]
+07:59:22 +      9s START   w1 pin_witness#3 ctl_nopatch lexmin 1
+07:59:23 +      9s DONE    w5 pin_witness#1 ctl_interp lexmax 1 result=False calls=None t=2.3s [118/342 done]
+07:59:23 +      9s START   w5 pin_witness#3 ctl_nopatch lexmax 1
+07:59:23 +      9s DONE    w2 pin_witness#2 ctl_nopin lexmax 1 result=True calls=None t=1.1s [119/342 done]
+07:59:23 +      9s START   w2 pin_witness#3 ctl_nopatch degen 1
+07:59:23 +      9s DONE    w7 pin_witness#2 ctl_nopin degen 1 result=True calls=None t=1.0s [120/342 done]
+07:59:23 +      9s START   w7 pin_witness#3 ctl_nopin lexmin 1
+07:59:23 +      9s DONE    w6 pin_witness#2 ctl_norepair lexmax 1 result=True calls=None t=1.3s [121/342 done]
+07:59:23 +      9s START   w6 pin_witness#3 ctl_nopin lexmax 1
+07:59:23 +      9s DONE    w0 pin_witness#2 ctl_norepair lexmin 1 result=True calls=None t=1.3s [122/342 done]
+07:59:23 +      9s START   w0 pin_witness#3 ctl_nopin degen 1
+07:59:23 +      9s DONE    w8 pin_witness#2 ctl_norepair degen 1 result=True calls=None t=1.3s [123/342 done]
+07:59:23 +      9s START   w8 pin_witness#3 ctl_norepair lexmin 1
+07:59:23 +     10s DONE    w9 pin_witness#2 ctl_interp lexmin 1 result=False calls=None t=1.3s [124/342 done]
+07:59:23 +     10s START   w9 pin_witness#3 ctl_norepair lexmax 1
+07:59:23 +     10s DONE    w3 pin_witness#2 ctl_interp lexmax 1 result=False calls=None t=1.3s [125/342 done]
+07:59:23 +     10s START   w3 pin_witness#3 ctl_norepair degen 1
+07:59:23 +     10s DONE    w4 pin_witness#2 ctl_interp degen 1 result=False calls=None t=1.3s [126/342 done]
+07:59:23 +     10s START   w4 pin_witness#3 ctl_interp lexmin 1
+07:59:24 +     10s DONE    w1 pin_witness#3 ctl_nopatch lexmin 1 result=True calls=None t=1.4s [127/342 done]
+07:59:24 +     10s START   w1 pin_witness#3 ctl_interp lexmax 1
+07:59:24 +     10s DONE    w7 pin_witness#3 ctl_nopin lexmin 1 result=True calls=None t=1.1s [128/342 done]
+07:59:24 +     10s START   w7 pin_witness#3 ctl_interp degen 1
+07:59:24 +     10s DONE    w5 pin_witness#3 ctl_nopatch lexmax 1 result=True calls=None t=1.4s [129/342 done]
+07:59:24 +     10s START   w5 ctl_pos#0 ctl_nopatch lexmin 1
+07:59:24 +     10s DONE    w0 pin_witness#3 ctl_nopin degen 1 result=True calls=None t=1.0s [130/342 done]
+07:59:24 +     10s START   w0 ctl_pos#0 ctl_nopatch lexmax 1
+07:59:24 +     10s DONE    w2 pin_witness#3 ctl_nopatch degen 1 result=True calls=None t=1.3s [131/342 done]
+07:59:24 +     10s START   w2 ctl_pos#0 ctl_nopatch degen 1
+07:59:24 +     11s DONE    w6 pin_witness#3 ctl_nopin lexmax 1 result=True calls=None t=1.1s [132/342 done]
+07:59:24 +     11s START   w6 ctl_pos#0 ctl_nopin lexmin 1
+07:59:24 +     11s DONE    w6 ctl_pos#0 ctl_nopin lexmin 1 result=True calls=None t=0.3s [133/342 done]
+07:59:24 +     11s START   w6 ctl_pos#0 ctl_nopin lexmax 1
+07:59:24 +     11s DONE    w5 ctl_pos#0 ctl_nopatch lexmin 1 result=False calls=None t=0.4s [134/342 done]
+07:59:24 +     11s START   w5 ctl_pos#0 ctl_nopin degen 1
+07:59:25 +     11s DONE    w8 pin_witness#3 ctl_norepair lexmin 1 result=True calls=None t=1.4s [135/342 done]
+07:59:25 +     11s START   w8 ctl_pos#0 ctl_norepair lexmin 1
+07:59:25 +     11s DONE    w0 ctl_pos#0 ctl_nopatch lexmax 1 result=False calls=None t=0.4s [136/342 done]
+07:59:25 +     11s START   w0 ctl_pos#0 ctl_norepair lexmax 1
+07:59:25 +     11s DONE    w2 ctl_pos#0 ctl_nopatch degen 1 result=False calls=None t=0.5s [137/342 done]
+07:59:25 +     11s START   w2 ctl_pos#0 ctl_norepair degen 1
+07:59:25 +     11s DONE    w9 pin_witness#3 ctl_norepair lexmax 1 result=True calls=None t=1.4s [138/342 done]
+07:59:25 +     11s START   w9 ctl_pos#0 ctl_interp lexmin 1
+07:59:25 +     11s DONE    w3 pin_witness#3 ctl_norepair degen 1 result=True calls=None t=1.3s [139/342 done]
+07:59:25 +     11s START   w3 ctl_pos#0 ctl_interp lexmax 1
+07:59:25 +     11s DONE    w6 ctl_pos#0 ctl_nopin lexmax 1 result=True calls=None t=0.3s [140/342 done]
+07:59:25 +     11s START   w6 ctl_pos#0 ctl_interp degen 1
+07:59:25 +     11s DONE    w5 ctl_pos#0 ctl_nopin degen 1 result=True calls=None t=0.3s [141/342 done]
+07:59:25 +     11s START   w5 ctl_pos#1 ctl_nopatch lexmin 1
+07:59:25 +     11s DONE    w4 pin_witness#3 ctl_interp lexmin 1 result=False calls=None t=1.4s [142/342 done]
+07:59:25 +     11s START   w4 ctl_pos#1 ctl_nopatch lexmax 1
+07:59:25 +     11s DONE    w0 ctl_pos#0 ctl_norepair lexmax 1 result=True calls=None t=0.4s [143/342 done]
+07:59:25 +     11s START   w0 ctl_pos#1 ctl_nopatch degen 1
+07:59:25 +     11s DONE    w8 ctl_pos#0 ctl_norepair lexmin 1 result=True calls=None t=0.4s [144/342 done]
+07:59:25 +     11s START   w8 ctl_pos#1 ctl_nopin lexmin 1
+07:59:25 +     11s DONE    w2 ctl_pos#0 ctl_norepair degen 1 result=True calls=None t=0.5s [145/342 done]
+07:59:25 +     11s START   w2 ctl_pos#1 ctl_nopin lexmax 1
+07:59:25 +     11s DONE    w3 ctl_pos#0 ctl_interp lexmax 1 result=False calls=None t=0.4s [146/342 done]
+07:59:25 +     11s START   w3 ctl_pos#1 ctl_nopin degen 1
+07:59:25 +     11s DONE    w9 ctl_pos#0 ctl_interp lexmin 1 result=False calls=None t=0.4s [147/342 done]
+07:59:25 +     11s START   w9 ctl_pos#1 ctl_norepair lexmin 1
+07:59:25 +     12s DONE    w7 pin_witness#3 ctl_interp degen 1 result=False calls=None t=1.4s [148/342 done]
+07:59:25 +     12s START   w7 ctl_pos#1 ctl_norepair lexmax 1
+07:59:25 +     12s DONE    w1 pin_witness#3 ctl_interp lexmax 1 result=False calls=None t=1.4s [149/342 done]
+07:59:25 +     12s START   w1 ctl_pos#1 ctl_norepair degen 1
+07:59:25 +     12s DONE    w6 ctl_pos#0 ctl_interp degen 1 result=False calls=None t=0.5s [150/342 done]
+07:59:25 +     12s START   w6 ctl_pos#1 ctl_interp lexmin 1
+07:59:27 +     13s DONE    w4 ctl_pos#1 ctl_nopatch lexmax 1 result=False calls=None t=1.7s [151/342 done]
+07:59:27 +     13s START   w4 ctl_pos#1 ctl_interp lexmax 1
+07:59:27 +     13s DONE    w5 ctl_pos#1 ctl_nopatch lexmin 1 result=False calls=None t=1.7s [152/342 done]
+07:59:27 +     13s START   w5 ctl_pos#1 ctl_interp degen 1
+07:59:27 +     13s DONE    w8 ctl_pos#1 ctl_nopin lexmin 1 result=True calls=None t=1.6s [153/342 done]
+07:59:27 +     13s START   w8 ctl_pos#2 ctl_nopatch lexmin 1
+07:59:27 +     13s DONE    w0 ctl_pos#1 ctl_nopatch degen 1 result=False calls=None t=1.7s [154/342 done]
+07:59:27 +     13s START   w0 ctl_pos#2 ctl_nopatch lexmax 1
+07:59:27 +     13s DONE    w2 ctl_pos#1 ctl_nopin lexmax 1 result=True calls=None t=1.6s [155/342 done]
+07:59:27 +     13s START   w2 ctl_pos#2 ctl_nopatch degen 1
+07:59:27 +     13s DONE    w3 ctl_pos#1 ctl_nopin degen 1 result=True calls=None t=1.6s [156/342 done]
+07:59:27 +     13s START   w3 ctl_pos#2 ctl_nopin lexmin 1
+07:59:27 +     13s DONE    w9 ctl_pos#1 ctl_norepair lexmin 1 result=True calls=None t=1.7s [157/342 done]
+07:59:27 +     13s START   w9 ctl_pos#2 ctl_nopin lexmax 1
+07:59:27 +     13s DONE    w7 ctl_pos#1 ctl_norepair lexmax 1 result=True calls=None t=1.7s [158/342 done]
+07:59:27 +     13s START   w7 ctl_pos#2 ctl_nopin degen 1
+07:59:27 +     13s DONE    w1 ctl_pos#1 ctl_norepair degen 1 result=True calls=None t=1.7s [159/342 done]
+07:59:27 +     13s START   w1 ctl_pos#2 ctl_norepair lexmin 1
+07:59:27 +     13s DONE    w6 ctl_pos#1 ctl_interp lexmin 1 result=False calls=None t=1.7s [160/342 done]
+07:59:27 +     13s START   w6 ctl_pos#2 ctl_norepair lexmax 1
+07:59:28 +     15s DONE    w4 ctl_pos#1 ctl_interp lexmax 1 result=False calls=None t=1.7s [161/342 done]
+07:59:28 +     15s START   w4 ctl_pos#2 ctl_norepair degen 1
+07:59:28 +     15s DONE    w5 ctl_pos#1 ctl_interp degen 1 result=False calls=None t=1.8s [162/342 done]
+07:59:28 +     15s START   w5 ctl_pos#2 ctl_interp lexmin 1
+07:59:40 +     26s DONE    w7 ctl_pos#2 ctl_nopin degen 1 result=True calls=None t=12.9s [163/342 done]
+07:59:40 +     26s START   w7 ctl_pos#2 ctl_interp lexmax 1
+07:59:41 +     27s DONE    w2 ctl_pos#2 ctl_nopatch degen 1 result=True calls=None t=14.1s [164/342 done]
+07:59:41 +     27s START   w2 ctl_pos#2 ctl_interp degen 1
+07:59:42 +     29s DONE    w4 ctl_pos#2 ctl_norepair degen 1 result=True calls=None t=14.1s [165/342 done]
+07:59:42 +     29s START   w4 ctl_pos#3 ctl_nopatch lexmin 1
+07:59:43 +     29s DONE    w9 ctl_pos#2 ctl_nopin lexmax 1 result=True calls=None t=15.7s [166/342 done]
+07:59:43 +     29s START   w9 ctl_pos#3 ctl_nopatch lexmax 1
+07:59:43 +     30s DONE    w3 ctl_pos#2 ctl_nopin lexmin 1 result=True calls=None t=16.8s [167/342 done]
+07:59:43 +     30s START   w3 ctl_pos#3 ctl_nopatch degen 1
+07:59:44 +     30s DONE    w0 ctl_pos#2 ctl_nopatch lexmax 1 result=True calls=None t=17.3s [168/342 done]
+07:59:44 +     30s START   w0 ctl_pos#3 ctl_nopin lexmin 1
+07:59:44 +     31s DONE    w6 ctl_pos#2 ctl_norepair lexmax 1 result=True calls=None t=17.4s [169/342 done]
+07:59:44 +     31s START   w6 ctl_pos#3 ctl_nopin lexmax 1
+07:59:45 +     31s DONE    w4 ctl_pos#3 ctl_nopatch lexmin 1 result=False calls=None t=2.6s [170/342 done]
+07:59:45 +     31s START   w4 ctl_pos#3 ctl_nopin degen 1
+07:59:45 +     31s DONE    w8 ctl_pos#2 ctl_nopatch lexmin 1 result=True calls=None t=18.5s [171/342 done]
+07:59:45 +     31s START   w8 ctl_pos#3 ctl_norepair lexmin 1
+07:59:45 +     31s DONE    w9 ctl_pos#3 ctl_nopatch lexmax 1 result=False calls=None t=2.5s [172/342 done]
+07:59:45 +     31s START   w9 ctl_pos#3 ctl_norepair lexmax 1
+07:59:45 +     32s DONE    w1 ctl_pos#2 ctl_norepair lexmin 1 result=True calls=None t=18.3s [173/342 done]
+07:59:45 +     32s START   w1 ctl_pos#3 ctl_norepair degen 1
+07:59:46 +     32s DONE    w3 ctl_pos#3 ctl_nopatch degen 1 result=False calls=None t=2.3s [174/342 done]
+07:59:46 +     32s START   w3 ctl_pos#3 ctl_interp lexmin 1
+07:59:46 +     32s DONE    w0 ctl_pos#3 ctl_nopin lexmin 1 result=True calls=None t=2.1s [175/342 done]
+07:59:46 +     32s START   w0 ctl_pos#3 ctl_interp lexmax 1
+07:59:46 +     33s DONE    w6 ctl_pos#3 ctl_nopin lexmax 1 result=True calls=None t=2.0s [176/342 done]
+07:59:46 +     33s START   w6 ctl_pos#3 ctl_interp degen 1
+07:59:47 +     33s DONE    w5 ctl_pos#2 ctl_interp lexmin 1 result=False calls=None t=18.3s [177/342 done]
+07:59:47 +     33s START   w5 ctl_pos#4 ctl_nopatch lexmin 1
+07:59:47 +     33s DONE    w4 ctl_pos#3 ctl_nopin degen 1 result=True calls=None t=1.8s [178/342 done]
+07:59:47 +     33s START   w4 ctl_pos#4 ctl_nopatch lexmax 1
+07:59:47 +     34s DONE    w1 ctl_pos#3 ctl_norepair degen 1 result=True calls=None t=2.2s [179/342 done]
+07:59:47 +     34s START   w1 ctl_pos#4 ctl_nopatch degen 1
+07:59:47 +     34s DONE    w9 ctl_pos#3 ctl_norepair lexmax 1 result=True calls=None t=2.4s [180/342 done]
+07:59:47 +     34s START   w9 ctl_pos#4 ctl_nopin lexmin 1
+07:59:48 +     34s DONE    w8 ctl_pos#3 ctl_norepair lexmin 1 result=True calls=None t=2.5s [181/342 done]
+07:59:48 +     34s START   w8 ctl_pos#4 ctl_nopin lexmax 1
+07:59:48 +     34s DONE    w5 ctl_pos#4 ctl_nopatch lexmin 1 result=False calls=None t=1.5s [182/342 done]
+07:59:48 +     34s START   w5 ctl_pos#4 ctl_nopin degen 1
+07:59:48 +     35s DONE    w3 ctl_pos#3 ctl_interp lexmin 1 result=False calls=None t=2.5s [183/342 done]
+07:59:48 +     35s START   w3 ctl_pos#4 ctl_norepair lexmin 1
+07:59:48 +     35s DONE    w4 ctl_pos#4 ctl_nopatch lexmax 1 result=False calls=None t=1.5s [184/342 done]
+07:59:48 +     35s START   w4 ctl_pos#4 ctl_norepair lexmax 1
+07:59:48 +     35s DONE    w0 ctl_pos#3 ctl_interp lexmax 1 result=False calls=None t=2.4s [185/342 done]
+07:59:48 +     35s START   w0 ctl_pos#4 ctl_norepair degen 1
+07:59:49 +     35s DONE    w6 ctl_pos#3 ctl_interp degen 1 result=False calls=None t=2.2s [186/342 done]
+07:59:49 +     35s START   w6 ctl_pos#4 ctl_interp lexmin 1
+07:59:49 +     35s DONE    w9 ctl_pos#4 ctl_nopin lexmin 1 result=True calls=None t=1.4s [187/342 done]
+07:59:49 +     35s START   w9 ctl_pos#4 ctl_interp lexmax 1
+07:59:49 +     35s DONE    w8 ctl_pos#4 ctl_nopin lexmax 1 result=True calls=None t=1.4s [188/342 done]
+07:59:49 +     35s START   w8 ctl_pos#4 ctl_interp degen 1
+07:59:49 +     35s DONE    w1 ctl_pos#4 ctl_nopatch degen 1 result=False calls=None t=1.4s [189/342 done]
+07:59:49 +     35s START   w1 ctl_pos#5 ctl_nopatch lexmin 1
+07:59:49 +     36s DONE    w5 ctl_pos#4 ctl_nopin degen 1 result=True calls=None t=1.3s [190/342 done]
+07:59:49 +     36s START   w5 ctl_pos#5 ctl_nopatch lexmax 1
+07:59:50 +     36s DONE    w3 ctl_pos#4 ctl_norepair lexmin 1 result=True calls=None t=1.4s [191/342 done]
+07:59:50 +     36s START   w3 ctl_pos#5 ctl_nopatch degen 1
+07:59:50 +     36s DONE    w4 ctl_pos#4 ctl_norepair lexmax 1 result=True calls=None t=1.5s [192/342 done]
+07:59:50 +     36s START   w4 ctl_pos#5 ctl_nopin lexmin 1
+07:59:50 +     36s DONE    w0 ctl_pos#4 ctl_norepair degen 1 result=True calls=None t=1.4s [193/342 done]
+07:59:50 +     36s START   w0 ctl_pos#5 ctl_nopin lexmax 1
+07:59:50 +     36s DONE    w6 ctl_pos#4 ctl_interp lexmin 1 result=False calls=None t=1.5s [194/342 done]
+07:59:50 +     36s START   w6 ctl_pos#5 ctl_nopin degen 1
+07:59:50 +     37s DONE    w8 ctl_pos#4 ctl_interp degen 1 result=False calls=None t=1.4s [195/342 done]
+07:59:50 +     37s START   w8 ctl_pos#5 ctl_norepair lexmin 1
+07:59:50 +     37s DONE    w9 ctl_pos#4 ctl_interp lexmax 1 result=False calls=None t=1.5s [196/342 done]
+07:59:50 +     37s START   w9 ctl_pos#5 ctl_norepair lexmax 1
+07:59:53 +     39s DONE    w2 ctl_pos#2 ctl_interp degen 1 result=False calls=None t=12.4s [197/342 done]
+07:59:53 +     39s START   w2 ctl_pos#5 ctl_norepair degen 1
+07:59:54 +     40s DONE    w1 ctl_pos#5 ctl_nopatch lexmin 1 result=True calls=None t=4.7s [198/342 done]
+07:59:54 +     40s START   w1 ctl_pos#5 ctl_interp lexmin 1
+07:59:54 +     40s DONE    w3 ctl_pos#5 ctl_nopatch degen 1 result=True calls=None t=4.1s [199/342 done]
+07:59:54 +     40s START   w3 ctl_pos#5 ctl_interp lexmax 1
+07:59:54 +     40s DONE    w6 ctl_pos#5 ctl_nopin degen 1 result=True calls=None t=3.7s [200/342 done]
+07:59:54 +     40s START   w6 ctl_pos#5 ctl_interp degen 1
+07:59:54 +     40s DONE    w4 ctl_pos#5 ctl_nopin lexmin 1 result=True calls=None t=4.3s [201/342 done]
+07:59:54 +     40s START   w4 ctl_pos#6 ctl_nopatch lexmin 1
+07:59:54 +     41s DONE    w0 ctl_pos#5 ctl_nopin lexmax 1 result=True calls=None t=4.5s [202/342 done]
+07:59:54 +     41s START   w0 ctl_pos#6 ctl_nopatch lexmax 1
+07:59:54 +     41s DONE    w5 ctl_pos#5 ctl_nopatch lexmax 1 result=True calls=None t=4.9s [203/342 done]
+07:59:54 +     41s START   w5 ctl_pos#6 ctl_nopatch degen 1
+07:59:55 +     41s DONE    w8 ctl_pos#5 ctl_norepair lexmin 1 result=False calls=None t=4.7s [204/342 done]
+07:59:55 +     41s START   w8 ctl_pos#6 ctl_nopin lexmin 1
+07:59:55 +     41s DONE    w9 ctl_pos#5 ctl_norepair lexmax 1 result=False calls=None t=4.8s [205/342 done]
+07:59:55 +     41s START   w9 ctl_pos#6 ctl_nopin lexmax 1
+07:59:55 +     42s DONE    w7 ctl_pos#2 ctl_interp lexmax 1 result=False calls=None t=15.6s [206/342 done]
+07:59:55 +     42s START   w7 ctl_pos#6 ctl_nopin degen 1
+07:59:57 +     43s DONE    w4 ctl_pos#6 ctl_nopatch lexmin 1 result=False calls=None t=2.5s [207/342 done]
+07:59:57 +     43s START   w4 ctl_pos#6 ctl_norepair lexmin 1
+07:59:57 +     43s DONE    w5 ctl_pos#6 ctl_nopatch degen 1 result=False calls=None t=2.4s [208/342 done]
+07:59:57 +     43s START   w5 ctl_pos#6 ctl_norepair lexmax 1
+07:59:57 +     43s DONE    w0 ctl_pos#6 ctl_nopatch lexmax 1 result=False calls=None t=2.5s [209/342 done]
+07:59:57 +     43s START   w0 ctl_pos#6 ctl_norepair degen 1
+07:59:57 +     44s DONE    w2 ctl_pos#5 ctl_norepair degen 1 result=False calls=None t=4.2s [210/342 done]
+07:59:57 +     44s START   w2 ctl_pos#6 ctl_interp lexmin 1
+07:59:57 +     44s DONE    w8 ctl_pos#6 ctl_nopin lexmin 1 result=True calls=None t=2.5s [211/342 done]
+07:59:57 +     44s START   w8 ctl_pos#6 ctl_interp lexmax 1
+07:59:58 +     44s DONE    w9 ctl_pos#6 ctl_nopin lexmax 1 result=True calls=None t=2.5s [212/342 done]
+07:59:58 +     44s START   w9 ctl_pos#6 ctl_interp degen 1
+07:59:58 +     44s DONE    w7 ctl_pos#6 ctl_nopin degen 1 result=True calls=None t=2.4s [213/342 done]
+07:59:58 +     44s START   w7 ctl_pos#7 ctl_nopatch lexmin 1
+07:59:58 +     44s DONE    w6 ctl_pos#5 ctl_interp degen 1 result=False calls=None t=4.3s [214/342 done]
+07:59:58 +     44s START   w6 ctl_pos#7 ctl_nopatch lexmax 1
+07:59:58 +     45s DONE    w1 ctl_pos#5 ctl_interp lexmin 1 result=False calls=None t=4.9s [215/342 done]
+07:59:58 +     45s START   w1 ctl_pos#7 ctl_nopatch degen 1
+07:59:59 +     45s DONE    w3 ctl_pos#5 ctl_interp lexmax 1 result=False calls=None t=5.0s [216/342 done]
+07:59:59 +     45s START   w3 ctl_pos#7 ctl_nopin lexmin 1
+07:59:59 +     46s DONE    w4 ctl_pos#6 ctl_norepair lexmin 1 result=True calls=None t=2.7s [217/342 done]
+07:59:59 +     46s START   w4 ctl_pos#7 ctl_nopin lexmax 1
+07:59:59 +     46s DONE    w0 ctl_pos#6 ctl_norepair degen 1 result=True calls=None t=2.5s [218/342 done]
+07:59:59 +     46s START   w0 ctl_pos#7 ctl_nopin degen 1
+07:59:59 +     46s DONE    w5 ctl_pos#6 ctl_norepair lexmax 1 result=True calls=None t=2.6s [219/342 done]
+07:59:59 +     46s START   w5 ctl_pos#7 ctl_norepair lexmin 1
+08:00:00 +     46s DONE    w2 ctl_pos#6 ctl_interp lexmin 1 result=False calls=None t=2.7s [220/342 done]
+08:00:00 +     46s START   w2 ctl_pos#7 ctl_norepair lexmax 1
+08:00:00 +     47s DONE    w8 ctl_pos#6 ctl_interp lexmax 1 result=False calls=None t=2.7s [221/342 done]
+08:00:00 +     47s START   w8 ctl_pos#7 ctl_norepair degen 1
+08:00:00 +     47s DONE    w9 ctl_pos#6 ctl_interp degen 1 result=False calls=None t=2.6s [222/342 done]
+08:00:00 +     47s START   w9 ctl_pos#7 ctl_interp lexmin 1
+08:00:03 +     49s DONE    w1 ctl_pos#7 ctl_nopatch degen 1 result=False calls=None t=4.3s [223/342 done]
+08:00:03 +     49s START   w1 ctl_pos#7 ctl_interp lexmax 1
+08:00:03 +     49s DONE    w7 ctl_pos#7 ctl_nopatch lexmin 1 result=False calls=None t=5.4s [224/342 done]
+08:00:03 +     49s START   w7 ctl_pos#7 ctl_interp degen 1
+08:00:03 +     50s DONE    w6 ctl_pos#7 ctl_nopatch lexmax 1 result=False calls=None t=5.2s [225/342 done]
+08:00:03 +     50s START   w6 ctl_pos#8 ctl_nopatch lexmin 1
+08:00:03 +     50s DONE    w0 ctl_pos#7 ctl_nopin degen 1 result=True calls=None t=4.1s [226/342 done]
+08:00:03 +     50s START   w0 ctl_pos#8 ctl_nopatch lexmax 1
+08:00:04 +     50s DONE    w3 ctl_pos#7 ctl_nopin lexmin 1 result=True calls=None t=5.0s [227/342 done]
+08:00:04 +     50s START   w3 ctl_pos#8 ctl_nopatch degen 1
+08:00:04 +     50s DONE    w4 ctl_pos#7 ctl_nopin lexmax 1 result=True calls=None t=4.9s [228/342 done]
+08:00:04 +     50s START   w4 ctl_pos#8 ctl_nopin lexmin 1
+08:00:05 +     51s DONE    w8 ctl_pos#7 ctl_norepair degen 1 result=True calls=None t=4.7s [229/342 done]
+08:00:05 +     51s START   w8 ctl_pos#8 ctl_nopin lexmax 1
+08:00:05 +     51s DONE    w5 ctl_pos#7 ctl_norepair lexmin 1 result=True calls=None t=5.7s [230/342 done]
+08:00:05 +     51s START   w5 ctl_pos#8 ctl_nopin degen 1
+08:00:06 +     52s DONE    w2 ctl_pos#7 ctl_norepair lexmax 1 result=True calls=None t=5.6s [231/342 done]
+08:00:06 +     52s START   w2 ctl_pos#8 ctl_norepair lexmin 1
+08:00:06 +     52s DONE    w9 ctl_pos#7 ctl_interp lexmin 1 result=False calls=None t=5.7s [232/342 done]
+08:00:06 +     52s START   w9 ctl_pos#8 ctl_norepair lexmax 1
+08:00:08 +     54s DONE    w0 ctl_pos#8 ctl_nopatch lexmax 1 result=False calls=None t=4.3s [233/342 done]
+08:00:08 +     54s START   w0 ctl_pos#8 ctl_norepair degen 1
+08:00:08 +     54s DONE    w4 ctl_pos#8 ctl_nopin lexmin 1 result=True calls=None t=3.5s [234/342 done]
+08:00:08 +     54s START   w4 ctl_pos#8 ctl_interp lexmin 1
+08:00:08 +     54s DONE    w6 ctl_pos#8 ctl_nopatch lexmin 1 result=False calls=None t=4.4s [235/342 done]
+08:00:08 +     54s START   w6 ctl_pos#8 ctl_interp lexmax 1
+08:00:08 +     54s DONE    w3 ctl_pos#8 ctl_nopatch degen 1 result=False calls=None t=4.2s [236/342 done]
+08:00:08 +     54s START   w3 ctl_pos#8 ctl_interp degen 1
+08:00:08 +     54s DONE    w7 ctl_pos#7 ctl_interp degen 1 result=False calls=None t=4.7s [237/342 done]
+08:00:08 +     54s START   w7 ctl_pos#9 ctl_nopatch lexmin 1
+08:00:08 +     55s DONE    w5 ctl_pos#8 ctl_nopin degen 1 result=True calls=None t=3.3s [238/342 done]
+08:00:08 +     55s START   w5 ctl_pos#9 ctl_nopatch lexmax 1
+08:00:08 +     55s DONE    w8 ctl_pos#8 ctl_nopin lexmax 1 result=True calls=None t=3.5s [239/342 done]
+08:00:08 +     55s START   w8 ctl_pos#9 ctl_nopatch degen 1
+08:00:08 +     55s DONE    w1 ctl_pos#7 ctl_interp lexmax 1 result=False calls=None t=5.6s [240/342 done]
+08:00:08 +     55s START   w1 ctl_pos#9 ctl_nopin lexmin 1
+08:00:10 +     56s DONE    w7 ctl_pos#9 ctl_nopatch lexmin 1 result=False calls=None t=1.6s [241/342 done]
+08:00:10 +     56s START   w7 ctl_pos#9 ctl_nopin lexmax 1
+08:00:10 +     56s DONE    w2 ctl_pos#8 ctl_norepair lexmin 1 result=True calls=None t=4.2s [242/342 done]
+08:00:10 +     56s START   w2 ctl_pos#9 ctl_nopin degen 1
+08:00:10 +     56s DONE    w5 ctl_pos#9 ctl_nopatch lexmax 1 result=False calls=None t=1.6s [243/342 done]
+08:00:10 +     56s START   w5 ctl_pos#9 ctl_norepair lexmin 1
+08:00:10 +     56s DONE    w9 ctl_pos#8 ctl_norepair lexmax 1 result=True calls=None t=4.0s [244/342 done]
+08:00:10 +     56s START   w9 ctl_pos#9 ctl_norepair lexmax 1
+08:00:10 +     56s DONE    w1 ctl_pos#9 ctl_nopin lexmin 1 result=True calls=None t=1.5s [245/342 done]
+08:00:10 +     56s START   w1 ctl_pos#9 ctl_norepair degen 1
+08:00:10 +     56s DONE    w8 ctl_pos#9 ctl_nopatch degen 1 result=False calls=None t=1.7s [246/342 done]
+08:00:10 +     56s START   w8 ctl_pos#9 ctl_interp lexmin 1
+08:00:11 +     57s DONE    w7 ctl_pos#9 ctl_nopin lexmax 1 result=True calls=None t=1.5s [247/342 done]
+08:00:11 +     57s START   w7 ctl_pos#9 ctl_interp lexmax 1
+08:00:11 +     58s DONE    w2 ctl_pos#9 ctl_nopin degen 1 result=True calls=None t=1.8s [248/342 done]
+08:00:11 +     58s START   w2 ctl_pos#9 ctl_interp degen 1
+08:00:12 +     58s DONE    w0 ctl_pos#8 ctl_norepair degen 1 result=True calls=None t=3.9s [249/342 done]
+08:00:12 +     58s START   w0 ctl_pos#10 ctl_nopatch lexmin 1
+08:00:12 +     58s DONE    w9 ctl_pos#9 ctl_norepair lexmax 1 result=True calls=None t=1.8s [250/342 done]
+08:00:12 +     58s START   w9 ctl_pos#10 ctl_nopatch lexmax 1
+08:00:12 +     58s DONE    w6 ctl_pos#8 ctl_interp lexmax 1 result=False calls=None t=4.0s [251/342 done]
+08:00:12 +     58s START   w6 ctl_pos#10 ctl_nopatch degen 1
+08:00:12 +     58s DONE    w5 ctl_pos#9 ctl_norepair lexmin 1 result=True calls=None t=1.9s [252/342 done]
+08:00:12 +     58s START   w5 ctl_pos#10 ctl_nopin lexmin 1
+08:00:12 +     58s DONE    w3 ctl_pos#8 ctl_interp degen 1 result=False calls=None t=3.8s [253/342 done]
+08:00:12 +     58s START   w3 ctl_pos#10 ctl_nopin lexmax 1
+08:00:12 +     58s DONE    w1 ctl_pos#9 ctl_norepair degen 1 result=True calls=None t=1.9s [254/342 done]
+08:00:12 +     58s START   w1 ctl_pos#10 ctl_nopin degen 1
+08:00:12 +     58s DONE    w8 ctl_pos#9 ctl_interp lexmin 1 result=False calls=None t=1.9s [255/342 done]
+08:00:12 +     58s START   w8 ctl_pos#10 ctl_norepair lexmin 1
+08:00:12 +     58s DONE    w4 ctl_pos#8 ctl_interp lexmin 1 result=False calls=None t=4.2s [256/342 done]
+08:00:12 +     58s START   w4 ctl_pos#10 ctl_norepair lexmax 1
+08:00:13 +     59s DONE    w7 ctl_pos#9 ctl_interp lexmax 1 result=False calls=None t=1.8s [257/342 done]
+08:00:13 +     59s START   w7 ctl_pos#10 ctl_norepair degen 1
+08:00:13 +     60s DONE    w2 ctl_pos#9 ctl_interp degen 1 result=False calls=None t=1.9s [258/342 done]
+08:00:13 +     60s START   w2 ctl_pos#10 ctl_interp lexmin 1
+08:00:15 +     62s HEARTBEAT 258/342 done, 74 queued, running:
+    w0      4s ctl_pos#10 ctl_nopatch lexmin 1 | in oracle call 312 (lexmin), current oracle call running 0s | slowest call 0.021s (#192)
+    w1      4s ctl_pos#10 ctl_nopin degen 1 | in oracle call 327 (degen), current oracle call running 0s | slowest call 0.017s (#168)
+    w2      2s ctl_pos#10 ctl_interp lexmin 1 | in oracle call 159 (lexmin), current oracle call running 0s | slowest call 0.02s (#142)
+    w3      4s ctl_pos#10 ctl_nopin lexmax 1 | in oracle call 311 (lexmax), current oracle call running 0s | slowest call 0.029s (#161)
+    w4      4s ctl_pos#10 ctl_norepair lexmax 1 | in oracle call 291 (lexmax), current oracle call running 0s | slowest call 0.018s (#143)
+    w5      4s ctl_pos#10 ctl_nopin lexmin 1 | procedure step (LP / decoding) after oracle call 292 | slowest call 0.024s (#153)
+    w6      4s ctl_pos#10 ctl_nopatch degen 1 | procedure step (LP / decoding) after oracle call 330 | slowest call 0.022s (#310)
+    w7      3s ctl_pos#10 ctl_norepair degen 1 | in oracle call 227 (degen), current oracle call running -0s | slowest call 0.019s (#63)
+    w8      4s ctl_pos#10 ctl_norepair lexmin 1 | in oracle call 288 (lexmin), current oracle call running 0s | slowest call 0.025s (#73)
+    w9      4s ctl_pos#10 ctl_nopatch lexmax 1 | in oracle call 314 (lexmax), current oracle call running -0s | slowest call 0.02s (#164)
+08:00:15 +     62s DONE    w1 ctl_pos#10 ctl_nopin degen 1 result=True calls=None t=3.7s [259/342 done]
+08:00:15 +     62s START   w1 ctl_pos#10 ctl_interp lexmax 1
+08:00:15 +     62s DONE    w6 ctl_pos#10 ctl_nopatch degen 1 result=False calls=None t=3.8s [260/342 done]
+08:00:15 +     62s START   w6 ctl_pos#10 ctl_interp degen 1
+08:00:16 +     62s DONE    w3 ctl_pos#10 ctl_nopin lexmax 1 result=True calls=None t=3.9s [261/342 done]
+08:00:16 +     62s START   w3 ctl_pos#11 ctl_nopatch lexmin 1
+08:00:16 +     62s DONE    w9 ctl_pos#10 ctl_nopatch lexmax 1 result=False calls=None t=4.1s [262/342 done]
+08:00:16 +     62s START   w9 ctl_pos#11 ctl_nopatch lexmax 1
+08:00:16 +     62s DONE    w0 ctl_pos#10 ctl_nopatch lexmin 1 result=False calls=None t=4.3s [263/342 done]
+08:00:16 +     62s START   w0 ctl_pos#11 ctl_nopatch degen 1
+08:00:16 +     62s DONE    w5 ctl_pos#10 ctl_nopin lexmin 1 result=True calls=None t=4.2s [264/342 done]
+08:00:16 +     62s START   w5 ctl_pos#11 ctl_nopin lexmin 1
+08:00:16 +     62s DONE    w4 ctl_pos#10 ctl_norepair lexmax 1 result=False calls=None t=4.2s [265/342 done]
+08:00:16 +     62s START   w4 ctl_pos#11 ctl_nopin lexmax 1
+08:00:16 +     63s DONE    w8 ctl_pos#10 ctl_norepair lexmin 1 result=False calls=None t=4.4s [266/342 done]
+08:00:16 +     63s START   w8 ctl_pos#11 ctl_nopin degen 1
+08:00:17 +     63s DONE    w7 ctl_pos#10 ctl_norepair degen 1 result=False calls=None t=4.0s [267/342 done]
+08:00:17 +     63s START   w7 ctl_pos#11 ctl_norepair lexmin 1
+08:00:18 +     64s DONE    w2 ctl_pos#10 ctl_interp lexmin 1 result=False calls=None t=4.7s [268/342 done]
+08:00:18 +     64s START   w2 ctl_pos#11 ctl_norepair lexmax 1
+08:00:20 +     66s DONE    w6 ctl_pos#10 ctl_interp degen 1 result=False calls=None t=4.2s [269/342 done]
+08:00:20 +     66s START   w6 ctl_pos#11 ctl_norepair degen 1
+08:00:20 +     66s DONE    w8 ctl_pos#11 ctl_nopin degen 1 result=True calls=None t=3.5s [270/342 done]
+08:00:20 +     66s START   w8 ctl_pos#11 ctl_interp lexmin 1
+08:00:20 +     66s DONE    w1 ctl_pos#10 ctl_interp lexmax 1 result=False calls=None t=4.4s [271/342 done]
+08:00:20 +     66s START   w1 ctl_pos#11 ctl_interp lexmax 1
+08:00:20 +     66s DONE    w0 ctl_pos#11 ctl_nopatch degen 1 result=False calls=None t=4.2s [272/342 done]
+08:00:20 +     66s START   w0 ctl_pos#11 ctl_interp degen 1
+08:00:20 +     66s DONE    w5 ctl_pos#11 ctl_nopin lexmin 1 result=True calls=None t=4.0s [273/342 done]
+08:00:20 +     66s START   w5 ctl_pos#12 ctl_nopatch lexmin 1
+08:00:20 +     66s DONE    w4 ctl_pos#11 ctl_nopin lexmax 1 result=True calls=None t=3.9s [274/342 done]
+08:00:20 +     66s START   w4 ctl_pos#12 ctl_nopatch lexmax 1
+08:00:20 +     67s DONE    w3 ctl_pos#11 ctl_nopatch lexmin 1 result=False calls=None t=4.7s [275/342 done]
+08:00:20 +     67s START   w3 ctl_pos#12 ctl_nopatch degen 1
+08:00:20 +     67s DONE    w9 ctl_pos#11 ctl_nopatch lexmax 1 result=False calls=None t=4.6s [276/342 done]
+08:00:20 +     67s START   w9 ctl_pos#12 ctl_nopin lexmin 1
+08:00:21 +     68s DONE    w7 ctl_pos#11 ctl_norepair lexmin 1 result=True calls=None t=4.5s [277/342 done]
+08:00:21 +     68s START   w7 ctl_pos#12 ctl_nopin lexmax 1
+08:00:22 +     69s DONE    w2 ctl_pos#11 ctl_norepair lexmax 1 result=True calls=None t=4.1s [278/342 done]
+08:00:22 +     69s START   w2 ctl_pos#12 ctl_nopin degen 1
+08:00:23 +     70s DONE    w6 ctl_pos#11 ctl_norepair degen 1 result=True calls=None t=3.7s [279/342 done]
+08:00:23 +     70s START   w6 ctl_pos#12 ctl_norepair lexmin 1
+08:00:23 +     70s DONE    w9 ctl_pos#12 ctl_nopin lexmin 1 result=True calls=None t=3.0s [280/342 done]
+08:00:23 +     70s START   w9 ctl_pos#12 ctl_norepair lexmax 1
+08:00:23 +     70s DONE    w3 ctl_pos#12 ctl_nopatch degen 1 result=False calls=None t=3.0s [281/342 done]
+08:00:23 +     70s START   w3 ctl_pos#12 ctl_norepair degen 1
+08:00:23 +     70s DONE    w5 ctl_pos#12 ctl_nopatch lexmin 1 result=False calls=None t=3.5s [282/342 done]
+08:00:23 +     70s START   w5 ctl_pos#12 ctl_interp lexmin 1
+08:00:23 +     70s DONE    w4 ctl_pos#12 ctl_nopatch lexmax 1 result=False calls=None t=3.5s [283/342 done]
+08:00:23 +     70s START   w4 ctl_pos#12 ctl_interp lexmax 1
+08:00:24 +     70s DONE    w0 ctl_pos#11 ctl_interp degen 1 result=False calls=None t=3.6s [284/342 done]
+08:00:24 +     70s START   w0 ctl_pos#12 ctl_interp degen 1
+08:00:24 +     70s DONE    w8 ctl_pos#11 ctl_interp lexmin 1 result=False calls=None t=4.0s [285/342 done]
+08:00:24 +     70s START   w8 ctl_pos#13 ctl_nopatch lexmin 1
+08:00:24 +     70s DONE    w1 ctl_pos#11 ctl_interp lexmax 1 result=False calls=None t=4.0s [286/342 done]
+08:00:24 +     70s START   w1 ctl_pos#13 ctl_nopatch lexmax 1
+08:00:24 +     71s DONE    w7 ctl_pos#12 ctl_nopin lexmax 1 result=True calls=None t=3.0s [287/342 done]
+08:00:24 +     71s START   w7 ctl_pos#13 ctl_nopatch degen 1
+08:00:25 +     71s DONE    w2 ctl_pos#12 ctl_nopin degen 1 result=True calls=None t=2.7s [288/342 done]
+08:00:25 +     71s START   w2 ctl_pos#13 ctl_nopin lexmin 1
+08:00:26 +     72s DONE    w8 ctl_pos#13 ctl_nopatch lexmin 1 result=False calls=None t=1.9s [289/342 done]
+08:00:26 +     72s START   w8 ctl_pos#13 ctl_nopin lexmax 1
+08:00:26 +     72s DONE    w1 ctl_pos#13 ctl_nopatch lexmax 1 result=False calls=None t=2.0s [290/342 done]
+08:00:26 +     72s START   w1 ctl_pos#13 ctl_nopin degen 1
+08:00:26 +     73s DONE    w2 ctl_pos#13 ctl_nopin lexmin 1 result=True calls=None t=1.5s [291/342 done]
+08:00:26 +     73s START   w2 ctl_pos#13 ctl_norepair lexmin 1
+08:00:26 +     73s DONE    w3 ctl_pos#12 ctl_norepair degen 1 result=True calls=None t=3.1s [292/342 done]
+08:00:26 +     73s START   w3 ctl_pos#13 ctl_norepair lexmax 1
+08:00:27 +     73s DONE    w7 ctl_pos#13 ctl_nopatch degen 1 result=False calls=None t=2.2s [293/342 done]
+08:00:27 +     73s START   w7 ctl_pos#13 ctl_norepair degen 1
+08:00:27 +     73s DONE    w0 ctl_pos#12 ctl_interp degen 1 result=False calls=None t=3.0s [294/342 done]
+08:00:27 +     73s START   w0 ctl_pos#13 ctl_interp lexmin 1
+08:00:27 +     73s DONE    w6 ctl_pos#12 ctl_norepair lexmin 1 result=True calls=None t=3.5s [295/342 done]
+08:00:27 +     73s START   w6 ctl_pos#13 ctl_interp lexmax 1
+08:00:27 +     73s DONE    w9 ctl_pos#12 ctl_norepair lexmax 1 result=True calls=None t=3.5s [296/342 done]
+08:00:27 +     73s START   w9 ctl_pos#13 ctl_interp degen 1
+08:00:27 +     73s DONE    w5 ctl_pos#12 ctl_interp lexmin 1 result=False calls=None t=3.5s [297/342 done]
+08:00:27 +     73s START   w5 ctl_pos#14 ctl_nopatch lexmin 1
+08:00:27 +     73s DONE    w4 ctl_pos#12 ctl_interp lexmax 1 result=False calls=None t=3.5s [298/342 done]
+08:00:27 +     73s START   w4 ctl_pos#14 ctl_nopatch lexmax 1
+08:00:27 +     74s DONE    w8 ctl_pos#13 ctl_nopin lexmax 1 result=True calls=None t=1.5s [299/342 done]
+08:00:27 +     74s START   w8 ctl_pos#14 ctl_nopatch degen 1
+08:00:28 +     74s DONE    w1 ctl_pos#13 ctl_nopin degen 1 result=True calls=None t=1.6s [300/342 done]
+08:00:28 +     74s START   w1 ctl_pos#14 ctl_nopin lexmin 1
+08:00:28 +     75s DONE    w3 ctl_pos#13 ctl_norepair lexmax 1 result=True calls=None t=1.9s [301/342 done]
+08:00:28 +     75s START   w3 ctl_pos#14 ctl_nopin lexmax 1
+08:00:28 +     75s DONE    w2 ctl_pos#13 ctl_norepair lexmin 1 result=True calls=None t=2.0s [302/342 done]
+08:00:28 +     75s START   w2 ctl_pos#14 ctl_nopin degen 1
+08:00:29 +     75s DONE    w0 ctl_pos#13 ctl_interp lexmin 1 result=False calls=None t=2.0s [303/342 done]
+08:00:29 +     75s START   w0 ctl_pos#14 ctl_norepair lexmin 1
+08:00:29 +     75s DONE    w6 ctl_pos#13 ctl_interp lexmax 1 result=False calls=None t=1.9s [304/342 done]
+08:00:29 +     75s START   w6 ctl_pos#14 ctl_norepair lexmax 1
+08:00:29 +     75s DONE    w7 ctl_pos#13 ctl_norepair degen 1 result=True calls=None t=2.1s [305/342 done]
+08:00:29 +     75s START   w7 ctl_pos#14 ctl_norepair degen 1
+08:00:29 +     75s DONE    w9 ctl_pos#13 ctl_interp degen 1 result=False calls=None t=2.1s [306/342 done]
+08:00:29 +     75s START   w9 ctl_pos#14 ctl_interp lexmin 1
+08:00:33 +     80s DONE    w8 ctl_pos#14 ctl_nopatch degen 1 result=False calls=None t=6.1s [307/342 done]
+08:00:33 +     80s START   w8 ctl_pos#14 ctl_interp lexmax 1
+08:00:34 +     80s DONE    w2 ctl_pos#14 ctl_nopin degen 1 result=True calls=None t=5.8s [308/342 done]
+08:00:34 +     80s START   w2 ctl_pos#14 ctl_interp degen 1
+08:00:34 +     80s DONE    w4 ctl_pos#14 ctl_nopatch lexmax 1 result=False calls=None t=7.1s [309/342 done]
+08:00:34 +     80s START   w4 ctl_pos#15 ctl_nopatch lexmin 1
+08:00:34 +     81s DONE    w5 ctl_pos#14 ctl_nopatch lexmin 1 result=False calls=None t=7.5s [310/342 done]
+08:00:34 +     81s START   w5 ctl_pos#15 ctl_nopatch lexmax 1
+08:00:35 +     81s DONE    w7 ctl_pos#14 ctl_norepair degen 1 result=False calls=None t=5.8s [311/342 done]
+08:00:35 +     81s START   w7 ctl_pos#15 ctl_nopatch degen 1
+08:00:35 +     81s DONE    w4 ctl_pos#15 ctl_nopatch lexmin 1 result=False calls=None t=0.7s [312/342 done]
+08:00:35 +     81s START   w4 ctl_pos#15 ctl_nopin lexmin 1
+08:00:35 +     81s DONE    w1 ctl_pos#14 ctl_nopin lexmin 1 result=True calls=None t=7.3s [313/342 done]
+08:00:35 +     81s START   w1 ctl_pos#15 ctl_nopin lexmax 1
+08:00:35 +     81s DONE    w5 ctl_pos#15 ctl_nopatch lexmax 1 result=False calls=None t=0.7s [314/342 done]
+08:00:35 +     81s START   w5 ctl_pos#15 ctl_nopin degen 1
+08:00:35 +     82s DONE    w3 ctl_pos#14 ctl_nopin lexmax 1 result=True calls=None t=6.9s [315/342 done]
+08:00:35 +     82s START   w3 ctl_pos#15 ctl_norepair lexmin 1
+08:00:35 +     82s DONE    w7 ctl_pos#15 ctl_nopatch degen 1 result=False calls=None t=0.7s [316/342 done]
+08:00:35 +     82s START   w7 ctl_pos#15 ctl_norepair lexmax 1
+08:00:35 +     82s DONE    w4 ctl_pos#15 ctl_nopin lexmin 1 result=True calls=None t=0.5s [317/342 done]
+08:00:35 +     82s START   w4 ctl_pos#15 ctl_norepair degen 1
+08:00:35 +     82s DONE    w1 ctl_pos#15 ctl_nopin lexmax 1 result=True calls=None t=0.5s [318/342 done]
+08:00:35 +     82s START   w1 ctl_pos#15 ctl_interp lexmin 1
+08:00:36 +     82s DONE    w6 ctl_pos#14 ctl_norepair lexmax 1 result=False calls=None t=7.0s [319/342 done]
+08:00:36 +     82s START   w6 ctl_pos#15 ctl_interp lexmax 1
+08:00:36 +     82s DONE    w5 ctl_pos#15 ctl_nopin degen 1 result=True calls=None t=0.5s [320/342 done]
+08:00:36 +     82s START   w5 ctl_pos#15 ctl_interp degen 1
+08:00:36 +     82s DONE    w3 ctl_pos#15 ctl_norepair lexmin 1 result=True calls=None t=0.6s [321/342 done]
+08:00:36 +     82s START   w3 audit_bracket_2/7 ctl_nopatch lexmin 1
+08:00:36 +     82s DONE    w7 ctl_pos#15 ctl_norepair lexmax 1 result=True calls=None t=0.6s [322/342 done]
+08:00:36 +     82s START   w7 audit_bracket_2/7 ctl_nopatch lexmax 1
+08:00:36 +     82s DONE    w0 ctl_pos#14 ctl_norepair lexmin 1 result=False calls=None t=7.4s [323/342 done]
+08:00:36 +     82s START   w0 audit_bracket_2/7 ctl_nopatch degen 1
+08:00:36 +     82s DONE    w4 ctl_pos#15 ctl_norepair degen 1 result=True calls=None t=0.7s [324/342 done]
+08:00:36 +     82s START   w4 audit_bracket_2/7 ctl_nopin lexmin 1
+08:00:36 +     82s DONE    w4 audit_bracket_2/7 ctl_nopin lexmin 1 result=True calls=None t=0.0s [325/342 done]
+08:00:36 +     82s START   w4 audit_bracket_2/7 ctl_nopin lexmax 1
+08:00:36 +     82s DONE    w4 audit_bracket_2/7 ctl_nopin lexmax 1 result=True calls=None t=0.0s [326/342 done]
+08:00:36 +     82s START   w4 audit_bracket_2/7 ctl_nopin degen 1
+08:00:36 +     82s DONE    w1 ctl_pos#15 ctl_interp lexmin 1 result=False calls=None t=0.7s [327/342 done]
+08:00:36 +     82s START   w1 audit_bracket_2/7 ctl_norepair lexmin 1
+08:00:36 +     82s DONE    w3 audit_bracket_2/7 ctl_nopatch lexmin 1 result=False calls=None t=0.3s [328/342 done]
+08:00:36 +     82s START   w3 audit_bracket_2/7 ctl_norepair lexmax 1
+08:00:36 +     82s DONE    w4 audit_bracket_2/7 ctl_nopin degen 1 result=True calls=None t=0.0s [329/342 done]
+08:00:36 +     82s START   w4 audit_bracket_2/7 ctl_norepair degen 1
+08:00:36 +     82s DONE    w7 audit_bracket_2/7 ctl_nopatch lexmax 1 result=False calls=None t=0.3s [330/342 done]
+08:00:36 +     82s START   w7 audit_bracket_2/7 ctl_interp lexmin 1
+08:00:36 +     82s DONE    w0 audit_bracket_2/7 ctl_nopatch degen 1 result=False calls=None t=0.2s [331/342 done]
+08:00:36 +     82s START   w0 audit_bracket_2/7 ctl_interp lexmax 1
+08:00:36 +     83s DONE    w9 ctl_pos#14 ctl_interp lexmin 1 result=False calls=None t=7.3s [332/342 done]
+08:00:36 +     83s START   w9 audit_bracket_2/7 ctl_interp degen 1
+08:00:36 +     83s DONE    w6 ctl_pos#15 ctl_interp lexmax 1 result=False calls=None t=0.7s [333/342 done]
+08:00:36 +     83s DONE    w3 audit_bracket_2/7 ctl_norepair lexmax 1 result=True calls=None t=0.3s [334/342 done]
+08:00:36 +     83s DONE    w1 audit_bracket_2/7 ctl_norepair lexmin 1 result=True calls=None t=0.3s [335/342 done]
+08:00:36 +     83s DONE    w5 ctl_pos#15 ctl_interp degen 1 result=False calls=None t=0.7s [336/342 done]
+08:00:36 +     83s DONE    w4 audit_bracket_2/7 ctl_norepair degen 1 result=True calls=None t=0.2s [337/342 done]
+08:00:36 +     83s DONE    w7 audit_bracket_2/7 ctl_interp lexmin 1 result=True calls=None t=0.3s [338/342 done]
+08:00:36 +     83s DONE    w0 audit_bracket_2/7 ctl_interp lexmax 1 result=True calls=None t=0.2s [339/342 done]
+08:00:36 +     83s DONE    w9 audit_bracket_2/7 ctl_interp degen 1 result=True calls=None t=0.2s [340/342 done]
+08:00:39 +     85s DONE    w2 ctl_pos#14 ctl_interp degen 1 result=False calls=None t=4.8s [341/342 done]
+08:00:39 +     86s DONE    w8 ctl_pos#14 ctl_interp lexmax 1 result=False calls=None t=6.0s [342/342 done]
+08:00:39 +     86s ALL DONE 342/342

@@ -1,0 +1,225 @@
+BAD (1, ['no'], ['no'], 0) no sat unsat None sat
+BAD (2, [0, 0], [1, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 0], [1, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [0, 0], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, [0, 0], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, [0, 0], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [0, 0], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [0, 0], ['no', 0], 0) no sat unsat None sat
+BAD (2, [0, 0], ['no', 1], 0) no sat unsat None sat
+BAD (2, [0, 0], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [0, 0], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [0, 1], [1, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 1], [1, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [0, 1], ['yes', 0], 0) yes sat unsat None sat
+BAD (1, [0], ['yes'], 0) yes sat unsat None sat
+BAD (2, [0, 1], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [0, 1], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [0, 1], ['no', 0], 0) no sat unsat None sat
+BAD (1, [0], ['no'], 0) no sat unsat None sat
+BAD (2, [0, 1], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [0, 1], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [0, 'yes'], [1, 0], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 'yes'], [1, 1], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 'yes'], [1, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 'yes'], [1, 'no'], 0) yes sat sat (0, 0) sat
+BAD (2, [0, 'yes'], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, [0, 'yes'], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, [0, 'yes'], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [0, 'yes'], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [0, 'yes'], ['no', 0], 0) no sat unsat None sat
+BAD (2, [0, 'yes'], ['no', 1], 0) no sat unsat None sat
+BAD (2, [0, 'yes'], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [0, 'yes'], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [0, 'no'], [1, 0], 0) no sat sat (0, 0) sat
+BAD (2, [0, 'no'], [1, 1], 0) no sat sat (0, 0) sat
+BAD (2, [0, 'no'], [1, 'yes'], 0) no sat sat (0, 0) sat
+BAD (2, [0, 'no'], [1, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [0, 'no'], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, [0, 'no'], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, [0, 'no'], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [0, 'no'], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [0, 'no'], ['no', 0], 0) no sat unsat None sat
+BAD (2, [0, 'no'], ['no', 1], 0) no sat unsat None sat
+BAD (2, [0, 'no'], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [0, 'no'], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [1, 0], [0, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 0], [0, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [1, 0], [1, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 0], [1, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [1, 0], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, [1, 0], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, [1, 0], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [1, 0], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [1, 0], ['no', 0], 0) no sat unsat None sat
+BAD (2, [1, 0], ['no', 1], 0) no sat unsat None sat
+BAD (2, [1, 0], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [1, 0], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [1, 1], [0, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 1], [0, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [1, 1], [1, 'yes'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 1], [1, 'no'], 0) no sat sat (0, 0) sat
+BAD (2, [1, 1], ['yes', 0], 0) yes sat unsat None sat
+BAD (1, ['no'], ['yes'], 0) no sat unsat None sat
+BAD (2, [1, 1], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [1, 1], ['yes', 'no'], 0) no sat sat (1, 0) sat
+BAD (2, [1, 1], ['no', 0], 0) no sat unsat None sat
+BAD (2, [1, 1], ['no', 'yes'], 0) yes sat sat (0, 1) sat
+BAD (2, [1, 1], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, [1, 'yes'], [0, 0], 0) yes sat sat (6/11, 0) sat
+BAD (2, [1, 'yes'], [0, 1], 0) yes sat sat (1/22, 0) sat
+BAD (2, [1, 'yes'], [0, 'yes'], 0) yes sat sat (6/11, 0) sat
+BAD (2, [1, 'yes'], [0, 'no'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 'yes'], [1, 0], 0) yes sat sat (3/4, 0) sat
+BAD (2, [1, 'yes'], [1, 1], 0) yes sat sat (7/12, 0) sat
+BAD (2, [1, 'yes'], [1, 'yes'], 0) yes sat sat (3/4, 0) sat
+BAD (2, [1, 'yes'], [1, 'no'], 0) yes sat sat (0, 0) sat
+BAD (2, [1, 'yes'], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, [1, 'yes'], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, [1, 'yes'], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, [1, 'yes'], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, [1, 'yes'], ['no', 0], 0) yes sat sat (0, 1) sat
+BAD (2, [1, 'yes'], ['no', 1], 0) yes sat sat (0, 1) sat
+BAD (2, [1, 'yes'], ['no', 'yes'], 0) yes sat sat (0, 1) sat
+BAD (2, [1, 'yes'], ['no', 'no'], 0) yes sat sat (0, 1) sat
+BAD (2, [1, 'no'], [0, 0], 0) no sat sat (0, 1/22) sat
+BAD (2, [1, 'no'], [0, 1], 0) no sat sat (0, 1/20) sat
+BAD (2, [1, 'no'], [0, 'yes'], 0) no sat sat (0, 1/24) sat
+BAD (2, [1, 'no'], [0, 'no'], 0) no sat sat (0, 5/9) sat
+BAD (2, [1, 'no'], [1, 0], 0) no sat sat (0, 1/14) sat
+BAD (2, [1, 'no'], [1, 1], 0) no sat sat (0, 0) sat
+BAD (2, [1, 'no'], [1, 'yes'], 0) no sat sat (0, 13/24) sat
+BAD (2, [1, 'no'], [1, 'no'], 0) no sat sat (0, 1/24) sat
+BAD (2, [1, 'no'], ['yes', 0], 0) no sat sat (1, 0) sat
+BAD (2, [1, 'no'], ['yes', 1], 0) no sat sat (1, 0) sat
+BAD (2, [1, 'no'], ['yes', 'yes'], 0) no sat sat (1, 0) sat
+BAD (2, [1, 'no'], ['yes', 'no'], 0) no sat sat (1, 0) sat
+BAD (2, [1, 'no'], ['no', 0], 0) no sat unsat None sat
+BAD (2, [1, 'no'], ['no', 1], 0) no sat unsat None sat
+BAD (2, [1, 'no'], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, [1, 'no'], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, ['yes', 0], [0, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [0, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [0, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [0, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [1, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [1, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [1, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], [1, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['no', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['no', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['no', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 0], ['no', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [0, 0], 0) yes sat unsat None sat
+BAD (1, ['yes'], [0], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [0, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [0, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [1, 0], 0) yes sat unsat None sat
+BAD (1, ['yes'], ['no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [1, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], [1, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['yes', 0], 0) yes sat unsat None sat
+BAD (1, ['yes'], ['yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['no', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['no', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 1], ['no', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [0, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [0, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [0, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [0, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [1, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [1, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [1, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], [1, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['no', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['no', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['no', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'yes'], ['no', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [0, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [0, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [0, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [0, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [1, 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [1, 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [1, 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], [1, 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['yes', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['yes', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['yes', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['yes', 'no'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['no', 0], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['no', 1], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['no', 'yes'], 0) yes sat unsat None sat
+BAD (2, ['yes', 'no'], ['no', 'no'], 0) yes sat unsat None sat
+BAD (2, ['no', 0], [0, 0], 0) no sat unsat None sat
+BAD (2, ['no', 0], [0, 1], 0) no sat unsat None sat
+BAD (2, ['no', 0], [0, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 0], [0, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 0], [1, 0], 0) no sat unsat None sat
+BAD (2, ['no', 0], [1, 1], 0) no sat unsat None sat
+BAD (2, ['no', 0], [1, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 0], [1, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['yes', 0], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['yes', 1], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['yes', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['yes', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['no', 0], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['no', 1], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 0], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 1], [0, 0], 0) no sat unsat None sat
+BAD (1, ['no'], [0], 0) no sat unsat None sat
+BAD (2, ['no', 1], [0, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 1], [0, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 1], [1, 0], 0) no sat unsat None sat
+BAD (2, ['no', 1], [1, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 1], [1, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['yes', 0], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['yes', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['yes', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['no', 0], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 1], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [0, 0], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [0, 1], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [0, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [0, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [1, 0], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [1, 1], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [1, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], [1, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['yes', 0], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['yes', 1], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['yes', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['yes', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['no', 0], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['no', 1], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'yes'], ['no', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [0, 0], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [0, 1], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [0, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [0, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [1, 0], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [1, 1], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [1, 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], [1, 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['yes', 0], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['yes', 1], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['yes', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['yes', 'no'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['no', 0], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['no', 1], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['no', 'yes'], 0) no sat unsat None sat
+BAD (2, ['no', 'no'], ['no', 'no'], 0) no sat unsat None sat
+n=2 control=lamM instances(canonical, preprocessed) 224 bad 224 tags {'a=b': 78, 'preproc-deleted': 8, 'both-same-terminal': 58, 'selfloop': 140, 'origin-in-edge': 148}  9s

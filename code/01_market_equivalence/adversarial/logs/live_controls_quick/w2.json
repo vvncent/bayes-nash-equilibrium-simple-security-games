@@ -1,0 +1,1 @@
+{"worker": 2, "pid": 72890, "task": "audit_bracket_2/7 ctl_interp degen 1", "started": 1795363278.6409001, "phase": "idle (finished audit_bracket_2/7 ctl_interp degen 1)", "updated": 1795363278.845741, "call": 25, "call_started": null, "query_bits": 30, "last_call_s": 0.005, "max_call_s": 0.006, "max_call_at": 21}

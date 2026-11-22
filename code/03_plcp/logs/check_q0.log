@@ -1,0 +1,5 @@
+Q0 recipe: 40 random markets with zero margins, restored point solves LCP(q, M) exactly
+real 0.17
+user 0.14
+sys 0.01
+exit=0

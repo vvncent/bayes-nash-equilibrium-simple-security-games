@@ -1,0 +1,2 @@
+succ={0: (4, 4), 1: (3, 'no'), 2: (3, 'yes'), 3: (1, 0), 4: (3, 2)} run->no 10 steps kept=5 | exists=sat wrong=unsat notFP=unsat | OK (107s)
+n=5 count=1 seed=11: ALL OK

@@ -1,0 +1,6 @@
+two-copy m=1: K=4 cp=8 | A+B>x at some port prices >= 0: unsat | equilibrium exists out of box: ['sat', 'sat'] | OK (0.1s)
+two-copy m=2: K=8 cp=16 | A+B>x at some port prices >= 0: unsat | equilibrium exists out of box: ['sat', 'sat'] | OK (0.0s)
+two-copy m=3: K=16 cp=32 | A+B>x at some port prices >= 0: unsat | equilibrium exists out of box: ['sat', 'sat'] | OK (0.1s)
+chain K=4: K=4 cp=12 | A+B>x at some port prices >= 0: unsat | equilibrium exists out of box: ['sat', 'sat'] | OK (0.0s)
+chain K=8: K=8 cp=24 | A+B>x at some port prices >= 0: unsat | equilibrium exists out of box: ['sat', 'sat'] | OK (0.0s)
+ALL OK

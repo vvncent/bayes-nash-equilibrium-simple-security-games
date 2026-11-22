@@ -1,0 +1,11 @@
+G_1: 2 increments, strictly increasing=True, min gap=6, first=[0, 6]
+G_2: 4 increments, strictly increasing=True, min gap=6, first=[0, 6, 12, 18]
+G_3: 8 increments, strictly increasing=True, min gap=6, first=[0, 6, 12, 18, 36, 42, 48, 54]
+G_4: 16 increments, strictly increasing=True, min gap=6, first=[0, 6, 12, 18, 36, 42, 48, 54]
+G_5: 32 increments, strictly increasing=True, min gap=6, first=[0, 6, 12, 18, 36, 42, 48, 54]
+G_6: 64 increments, strictly increasing=True, min gap=6, first=[0, 6, 12, 18, 36, 42, 48, 54]
+two-copy m=1 K=4 eps=3: PASS; min kink=3; arcs=10; nodes=7
+two-copy m=2 K=8 eps=3: PASS; min kink=3; arcs=18; nodes=11
+two-copy m=3 K=16 eps=3: PASS; min kink=3; arcs=26; nodes=15
+two-copy m=4 K=32 eps=3: PASS; min kink=3; arcs=34; nodes=19
+two-copy m=5 K=64 eps=3: PASS; min kink=3; arcs=42; nodes=23

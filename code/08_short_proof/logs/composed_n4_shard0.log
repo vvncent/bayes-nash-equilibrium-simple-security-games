@@ -1,0 +1,9 @@
+OK  (4, [2, 0, 1, 0], [2, 3, 0, 'no'], 0) no runlen 20 ['a=b', 'origin-in-edge'] sat unsat None unsat
+OK  (4, [0, 3, 1, 0], [2, 2, 0, 'yes'], 0) yes runlen 18 ['origin-in-edge', 'selfloop'] sat unsat None unsat
+OK  (4, [2, 1, 1, 2], [3, 0, 1, 'no'], 0) no runlen 15 ['a=b', 'origin-in-edge', 'selfloop'] sat unsat None unsat
+OK  (4, [2, 'yes', 0, 0], [0, 'yes', 3, 1], 0) yes runlen 14 ['a=b', 'both-same-terminal', 'origin-in-edge', 'selfloop'] sat unsat None unsat
+OK  (4, ['yes', 'yes', 0, 'yes'], ['yes', 'no', 1, 1], 0) yes runlen 1 ['a=b', 'both-same-terminal', 'origin-in-edge'] sat unsat None unsat
+OK  (4, [0, 0, 0, 1], [2, 3, 'no', 2], 0) no runlen 6 ['origin-in-edge', 'selfloop'] sat unsat None unsat
+OK  (4, [2, 'yes', 2, 'no'], [0, 'yes', 1, 'yes'], 0) yes runlen 4 ['a=b', 'both-same-terminal', 'origin-in-edge', 'selfloop'] sat unsat None unsat
+OK  (4, ['yes', 'no', 1, 'no'], ['yes', 'no', 1, 'no'], 0) yes runlen 1 ['a=b', 'both-same-terminal'] sat unsat None unsat
+n=4 instances 8 bad 0 36s

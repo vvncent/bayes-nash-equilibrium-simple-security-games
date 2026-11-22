@@ -1,0 +1,49 @@
+1026 games x 5 oracles = 5130 runs (+ audit bracket x 5), workers=10, per-run limit 1800s; progress: logs/progress_main_s1.log, live status: logs/live_main_s1/, records: logs/runs_main_s1.jsonl
+main runs finished, 2457s
+control corrupt_capacity runs= 22 caught= 22 (non-BNE output 0, procedure stopped 22) skipped=0 -> CAUGHT
+control corrupt_drop     runs= 22 caught= 22 (non-BNE output 0, procedure stopped 22) skipped=0 -> CAUGHT
+control corrupt_price    runs= 22 caught= 22 (non-BNE output 0, procedure stopped 22) skipped=0 -> CAUGHT
+control ctl_interp       runs= 69 caught=  6 (non-BNE output 6, procedure stopped 0) skipped=0 -> CAUGHT
+control ctl_nopatch      runs= 69 caught= 18 (non-BNE output 18, procedure stopped 0) skipped=0 -> CAUGHT
+control ctl_nopin        runs= 69 caught= 69 (non-BNE output 0, procedure stopped 69) skipped=0 -> CAUGHT
+control ctl_norepair     runs= 69 caught= 57 (non-BNE output 57, procedure stopped 0) skipped=0 -> CAUGHT
+size table (max over runs): m n degenerate | runs | max oracle calls | max query bits | max answer bits | max log2 Q1 | max input bits | max run s
+  1 2 - |  220 |   178 |   144 |   146 |     67 |   73 | 1.8
+  1 2 Z |  175 |   509 |   417 |   417 |    211 |   21 | 4.2
+  1 3 - |  350 |   252 |   206 |   213 |     97 |  136 | 3.5
+  1 3 Z |   55 |   824 |   880 |   880 |    411 |   27 | 8.2
+  1 4 - |  180 |   328 |   264 |   275 |    128 |  206 | 3.9
+  1 4 Z |   65 |  1672 |  1483 |  1424 |    705 |   41 | 24.6
+  1 5 - |   90 |   412 |   327 |   334 |    159 |  160 | 6.6
+  1 6 - |   85 |   489 |   391 |   403 |    191 |  248 | 9.3
+  2 2 - |  435 |   336 |   323 |   336 |    160 |  140 | 3.5
+  2 2 Z |  160 |   961 |   836 |   840 |    428 |   39 | 11.2
+  2 3 - |  490 |   373 |   312 |   315 |    233 |  237 | 6.4
+  2 3 Z |   45 |  1967 |  1709 |  1711 |    891 |   49 | 42.0
+  2 4 - |  340 |   659 |   620 |   633 |    308 |  339 | 11.7
+  2 5 - |  195 |   768 |   769 |   768 |    383 |  355 | 16.0
+  2 6 - |  145 |   687 |   588 |   602 |    309 |  336 | 21.9
+  3 2 - |  240 |   452 |   438 |   454 |    217 |  221 | 6.3
+  3 2 Z |  100 |  1583 |  1416 |  1487 |    742 |   61 | 31.7
+  3 3 - |  359 |   680 |   647 |   660 |    321 |  275 | 11.4
+  3 4 - |  199 |   596 |   551 |   554 |    274 |  444 | 17.1
+  3 5 - |  100 |   739 |   654 |   667 |    323 |  455 | 32.7
+  3 6 - |   95 |   955 |   886 |   888 |    442 |  501 | 48.7
+  4 2 - |   70 |   342 |   308 |   319 |    149 |  194 | 6.1
+  4 3 - |  130 |   567 |   490 |   503 |    383 |  311 | 15.0
+  4 4 - |  110 |   716 |   656 |   669 |    323 |  397 | 26.5
+  4 5 - |   64 |   599 |   527 |   530 |    641 |  272 | 17.2
+  4 6 - |   85 |  1095 |   996 |  1009 |    494 |  599 | 101.7
+  5 2 - |  105 |   427 |   393 |   407 |    191 |  268 | 10.7
+  5 3 - |  190 |   727 |   697 |   697 |    347 |  438 | 24.1
+  5 4 - |   70 |  1325 |  1284 |  1297 |    640 |  503 | 55.5
+  5 5 - |   95 |  1025 |   939 |   950 |    464 |  671 | 72.4
+  5 6 - |   90 |  1306 |  1212 |  1225 |    600 |  721 | 261.5
+exits: {'bisection-hit': 1777, 'repair': 2960, 'hit': 395, None: 3}
+per oracle [runs, BNE ok, oracle calls, degenerate features in answers]: {'default': [1027, 1027, 244060, 1705679], 'lexmin': [1027, 1027, 244191, 1708032], 'lexmax': [1027, 1027, 244150, 1715701], 'random': [1027, 1024, 243192, 1699423], 'degen': [1027, 1027, 244180, 1830079]}
+FAILURE: {"game": "identical#2", "oracle": "random", "seed": 105942, "m": 4, "n": 5, "r": 3, "ok": false, "timeout": false, "why": "worker died", "last_status": {"worker": 6, "pid": 48453, "task": "identical#2 random 105942", "started": 1795361380.191072, "phase": "in oracle call 13 (random)", "updated": 1795361381.568727, "call": 13, "call_started": 1795361381.5687208, "query_bits": 15, "last_call_s": 0.033, "max_call_s": 0.501, "max_call_at": 9}, "data": {"p": ["1/3", "1/3", "1/4", "1/12"], "a": [["-4/3", "-1", "1/2", "-1", "-1"], ["-4/3", "-1", "1/2", "-1", "-1"], ["-4/3", "-1", "1/2", "-1", "-1"], ["-4/3", "-1", "1/2", "-1", "-1"]], "b": [["5/3", "1", "2", "2", "4"], ["5/3", "1", "2", "2", "4"], ["5/3", "1", "2", "2", "4"], ["5/3", "1", "2", "2", "4"]], "d": ["4", "3", "4/3", "2/3", "5"], "r": 3}}
+FAILURE: {"game": "identical#45", "oracle": "random", "seed": 106243, "m": 3, "n": 4, "r": 2, "ok": false, "timeout": false, "why": "worker died", "last_status": {"worker": 1, "pid": 48448, "task": "identical#45 random 106243", "started": 1795361912.8975518, "phase": "in oracle call 8 (random)", "updated": 1795361913.046463, "call": 8, "call_started": 1795361913.0464609, "query_bits": 11, "last_call_s": 0.025, "max_call_s": 0.025, "max_call_at": 7}, "data": {"p": ["1/3", "1/3", "1/3"], "a": [["2", "0", "1", "-6"], ["2", "0", "1", "-6"], ["2", "0", "1", "-6"]], "b": [["5", "2/3", "1", "3/2"], ["5", "2/3", "1", "3/2"], ["5", "2/3", "1", "3/2"]], "d": ["4", "5/3", "2/3", "3/2"], "r": 2}}
+FAILURE: {"game": "ties#31", "oracle": "random", "seed": 103415, "m": 3, "n": 3, "r": 1, "ok": false, "timeout": false, "why": "worker died", "last_status": {"worker": 7, "pid": 48454, "task": "ties#31 random 103415", "started": 1795362106.074755, "phase": "in oracle call 13 (random)", "updated": 1795362106.3070521, "call": 13, "call_started": 1795362106.307049, "query_bits": 13, "last_call_s": 0.015, "max_call_s": 0.032, "max_call_at": 3}, "data": {"p": ["1/3", "1/3", "1/3"], "a": [["1", "0", "2"], ["-1", "-1", "-1"], ["-1", "0", "-1"]], "b": [["1", "1", "2"], ["1", "1", "1"], ["2", "1", "1"]], "d": ["1", "1", "1"], "r": 1}}
+audit bracket (Ex. mk-interp) outputs: [('1/6', '1/3', '1/2')]
+main_s1: 5135 runs (1026 games x 5 oracles + 5 audit-bracket), failures=3, timeouts=0, controls all caught, 2543s
+rc=1

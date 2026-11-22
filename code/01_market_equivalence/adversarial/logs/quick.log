@@ -1,0 +1,19 @@
+control corrupt_capacity runs=  6 caught=  6 (non-BNE output 0, procedure stopped 6) skipped=0 -> CAUGHT
+control corrupt_drop     runs=  6 caught=  6 (non-BNE output 0, procedure stopped 6) skipped=0 -> CAUGHT
+control corrupt_price    runs=  6 caught=  6 (non-BNE output 0, procedure stopped 6) skipped=0 -> CAUGHT
+control ctl_interp       runs= 14 caught=  4 (non-BNE output 4, procedure stopped 0) skipped=0 -> CAUGHT
+control ctl_nopatch      runs= 14 caught=  8 (non-BNE output 8, procedure stopped 0) skipped=0 -> CAUGHT
+control ctl_nopin        runs= 14 caught= 14 (non-BNE output 0, procedure stopped 14) skipped=0 -> CAUGHT
+control ctl_norepair     runs= 14 caught= 12 (non-BNE output 12, procedure stopped 0) skipped=0 -> CAUGHT
+size table (max over runs): m n degenerate | runs | max oracle calls | max query bits | max answer bits | max log2 Q1 | max input bits | max run s
+  1 2 - |   10 |    53 |    43 |    43 |     20 |   16 | 0.4
+  1 2 Z |    5 |   389 |   305 |   331 |    140 |   17 | 2.8
+  1 3 - |    5 |     3 |     6 |     7 |     53 |   34 | 0.0
+  1 4 - |   20 |   311 |   248 |   248 |    119 |  167 | 3.4
+  1 6 - |    5 |   281 |   219 |   225 |    109 |   62 | 3.7
+  2 2 - |   10 |    78 |    66 |    67 |     90 |   59 | 0.7
+  3 3 - |   15 |   224 |   185 |   188 |     92 |   79 | 3.1
+exits: {'hit': 7, 'repair': 53, 'bisection-hit': 10}
+per oracle [runs, BNE ok, oracle calls, degenerate features in answers]: {'default': [14, 14, 2024, 11035], 'lexmin': [14, 14, 2024, 11035], 'lexmax': [14, 14, 2024, 11097], 'random': [14, 14, 2025, 10947], 'degen': [14, 14, 2024, 11362]}
+audit bracket (Ex. mk-interp) outputs: [('1/6', '1/3', '1/2')]
+quick: 70 runs (13 games x 5 oracles + 5 audit-bracket), failures=0, timeouts=0, controls all caught, 24s

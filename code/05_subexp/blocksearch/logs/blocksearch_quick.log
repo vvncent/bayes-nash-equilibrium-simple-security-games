@@ -1,0 +1,23 @@
+PASS primitive: sign formula vs definition: 0 mismatches in 5000 trials
+PASS primitive: depth formula vs all integer v in [-4,4]^k: 0 mismatches in 300 trials
+PASS primitive: box cut vs pointwise removal: 0 mismatches in 300 trials
+PASS deep-point stress k=1: 60 unions, min over unions of max depth = 1/2 (0.5000) vs 1/(2(k+1)) = 1/4; unions without a deep point: 0; median depth min 0.5000 (median below bound: 0)
+PASS deep-point stress k=2: 60 unions, min over unions of max depth = 1/2 (0.5000) vs 1/(2(k+1)) = 1/6; unions without a deep point: 0; median depth min 0.5000 (median below bound: 0)
+PASS abstract d=2 k=2 delta=1/2 seed=2000 D=8 tau=2^-10 contraction=unsat calls=1 tests=4 max_tests/call=4 max_beta=16 max_boxes=1 protected_checks=3 cut=0 deep(median/grid/exh)=4/0/0 min_depth=0.5000 audits=0 max ||y-y(c)||/(dt/16)=0.0000 max ||h-T(c)||/e=0.0000 0.0s
+PASS abstract d=3 k=2 delta=1/2 seed=3000 D=400 tau=2^-22 contraction=unsat calls=41 tests=596 max_tests/call=40 max_beta=33 max_boxes=1 protected_checks=555 cut=0 deep(median/grid/exh)=596/0/0 min_depth=0.5000 audits=6 max ||y-y(c)||/(dt/16)=0.0625 max ||h-T(c)||/e=0.0156 0.2s
+PASS abstract d=4 k=2 delta=1/2 seed=4000 D=4 tau=2^-8 contraction=unsat calls=3 tests=19 max_tests/call=15 max_beta=20 max_boxes=1 protected_checks=16 cut=0 deep(median/grid/exh)=19/0/0 min_depth=0.5000 audits=0 max ||y-y(c)||/(dt/16)=0.1000 max ||h-T(c)||/e=0.0000 0.0s
+PASS deep-point stress k=3: 60 unions, min over unions of max depth = 1/2 (0.5000) vs 1/(2(k+1)) = 1/8; unions without a deep point: 0; median depth min 0.2500 (median below bound: 0)
+PASS abstract d=2 k=3 delta=1/2 seed=4000 D=7 tau=2^-10 contraction=unsat calls=1 tests=17 max_tests/call=17 max_beta=16 max_boxes=1 protected_checks=16 cut=0 deep(median/grid/exh)=17/0/0 min_depth=0.5000 audits=1 max ||y-y(c)||/(dt/16)=0.0000 max ||h-T(c)||/e=0.0000 0.2s
+PASS abstract d=3 k=3 delta=1/2 seed=6000 D=4 tau=2^-8 contraction=unsat calls=1 tests=2 max_tests/call=2 max_beta=15 max_boxes=1 protected_checks=1 cut=0 deep(median/grid/exh)=2/0/0 min_depth=0.5000 audits=0 max ||y-y(c)||/(dt/16)=0.0000 max ||h-T(c)||/e=0.0000 0.0s
+PASS abstract d=4 k=3 delta=1/2 seed=8000 D=260 tau=2^-21 contraction=unsat calls=42 tests=1189 max_tests/call=41 max_beta=32 max_boxes=1 protected_checks=1147 cut=0 deep(median/grid/exh)=1189/0/0 min_depth=0.5000 audits=328 max ||y-y(c)||/(dt/16)=0.0344 max ||h-T(c)||/e=0.0000 2.3s
+PASS game n=2 m=2 r=1 k=3 seed=2001 g=1/2 delta~6.9676e-6 D~2^79 contraction=unsat unique=unsat labels=ff BNE=exact calls=1 tests=512 max_tests/call=512 max_beta=201 max_boxes=16 protected_checks=511 cut=0 deep(median/grid/exh)=512/0/0 min_depth=0.4439 max ||h-T(c)||/e=0.0000 piece_fallback_z3=0 1.5s
+PASS game n=2 m=3 r=1 k=3 seed=2002 g=1/2 delta~6.9676e-6 D~2^59 contraction=unsat unique=unsat labels=f0 BNE=exact calls=1 tests=395 max_tests/call=395 max_beta=160 max_boxes=14 protected_checks=394 cut=0 deep(median/grid/exh)=395/0/0 min_depth=0.4443 max ||h-T(c)||/e=0.0000 piece_fallback_z3=0 1.5s
+CAUGHT control delta=0: refused: delta <= 0: no contraction gap, the algorithm is not applicable
+CAUGHT control non-contraction (expanding, claimed delta=1/4): z3 contraction premise sat (witness pair ([Fraction(2, 3), Fraction(0, 1)], [Fraction(1, 6), Fraction(0, 1)])), z3 second fixed point sat, search check failed: protected grid point z=[21845, 21845] cut at test 1 (root level)
+CAUGHT control wrong cut orientation H(c,h-c): 3/3 caught; d=2,k=2: protected grid point z=[12288, 12288] cut at test 1 (root level) | d=3,k=2: candidate set emptied | d=3,k=3: protected grid point z=[699051, 983040, 524288] cut at test 1 (root le
+CAUGHT control too-coarse root tolerance (tau for D=2): 3/3 caught; d=2,k=2,D=158: rec != z3 | d=3,k=3,D=56: rec != z3 | d=4,k=2,D=576: rec != z3
+controls: 4/4 caught
+instances passed by (kind, n or d, k): abstract d=2 k=2: 1, abstract d=2 k=3: 1, abstract d=3 k=2: 1, abstract d=3 k=3: 1, abstract d=4 k=2: 1, abstract d=4 k=3: 1, game n=2 k=3: 2
+deep points: 2734 searched, median 2734, grid 0, exhaustive 0, exhaustive bbox audits 335; smallest depth used k=2: 0.5000 (bound 0.1667), k=3: 0.4439 (bound 0.1250)
+recursion: 91 calls, 2734 tests, protected point checked against 2643 cuts, cut 0 times
+blocksearch quick: ALL PASS (8 instances, all equal to z3's unique fixed point; games decode to exact BNE) 9s

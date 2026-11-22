@@ -1,0 +1,8 @@
+n=2: 56 discriminating instances; testing the 6 longest
+succ=[(0, 1), ('yes', 'no')] run->yes in 3 steps | eps=3: OK (0.1s) | eps=-3: caught (0.1s) | eps=0: caught (0.1s)
+succ=[(0, 1), ('no', 'yes')] run->no in 3 steps | eps=3: OK (0.2s) | eps=-3: caught (0.1s) | eps=0: caught (0.1s)
+succ=[(1, 'yes'), (1, 'no')] run->no in 3 steps | eps=3: OK (0.1s) | eps=-3: caught (0.0s) | eps=0: OK (0.1s)
+succ=[(1, 'no'), (1, 'yes')] run->yes in 3 steps | eps=3: OK (0.1s) | eps=-3: caught (0.0s) | eps=0: OK (0.1s)
+succ=[(1, 0), ('yes', 'no')] run->yes in 2 steps | eps=3: OK (0.1s) | eps=-3: caught (0.0s) | eps=0: caught (0.1s)
+succ=[(1, 0), ('no', 'yes')] run->no in 2 steps | eps=3: OK (0.1s) | eps=-3: caught (0.1s) | eps=0: caught (0.1s)
+correct gadget all OK: True; swapped gadget all OK (should be False): False; tied gadget all OK: False

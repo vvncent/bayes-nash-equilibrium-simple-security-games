@@ -1,0 +1,12 @@
+(1) m=0: recursion == direct SSP increments: True
+(1) m=1: recursion == direct SSP increments: True
+(1) m=2: recursion == direct SSP increments: True
+(1) m=3: recursion == direct SSP increments: True
+(1) m=4: recursion == direct SSP increments: True
+(1) m=5: recursion == direct SSP increments: True
+(1) m=6: recursion == direct SSP increments: True
+(2) m=1..20: strictly increasing, delta_1=0, max=2*3^m, min gap>=6: True
+(3) m=1 K=4: equilibrium violating Step-1 structure: unsat
+(3) m=2 K=8: equilibrium violating Step-1 structure: unsat
+(3) m=3 K=16: equilibrium violating Step-1 structure: unsat
+ALL OK

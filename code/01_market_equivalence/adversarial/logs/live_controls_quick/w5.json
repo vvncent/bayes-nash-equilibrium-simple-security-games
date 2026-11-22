@@ -1,0 +1,1 @@
+{"worker": 5, "pid": 72893, "task": "pin_witness#3 ctl_interp lexmin 1", "started": 1795363277.746913, "phase": "idle (finished pin_witness#3 ctl_interp lexmin 1)", "updated": 1795363278.978091, "call": 182, "call_started": null, "query_bits": 29, "last_call_s": 0.005, "max_call_s": 0.008, "max_call_at": 39}

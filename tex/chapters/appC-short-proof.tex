@@ -1,0 +1,438 @@
+\chapter{A shorter proof of ARRIVAL-hardness}\label{app:short}
+
+\emph{What Lean checks.} Every lemma of this appendix and the correctness and size bounds of Theorem~\ref{thm:sh-main} are proved in Lean~4 with Mathlib, over the rationals (Section~\ref{sec:lean-status}); for Lemma~\ref{lem:sh-incr}, convexity and piecewise linearity follow from the formalized statements rather than being separate Lean theorems. That $\Red$ and $\Dec$ run in polynomial time is checked only by referees, which is why Theorem~\ref{thm:sh-main} carries the referee tag. Bracketed markers [$\Delta k$] point to the list of differences from Chapter~\ref{ch:arrival} in Section~\ref{sec:sh-diff}.
+
+{\theoremstyle{plain}\newtheorem{fact}[theorem]{Fact}}
+
+This appendix proves Theorem~\ref{thm:A} again, by a different construction and in six pages. Theorem~\ref{thm:sh-main} below is Theorem~\ref{thm:A} with slightly smaller size bounds
+($12n^2+6n+2$ types and $12n^2+6n+3$ targets instead of $12n^2+6n+6$ and $12n^2+6n+7$). Notation is that of Chapter~\ref{ch:prelim}; the symbols $M$, $\lambda$, $c_v$, $W$ and the markets are defined below and differ from Chapter~\ref{ch:arrival}. Section~\ref{sec:sh-diff} lists the differences from Chapter~\ref{ch:arrival} and the checks behind this appendix.
+
+\begin{theorem}[ARRIVAL-hardness, shorter construction]\label{thm:sh-main}
+\statusrefereed
+There are polynomial-time algorithms $\Red$ and $\Dec$ with the following properties. $\Red$ maps an
+ARRIVAL instance with $n$ switch vertices to an explicit Bayesian simple security game $\Gamma$ with one
+defender resource, defender payoff $0$ at every uncovered and $1$ at every covered target, at most
+$12n^2+6n+2$ attacker types and at most $12n^2+6n+3$ targets, and all numbers of $O(n)$ bits. For every
+BNE $\beta$ of $\Gamma$, $\Dec(\beta)$ is the answer of the ARRIVAL instance.
+\end{theorem}
+
+\paragraph{Idea.} Each switch becomes a small market whose buyers and goods are the nodes and arcs of two offset copies of the Disser--Skutella counting network (Figures~\ref{fig:Gk} and~\ref{fig:Nm}). In every equilibrium a gadget routes its $x$ units of demand along a cheapest flow, and the cheapest flow alternates between the copies unit by unit, so one port receives $h_0(x)$ and the other $h_1(x)$, just as a switch splits its visits. Gluing one gadget per switch makes every market equilibrium a fixed point of the switch map; every fixed point loads the terminal that the run reaches; and a market whose slopes are at least $1$ hides inside a one-resource game. The plan is that of Chapter~\ref{ch:arrival}, with fewer constants and conditions.
+
+{\sloppy\paragraph{Structure.} Section~\ref{sec:sh-fp}: every fixed point of the switch map loads the terminal
+that the run reaches (Lemma~\ref{lem:sh-decoder}). Section~\ref{sec:sh-net}: the counting network of
+Disser and Skutella, and two copies of it alternate (Lemmas~\ref{lem:sh-incr}, \ref{lem:sh-alt}). Section~\ref{sec:sh-lp}:
+two general LP facts (Lemmas~\ref{lem:sh-cs}, \ref{lem:sh-bigM}). Section~\ref{sec:sh-market}: one
+gadget is a min-cost flow, and the composed market's equilibria are fixed points
+(Lemma~\ref{lem:sh-gadget}, Theorem~\ref{thm:sh-compose}). Section~\ref{sec:sh-game}: a market with
+slopes at least $1$ sits inside a one-resource game, and the assembly (Lemma~\ref{lem:sh-embed}).\par}
+
+\section{Definitions}\label{sec:sh-def}
+
+\paragraph{Games.} We only build games (Definition~\ref{def:game}) with $r=1$ and $u_1^0\equiv0$,
+$u_1^1\equiv1$. Then a defender mixed strategy is a probability vector $\xi$ over targets ($\xi_k$ is the
+probability that $k$ is covered), type $\theta$ gets $U_{\theta k}(\xi)=u_2^0(\theta,k)-b_{\theta
+k}\xi_k$ at $k$ with slope $b_{\theta k}=u_2^0(\theta,k)-u_2^1(\theta,k)\ge0$, and the defender gets
+$\sum_k\ell_k\xi_k$, where $\ell_k=\sum_\theta p_\theta\sigma_\theta(k)$ is the \emph{load} of $k$ under
+the type strategies $\sigma_\theta$. Hence:
+
+\begin{fact}\label{fact:sh-br}
+\statuslean
+$(\xi,\sigma)$ is a BNE if and only if (i) $\sigma_\theta(k)>0$ only if $k$ maximizes
+$U_{\theta\cdot}(\xi)$, and (ii) $\xi_k>0$ only if $\ell_k=\max_j\ell_j$.
+\end{fact}
+
+Replacing priors by positive weights $w_\theta\propto p_\theta$ (and loads by
+$\sum_\theta w_\theta\sigma_\theta(k)$) changes nothing. [$\Delta1$] (The realization lemma for
+$r$-subsets and the cutoff lemma are not needed for $r=1$.)
+
+\paragraph{Markets.} Markets are (M1) markets (Definition~\ref{def:m1}): buyers $i$ with masses
+$\mu_i>0$, goods $j$ with capacities $c_j>0$, options $(i,j)$, at most one per good, paying
+$a_{ij}-b_{ij}P_j$ per unit with slope $b_{ij}>0$; an equilibrium $(P,v,f)$ satisfies (a)--(d) of
+Definition~\ref{def:m1}.
+
+\paragraph{ARRIVAL.} Instances, the run and the preprocessing are those of
+Definition~\ref{def:arrival} and Section~\ref{sec:pre-arrival}; after preprocessing every vertex has a
+path of length at most $n$ to a terminal. A \emph{labelled edge} is a pair $(u,i)$, $i\in\{0,1\}$, from
+$u$ to $\mathrm{succ}_i(u)$. A \emph{fixed point} is $x\in\mathbb{R}^V_{\ge0}$ satisfying
+\eqref{eq:fixedpoint}, i.e.\
+\[
+x_v=[v=o]+\sum_{(u,i):\,\mathrm{succ}_i(u)=v}h_i(x_u)\qquad\text{for all }v\in V,
+\]
+and its terminal inflows are $y_t=\sum_{(u,i):\,\mathrm{succ}_i(u)=t}h_i(x_u)$. Every labelled edge
+leaves one switch, so summing gives $\sum_vx_v=1+\sum_ux_u-y_{\yes}-y_{\no}$, that is,
+$y_{\yes}+y_{\no}=1$.
+
+\section{Fixed points decide ARRIVAL}\label{sec:sh-fp}
+
+\begin{lemma}[Decoder by floors]\label{lem:sh-decoder}
+\statuslean
+Let $x$ be a fixed point. Then the run reaches a terminal $t^*$, $y_{t^*}=1$, and the other terminal has
+inflow $0$.
+\end{lemma}
+
+\begin{proof}
+\relax[$\Delta2$] (i) \emph{Floors commute with the switch map:} $h_i(\lfloor\xi\rfloor)=\lfloor
+h_i(\xi)\rfloor$ for $\xi\ge0$. Indeed, with $\xi=2z+\rho$ we have $\lfloor\xi\rfloor=2z+\lfloor\rho\rfloor$
+and $\lfloor\rho\rfloor=[\rho\ge1]$, so $h_0(\lfloor\xi\rfloor)=z+[\rho\ge1]=\lfloor z+\min(\rho,1)\rfloor$
+and $h_1(\lfloor\xi\rfloor)=z=\lfloor z+\max(\rho-1,0)\rfloor$.
+
+(ii) \emph{The floor of a fixed point is a fixed point with the same terminal inflows.} Let
+$\bar x=\lfloor x\rfloor$ componentwise, $D_v=\bar x_v-[v=o]-\sum_{(u,i)\to v}\lfloor h_i(x_u)\rfloor$ and
+$\bar y_t=\sum_{(u,i)\to t}\lfloor h_i(x_u)\rfloor$. Taking the floor of~\eqref{eq:fixedpoint} gives
+$D_v\ge0$ (the floor of a sum is at least the sum of the floors), and $\bar y_t\le y_t$. Counting the
+labelled edges by their tails and by their heads, and using (i) and $h_0+h_1=\mathrm{id}$,
+\[
+\sum_u\bar x_u=\sum_u\bigl(\lfloor h_0(x_u)\rfloor+\lfloor h_1(x_u)\rfloor\bigr)
+=\sum_v\bigl(\bar x_v-D_v-[v=o]\bigr)+\bar y_{\yes}+\bar y_{\no},
+\]
+so $\bar y_{\yes}+\bar y_{\no}=1+\sum_vD_v\ge1=y_{\yes}+y_{\no}\ge\bar y_{\yes}+\bar y_{\no}$. Hence every
+$D_v=0$, which by (i) says that $\bar x$ satisfies~\eqref{eq:fixedpoint}, and $\bar y=y$. So the terminal
+inflows are integers summing to $1$: one terminal $t^*$ has inflow $1$ and the other, $t'$, inflow $0$.
+
+(iii) \emph{Switching flow.} In the switch graph $G'$ on $V\cup\{t^*,t'\}$ in which $t^*$ and $t'$ have
+both successors equal to themselves, put on each edge $e=(u,w)$ of the switch graph the value
+$\chi(e)=\sum_{i:\,\mathrm{succ}_i(u)=w}h_i(\bar x_u)$ (and $0$ on the loops at $t^*$ and $t'$).
+In~\cite{dgkmw17} the edge set $E=\{(v,\succz(v))\}\cup\{(v,\succo(v))\}$ is a set, so when
+$\succz(u)=\succo(u)$ there is one edge, carrying $\chi=h_0(\bar x_u)+h_1(\bar x_u)=\bar x_u$.
+By~\eqref{eq:fixedpoint} for $\bar x$, $\mathrm{out}(v)-\mathrm{in}(v)=\bar x_v-(\bar x_v-[v=o])=[v=o]$
+at every $v\in V$, and $t^*$ has inflow $1$ and outflow $0$. If $\succz(u)\ne\succo(u)$ then
+$\chi(u,\succo(u))=\lfloor\bar x_u/2\rfloor\le\chi(u,\succz(u))=\lceil\bar x_u/2\rceil\le
+\chi(u,\succo(u))+1$, and if $\succz(u)=\succo(u)$ condition~(2) of~\cite[Def.~2]{dgkmw17} compares the
+single edge with itself and holds trivially. So $\chi$ is a switching flow for origin $o$ and
+destination $t^*$~\cite[Def.~2]{dgkmw17}, and by~\cite[Lemma~1]{dgkmw17} $\mathrm{Run}(G',o,t^*)$
+terminates. Runs on $G'$ and on the instance agree until the first terminal is entered, and a token
+entering $t'$ stays there forever; so the instance's run reaches $t^*$ (first).
+\end{proof}
+
+\section{The counting network and alternation}\label{sec:sh-net}
+
+$G_0$ is one arc $s_0\to t_0$ (capacity $1$, cost $0$). $G_k$ adds nodes $s_k,t_k$ and four arcs of
+capacity $2^{k-1}$: $s_k\to s_{k-1}$ and $t_{k-1}\to t_k$ of cost $0$, and $s_k\to t_{k-1}$ and
+$s_{k-1}\to t_k$ of cost $3^k$ (\cite[\S3.1]{ds15}, with costs $3^k$; this is the network of
+Figure~\ref{fig:Gk}). $F_k(y)$ is the minimum cost of an $s_k\to t_k$ flow of value $y\in[0,2^k]$.
+
+\begin{lemma}[Increments]\label{lem:sh-incr}
+\statuslean
+$F_k$ is convex and piecewise linear with integer breakpoints, $F_k(0)=0$, and the list $D_k$ of its unit
+increments $F_k(j)-F_k(j-1)$ satisfies $D_0=(0)$, $D_k=(D_{k-1},\,2\cdot3^k-\mathrm{reverse}(D_{k-1}))$.
+For $k\ge1$, $D_k$ increases strictly from $0$ to $2\cdot3^k$ with all gaps at least $6$, and the maximum
+flow is $2^k$.
+\end{lemma}
+
+\begin{proof}
+(This is Lemma~\ref{lem:incr}; the argument is unchanged.) Induction; put $c=2^{k-1}$, $w=3^k$. The
+inner copy of $G_{k-1}$ meets the new arcs only in $s_{k-1},t_{k-1}$, so it carries an $s_{k-1}\to
+t_{k-1}$ flow of some value $y$. With $\alpha,\beta,\gamma,\eta$ the flows on $s_k\to s_{k-1}$,
+$t_{k-1}\to t_k$, $s_k\to t_{k-1}$, $s_{k-1}\to t_k$, conservation gives $\alpha+\gamma=\beta+\eta=x$,
+$\alpha=y+\eta$, $\beta=y+\gamma$, so the new cost is $w(\gamma+\eta)=w(x-y)$, and the box
+$0\le\alpha,\beta,\gamma,\eta\le c$ is satisfiable if and only if $0\le y\le\min(x,2c-x)$. Thus
+$F_k(x)=\min_y[w(x-y)+F_{k-1}(y)]$. All increments of $F_{k-1}$ are at most $\max D_{k-1}<3^k$, so the
+bracket strictly decreases in $y$ and $y=\min(x,2c-x)$: $F_k=F_{k-1}$ on $[0,c]$ and
+$F_k(x)=2w(x-c)+F_{k-1}(2c-x)$ on $[c,2c]$. This is the recursion; the gap at the junction is
+$2w-2\max D_{k-1}$, which is $6$ for $k=1$ and $2\cdot3^{k-1}\ge6$ for $k\ge2$; other gaps are gaps of
+$D_{k-1}$. A strictly increasing increment list means $F_k$ is convex.
+\end{proof}
+
+\paragraph{The splitter $N_m$} ($m\ge1$): two copies of $G_m$ that share their source $s=s_m$; copy A ends
+in sink $a$, copy B in sink $b$; all other nodes are \emph{internal} (Figure~\ref{fig:Nm}). Put
+$K=2^{m+1}$. Directly from the definition:
+\begin{description}[leftmargin=2.5em,itemsep=0pt]
+\item[(N1)] the out-capacity of $s$ is $K$;
+\item[(N2)] the in-capacity of $a$ and of $b$ is $K/2$;
+\item[(N3)] the maximum $s\to\{a,b\}$ flow is $K$ (Lemma~\ref{lem:sh-incr});
+\item[(N4)] $\sum_e\kappa_e=2\cdot\sum_{j=1}^m2\cdot3^j=2\cdot3^{m+1}-6$.
+\end{description}
+An \emph{$s\to\{a,b\}$ flow of value $x$} is a vector $\varphi\in\prod_e[0,c_e]$ conserved at internal
+nodes with net outflow $x$ at $s$.
+
+\begin{lemma}[Alternation]\label{lem:sh-alt}
+\statuslean
+Let $0<\theta<6$ and $x\in[0,K]$. Every $s\to\{a,b\}$ flow of value $x$ minimizing
+$\sum_e\kappa_e\varphi_e+\theta\cdot\inflow_\varphi(b)$ has $\inflow(a)=h_0(x)$ and $\inflow(b)=h_1(x)$.
+\end{lemma}
+
+\begin{proof}
+The copies share only $s$, so $\varphi$ splits into an $s\to a$ flow of value $A$ in copy A and an $s\to
+b$ flow of value $x-A$ in copy B, and its cost is at least $\Phi(A):=F(A)+F(x-A)+\theta(x-A)$ ($F=F_m$),
+with equality if and only if both parts are min-cost; every split admits min-cost parts. So it suffices
+that $h_0(x)$ is the unique minimizer of the convex function $\Phi$, where $F=+\infty$ outside $[0,2^m]$.
+Let $\delta_1<\dots<\delta_{2^m}$ be the increments, $\delta_0=-\infty$, $\delta_{2^m+1}=+\infty$; then
+$F'_+(y)=\delta_{\lfloor y\rfloor+1}$ and $F'_-(y)=\delta_{\lceil y\rceil}$, and
+$\Phi'_+(A)=F'_+(A)-F'_-(x-A)-\theta$, $\Phi'_-(A)=F'_-(A)-F'_+(x-A)-\theta$. Write $x=2z+\rho$. If
+$\rho\in[0,1]$: at $A=z+\rho$ (so $x-A=z$), $\Phi'_+\ge\delta_{z+1}-\delta_z-\theta\ge6-\theta>0$ and
+$\Phi'_-\le\delta_{z+1}-\delta_{z+1}-\theta<0$. If $\rho\in(1,2)$: at $A=z+1$ ($x-A\in(z,z+1)$),
+$\Phi'_+=\delta_{z+2}-\delta_{z+1}-\theta>0$ and $\Phi'_-=\delta_{z+1}-\delta_{z+1}-\theta<0$. In both cases
+$A=h_0(x)$ and $x-A=h_1(x)$.
+\end{proof}
+
+\section{Two general LP facts}\label{sec:sh-lp}
+
+[$\Delta3$] An \emph{allocation LP} has buyers $i\in I$ with masses $\mu_i$, finite goods $j\in J$ with
+capacities $c_j\ge0$, unbounded goods $J_\infty$, options $E\subseteq I\times(J\cup J_\infty)$ and
+coefficients $a_{ij}$. A feasible point is $f\in\mathbb{R}^E_{\ge0}$ with $\sum_jf_{ij}\le\mu_i$ (rows)
+and $\sum_if_{ij}\le c_j$ for $j\in J$ (finite columns); the objective is $\sum_Ea_{ij}f_{ij}$.
+
+\begin{lemma}[Complementary slackness]\label{lem:sh-cs}
+\statuslean
+Let $f$ be feasible, and let $v\in\mathbb{R}^I_{\ge0}$ and $\pi\in\mathbb{R}^J_{\ge0}$ ($\pi_j:=0$ for
+$j\in J_\infty$) satisfy $v_i+\pi_j\ge a_{ij}$ on $E$, with equality where $f_{ij}>0$; $v_i>0$ only for
+full rows; $\pi_j>0$ only for full columns. Then $f$ is optimal.
+\end{lemma}
+
+\begin{proof}
+For feasible $g$, $\sum a g\le\sum_Eg_{ij}(v_i+\pi_j)\le\sum_i\mu_iv_i+\sum_Jc_j\pi_j$, and for $g=f$
+both inequalities are equalities.
+\end{proof}
+
+\begin{lemma}[Big $M$]\label{lem:sh-bigM}
+\statuslean
+Suppose $a_{ij}=M\cdot(1+[j\in J])-\kappa_{ij}$ with $\kappa_{ij}\ge0$ and $M>\sum_E\kappa_{ij}$. Then
+every optimal $f$ maximizes $T(f):=\sum_Ef_{ij}+\sum_{E,\,j\in J}f_{ij}$ (row trade plus finite-column
+trade) over the feasible set.
+\end{lemma}
+
+\begin{proof}
+Network $D$: a source $r$, a sink $q$, a node per buyer and per good; arcs $r\to i$ (capacity $\mu_i$,
+cost $-M$), $i\to j$ for $(i,j)\in E$ (uncapacitated, cost $\kappa_{ij}$), $j\to q$ (capacity $c_j$,
+cost $-M$ if $j\in J$; uncapacitated, cost $0$ if $j\in J_\infty$), and $q\to r$ (uncapacitated, cost
+$0$). Feasible points correspond to feasible circulations of $D$, and cost${}=-\sum af$, because a unit
+on $(i,j)$ also crosses $r\to i$ and, if $j\in J$, $j\to q$. Let $f$ be optimal and $g$ feasible with
+$T(g)>T(f)$. By the augmenting-cycle theorem~\cite{amo93}, $g=f+\sum_k\lambda_k\chi(C_k)$ with $\lambda_k>0$ and simple cycles $C_k$ of the
+residual network $D(f)$. That each single step $f+\lambda_k\chi(C_k)$ is feasible is not part of the
+statement of Theorem~3.7; it follows because the decomposition is conformal (flow decomposition,
+Theorem~3.5 there, applied to the nonnegative circulation that $g-f$ induces on $D(f)$: every cycle uses
+residual capacity in the direction of $g-f$). Let $T(C)$ be the number of $r\to i$ and finite $j\to q$
+arcs that $C$ traverses forwards minus backwards; $T$ is additive, so $T(C_k)\ge1$ for some $k$. A
+simple cycle traverses each arc at most once, so $\mathrm{cost}(C_k)\le-M\cdot
+T(C_k)+\sum_E\kappa_{ij}<0$, and $f+\lambda_k\chi(C_k)$ is feasible and strictly better than $f$.
+\end{proof}
+
+\section{The market}\label{sec:sh-market}
+
+\paragraph{Construction.} Input: a preprocessed instance with $n\ge1$ switches. Put $m=n$,
+$K=2^{n+1}$, $\varepsilon=3$, $M=2\cdot3^{m+1}$ and $\lambda=2M$. Let $\indeg(w)$ be the number of
+labelled edges into $w$, and let the \emph{port} of $(v,i)$ be the good $p_{\mathrm{succ}_i(v)}$ if
+$\mathrm{succ}_i(v)\in V$ and the exit good $\mathsf E$ if $\mathrm{succ}_i(v)$ is a terminal.
+\begin{itemize}[nosep]
+\item \emph{Goods:} for each $v\in V$ an input good $p_v$ of capacity $c_v=1+2^m\indeg(v)$; for each
+$v$ and each arc $e$ of $N_m$ a good $g_{v,e}$ of capacity $c_e$; one \emph{exit good} $\mathsf E$ of
+capacity $1+2^m(\indeg(\yes)+\indeg(\no))$.
+\item \emph{Buyers:} for each $v$ and each node $u$ of $N_m$ a buyer $(v,u)$, of mass $c_v+[v=o]$ if
+$u=s$ and the in-capacity of $u$ otherwise. Its options (all of slope $1$ except the one of slope
+$\lambda$):
+\begin{itemize}[nosep]
+\item for each arc $e$ out of $u$: on $g_{v,e}$, payoff $2M-\kappa_e-P$;
+\item for each arc $e$ into $u$: on $g_{v,e}$, payoff $2M-P$;
+\item if $u=s$: on $p_v$, payoff $2M-\lambda P$;
+\item if $u=a$: on the port of $(v,0)$, payoff $M-P$; if $u=b$: on the port of $(v,1)$, payoff
+$M-\varepsilon-P$.
+\end{itemize}
+\end{itemize}
+
+[$\Delta4$] There are no terminal buyers and no dispatch buyer: the injected token is the one unit by
+which the source buyer of $o$ outweighs its input good. [$\Delta5$] Options on private (finite) goods
+have intercept about $2M$, port options about $M$; this replaces $H$, $M_p$ and conditions C3--C5 of
+Section~\ref{sec:ar-gadget-market}. The options of a buyer are on distinct goods, so this is an (M1)
+market (S4 is automatic). All slopes are $1$ or $\lambda\ge1$.
+
+In an equilibrium write $A_v,B_v$ for the port purchases of $(v,a)$, $(v,b)$, $y_v$ for the purchase of
+$(v,s)$ on $p_v$, and
+\[
+x_v=[v=o]+(\text{load on }p_v\text{ by buyers other than }(v,s))
+=[v=o]+\sum_{(u,0):\,\succz(u)=v}A_u+\sum_{(u,1):\,\succo(u)=v}B_u .
+\]
+
+\paragraph{The gadget LP.} For $c>0$, $0\le x<c$ and reals $\alpha_a,\alpha_b$ let
+$G(c,x,\alpha_a,\alpha_b)$ be the allocation LP whose buyers are the nodes $u$ of $N_m$ (mass $c$ for
+$s$, in-capacity otherwise), whose finite goods are the arcs $e$ (capacity $c_e$) and $p$ (capacity
+$c-x$), whose unbounded goods are two ports $\pi_a,\pi_b$, with the options of the construction and
+coefficients $2M-\kappa_e$ (tail of $e$), $2M$ (head of $e$), $2M$ ($s$ on $p$), $\alpha_a$ ($a$ on
+$\pi_a$) and $\alpha_b$ ($b$ on $\pi_b$).
+
+\begin{lemma}[One gadget]\label{lem:sh-gadget}
+\statuslean
+If $\alpha_a=M-P'$ and $\alpha_b=M-\varepsilon-P''$ with $P',P''\in[0,1]$, then every optimal solution of
+$G(c,x,\alpha_a,\alpha_b)$ has port purchases $(A,B)=(h_0(x),h_1(x))$ if $x\le K$ and $(K/2,K/2)$ if
+$x\ge K$. In short, $(A,B)=(\bar h_0(x),\bar h_1(x))$ with $\bar h_i(x)=h_i(\min(x,K))$.
+\end{lemma}
+
+\begin{proof}
+\relax[$\Delta3$] Write $f_e,\sigma_e$ for the purchases of $\mathrm{tail}(e)$, $\mathrm{head}(e)$ on $e$, and
+$y$ for that of $s$ on $p$.
+
+\emph{Lemma~\ref{lem:sh-bigM} applies:} the $\kappa$'s are $\kappa_e$ (tails), $0$ (heads and $s$), $P'$
+($a$) and $\varepsilon+P''$ ($b$), so by (N4) $\sum\kappa\le2\cdot3^{m+1}-6+1+3+1<M$.
+
+\emph{Upper bound:} rows give at most their masses, except that $s$ buys at most $y+{}$(out-capacity)
+${}\le(c-x)+K$ by (N1); finite columns give at most their capacities. So
+$T\le T^*:=\sum_u\mu_u-(x-K)^++\sum_ec_e+(c-x)$.
+
+\emph{Attained:} take an $s\to\{a,b\}$ flow $\varphi$ of value $\min(x,K)$ (N3), and put $f=\varphi$,
+$\sigma_e=c_e-\varphi_e$, $y=c-x$, $A=\inflow_\varphi(a)$, $B=\inflow_\varphi(b)$. Every column is full;
+an internal or sink row buys $\sum_{\mathrm{out}}\varphi+\sum_{\mathrm{in}}(c_e-\varphi_e)$ (plus its
+port) ${}={}$its in-capacity, by conservation; $s$ buys $c-x+\min(x,K)=c-(x-K)^+$. So $T=T^*$.
+
+\emph{Structure of optima:} by Lemma~\ref{lem:sh-bigM} every optimum has $T=T^*$, so all the bounds
+above are tight: every column is full ($\sigma_e=c_e-f_e$, $y=c-x$), every row other than $s$ is full,
+and $s$'s out-arcs carry $\min(x,K)$. Row fullness at internal nodes now reads
+$\sum_{\mathrm{out}}f=\sum_{\mathrm{in}}f$, and at sinks $A=\inflow_f(a)$, $B=\inflow_f(b)$. So every
+optimum \emph{is} the solution built from an $s\to\{a,b\}$ flow of value $\min(x,K)$, as above.
+
+\emph{$x\ge K$:} the flow has value $K$ and $A,B\le K/2$ by (N2), so $A=B=K/2$.
+
+\emph{$x\le K$:} on the solution built from $\varphi$ the objective is
+\[
+2M\Bigl(\sum_ec_e+c-x\Bigr)-\sum_e\kappa_e\varphi_e+(M-P')A+(M-\varepsilon-P'')B
+=C(x)-\Bigl[\sum_e\kappa_e\varphi_e+\theta B\Bigr],
+\]
+using $A+B=x$, with $\theta=\varepsilon+P''-P'\in[2,4]$ and $C(x)$ independent of $\varphi$. So the optima
+are exactly the solutions built from flows minimizing $\sum\kappa\varphi+\theta B$, and
+Lemma~\ref{lem:sh-alt} gives $(A,B)=(h_0(x),h_1(x))$.
+\end{proof}
+
+\begin{theorem}[Composition]\label{thm:sh-compose}
+\statuslean
+In every equilibrium of the market, $x$ is a fixed point~\eqref{eq:fixedpoint}, and the sinks whose
+port edge leads to terminal $t$ put total load $y_t$ on $\mathsf E$, which is $1$ if $t$ is the terminal
+the run reaches and $0$ otherwise.
+\end{theorem}
+
+\begin{proof}
+\emph{Step 1 (prices).} [$\Delta4$] Apart from $(v,s)$, the buyers holding an option on $p_v$ are the
+$\indeg(v)$ sinks whose port is $p_v$, of mass $K/2$ each, so their load is less than $c_v$; in
+particular $x_v-[v=o]<c_v$. If $P_{p_v}>0$, then $p_v$ is full by (d), so $y_v>0$, and (b) with $v\ge0$
+gives $P_{p_v}\le2M/\lambda=1$. The load on $\mathsf E$ is at most $2^m(\indeg(\yes)+\indeg(\no))$, which
+is less than its capacity, so $P_{\mathsf E}=0$ by (d). All port prices lie in $[0,1]$.
+
+\emph{Step 2 (gadgets).} Fix $v$. The purchases of the buyers $(v,\cdot)$ form a feasible solution of
+$G_v=G(c_v+[v=o],\,x_v,\,M-P',\,M-\varepsilon-P'')$, where $P',P''$ are the prices of the ports of
+$(v,0)$, $(v,1)$; note $c_v+[v=o]-x_v=c_v-{}$(load on $p_v$ by others)${}\ge y_v$, and $x_v<c_v+[v=o]$.
+It is optimal by Lemma~\ref{lem:sh-cs} with $v_i$ the buyers' utilities, $\pi_e=P_{g_{v,e}}$ and
+$\pi_p=\lambda P_{p_v}$: dual feasibility and tightness are (a), (b) ($v_s\ge2M-\lambda P_{p_v}$ is
+$v_s+\pi_p\ge2M$); full rows are (c); $g_{v,e}$ is bought only by $\mathrm{tail}(e)$ and
+$\mathrm{head}(e)$; and $p_v$'s condition $y_v+{}$(others' load)${}\le c_v$, with equality if
+$P_{p_v}>0$, is the column condition of $p$. By Step~1 and Lemma~\ref{lem:sh-gadget},
+$(A_v,B_v)=(\bar h_0(x_v),\bar h_1(x_v))$.
+
+\emph{Step 3 (load bound).} Since $A_v+B_v=\min(x_v,K)\le x_v$, counting labelled edges gives
+$\ell_{\yes}+\ell_{\no}=\sum_v(A_v+B_v)-\sum_v(x_v-[v=o])\le1$, where $\ell_t$ denotes the load that
+gadget sinks put on the options of $\mathsf E$ into terminal $t$ (not yet known to be a terminal inflow
+of a fixed point). Suppose $x_v>K$. Take a shortest path $v=u_0,u_1,\dots,u_l$ to a terminal $u_l$
+($l\le n$). Let $w_0=x_v$ and, for $i\ge1$, let $w_i$ be the load that the sinks of gadget $u_{i-1}$ put
+on the input good of $u_i$ ($p_{u_i}$, or $\mathsf E$ restricted to edges into $u_l$). Then $w_i\le
+x_{u_i}$ for $i<l$, $w_l\le\ell_{u_l}\le1$, and $w_i\ge\min(A,B)$ of gadget $u_{i-1}$, which is
+$\bar h_1(x_{u_{i-1}})\ge\psi(w_{i-1})$, where $\psi(\xi)=\min((\xi-1)/2,K/2)$ is nondecreasing and
+$h_1(\xi)\ge(\xi-1)/2$. With $z_i=w_i+1$ this reads $z_i\ge\min(z_{i-1}/2,K/2+1)$; from $z_0>K+1$,
+induction gives $z_i>(K+1)/2^i$, so $z_l>(2^{n+1}+1)/2^n>2$ and $w_l>1$, a contradiction. [$\Delta6$] So
+$x_v\le K$ for all $v$.
+
+\emph{Step 4.} Now $(A_v,B_v)=(h_0(x_v),h_1(x_v))$, so the definition of $x_v$
+is~\eqref{eq:fixedpoint} and the loads $\ell_t$ on $\mathsf E$ are the terminal inflows $y_t$.
+Lemma~\ref{lem:sh-decoder} finishes.
+\end{proof}
+
+\section{Market to game, and the proof of the theorem}\label{sec:sh-game}
+
+Let a market have buyers $I$, goods $J$ and all slopes $b_{ij}\ge1$. Put [$\Delta7$]
+\[
+W=1+\sum_i\mu_i+\max_jc_j,\qquad A=1+\max\bigl(0,\max a_{ij}\bigr),\qquad S=1+(|I|+|J|)A .
+\]
+The game $\Gamma$ is the game of Table~\ref{tab:mk-types} with this $W$: a \emph{real} target $j$ per
+good, a \emph{private} target $g_i$ per buyer, an \emph{outside} target $o$ and a \emph{control} target
+$h$; one resource; defender payoffs $0/1$. Types, with weights (prior${}={}$weight$/$total) and payoffs
+($\xi_k$ is the coverage of $k$):
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+type & weight & payoffs\\
+\midrule
+source $i\in I$ & $W+\mu_i$ & $a_{ij}/S-b_{ij}\xi_j$ at real $j$ with $(i,j)$ an option; $A/S-\xi_{g_i}$ at $g_i$; $-\xi_o$ at $o$\\
+dedicated $j\in J$ & $W-c_j$ & $2-\xi_j$ at real $j$\\
+control & $W$ & $2-\xi_h$ at $h$\\
+\bottomrule
+\end{tabular}
+\end{center}
+and $-2-\xi_k$ at every other (type, target) pair. All slopes are at least $0$ and all weights positive.
+
+\begin{lemma}[Decoding the game]\label{lem:sh-embed}
+\statuslean
+For every BNE $(\xi,\sigma)$ of $\Gamma$, with $f_{ij}=(W+\mu_i)\sigma_i(j)$ for source $i$ and real $j$,
+$u_i$ the value of source type $i$, $P_j=S\xi_j$ and $v_i=Su_i$, the triple $(P,v,f)$ is a market
+equilibrium.
+\end{lemma}
+
+\begin{proof}
+(The decoding part of the proof of Theorem~\ref{thm:mk-embed}, only this direction.) Loads are weighted.
+(1) The control type gets $2-\xi_h\ge1$ at $h$ and at most $-2$ elsewhere; no other type attacks $h$ (a
+source has $-\xi_o\ge-1$ at $o$, a dedicated type at least $1$ at its target). So $\ell_h=W$ and every
+covered target has load $\max\ell\ge W$. Likewise only source $i$ attacks $g_i$, dedicated types attack
+only their own target, and no $-2-\xi$ pair is used. (2) If $\xi_{g_i}>0$ then $\ell_{g_i}\ge W$; if
+$\xi_{g_i}=0$ then $g_i$ pays $A/S$, more than any other option of $i$ (real: at most $a_{ij}/S<A/S$;
+outside: at most $0$); either way source $i$ puts at least $W$ on $g_i$. So $\ell_o\le\sum\mu_i<W$, hence
+$\xi_o=0$ and $u_i\ge0$. (3) If $\xi_j>0$ for real $j$, then $\ell_j\ge W>W-c_j$, so a source $i$ attacks
+$j$, and $0\le u_i=a_{ij}/S-b_{ij}\xi_j$ gives $\xi_j\le a_{ij}/(Sb_{ij})<A/S$; this is the only use of
+$b_{ij}\ge1$. If $\xi_{g_i}>0$ then $0\le u_i=A/S-\xi_{g_i}$. Hence real and private coverage total less
+than $(|I|+|J|)A/S<1$, so $\xi_h>0$ and $\max\ell=W$. An uncovered $g_i$ would carry $W+\mu_i>W$, so every
+$\xi_{g_i}>0$, $\ell_{g_i}=W$, and source $i$ puts exactly $\mu_i$ on real targets and $o$. (4) (a), (b):
+multiply $u_i\ge a_{ij}/S-b_{ij}\xi_j$ (tight where used) by $S$. (c): if $v_i>0$ then $o$ (worth $0$)
+is unused, so $\sum_jf_{ij}=\mu_i$, and $\sum_jf_{ij}\le\mu_i$ always. (d): $\sum_if_{ij}=\ell_j-(W-c_j)\le
+c_j$, with equality if $\xi_j>0$.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sh-main}]
+\emph{$\Red$:} preprocess; build the market of Section~\ref{sec:sh-market} (with $n'\le n$ remaining
+switches, $m=n'$) and the game $\Gamma$ of Lemma~\ref{lem:sh-embed} (legal: slopes $1$ and
+$\lambda\ge1$). \emph{$\Dec$:} given a BNE $(\xi,\sigma)$, output \yes{} if and only if
+$\sum(W+\mu_i)\sigma_i(\mathsf E)=1$, the sum over the sink types $i=(u,a)$ with $\succz(u)=\yes$ and
+$i=(u,b)$ with $\succo(u)=\yes$. By Lemma~\ref{lem:sh-embed} this sum is the market load that these
+sinks put on $\mathsf E$ in an equilibrium, which by Theorem~\ref{thm:sh-compose} is $1$ if the run
+reaches \yes{} and $0$ otherwise. \emph{Sizes} [$\Delta8$]: $N_m$ has $4m+3$ nodes and $8m+2$ arcs, so
+the market has $n(4n+3)=4n^2+3n$ buyers and $n(8n+3)+1=8n^2+3n+1$ goods, and $\Gamma$ has
+$|I|+|J|+1=12n^2+6n+2$ types and $|I|+|J|+2=12n^2+6n+3$ targets. Every number has $O(n)$ bits:
+capacities are at most $2n\cdot2^n+1$, costs at most $3^n$, $M=2\cdot3^{n+1}$, $\lambda=4\cdot3^{n+1}$,
+and $W,A,S$ are sums of polynomially many of these and products of two of them. The explicit game lists $O(n^4)$
+payoffs. $\Red$ and $\Dec$ run in polynomial time.
+\end{proof}
+
+\section{Differences from Chapter~\ref{ch:arrival}, and checks}\label{sec:sh-diff}
+
+The overall plan
+is the same as in Chapter~\ref{ch:arrival}: fixed points of the switch map decide ARRIVAL, a market built
+from copies of a two-copy Disser--Skutella gadget has only such fixed points as equilibria, and the market
+sits inside a one-resource game. The construction and several arguments differ; the differences are
+marked [$\Delta1$]--[$\Delta8$] in the text:
+\begin{enumerate}[nosep,label={[$\Delta$\arabic*]}]
+\item With one resource a mixed strategy \emph{is} a coverage vector, so Lemmas~\ref{lem:realize}
+and~\ref{lem:cutoff} are not used (Fact~\ref{fact:sh-br}).
+\item The decoder (Lemma~\ref{lem:sh-decoder}) makes a fixed point integral by taking floors
+($h_i(\lfloor\xi\rfloor)=\lfloor h_i(\xi)\rfloor$ and an edge count), instead of the cycle-lowering
+Step~1 of Lemma~\ref{lem:decoder}; it uses no lemma of~\cite{haslebacher25}.
+\item The gadget analysis (Lemmas~\ref{lem:lp}--\ref{lem:flow}) is replaced by two general LP facts
+(complementary slackness, Lemma~\ref{lem:sh-cs}, and a big-$M$ lemma proved by the augmenting-cycle
+theorem, Lemma~\ref{lem:sh-bigM}) and a one-line upper bound inside Lemma~\ref{lem:sh-gadget}.
+\item There are no terminal buyers and no dispatch buyer. One \emph{exit good} $\mathsf E$ without a
+buyer of its own replaces the two terminal goods; the source buyer of the origin has mass one more than
+its input good, which injects the token; and every input good has capacity
+$c_v=1+2^m\indeg(v)$.
+\item The constants differ: intercepts $2M-\kappa_e$ (tail), $2M$ (every head), $2M-\lambda P$ (source)
+and $M-P$, $M-\varepsilon-P$ (ports), with $M=2\cdot3^{m+1}$, $\lambda=2M$, $\varepsilon=3$ and
+$\bar P=1$. There is no $H$ and no $M_p$; conditions C3--C5 are replaced by the single inequality
+$M>\sum\kappa$ of Lemma~\ref{lem:sh-bigM}.
+\item The halving argument of Theorem~\ref{thm:compose}(c) is written with $z_i=w_i+1$; the restriction
+step and the label discussion (S1--S4) are absorbed.
+\item Only the decoding direction of the market-to-game embedding is used (Lemma~\ref{lem:sh-embed}),
+with $W=1+\sum_i\mu_i+\max_jc_j$ in place of $W=(2+2/\omega)\hat D$ of~\eqref{eq:mk-consts}; the
+priors, the lift and the row rescaling are not needed.
+\item Sizes: the market has $4n^2+3n$ buyers and $8n^2+3n+1$ goods, the game $12n^2+6n+2$ types and
+$12n^2+6n+3$ targets.
+\end{enumerate}
+\emph{Status.} Two independent AI referees, each starting without the authoring context, re-derived
+every statement and gave the verdict ``correct''; the first raised three wording issues and the second
+one citation inaccuracy (in Lemma~\ref{lem:sh-decoder}(iii)), all applied. They checked the argument by
+hand and, in exact arithmetic (z3 and Python fractions), on small instances: the floor step and
+Lemma~\ref{lem:sh-decoder} on all instances with $n\le3$ and $3{,}000$ random $n=4$ instances ($18{,}890$ in total);
+Lemma~\ref{lem:sh-gadget} for $m=1,\dots,6$ with $c,x,P',P''$ symbolic, and at $3{,}490$ exact points; every
+equilibrium of the composed market (Theorem~\ref{thm:sh-compose}) for all preprocessed instances with
+$n\le3$ and for $n=4$ and $n=5$ samples; and every BNE of the full game for $n=1$ and $n=2$
+(Appendix~\ref{app:status}, checks \texttt{08.*}). Negative controls (smaller $M$, other
+$\varepsilon$, $\lambda=1$, swapped ports) were caught. One referee checked the statements used from~\cite[Def.~2, Lemma~1]{dgkmw17} against the source. No human expert has checked this appendix. Chapter~\ref{ch:arrival} gives the original construction, which Chapter~\ref{ch:upper} builds on; this appendix is a shorter, independent proof of Theorem~\ref{thm:A}.

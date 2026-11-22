@@ -1,0 +1,5 @@
+n5_deleted: n=5 run->no (7 steps; s1-start run->no) kept=[0, 1, 4] buyers=72 goods=131
+  exists: sat (0.7s)
+  model: x={0: '2', 1: '1', 4: '0'} fixed point: True; load(want)=1 load(other)=0
+  some equilibrium decodes wrongly: unsat (6.7s)
+  OK

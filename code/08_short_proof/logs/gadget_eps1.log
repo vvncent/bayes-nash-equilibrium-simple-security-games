@@ -1,0 +1,3 @@
+m=1 M=18 eps=1 control=eps1 : violation query sat CEX c=5/4 x=1 P1=1 P2=0 A=3/4 B=1/4  sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.0s)
+m=2 M=54 eps=1 control=eps1 : violation query sat CEX c=13/2 x=19/3 P1=1 P2=0 A=19/6 B=19/6  sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.0s)
+m=3 M=162 eps=1 control=eps1 : violation query sat CEX c=7/2 x=3 P1=1 P2=0 A=1 B=2  sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.1s)

@@ -1,0 +1,326 @@
+\chapter{Preliminaries}\label{ch:prelim}
+
+This chapter fixes all notation used later. It has five parts: the game
+(Section~\ref{sec:pre-game}), the market (Section~\ref{sec:pre-market}), ARRIVAL
+(Section~\ref{sec:pre-arrival}), reductions (Section~\ref{sec:pre-red}) and the complexity classes
+(Section~\ref{sec:pre-classes}). Readers who know a part can skip it and come back when a later chapter
+refers to it.
+
+\section{Bayesian simple security games}\label{sec:pre-game}
+
+\paragraph{Idea.} Only the probability with which each target is covered matters, not the joint
+distribution of the covered sets. So the defender's strategy is a vector $x\in[0,1]^n$ with sum $r$, and
+an attacker type's payoff at target $j$ is affine and decreasing in $x_j$. The defender's best response is
+then a fractional knapsack, which is described by one threshold, the \emph{cutoff}.
+
+\begin{definition}[Bayesian simple security game~\cite{conitzer26}]\label{def:game}
+An instance is given, with all data explicitly listed as rationals written in binary, by
+\begin{itemize}[nosep]
+\item a finite set $T$ of targets and an integer number of resources $r$ with $0\le r\le|T|$;
+\item a finite set $\Theta$ of attacker types with a probability distribution $p$ on $\Theta$;
+\item for every target $t$, defender utilities $u_1^0(t)\le u_1^1(t)$;
+\item for every type $\theta$ and target $t$, attacker utilities $u_2^0(\theta,t)\ge u_2^1(\theta,t)$.
+\end{itemize}
+The defender chooses a set of exactly $r$ targets to cover. The attacker learns his type $\theta$ and
+chooses one target $t$; the moves are simultaneous. If $t$ is uncovered the payoffs are $u_1^0(t)$ and
+$u_2^0(\theta,t)$; if it is covered they are $u_1^1(t)$ and $u_2^1(\theta,t)$.
+\end{definition}
+
+The defender's payoffs depend on the target only, not on the type. A \emph{Bayes--Nash equilibrium}
+(BNE) is a mixed strategy of the defender and a mixed strategy for every type that are mutual best
+responses in expectation. \emph{Exact BNE search} asks for a BNE given by a rational mixed strategy of
+the defender, written as an explicit support list of $r$-subsets with rational probabilities (by
+Lemma~\ref{lem:realize} a list of at most $n$ subsets suffices), and, for every type, a rational
+distribution over targets. As for (M1) below, a \emph{BNE oracle} is assumed to return a rational BNE
+of polynomial binary length in the length of its query; equivalently, running times are polynomial in
+the total length of the queries and answers. We write $L$ for the binary length of the input.
+
+\paragraph{Scope of the term.} Throughout, \emph{exact BNE} and \emph{exact BNE search} refer to Bayesian simple security games as in Definition~\ref{def:game}, never to general Bayesian games. General Bayesian games include two-player normal-form games (one type per player), so their equilibrium search is already $\mathsf{PPAD}$-hard. The model is simultaneous-move; it is not the Stackelberg (commitment) model that most of the security-games literature studies.
+
+\paragraph{Coordinates.} Write $i\in[m]$ for the types, $j\in[n]$ for the targets, $p_i$ for the
+prior of type $i$, and
+\begin{equation}\label{eq:dictionary}
+a_{ij}=u_2^0(i,j),\qquad b_{ij}=u_2^0(i,j)-u_2^1(i,j)\ge0,\qquad d_j=u_1^1(j)-u_1^0(j)\ge0 .
+\end{equation}
+We call $b_{ij}$ the \emph{slope} and $d_j$ the \emph{defender gain}. A defender mixed strategy has a
+\emph{coverage vector} $x\in[0,1]^n$, with $x_j$ the probability that $j$ is covered and
+$\sum_jx_j=r$. Against $x$, type $i$ receives
+\[
+U_{ij}(x)=a_{ij}-b_{ij}x_j
+\]
+at target $j$; write $V_i(x)=\max_jU_{ij}(x)$ for its best value. An attacker strategy is described by
+joint \emph{attack masses} $f_{ij}\ge0$ with $\sum_jf_{ij}=p_i$ (the conditional strategy of a
+positive-prior type is $f_{i\cdot}/p_i$). The \emph{load} of target $j$ is $w_j=\sum_if_{ij}$, and the
+defender's expected payoff is $\sum_jw_ju_1^0(j)+\sum_jd_jw_jx_j$, which depends on the mixed strategy
+only through $x$. The \emph{score} of target $j$ is
+\[
+\pi_j=d_jw_j .
+\]
+Types of prior zero can be given any best response at the end, so we usually assume $p_i>0$ for all
+$i$. For $r=0$ and $r=n$ the coverage is forced, and a BNE is obtained by letting every type attack a
+best target; so we usually assume $0<r<n$.
+
+\begin{lemma}[Every coverage vector is realizable]\label{lem:realize}
+\statusrefereed
+Let $x\in[0,1]^n$ with $\sum_jx_j=r$ for an integer $r$. Then $x$ is the coverage vector of a
+distribution over $r$-subsets of $[n]$. If $x$ is rational, such a distribution with support of size
+at most $n$ is computable in polynomial time.
+\end{lemma}
+
+\begin{proof}
+Lay half-open intervals $I_1,\dots,I_n$ of lengths $x_1,\dots,x_n$ consecutively on $[0,r)$. For $s$
+uniform on $[0,1)$, cover the targets whose intervals contain one of $s,s+1,\dots,s+r-1$. Every
+interval has length at most one, so these $r$ points lie in $r$ distinct intervals (zero-length
+intervals are never hit), and target $j$ is covered with probability $x_j$. The covered set is
+constant between consecutive fractional parts of the interval endpoints, so splitting $[0,1)$ at these
+points gives a rational mixture of at most $n$ pure defenses.
+\end{proof}
+
+Hence a BNE is the same as a pair $(x,f)$ in which every positive $f_{ij}$ maximizes $U_{ij}(x)$ over
+$j$, and $x$ maximizes $\sum_jd_jw_jx_j$ over $\{x\in[0,1]^n:\sum_jx_j=r\}$. The next lemma makes the
+second condition explicit.
+
+\begin{lemma}[Cutoff form]\label{lem:cutoff}
+\statusrefereed
+Let $0<r<n$.
+\begin{enumerate}[nosep,label=(\alph*)]
+\item A coverage vector $x$ with $\sum_jx_j=r$ is a defender best response to loads $w$ if and only if
+some real $\lambda$ satisfies
+\[
+x_j>0\ \Longrightarrow\ d_jw_j\ge\lambda,\qquad x_j<1\ \Longrightarrow\ d_jw_j\le\lambda .
+\]
+Such a $\lambda$ can then be chosen in $[0,\max_jd_j]$.
+\item Consequently, a profile $(x,f)$ with the row sums above is a BNE if and only if (i) $f_{ij}>0$
+implies $U_{ij}(x)=V_i(x)$, and (ii) there is a cutoff $\lambda$ with $x_j>0\Rightarrow\pi_j\ge\lambda$
+and $x_j<1\Rightarrow\pi_j\le\lambda$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) This is the optimality condition of the fractional knapsack problem
+$\max\{\sum_jd_jw_jx_j:x\in[0,1]^n,\ \sum_jx_j=r\}$. If $x_j>0$, $x_k<1$ and $d_jw_j<d_kw_k$, moving a
+little coverage from $j$ to $k$ strictly improves the objective. So every positively covered score is
+at least every unsaturated score, and any $\lambda$ between the two groups works. Conversely, under the
+displayed conditions, for every feasible $x'$,
+$\sum_j\pi_j(x'_j-x_j)=\sum_j(\pi_j-\lambda)(x'_j-x_j)\le0$, because $x'_j<x_j$ only where $x_j>0$ and
+$x'_j>x_j$ only where $x_j<1$. Since $0<r<n$ both groups are nonempty, and all scores lie in
+$[0,\max_jd_j]$ because $w_j\le1$.
+
+(b) Condition (i) is attacker optimality, and (ii) is defender optimality by (a).
+\end{proof}
+
+\paragraph{One resource.} With $r=1$, a defender mixed strategy is exactly a vector $x$ in the simplex.
+If moreover the defender gets $0$ at every uncovered and $1$ at every covered target ($d_j=1$), her
+payoff is $\sum_jw_jx_j$. So a BNE is exactly a profile in which every type mixes over its maximizing
+targets and
+\[
+\supp x\subseteq\argmax_jw_j .
+\]
+Scaling all priors by one positive constant changes nothing, so in such games we often work with
+unnormalized type \emph{weights} and unnormalized loads.
+
+\section{The affine matching market (M1)}\label{sec:pre-market}
+
+\paragraph{Idea.} Read targets as goods, types as buyers and coverage as prices. A buyer with mass
+$\mu_i$ wants one unit per unit of mass, from the goods that give it the highest payoff $a_{ij}-b_{ij}P_j$.
+A good with a positive price must sell its whole capacity. This is the market of the example in
+Section~\ref{sec:intro-example}.
+
+\begin{definition}[Divisible affine matching market (M1)]\label{def:m1}
+An instance has buyers $i\in I$ with masses $\mu_i>0$ and goods $j\in J$ with capacities $c_j>0$.
+Each buyer has a list $E_i\subseteq J$ of options, and for $j\in E_i$ rational intercepts $a_{ij}$ (of
+either sign) and rational slopes $b_{ij}>0$; a unit of good $j$ at price $P_j$ gives buyer $i$ the
+payoff $a_{ij}-b_{ij}P_j$. All numbers are rationals written in binary. We write
+$E=\{(i,j):j\in E_i\}$ for the set of listed pairs (edges). An \emph{equilibrium} is a triple $(P,v,f)$
+with $P_j\ge0$, $v_i\ge0$ and $f_{ij}\ge0$ on listed pairs such that
+\begin{enumerate}[nosep,label=(\alph*)]
+\item $v_i\ge a_{ij}-b_{ij}P_j$ for every listed pair;
+\item $f_{ij}>0$ implies $v_i=a_{ij}-b_{ij}P_j$;
+\item $\sum_jf_{ij}\le\mu_i$, with equality if $v_i>0$;
+\item $\sum_if_{ij}\le c_j$, with equality if $P_j>0$.
+\end{enumerate}
+
+\emph{Empty option lists.} A buyer with $E_i=\emptyset$ buys nothing and has $v_i=0$ in every
+equilibrium, so it can be deleted without changing the equilibria of the rest; and if $E=\emptyset$ the
+unique equilibrium is $P=0$, $v=0$, $f=0$, since an unsold good must have price $0$. We therefore assume
+throughout that $E_i\neq\emptyset$ for every buyer and $E\neq\emptyset$; none of the markets
+constructed in this book violates this.
+\end{definition}
+
+Here $v_i$ is buyer $i$'s utility, $f_{ij}$ the mass of $i$ buying $j$, and $P_j$ the price of $j$.
+Every buyer has an outside option worth $0$, and every seller a reserve price $0$.
+
+\paragraph{Variants.} The \emph{general form} allows a buyer reserve $o_i$ and a seller reserve $l_j$:
+then $v_i\ge o_i$, $P_j\ge l_j$, and the fill conditions in (c), (d) apply when $v_i>o_i$, $P_j>l_j$.
+Substituting $v_i'=v_i-o_i$, $P_j'=P_j-l_j$ and $a'_{ij}=a_{ij}-o_i-b_{ij}l_j$ turns it into the form
+above. A \emph{dense} instance ($E_i=J$ for all $i$) is the special case used by the game-to-market
+direction. Conversely, a non-listed pair can be given any intercept $a_{ij}<0$: since $v_i\ge0$ it is
+then never tight. Multiplying all masses and capacities by one positive rational preserves prices and
+utilities, and binary capacities matter: expanding them into individual agents can require
+exponentially many copies. Some constructions need slopes $b_{ij}\ge1$; this is always stated.
+
+\paragraph{Relation to the literature.} (M1) is the bipartite matching model with linearly
+transferable utility and singles of Galichon and Jacquet~\cite[\S2]{galichon25}, after a positive
+edgewise rescaling of its no-blocking inequalities; in their notation $\lambda_{ij}=1/(1+b_{ij})$ and
+$\Phi_{ij}=2a_{ij}/(1+b_{ij})$. Equilibria exist~\cite[\S3, Theorem~1 and the corollary after it; Appendix~A for nonpositive outputs]{galichon25}; this book does
+not depend on that citation, since existence also follows from Theorem~\ref{thm:mk-embed} and Lemma~\ref{lem:mk-rescale}
+below together with Nash's theorem, and again from the P-matrix reduction of Chapter~\ref{ch:upper}.
+
+\paragraph{Exact (M1) search.} This asks for one rational equilibrium. When we speak of an \emph{(M1)
+oracle} we assume, as usual for exact search problems, that it returns a rational equilibrium of
+polynomial binary length in the length of its query; equivalently, running times are polynomial in the
+total length of the queries and answers. Polynomial-length rational equilibria exist whenever an
+equilibrium exists, because each support pattern of (a)--(d) defines a rational polyhedron.
+
+\section{ARRIVAL and the continuous switch map}\label{sec:pre-arrival}
+
+\paragraph{Idea.} ARRIVAL is a deterministic walk on a graph whose vertices are switches that alternate
+between two exits. Asking where the walk ends is easy to state, and no polynomial algorithm for it is
+known. The walk can be relaxed to a continuous flow problem, in which each vertex splits its inflow
+between its two exits by the functions $h_0,h_1$ below; the fixed points of that relaxation still reveal
+the answer.
+
+\begin{definition}[ARRIVAL~\cite{dgkmw17}]\label{def:arrival}
+An instance has $n$ switch vertices $V$, two terminals \yes{} and \no{}, an origin $o\in V$, and
+successors $\succz(v),\succo(v)\in V\cup\{\yes,\no\}$ for each $v\in V$. The two successors may
+coincide, and either may equal $v$. A token starts at $o$, and every switch starts at $\succz$. At each
+step the token at $v$ moves to $v$'s current successor, and $v$'s switch toggles. The question is
+whether the token reaches \yes{}. (If it never reaches a terminal, the answer is no.)
+\end{definition}
+
+\paragraph{Preprocessing.} Delete every vertex that cannot reach a terminal, and redirect the edges
+into deleted vertices to \no{}. If $o$ itself is deleted, output a fixed \no{} instance. This preserves
+the answer: the two runs agree until the original run enters a deleted vertex, after which it never
+reaches a terminal, while the new run stops at \no{}. After preprocessing every vertex reaches a
+terminal.
+
+\paragraph{The switch map.} For $x\ge0$ write $x=2z+\rho$ with $z\in\mathbb{Z}_{\ge0}$ and
+$\rho\in[0,2)$, and set
+\[
+h_0(x)=z+\min(\rho,1),\qquad h_1(x)=z+\max(\rho-1,0).
+\]
+Both are continuous and nondecreasing, $h_0+h_1=x$, and at integers $h_0=\lceil x/2\rceil$ and
+$h_1=\lfloor x/2\rfloor$. On $(2z,2z+1)$ only $h_0$ increases, and on $(2z+1,2z+2)$ only $h_1$ does: a
+switch that receives $x$ tokens sends the first, third, fifth, \dots\ along exit $0$ and the others along
+exit $1$ (Figure~\ref{fig:switchmap}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1.3cm,y=1.1cm]
+  \draw[-{Stealth[length=2mm]}] (0,0) -- (6.4,0) node[right,font=\small]{$x$};
+  \draw[-{Stealth[length=2mm]}] (0,0) -- (0,3.5);
+  \foreach \t in {1,...,6} \draw (\t,0.06) -- (\t,-0.06) node[below,font=\scriptsize]{$\t$};
+  \foreach \t in {1,2,3} \draw (0.06,\t) -- (-0.06,\t) node[left,font=\scriptsize]{$\t$};
+  \foreach \t in {2,4} \draw[gray!40,dotted] (\t,0) -- (\t,3.2);
+  \draw[very thick,blue!70!black] (0,0) -- (1,1) -- (2,1) -- (3,2) -- (4,2) -- (5,3) -- (6,3);
+  \draw[very thick,red!70!black,dashed] (0,0) -- (1,0) -- (2,1) -- (3,1) -- (4,2) -- (5,2) -- (6,3);
+  \node[font=\small,blue!70!black,anchor=west] at (6.1,3.25) {$h_0(x)$};
+  \node[font=\small,red!70!black,anchor=west] at (6.1,2.75) {$h_1(x)$};
+  \node[font=\scriptsize,align=center] at (0.5,-0.75) {$h_0$ rises};
+  \node[font=\scriptsize,align=center] at (1.5,-0.75) {$h_1$ rises};
+  \node[font=\scriptsize,align=center] at (2.5,-0.75) {$h_0$};
+  \node[font=\scriptsize,align=center] at (3.5,-0.75) {$h_1$};
+  \node[font=\scriptsize,align=center] at (4.5,-0.75) {$h_0$};
+  \node[font=\scriptsize,align=center] at (5.5,-0.75) {$h_1$};
+\end{tikzpicture}
+\caption{The switch map on $[0,6]$: $h_0$ (solid) and $h_1$ (dashed). On each unit interval exactly one of
+them rises, with slope $1$, and the other is flat; they alternate, starting with $h_0$, as a switch sends
+odd-numbered tokens to exit~$0$ and even-numbered ones to exit~$1$. At every $x$, $h_0(x)+h_1(x)=x$; at
+integers $h_0=\lceil x/2\rceil$ and $h_1=\lfloor x/2\rfloor$.}
+\label{fig:switchmap}
+\end{figure} Edges are labelled: $u$ sends $h_0(x_u)$ along label $0$ and $h_1(x_u)$ along label $1$, with
+multiplicity when the successors coincide. A \emph{fixed point} is a vector $x\in\mathbb{R}^V_{\ge0}$ with
+\begin{equation}\label{eq:fixedpoint}
+x_v=[v=o]+\sum_{u:\,\succz(u)=v}h_0(x_u)+\sum_{u:\,\succo(u)=v}h_1(x_u)\qquad\text{for all }v.
+\end{equation}
+This is Haslebacher's undiscounted G-ARRIVAL map with one token at $o$~\cite[\S4]{haslebacher25}.
+Terminal inflows $y_{\yes},y_{\no}$ are defined by the same sums, and summing the equations gives
+$y_{\yes}+y_{\no}=1$.
+
+\paragraph{What is known.} ARRIVAL is in $\mathrm{NP}\cap\mathrm{coNP}$~\cite{dgkmw17}; its decision
+version is in $\mathrm{UP}\cap\mathrm{coUP}$, and its search version is in $\mathsf{CLS}$~\cite{ghhkms18}
+and in $\mathsf{UEOPL}$~\cite{ghhkms18,fgms18}. Haslebacher reduces it to computing an approximate fixed
+point of an $\ell_1$ contraction~\cite{haslebacher25}; it also reduces to Tarski fixed
+points~\cite{ghh21}. The known lower bounds are CC- and PL-hardness~\cite{manuell21}, which strengthen an earlier NL-hardness result. Known
+algorithms run in time $2^{O(\sqrt n\log n)}$~\cite{ghh21} and, fastest among published algorithms we know of,
+$2^{O(n^{1/3}\log^{2/3}n)}$~\cite{glm26}.
+
+\section{Reductions}\label{sec:pre-red}
+
+A \emph{polynomial-time many-one reduction} ($\le_m$) from a search problem $R$ to a search problem $S$
+is a pair of polynomial-time maps: an instance map $x\mapsto g(x)$, and a solution map
+$(x,y)\mapsto h(x,y)$ such that $h(x,y)$ is a solution of $x$ whenever $y$ is a solution of $g(x)$. For a
+decision problem $R$, $h(x,y)$ is the correct answer for $x$. A \emph{polynomial-time Turing reduction}
+($\le_T$) is a polynomial-time oracle algorithm that may make polynomially many, adaptively chosen,
+oracle calls to $S$. Many-one reductions compose to many-one reductions; a composition involving a
+Turing reduction is in general only Turing. Two problems are \emph{Turing equivalent} if each
+Turing-reduces to the other.
+
+\section{Complexity classes}\label{sec:pre-classes}
+
+All classes below are classes of total search problems ($\mathsf{TFNP}$): a solution always exists and
+can be checked in polynomial time. Each has a one-line intuition.
+\begin{itemize}[nosep]
+\item $\mathsf{PPAD}$: find the end of a directed path whose start is given (Brouwer-type fixed points).
+\item $\mathsf{PLS}$: find a local optimum of a potential (local search).
+\item $\mathsf{CLS}$: problems with both a fixed-point and a potential structure, such as gradient
+descent; $\mathsf{CLS}=\mathsf{PPAD}\cap\mathsf{PLS}$~\cite{fghs23}.
+\item $\mathsf{EOPL}$ (End of Potential Line): find the end of a path along which a potential
+increases; $\mathsf{UEOPL}$ is the variant with a \emph{unique} such line. One has
+$\mathsf{UEOPL}\subseteq\mathsf{EOPL}=\mathsf{CLS}$~\cite{fgms18,gjhmprt22,fghs23}, and $\mathsf{UEOPL}$ is closed
+under many-one reductions.
+\end{itemize}
+Natural $\mathsf{UEOPL}$-hard problems are known~\cite{hmr26}; every $\mathsf{UEOPL}$-hard problem is
+ARRIVAL-hard.
+
+\paragraph{Linear complementarity.} For $M\in\mathbb Q^{N\times N}$ and $q\in\mathbb Q^N$,
+$\mathrm{LCP}(q,M)$ asks for $z\in\mathbb R^N$ with
+\[
+  z\ge0,\qquad w:=q+Mz\ge0,\qquad z_kw_k=0\quad(k=1,\dots,N).
+\]
+$\mathrm{SOL}(q,M)$ is its solution set. For $S\subseteq[N]$, $M_{SS}$ is the principal submatrix on
+rows and columns $S$, and $\det M_{\emptyset\emptyset}=1$. $M$ is a \emph{P-matrix} if every principal
+minor is positive, and a \emph{$P_0$-matrix} if every principal minor is nonnegative. $M$ is a
+\emph{$Q_0$-matrix} if $\mathrm{LCP}(q,M)$ is solvable for every $q$ for which
+$\{z\ge0:q+Mz\ge0\}$ is nonempty. Intuition: P-matrix LCPs generalize strictly convex quadratic
+programs; their solution is always unique.
+
+\begin{proposition}[Classical facts]\label{prop:classical}
+\statuscited
+(i) $M$ is a P-matrix if and only if $\mathrm{LCP}(q,M)$ has exactly one solution for every
+$q$~\cite{cps92}. (ii) The search problem P-LCP---given $(q,M)$, output a solution of
+$\mathrm{LCP}(q,M)$ or a nonzero vector $x$ with $x_i(Mx)_i\le0$ for all $i$ (a sign-reversing vector,
+violation PV2 of~\cite[Def.~36]{fgms18})---lies in $\mathsf{UEOPL}$~\cite[Thms.~39 and~81]{fgms18}.
+\end{proposition}
+
+With nonpositive principal minors as the only violations (PV1), \cite[Thm.~78]{fgms18} gives only
+membership in $\mathsf{EOPL}$, and Fearnley, Gordon, Mehta and Savani note that it is not known how to
+convert between violation types in polynomial time.
+
+A P-matrix has none of the violations of~\cite[Def.~36]{fgms18}, so for a genuine P-matrix the only
+admissible answer is the unique solution. Every reduction in this book produces genuine P-matrices; it is
+therefore a reduction to the promise version of P-LCP, and hence works for every total version, whichever
+violation types it allows.
+
+\paragraph{PL-Contraction.} A \emph{LinearFIXP circuit} computes a map with gates $\max$, $\min$, $+$,
+$-$ and multiplication by rational constants. Fearnley, Gordon, Mehta and
+Savani~\cite[Def.~32]{fgms18} define \textsc{PL-Contraction}. The input is a LinearFIXP circuit computing
+$f:[0,1]^d\to[0,1]^d$, a constant $c\in(0,1)$ and $p\in\mathbb N\cup\{\infty\}$. A solution is one of the
+following:
+\begin{itemize}[nosep]
+  \item (CM1) a fixed point of $f$;
+  \item (CMV1) a pair of points violating $c$-contraction in $\ell_p$;
+  \item (CMV2) a point mapped outside the cube;
+  \item (CMV3) a pair of adjacent slice fixpoints whose directions point toward each other (for a contraction a slice fixpoint would have to lie strictly between them, which the grid of \cite[Lemma~30]{fgms18} rules out, so such a pair certifies that $f$ is not a contraction).
+\end{itemize}
+Intuition: a contraction has a unique fixed point, and if the map is not really a contraction the
+solver may instead return a short certificate of that.
+
+\begin{theorem}[\cite{fgms18}, Theorem~34]\label{thm:fgms}
+\statuscited
+\textsc{PL-Contraction} is in $\mathsf{UEOPL}$ under promise-preserving reductions. In particular, an
+instance with no violation solutions maps to a $\mathsf{UEOPL}$ instance with a unique line.
+\end{theorem}
+
+In the reduction behind Theorem~\ref{thm:fgms}, the grid comes from \cite[Lemma~30]{fgms18}: its widths have bit length polynomial in the size of the circuit for $f$ and do not depend on $c$, which enters only the violation CMV1. Nothing requires $1-c$ to be inverse-polynomial, so an exponentially small gap
+$1-c$ is allowed, and so is $p=1$.

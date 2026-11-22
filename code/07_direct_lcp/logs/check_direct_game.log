@@ -1,0 +1,7 @@
+2 by 3 game with gains [2, 3, 5]: 1869 zero, 1134 positive, 494 positive with budget column
+2 by 3 game with gains [0, Fraction(17, 12), Fraction(2, 29)]: 2340 zero, 663 positive, 359 positive with budget column
+1/epsilon uses 56 bits; exact coverages ['2/3', '1/3'], scores ['1/2', '1/2'], 2 pure defenses and 2 used attacks
+1/epsilon uses 113 bits; exact coverages ['1', '1', '0'], scores ['0', '0', '0'], 1 pure defenses and 2 used attacks
+1/epsilon uses 958 bits; exact coverages ['4722366482869645213700/9444732965739290427399', '4722366482869645213699/9444732965739290427399', '0'], scores ['6/13', '6/13', '0'], 2 pure defenses and 2 used attacks
+1/epsilon uses 170 bits; exact coverages ['1', '0', '0'], scores ['9/5', '1/5', '0'], 1 pure defenses and 2 used attacks
+All direct-game checks passed.

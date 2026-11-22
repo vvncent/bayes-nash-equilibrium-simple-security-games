@@ -1,0 +1,9 @@
+Lemma 2 (k, inc==D_k, linear between integers, min gap, F(0)=0, ends):
+   (1, True, True, Fraction(6, 1), True, True)
+   (2, True, True, Fraction(6, 1), True, True)
+   (3, True, True, Fraction(6, 1), True, True)
+   (4, True, True, Fraction(6, 1), True, True)
+Lemma 5: optima with T<Tmax among 300 random LPs (M = sum kappa + 1/97): 0
+Lemma 5 control (M = sum kappa / 3): failures 97
+Lemma 8 (trials, bad): (60, 0)
+Lemma 8 control, slopes 1/20..1/60 (trials, bad): (60, 27)

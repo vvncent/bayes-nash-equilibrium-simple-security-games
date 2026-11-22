@@ -1,0 +1,74 @@
+{"game": "audit_three_target", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: buyer not best responding / row sum", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#0", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: buyer not best responding / row sum", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "audit_two_target", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: buyer not best responding / row sum", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#0", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 0 below ceiling but overloaded", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "audit_two_target", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 1 below ceiling but overloaded", "flagged": 1, "calls": 2, "t": 0.01}
+{"game": "audit_two_target", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "audit_three_target", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#0", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "audit_three_target", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 1 below ceiling but overloaded", "flagged": 1, "calls": 3, "t": 0.02}
+{"game": "pin_witness#1", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 0 above floor but underloaded", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#1", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#2", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: buyer not best responding / row sum", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#2", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#3", "control": "corrupt_price", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: buyer not best responding / row sum", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#2", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 1 below ceiling but overloaded", "flagged": 1, "calls": 2, "t": 0.01}
+{"game": "pin_witness#3", "control": "corrupt_drop", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: ", "flagged": 1, "calls": 1, "t": 0.01}
+{"game": "pin_witness#1", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 0 below ceiling but overloaded", "flagged": 1, "calls": 3, "t": 0.02}
+{"game": "pin_witness#3", "control": "corrupt_capacity", "oracle": "lexmin", "caught": true, "how": "procedure stopped: AssertionError: decode failed: good 1 below ceiling but overloaded", "flagged": 1, "calls": 3, "t": 0.02}
+{"game": "audit_three_target", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.42}
+{"game": "audit_three_target", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.43}
+{"game": "audit_three_target", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/6", "1/3", "1/2"], "t": 1.71}
+{"game": "audit_three_target", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["5592405/33554432", "5592405/16777216", "25165823/50331648"], "t": 1.7}
+{"game": "audit_three_target", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/6", "1/3", "1/2"], "t": 1.76}
+{"game": "audit_three_target", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["5592405/33554432", "5592405/16777216", "25165823/50331648"], "t": 1.77}
+{"game": "audit_two_target", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.17}
+{"game": "audit_two_target", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.13}
+{"game": "audit_two_target", "control": "ctl_nopatch", "oracle": "degen", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.18}
+{"game": "audit_two_target", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.14}
+{"game": "audit_two_target", "control": "ctl_norepair", "oracle": "lexmin", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.15}
+{"game": "audit_two_target", "control": "ctl_norepair", "oracle": "degen", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.16}
+{"game": "audit_two_target", "control": "ctl_interp", "oracle": "lexmin", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.15}
+{"game": "audit_two_target", "control": "ctl_interp", "oracle": "degen", "exit": "hit", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/2", "1/2"], "t": 0.16}
+{"game": "audit_three_target", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": true, "how": "non-BNE output (type 1 not best responding at 1)", "x": ["78293675/469762048", "78293675/234881024", "234881023/469762048"], "t": 1.75}
+{"game": "audit_three_target", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": true, "how": "non-BNE output (type 1 not best responding at 1)", "x": ["78293675/469762048", "78293675/234881024", "234881023/469762048"], "t": 1.81}
+{"game": "pin_witness#0", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.34}
+{"game": "pin_witness#0", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.35}
+{"game": "pin_witness#0", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 4/5 > 3/5)", "x": ["5/6", "0", "1/6"], "t": 1.62}
+{"game": "pin_witness#0", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 3/5 > 0)", "x": ["1", "0", "0"], "t": 1.63}
+{"game": "pin_witness#0", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["5/6", "0", "1398101/8388608"], "t": 1.63}
+{"game": "pin_witness#0", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["5/6", "0", "1398101/8388608"], "t": 1.66}
+{"game": "pin_witness#0", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["5/6", "0", "1/6"], "t": 1.63}
+{"game": "pin_witness#0", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["5/6", "0", "1/6"], "t": 1.67}
+{"game": "pin_witness#1", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 8/15 > 2/5)", "x": ["1", "0", "0"], "t": 1.88}
+{"game": "pin_witness#1", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 2/5 > 0)", "x": ["2/3", "0", "1/3"], "t": 2.06}
+{"game": "pin_witness#1", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.56}
+{"game": "pin_witness#1", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.74}
+{"game": "pin_witness#1", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["45812984487/68719476736", "0", "1/3"], "t": 1.85}
+{"game": "pin_witness#1", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["45812984487/68719476736", "0", "1/3"], "t": 2.02}
+{"game": "pin_witness#1", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["2/3", "0", "1/3"], "t": 1.87}
+{"game": "pin_witness#1", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["2/3", "0", "1/3"], "t": 2.05}
+{"game": "pin_witness#2", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 1/4 > 0)", "x": ["1", "1", "1/2", "1/2"], "t": 1.22}
+{"game": "pin_witness#2", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 1/4 > 0)", "x": ["1", "1", "1/2", "1/2"], "t": 1.17}
+{"game": "pin_witness#2", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 1.02}
+{"game": "pin_witness#2", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.95}
+{"game": "pin_witness#2", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["1", "1", "134217727/268435456", "134217727/268435456"], "t": 1.26}
+{"game": "pin_witness#2", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["1", "1", "134217727/268435456", "134217727/268435456"], "t": 1.23}
+{"game": "pin_witness#2", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1", "1", "1/2", "1/2"], "t": 1.27}
+{"game": "pin_witness#2", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1", "1", "1/2", "1/2"], "t": 1.22}
+{"game": "pin_witness#3", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 2/3 > 0)", "x": ["0", "1", "0", "0"], "t": 1.33}
+{"game": "pin_witness#3", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": true, "how": "non-BNE output (defender cutoff violated 2/3 > 4/9)", "x": ["1/3", "1/2", "1/6", "0"], "t": 1.38}
+{"game": "pin_witness#3", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.92}
+{"game": "pin_witness#3", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.98}
+{"game": "audit_bracket_2/7", "control": "ctl_nopatch", "oracle": "lexmin", "exit": "repair", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/6", "1/3", "1/2"], "t": 0.21}
+{"game": "audit_bracket_2/7", "control": "ctl_nopin", "oracle": "lexmin", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.03}
+{"game": "audit_bracket_2/7", "control": "ctl_nopatch", "oracle": "degen", "exit": "repair", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/6", "1/3", "1/2"], "t": 0.21}
+{"game": "audit_bracket_2/7", "control": "ctl_nopin", "oracle": "degen", "caught": true, "how": "procedure stopped: RuntimeError: no progress (widths did not shrink in a full round)", "t": 0.03}
+{"game": "pin_witness#3", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["44739241/134217728", "1/2", "44739241/268435456", "0"], "t": 1.23}
+{"game": "pin_witness#3", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["44739241/134217728", "1/2", "44739241/268435456", "0"], "t": 1.28}
+{"game": "audit_bracket_2/7", "control": "ctl_norepair", "oracle": "lexmin", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["22369621/134217728", "22369621/67108864", "100663295/201326592"], "t": 0.2}
+{"game": "audit_bracket_2/7", "control": "ctl_norepair", "oracle": "degen", "exit": "endpoint", "caught": true, "how": "non-BNE output (coverage)", "x": ["22369621/134217728", "22369621/67108864", "100663295/201326592"], "t": 0.2}
+{"game": "audit_bracket_2/7", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": true, "how": "non-BNE output (type 1 not best responding at 1)", "x": ["850045613/5100273664", "850045613/2550136832", "2550136825/5100273664"], "t": 0.21}
+{"game": "audit_bracket_2/7", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": true, "how": "non-BNE output (type 1 not best responding at 1)", "x": ["850045613/5100273664", "850045613/2550136832", "2550136825/5100273664"], "t": 0.2}
+{"game": "pin_witness#3", "control": "ctl_interp", "oracle": "lexmin", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/3", "1/2", "1/6", "0"], "t": 1.23}
+{"game": "pin_witness#3", "control": "ctl_interp", "oracle": "degen", "exit": "interp", "caught": false, "how": "NOT CAUGHT (valid BNE)", "x": ["1/3", "1/2", "1/6", "0"], "t": 1.21}

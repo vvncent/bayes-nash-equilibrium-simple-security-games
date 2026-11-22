@@ -1,0 +1,1 @@
+{"worker": 1, "pid": 72862, "task": "zero#q degen 136", "started": 1795363264.520405, "phase": "idle (finished zero#q degen 136)", "updated": 1795363266.1450849, "call": 389, "call_started": null, "query_bits": 110, "last_call_s": 0.003, "max_call_s": 0.008, "max_call_at": 113}

@@ -1,0 +1,6 @@
+n2_fig SWAP: n=2 run->yes (2 steps; s1-start run->no) kept=[0, 1] buyers=25 goods=40
+  exists: sat (0.0s)
+  model: x={0: '2', 1: '1'} fixed point: True; load(want)=0 load(other)=1
+  some equilibrium decodes wrongly: sat (0.0s)
+  WITNESS load(want)=0 load(other)=1
+  OK

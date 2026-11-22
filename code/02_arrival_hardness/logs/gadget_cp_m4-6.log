@@ -1,0 +1,108 @@
+m=4 K=32 eps=2 H=1 cp=18(d=1) FAIL bad=16 violating=2 vacuous=15 10.0s witness={'x': '18', 'Pa': '0', 'Pb': '1', 'A': '9', 'B': '9', 'Pp': '3/2', 'want': 'h0=9, h1=9', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=2 H=1 cp=50(d=3) PASS bad=0 violating=0 vacuous=0 14.9s
+m=4 K=32 eps=2 H=1 cp=66(d=4) PASS bad=0 violating=0 vacuous=0 14.9s
+m=4 K=32 eps=2 H=1 cp=82(d=5) PASS bad=0 violating=0 vacuous=0 15.0s
+m=4 K=32 eps=2 H=1 cp=98(d=6) PASS bad=0 violating=0 vacuous=0 15.0s
+m=4 K=32 eps=2 H=1 cp=34(d=2) PASS bad=0 violating=0 vacuous=0 15.0s
+m=4 K=32 eps=2 H=1 cp=64(2K) PASS bad=0 violating=0 vacuous=0 12.0s
+m=4 K=32 eps=4 H=1 cp=18(d=1) FAIL bad=16 violating=2 vacuous=15 7.6s witness={'x': '18', 'Pa': '1', 'Pb': '0', 'A': '9', 'B': '9', 'Pp': '3/2', 'want': 'h0=9, h1=9', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=4 H=1 cp=34(d=2) PASS bad=0 violating=0 vacuous=0 11.5s
+m=4 K=32 eps=4 H=1 cp=82(d=5) PASS bad=0 violating=0 vacuous=0 11.8s
+m=4 K=32 eps=4 H=1 cp=66(d=4) PASS bad=0 violating=0 vacuous=0 12.0s
+m=4 K=32 eps=4 H=1 cp=50(d=3) PASS bad=0 violating=0 vacuous=0 12.2s
+m=4 K=32 eps=4 H=1 cp=98(d=6) PASS bad=0 violating=0 vacuous=0 13.1s
+m=4 K=32 eps=4 H=1 cp=64(2K) PASS bad=0 violating=0 vacuous=0 13.5s
+m=4 K=32 eps=3 H=1 cp=18(d=1) FAIL bad=16 violating=2 vacuous=15 9.7s witness={'x': '18', 'Pa': '0', 'Pb': '1', 'A': '9', 'B': '9', 'Pp': '3/2', 'want': 'h0=9, h1=9', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=3 H=1 cp=34(d=2) PASS bad=0 violating=0 vacuous=0 15.3s
+m=4 K=32 eps=3 H=1 cp=50(d=3) PASS bad=0 violating=0 vacuous=0 15.6s
+m=4 K=32 eps=3 H=1 cp=66(d=4) PASS bad=0 violating=0 vacuous=0 15.4s
+m=4 K=32 eps=1 H=1 cp=18(d=1) FAIL bad=33 violating=19 vacuous=15 7.3s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '24959/24962', 'B': '3/24962', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=3 H=1 cp=82(d=5) PASS bad=0 violating=0 vacuous=0 15.7s
+m=4 K=32 eps=3 H=1 cp=98(d=6) PASS bad=0 violating=0 vacuous=0 15.0s
+m=4 K=32 eps=3 H=1 cp=64(2K) PASS bad=0 violating=0 vacuous=0 15.1s
+m=4 K=32 eps=1 H=1 cp=50(d=3) FAIL bad=32 violating=32 vacuous=0 10.2s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '3/24962', 'B': '24959/24962', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=1 H=1 cp=34(d=2) FAIL bad=32 violating=32 vacuous=0 10.4s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '1', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=18(d=1) FAIL bad=28 violating=14 vacuous=15 6.9s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=1 H=1 cp=66(d=4) FAIL bad=32 violating=32 vacuous=0 10.3s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '1', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=1 H=1 cp=82(d=5) FAIL bad=32 violating=32 vacuous=0 9.1s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '1', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=1 H=1 cp=98(d=6) FAIL bad=32 violating=32 vacuous=0 8.8s witness={'x': '3/24962', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '3/24962', 'Pp': '3/12481', 'want': 'h0=3/24962, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=1 H=1 cp=64(2K) FAIL bad=32 violating=32 vacuous=0 10.0s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '1', 'Pp': '3/12481', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=34(d=2) FAIL bad=24 violating=24 vacuous=0 10.5s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '24990/12497', 'B': '4/12497', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=50(d=3) FAIL bad=24 violating=24 vacuous=0 9.0s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=66(d=4) FAIL bad=24 violating=24 vacuous=0 9.1s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '12501/12497', 'B': '12493/12497', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=82(d=5) FAIL bad=24 violating=24 vacuous=0 9.1s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=98(d=6) FAIL bad=24 violating=24 vacuous=0 9.4s witness={'x': '24990/12497', 'Pa': '0', 'Pb': '1', 'A': '24990/12497', 'B': '0', 'Pp': '8/12497', 'want': 'h0=1, h1=12493/12497', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=5 H=1 cp=64(2K) FAIL bad=24 violating=24 vacuous=0 8.3s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/12497', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=4 K=32 eps=3 H=0 cp=64(2K) FAIL bad=31 violating=31 vacuous=0 6.6s witness={'x': '0', 'Pa': '0', 'Pb': '0', 'A': '16', 'B': '0', 'Pp': '0', 'want': 'h0=0, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=2 H=1 cp=34(d=1) FAIL bad=32 violating=2 vacuous=31 20.6s witness={'x': '34', 'Pa': '1', 'Pb': '0', 'A': '17', 'B': '17', 'Pp': '3/2', 'want': 'h0=17, h1=17', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=2 H=1 cp=98(d=3) PASS bad=0 violating=0 vacuous=0 33.9s
+m=5 K=64 eps=2 H=1 cp=66(d=2) PASS bad=0 violating=0 vacuous=0 34.0s
+m=5 K=64 eps=2 H=1 cp=162(d=5) PASS bad=0 violating=0 vacuous=0 33.4s
+m=5 K=64 eps=2 H=1 cp=130(d=4) PASS bad=0 violating=0 vacuous=0 33.7s
+m=5 K=64 eps=2 H=1 cp=194(d=6) PASS bad=0 violating=0 vacuous=0 34.8s
+m=5 K=64 eps=4 H=1 cp=34(d=1) FAIL bad=32 violating=2 vacuous=31 18.3s witness={'x': '34', 'Pa': '1', 'Pb': '0', 'A': '17', 'B': '17', 'Pp': '3/2', 'want': 'h0=17, h1=17', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=2 H=1 cp=128(2K) PASS bad=0 violating=0 vacuous=0 32.0s
+m=5 K=64 eps=4 H=1 cp=130(d=4) PASS bad=0 violating=0 vacuous=0 36.1s
+m=5 K=64 eps=4 H=1 cp=66(d=2) PASS bad=0 violating=0 vacuous=0 36.5s
+m=5 K=64 eps=4 H=1 cp=98(d=3) PASS bad=0 violating=0 vacuous=0 37.2s
+m=5 K=64 eps=4 H=1 cp=162(d=5) PASS bad=0 violating=0 vacuous=0 36.4s
+m=5 K=64 eps=4 H=1 cp=128(2K) PASS bad=0 violating=0 vacuous=0 46.6s
+m=5 K=64 eps=3 H=1 cp=34(d=1) FAIL bad=32 violating=2 vacuous=31 29.3s witness={'x': '34', 'Pa': '1', 'Pb': '1/2', 'A': '17', 'B': '17', 'Pp': '3/2', 'want': 'h0=17, h1=17', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=4 H=1 cp=194(d=6) PASS bad=0 violating=0 vacuous=0 48.9s
+m=5 K=64 eps=3 H=1 cp=66(d=2) PASS bad=0 violating=0 vacuous=0 47.8s
+m=5 K=64 eps=3 H=1 cp=98(d=3) PASS bad=0 violating=0 vacuous=0 47.9s
+m=5 K=64 eps=3 H=1 cp=130(d=4) PASS bad=0 violating=0 vacuous=0 49.3s
+m=5 K=64 eps=1 H=1 cp=34(d=1) FAIL bad=65 violating=35 vacuous=31 26.1s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '1', 'Pp': '3/74689', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=3 H=1 cp=162(d=5) PASS bad=0 violating=0 vacuous=0 50.8s
+m=5 K=64 eps=3 H=1 cp=194(d=6) PASS bad=0 violating=0 vacuous=0 51.3s
+m=5 K=64 eps=3 H=1 cp=128(2K) PASS bad=0 violating=0 vacuous=0 51.2s
+m=5 K=64 eps=1 H=1 cp=66(d=2) FAIL bad=64 violating=64 vacuous=0 38.6s witness={'x': '149375/149378', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '149375/149378', 'Pp': '3/74689', 'want': 'h0=149375/149378, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=1 H=1 cp=98(d=3) FAIL bad=64 violating=64 vacuous=0 42.0s witness={'x': '3/149378', 'Pa': '1', 'Pb': '0', 'A': '3/298756', 'B': '3/298756', 'Pp': '3/74689', 'want': 'h0=3/149378, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=1 H=1 cp=130(d=4) FAIL bad=64 violating=64 vacuous=0 39.1s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '149375/149378', 'B': '3/149378', 'Pp': '3/74689', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=34(d=1) FAIL bad=56 violating=26 vacuous=31 27.1s witness={'x': '74709/74705', 'Pa': '0', 'Pb': '1', 'A': '74709/74705', 'B': '0', 'Pp': '8/74705', 'want': 'h0=1, h1=4/74705', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=1 H=1 cp=162(d=5) FAIL bad=64 violating=64 vacuous=0 41.4s witness={'x': '3/149378', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '3/149378', 'Pp': '3/74689', 'want': 'h0=3/149378, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=1 H=1 cp=194(d=6) FAIL bad=64 violating=64 vacuous=0 40.8s witness={'x': '3/149378', 'Pa': '1', 'Pb': '0', 'A': '3/298756', 'B': '3/298756', 'Pp': '3/74689', 'want': 'h0=3/149378, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=1 H=1 cp=128(2K) FAIL bad=64 violating=64 vacuous=0 41.3s witness={'x': '3/149378', 'Pa': '1', 'Pb': '0', 'A': '3/298756', 'B': '3/298756', 'Pp': '3/74689', 'want': 'h0=3/149378, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=66(d=2) FAIL bad=48 violating=48 vacuous=0 42.8s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '149406/74705', 'B': '4/74705', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=130(d=4) FAIL bad=48 violating=48 vacuous=0 37.8s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=98(d=3) FAIL bad=48 violating=48 vacuous=0 40.0s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=162(d=5) FAIL bad=48 violating=48 vacuous=0 34.8s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '149406/74705', 'B': '4/74705', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=194(d=6) FAIL bad=48 violating=48 vacuous=0 37.6s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '149406/74705', 'B': '4/74705', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=5 H=1 cp=128(2K) FAIL bad=48 violating=48 vacuous=0 36.9s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '149406/74705', 'B': '4/74705', 'Pp': '8/74705', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=5 K=64 eps=3 H=0 cp=128(2K) FAIL bad=63 violating=63 vacuous=0 33.6s witness={'x': '0', 'Pa': '0', 'Pb': '0', 'A': '24', 'B': '0', 'Pp': '0', 'want': 'h0=0, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=2 H=1 cp=66(d=1) FAIL bad=64 violating=2 vacuous=63 94.8s witness={'x': '66', 'Pa': '0', 'Pb': '0', 'A': '33', 'B': '33', 'Pp': '3/2', 'want': 'h0=33, h1=33', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=2 H=1 cp=130(d=2) PASS bad=0 violating=0 vacuous=0 157.5s
+m=6 K=128 eps=2 H=1 cp=194(d=3) PASS bad=0 violating=0 vacuous=0 156.2s
+m=6 K=128 eps=2 H=1 cp=322(d=5) PASS bad=0 violating=0 vacuous=0 155.5s
+m=6 K=128 eps=2 H=1 cp=258(d=4) PASS bad=0 violating=0 vacuous=0 161.5s
+m=6 K=128 eps=2 H=1 cp=386(d=6) PASS bad=0 violating=0 vacuous=0 164.2s
+m=6 K=128 eps=2 H=1 cp=256(2K) PASS bad=0 violating=0 vacuous=0 155.0s
+m=6 K=128 eps=4 H=1 cp=66(d=1) FAIL bad=64 violating=2 vacuous=63 93.9s witness={'x': '66', 'Pa': '1', 'Pb': '0', 'A': '33', 'B': '33', 'Pp': '3/2', 'want': 'h0=33, h1=33', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=4 H=1 cp=130(d=2) PASS bad=0 violating=0 vacuous=0 147.0s
+m=6 K=128 eps=4 H=1 cp=194(d=3) PASS bad=0 violating=0 vacuous=0 146.3s
+m=6 K=128 eps=4 H=1 cp=258(d=4) PASS bad=0 violating=0 vacuous=0 144.9s
+m=6 K=128 eps=4 H=1 cp=322(d=5) PASS bad=0 violating=0 vacuous=0 140.3s
+m=6 K=128 eps=4 H=1 cp=386(d=6) PASS bad=0 violating=0 vacuous=0 126.0s
+m=6 K=128 eps=4 H=1 cp=256(2K) PASS bad=0 violating=0 vacuous=0 125.1s
+m=6 K=128 eps=3 H=1 cp=66(d=1) FAIL bad=64 violating=2 vacuous=63 72.4s witness={'x': '66', 'Pa': '0', 'Pb': '0', 'A': '33', 'B': '33', 'Pp': '3/2', 'want': 'h0=33, h1=33', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=3 H=1 cp=130(d=2) PASS bad=0 violating=0 vacuous=0 126.5s
+m=6 K=128 eps=3 H=1 cp=194(d=3) PASS bad=0 violating=0 vacuous=0 130.7s
+m=6 K=128 eps=3 H=1 cp=258(d=4) PASS bad=0 violating=0 vacuous=0 129.3s
+m=6 K=128 eps=1 H=1 cp=66(d=1) FAIL bad=129 violating=67 vacuous=63 52.9s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '3/895874', 'B': '895871/895874', 'Pp': '3/447937', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=3 H=1 cp=322(d=5) PASS bad=0 violating=0 vacuous=0 122.2s
+m=6 K=128 eps=3 H=1 cp=386(d=6) PASS bad=0 violating=0 vacuous=0 121.7s
+m=6 K=128 eps=3 H=1 cp=256(2K) PASS bad=0 violating=0 vacuous=0 120.2s
+m=6 K=128 eps=1 H=1 cp=130(d=2) FAIL bad=128 violating=128 vacuous=0 66.3s witness={'x': '3/895874', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '3/895874', 'Pp': '3/447937', 'want': 'h0=3/895874, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=1 H=1 cp=194(d=3) FAIL bad=128 violating=128 vacuous=0 62.5s witness={'x': '3/895874', 'Pa': '1', 'Pb': '0', 'A': '3/1791748', 'B': '3/1791748', 'Pp': '3/447937', 'want': 'h0=3/895874, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=1 H=1 cp=258(d=4) FAIL bad=128 violating=128 vacuous=0 40.7s witness={'x': '3/895874', 'Pa': '1', 'Pb': '0', 'A': '3/1791748', 'B': '3/1791748', 'Pp': '3/447937', 'want': 'h0=3/895874, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=66(d=1) FAIL bad=112 violating=50 vacuous=63 20.8s witness={'x': '895902/447953', 'Pa': '0', 'Pb': '1', 'A': '895902/447953', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=447949/447953', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=1 H=1 cp=322(d=5) FAIL bad=128 violating=128 vacuous=0 35.1s witness={'x': '1', 'Pa': '1', 'Pb': '0', 'A': '3/895874', 'B': '895871/895874', 'Pp': '3/447937', 'want': 'h0=1, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=1 H=1 cp=256(2K) FAIL bad=128 violating=128 vacuous=0 34.0s witness={'x': '3/895874', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '3/895874', 'Pp': '3/447937', 'want': 'h0=3/895874, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=1 H=1 cp=386(d=6) FAIL bad=128 violating=128 vacuous=0 35.8s witness={'x': '3/895874', 'Pa': '1', 'Pb': '0', 'A': '0', 'B': '3/895874', 'Pp': '3/447937', 'want': 'h0=3/895874, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=130(d=2) FAIL bad=96 violating=96 vacuous=0 36.6s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '447957/447953', 'B': '447949/447953', 'Pp': '8/447953', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=194(d=3) FAIL bad=96 violating=96 vacuous=0 34.6s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=258(d=4) FAIL bad=96 violating=96 vacuous=0 34.9s witness={'x': '895902/447953', 'Pa': '0', 'Pb': '1', 'A': '895902/447953', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=447949/447953', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=322(d=5) FAIL bad=96 violating=96 vacuous=0 34.7s witness={'x': '895902/447953', 'Pa': '0', 'Pb': '1', 'A': '895902/447953', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=447949/447953', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=386(d=6) FAIL bad=96 violating=96 vacuous=0 35.0s witness={'x': '447957/447953', 'Pa': '0', 'Pb': '1', 'A': '447957/447953', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=4/447953', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=5 H=1 cp=256(2K) FAIL bad=96 violating=96 vacuous=0 34.3s witness={'x': '2', 'Pa': '0', 'Pb': '1', 'A': '2', 'B': '0', 'Pp': '8/447953', 'want': 'h0=1, h1=1', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}
+m=6 K=128 eps=3 H=0 cp=256(2K) FAIL bad=127 violating=127 vacuous=0 28.1s witness={'x': '0', 'Pa': '0', 'Pb': '0', 'A': '48', 'B': '0', 'Pp': '0', 'want': 'h0=0, h1=0', 'exact_equilibrium': True, 'exact_violation': True, 'errors': []}

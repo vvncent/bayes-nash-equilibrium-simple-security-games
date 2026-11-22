@@ -1,0 +1,226 @@
+\chapter{Notes on sources}\label{app:sources}
+\small
+
+The book was rewritten from seven separate articles, each produced and refereed on its own. This appendix
+records, briefly, where the referees required changes, where the sources disagreed, and what the main
+text deliberately leaves out. Nothing here is needed to follow the proofs.
+
+\section{Referee fixes, by chapter}
+
+\paragraph{Chapter~\ref{ch:market}.}
+\begin{itemize}[nosep]
+\item The source stated the game-to-market theorem with ``binary rationals''. The referee pointed out
+that the capacities $c_j=\lambda/d_j$ and the cutoff found by bisection are general rationals, not
+dyadic; all data are now ``rationals written in binary''. An oracle that needs dyadic data also needs
+the row rescaling of buyer utilities, not only a common rescaling of masses and capacities.
+\item The oracle convention (polynomial-length answers) is now stated in the theorem, as the referee
+required.
+\item The source said ``recover \dots\ by pinning'' before introducing canonicalization. The referee asked
+for the order actually used and needed by the size bound: canonicalize, then patch.
+\item The balanced matching market with a prescribed price anchor is named as a different model and not
+used. The source shows that (M1) with zero reserves embeds into it; the referee re-derived that
+embedding, and it was checked on 80 random markets.
+\item The existence result of~\cite{galichon25} (\S3, Theorem~1 and the corollary after it) was checked against its arXiv text in review~5; the book does not depend on it.
+\item \emph{Embedding.} The source stated the one-resource embedding only for the fixed slope pattern
+``two on one buyer$\times$good rectangle, one elsewhere''. An independent review found that the proof
+uses only $b_{ij}\ge1$, and only in step 3 of the decoding and in the lift bound $P_j<A$, and required the
+statement for arbitrary slopes $b_{ij}\ge1$ with an explicit convention for non-listed pairs; that is
+Theorem~\ref{thm:mk-embed}.
+\item One later restatement of the embedding, inside an internal audit of a rounding scheme, wrote the
+source payoffs with an arbitrary positive slope and asserted the coverage bound $\xi_j\le A/S$ without
+the hypothesis $b_{ij}\ge1$. The embedding referee refuted that restatement with the example of
+Proposition~\ref{prop:mk-below-one}. The book follows the referee.
+\item The embedding referee also suggested replacing $S$ by $(1+(m+n)A)/\min(1,\min_{ij}b_{ij})$, which
+would avoid the row rescaling, and re-traced both directions with that choice by hand. This is a proof
+sketch, not machine-checked, and nothing relies on it.
+\item The row rescaling (Lemma~\ref{lem:mk-rescale}) first appeared only in an internally audited source; review~5 checked it, so Theorem~\ref{thm:mk-main} and Corollary~\ref{cor:mk-one-resource} now carry the referee tag.
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:arrival}.}
+\begin{itemize}[nosep]
+\item The terminal-capacity condition in the composition ($C_T$ exceeds the total mass of the
+non-terminal buyers holding an option on $T_t$) is the fix required by the referee of
+Theorem~\ref{thm:compose}; with only $C_T>1$ the earlier proof was circular at the terminal-price step.
+\item The ARRIVAL article used its own copy of the embedding with base weight $L=4D$; this is the
+embedding of Theorem~\ref{thm:mk-embed} at $\omega=1$, where $W=(2+2/\omega)\hat D=4\hat D$. Its
+decoding proposition was refereed separately and is identical to the decoding part of
+Theorem~\ref{thm:mk-embed}.
+\item \emph{Literature.} A search (arXiv, Semantic Scholar, OpenAlex, author pages, and papers
+citing~\cite{lck16}, \cite{haslebacher25} and~\cite{conitzer26}) found no published hardness result for exact BNE in this model in the sources we searched (through November 2026), no reduction from ARRIVAL to markets or generalized flows in the sources we searched, and no earlier use of two offset counting networks as a two-sink splitter in the sources we searched; Disser and Skutella's two-gadget construction already supplies the alternation idea, with a common sink and a cross arc. Google Scholar and DBLP were not queried directly.
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:upper}, P-LCP.}
+\begin{itemize}[nosep]
+\item An earlier internal write-up attributed the reduction to ``Theorem~4.3'' of Adler and Verma, citing their 2011 manuscript~\cite{av11} and arXiv:1302.0067~\cite{av13}. The round-3 referee found no such theorem in~\cite{av13} and could not open the manuscript. Review~5 read it: its Theorem~4.3 is the perturbation reduction for Lemke-processable classes of semimonotone matrices, stated for nondegenerate problems and sufficiently small $\varepsilon$, and its Section~4 notes that $P_0\cap Q_0$-LCPs reduce this way to P-LCP. Chapter~\ref{ch:upper} credits it; the book's proof is self-contained and gives an explicit $\varepsilon$.
+\item An internal audit had written that ``the Aganagi\'c--Cottle criterion supplies finite termination''
+of Lemke's algorithm. The correct statement, following the referee, is that termination is automatic and
+$P_0\cap Q_0$ ensures that it is at a solution.
+\item Example~\ref{plcp:ex:negative} is the referee's negative control.
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:upper}, the direct LCP (Theorem~\ref{thm:direct-lcp}).}
+Its source is the article ``Exact Bayes--Nash equilibrium reduces to one P-matrix LCP''; Section~\ref{sec:direct-lcp} follows it statement by statement, including the referee fixes of the third round and of review~4 and the corrected Step~0 of Lemma~\ref{app-dl:lem:p0}.
+\begin{itemize}[nosep]
+  \item \emph{Origin.} The result was found and proved by AI agents, who produced two write-ups of the same construction; the source article follows the primary one.
+  \item \emph{Internal audits.} Two audit passes inside that run passed it: the first checked the
+        dense-column determinant lemma and the cutoff, budget and repair arguments; the second confirmed
+        the conditional upper bound and that it still requires a P-LCP oracle.
+  \item \emph{Referee.} One independent AI referee (GPT) reviewed the primary write-up statement by
+        statement, with the verdict ``correct with minor issues''. It covered the normalization and edge
+        cases, both directions of Lemma~\ref{app-dl:lem:formulation}, the block form and $P_0$ property
+        (Lemma~\ref{app-dl:lem:p0}), the diagonal perturbation (Lemma~\ref{app-dl:lem:pmatrix}), the
+        uniform bound, the gap and bit size (Lemmas~\ref{app-dl:lem:bound}--\ref{app-dl:lem:gap},
+        Theorem~\ref{app-dl:thm:main}), the pattern decoder, the strategy decomposition
+        (Lemma~\ref{app-dl:lem:decode}) and the $\mathsf{UEOPL}$ conclusion. It found no mathematical
+        counterexample.
+  \item \emph{Fixes applied.} (F1) The $P_0$ proof is split into determinant-zero cases (including an
+        unanchored component with no selected target row) and the nonzero case, in which that component
+        has target rows, its nonzero cofactors have one common sign in each matrix, and the signs agree
+        across the two matrices; signs are compared only for nonzero terms
+        (Lemma~\ref{app-dl:lem:p0}, Steps~1 and~3). (F2) The restricted block matrix and
+        identity~\eqref{app-dl:eq:blockdet} are displayed, the blocks are named $B$ and $D$ after the
+        payoff data, and it is stated that the type-row negations affect both determinants and not their
+        product (Section~\ref{app-dl:sec:p0}). (F3) Every row of the relaxed pattern LP is listed with the
+        coefficient of $\tau$, $C$ is defined after clearing each row separately, and the vertex
+        argument uses at most $N+1$ independent tight rows (Lemma~\ref{app-dl:lem:gap}). (F4) The decoder
+        states that the points $\theta,\dots,\theta+r-1$ are tested in $[0,r)$, that endpoints have
+        measure zero and follow the half-open convention, and identifies each pure action as an
+        $r$-subset before grouping (Lemma~\ref{app-dl:lem:decode}).
+  \item Review~4 (verdict ``correct with minor issues''): the dimension formula $N=mn+m+2n+1$ holds only for $0<r<n$; for $r\in\{0,n\}$ the instance map returns a fixed one-dimensional instance.
+\item In Step~0 of the $P_0$ proof, the cap and budget entries of the rescaled $D'$ are $-1/d_j$, not $-1$; only their signs are used.
+  \item \emph{Not covered by the round-3 referee.} The ARRIVAL part of Corollary~\ref{cor:direct-lcp} composes the main theorem with Theorem~\ref{thm:A}; in review~5 an AI referee checked this composition and corrected its wording (Theorem~\ref{thm:A}'s reduction builds the market first, so the route does not avoid the market). The explicit form of the constant $K$ and of $\log_2(1/\delta)$ follows the
+        source; the referee checked that both are polynomial.
+  \item \emph{Novelty.} The referee's limited search (an exact-phrase web search and Conitzer's problem
+        statement with its cited background) found no earlier $P_0$ or P-matrix LCP formulation of BNE
+        for these games. This is not an exhaustive literature search.
+  \item \emph{Unchecked.} No human expert has reviewed any of this. \cite[Thm.~81]{fgms18} is used as a
+        cited result; its statement was checked by the referee, not its proof. The computer checks below
+        are on small instances and are evidence, not proof.
+  \item \emph{Computer checks.}Two scripts were run with exact rational arithmetic (Python
+  \texttt{fractions}) and the z3 solver over exact linear real arithmetic; both were rerun and passed
+  (Appendix~\ref{app:status}).
+  \begin{enumerate}[nosep]
+    \item \emph{The source's check.} It builds $B$ and $D$ for two games with two types and three targets
+          (one with positive data, one with zero slopes and a zero gain), and checks
+          $\det B_{R,F}\det D_{R,F}\ge0$ for every equal-size pair $R,F$ ($3{,}003$ pairs per game;
+          $1{,}134$ and $663$ positive products, of which $494$ and $359$ involve the budget column). On four
+          fixed games (a forced interior split over two tied targets; a game with all slopes and gains zero
+          and tied attacks; a game with long binary data and a zero gain; and a game whose solution uses a
+          cap and a zero coverage) it computes $K$, the denominator-cleared bound $Q$ and $\delta$, solves
+          the perturbed LCP with z3, checks the box and the slack identities used in the proof of
+          Theorem~\ref{app-dl:thm:main}, solves the pattern LP, and checks the decoded profile exactly (row
+          masses, attacker best responses, budget, cutoff condition) together with the mixed-strategy
+          decomposition of Lemma~\ref{app-dl:lem:decode}. It reports $1/\delta$ of $56$ to $958$ bits.
+    \item \emph{The referee's independent check.} Written without the authors' code. (i)~Principal
+          minors: all principal minors of the full LCP matrix, built from the complementary pairs, for 12
+          random instances with one type and two targets and 12 with two types and two targets, plus one
+          instance with all slopes and gains zero: 27{,}904 exact determinants, all nonnegative; then
+          12{,}000 sampled principal minors of eight instances with four types and five targets, with zero
+          slopes and gains, all nonnegative. (ii)~LCP/BNE equivalence: on 15 random games with two types
+          and two targets, z3 showed that the LCP conditions together with the negation of the directly
+          encoded BNE conditions are unsatisfiable, and that every direct BNE extends to an LCP solution.
+          (iii)~Perturbation and repair: on three small fixtures, including tied attacks and all slopes and
+          gains zero, it computed $K$, $Q$ and $\delta=1/(2KQ)$, solved the perturbed LCP exactly, solved
+          the pattern LP of its support, and verified the decoded equilibrium. (iv)~The edge cases $r=0$
+          and $r=n$ and the restoration of zero-prior types. (v)~A negative control: omitting the payoff
+          shift in a game whose unshifted payoffs are negative yields an LCP solution with no attacker
+          mass, which violates the row-mass condition, so the shift is necessary.
+  \end{enumerate}
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:upper}, contraction and UEOPL.}
+\begin{itemize}[nosep]
+\item (F1) An earlier version stated that ``computing the exact fixed point of a promised
+piecewise-linear contraction in $\ell_1$ is in UEOPL [FGMS, Theorem~34]''. The referee pointed out that
+Theorem~34 concerns the total problem with violation solutions, and that the promise version lies in
+PromiseUEOPL. The no-violation argument of Theorem~\ref{thm:ueopl-main}, with explicit $c$ and $p$, is the
+referee's fix; it does not change the conclusion.
+\item (F2) The instance parameters $c=1-\delta$, $p=1$ are stated explicitly, and the circuit is
+identified as LinearFIXP. (F3) The dictionary~\eqref{eq:dictionary} to Conitzer's notation is written
+out, and ``binary rational payoffs'' reads ``rationals written in binary''.
+\item A companion source called the constants ``positive binary rationals''; the referee noted that the
+formulas need not give dyadic rationals. No step uses dyadic values.
+\item \emph{Conflict.} The companion referee report said that it had not checked the
+type-independence of the defender gains $d_j$ against Conitzer's statement. The main referee did check
+this against the arXiv version of the statement, and so did the preparation of the subexponential
+article. The book follows the main referee.
+\item The reading of~\cite{fgms18} after Theorem~\ref{thm:fgms} (the grid depends only on the circuit's
+bit size, $c$ enters only through CMV1) is the referee's.
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:upper}, subexponential algorithm.}
+\begin{itemize}[nosep]
+\item The source cited the deep-point lemma as ``Lemma~8.11 of the PDF''. It is Lemma~8.11 in the arXiv PDF (v1) and Lemma~8.16 in the arXiv HTML, where proofs are also counted.
+\item The source stated the weaker budget bound $|\sum_jT_j-r|\le\kappa/(2(1-\delta))$; the referee
+confirmed both this and the sharper $\kappa/2$.
+\item The referee required that Theorem~\ref{thm:sx-pl} be presented as an application of known results,
+not a new technique, and that the $\min(m,n)$ bound be stated as depending on the separate game-to-market
+reduction (which has since been reviewed independently).
+\item The literature check behind the comparison with~\cite{glm26,hlsw25,cly26,fh26,haslebacher25} read
+the full HTML text of~\cite{glm26}, the relevant parts of~\cite{cly26} and~\cite{fh26}, and only the
+abstracts of~\cite{hlsw25} and~\cite{haslebacher25}. A remark stating Theorem~\ref{thm:sx-pl} elsewhere in
+those texts is not ruled out.
+\item Proposition~\ref{prop:sx-min} first had only a proof sketch. Its full proof
+(Lemmas~\ref{lem:sxm-interface}--\ref{lem:sxm-game}) was written afterwards, and the polynomial length
+of the oracle answers, which the sketch only asserted, is now Lemma~\ref{lem:sxm-vertex}. Review~7 (an AI
+referee, verdict ``correct with minor fixes'') checked the full proof line by line and found no false
+claim and no gap. Applied: the order of the final steps, explicit rules for the choices that
+Section~\ref{sec:mk-g2m} leaves open, and wording in Lemma~\ref{lem:sxm-interface}(d),
+Lemma~\ref{lem:sxm-game}(a) and the paragraph after Lemma~\ref{lem:sxm-vertex}.
+\end{itemize}
+
+\paragraph{Chapter~\ref{ch:lck}.}
+\begin{itemize}[nosep]
+\item The referee's written report lists only rule R1 at $h=11$, because the R2 run was still in
+progress. The run log, completed afterwards, records $1024=2^{10}$ successful calls for R2 at $h=11$ as
+well, with an exact BNE as output and no path mismatch; Proposition~\ref{artlck:prop:impl} reports this
+from the log.
+\item The proof of Theorem~\ref{artlck:thm:gn} is condensed from the original write-up; in review~5 a referee re-derived every step of the condensed proof.
+\item Review~6 (an AI referee, fresh context, verdict ``correct with minor issues'') reread~\cite[\S6.2]{lck16} and~\cite[\S3.1, Lemma~1]{ds15} against the chapter and the implementation, and found no wrong step and no undocumented divergence. Applied: Theorems~\ref{artlck:thm:main} and~\ref{artlck:thm:gn}(b) now state the hypothesis that the run reaches the budget, which~\cite[Theorem~5]{lck16} guarantees only with the exact largest $\Delta$ in Algorithm~4; the coverage claim for Algorithm~4 is credited to its line~21 instead of~\cite[Lemma~5]{lck16}; Algorithm~2's min-cost flow saturates the source and sink edges; Lemma~\ref{artlck:lem:ds} cites~\cite{ds15} Lemma~1 with $a=0$. Its own checks ($\Gamma_h$ for $h\le5$ under four rules, $G_n$ for $n\le4$ window by window, the Disser--Skutella costs for $n\le9$, z3 uniqueness for $h\le3$ and $n\le3$) all passed. It did not check~\cite[Lemma~8, Theorem~5]{lck16}.
+\end{itemize}
+
+\section{Ambiguities in the published LCK pseudocode}
+
+The implementation behind Proposition~\ref{artlck:prop:impl} resolved the following ambiguities
+of~\cite[Section~6.2]{lck16} (CE notation as in Section~\ref{artlck:sec:alg}).
+\begin{enumerate}[nosep]
+\item \emph{Two definitions of $\theta_i$.} The comment in Algorithm~1 defines $\theta_i$ as a maximum
+over sites with $f<$ limit; Section~2 and the proofs of Lemmas~2--3 use the minimum over sites with
+$f>0$. The Section~2 definition was used in Algorithms~2--4, and the comment for initialization, where at
+$x=0$ the threshold is $\max_\psi a_{i\psi}$.
+\item \emph{Initialization may be incomplete.} As written, it fills only the sites of maximum intercept;
+for evaders with several resources this need not place all of the resource. In security games the site
+limit equals the resource $p_i$, so one site receives all the mass. Testing was restricted to this class,
+and completeness was asserted. Which tied site receives the mass is a tie-break.
+\item \emph{Meaning of ``min-cost flow'' in Algorithm~2.} Read as a minimum-cost flow among those that
+saturate every source and sink edge, as the proof of~\cite[Lemma~2]{lck16} requires. Such flows are not
+unique, so two versions were implemented: cycle cancelling from the current allocation, and successive
+shortest paths from zero. The search order is a further tie-break.
+\item \emph{Residual graph.} It contains only active edges. Source and sink edges are saturated, so
+including them changes no distance to a site or evader.
+\item \emph{Loop order over $\hat B_0$ in Algorithm~3.} A tie-break.
+\item \emph{Line~23 of Algorithm~3 with zero denominator.} If $\gamma_\psi b_{i\psi}=\gamma_i$, the gap
+$\mu-\theta$ does not change, and no bound is imposed. Following the indentation of the text,
+lines~22--27 run for every $\psi$, including sites with $\gamma_\psi=0$.
+\item \emph{Binary search in Algorithm~4.} Replaced by the exact maximum $\Delta$ that the search
+approximates: a parametric maximum flow with capacities affine in $\Delta$, solved by Newton steps on
+minimum cuts. If no site has $\mu_0<\theta_0$, the bound $\bar\Delta$ in the paper's line~1 is a minimum
+over an empty set; the upper bound $\min_{\psi\in\hat B_0}d_\psi w_\psi$ was used instead. A step
+$\Delta=0$ would make Algorithm~1 loop forever, so the code raises an error in that case; this never
+happened.
+\item \emph{Choice of maximum flow in Algorithm~4.} Maximum flows are not unique. The neighbor order of
+the Edmonds--Karp search is a tie-break.
+\end{enumerate}
+
+\section{Material not used in the main text}
+
+\begin{itemize}[nosep]
+\item The source of the game-to-market direction also gives a different one-call embedding of (M1) into
+a game with $N+1$ resources ($N$ the number of goods plus one outside good), with defender gains $2/c_j$
+on real targets. It has not been independently reviewed and is not used.
+\item The source of the one-resource embedding also gives variants with exactly uniform priors and
+defender gains within $1\pm\omega$. They are not covered by the referee reports and are not used.
+\item The source of the contraction gives a four-target, twelve-type example indicating that no fixed
+positive definite quadratic norm makes all pieces of a fixed-cutoff version of the update nonexpansive
+(Remark~\ref{rem:ueopl-nopoly}). It was not reviewed.
+\end{itemize}

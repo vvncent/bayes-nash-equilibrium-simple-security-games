@@ -1,0 +1,697 @@
+\chapter{The game is a market}\label{ch:market}
+\providecommand{\Xlo}{\underline{X}}\providecommand{\Xhi}{\overline{X}}
+
+\paragraph{Idea.} In an equilibrium the coverage plays the role of prices and the attack loads the role
+of demand (Section~\ref{sec:intro-example}). This chapter makes the analogy exact. In one direction, a
+market can be hidden inside a game with a single resource, using extra ``private'' and ``control''
+targets that pin down the defender's behavior. In the other direction, a game becomes a market once the
+defender's cutoff $\lambda$ is known (Lemma~\ref{lem:cutoff}): each target $j$ is then a good with
+capacity $\lambda/d_j$. The cutoff is not known, so we search for it by bisection, and since the market
+oracle may return any of many equilibria, we need a lattice structure, a ``pinning'' trick and a final
+linear program to hit the budget $\sum_jx_j=r$ exactly.
+
+\paragraph{Example.} In the example of Figure~\ref{fig:example-market} the defender gains are $d_j=1$
+and the cutoff is $\lambda=1/2$. The equilibrium is then exactly an equilibrium of the market in which
+the two types are buyers of masses $2/3$ and $1/3$, the two targets are goods of capacity
+$\lambda/d_j=1/2$, and the prices are $x=(3/4,1/4)$: both prices lie strictly inside $[0,1]$, so both
+goods must sell exactly their capacity, and they do. The budget condition $x_1+x_2=1$ is what singles
+out the cutoff $1/2$; finding that cutoff is the main work of Section~\ref{sec:mk-g2m}.
+
+\section{The main theorem}
+
+\begin{theorem}[Game $\Leftrightarrow$ market]\label{thm:mk-main}
+\statusrefereed
+Exact BNE search for explicit Bayesian simple security games and exact equilibrium search for
+explicit (M1) markets with arbitrary positive rational slopes are polynomial-time Turing equivalent.
+More precisely:
+\begin{enumerate}[nosep,label=(\alph*)]
+\item \emph{Market to game.} From an (M1) instance one computes in polynomial time a game with
+\emph{one} defender resource and defender payoffs $u_1^0\equiv0$, $u_1^1\equiv1$, such that \emph{every}
+BNE of it decodes in polynomial time to an equilibrium of the market. One call to a BNE oracle
+suffices.
+\item \emph{Game to market.} There is a polynomial-time algorithm that, with access to an oracle
+returning \emph{any} equilibrium of a dense (M1) instance (of polynomial length, as above), computes an
+exact BNE of an arbitrary explicit game, including games with zero slopes $b_{ij}=0$ and zero gains
+$d_j=0$. It makes polynomially many oracle calls, each of polynomial binary length, followed by
+rational linear programming.
+\end{enumerate}
+\end{theorem}
+
+A polynomial-time algorithm for either problem therefore gives one for the other. Composing (b) with
+(a) gives the following.
+
+\begin{corollary}[One resource suffices]\label{cor:mk-one-resource}
+\statusrefereed
+Exact BNE search in general explicit Bayesian simple security games reduces, by a polynomial-time
+Turing reduction, to exact BNE search in games with one defender resource, defender payoffs $0$
+uncovered and $1$ covered at every target, and, for any fixed rational $0<\omega\le1$, type
+probabilities satisfying $1-\omega\le|\Theta|\Pr(\theta)\le1+\omega$ (where $|\Theta|$ is the number of types)
+with largest-to-smallest ratio at most $1+\omega$. The two problems are therefore polynomial-time
+Turing equivalent.
+\end{corollary}
+
+So a polynomial algorithm for one-resource games with identical defender payoffs and nearly uniform
+priors would already answer Conitzer's question. Section~\ref{sec:mk-g2m} proves (b),
+Section~\ref{sec:mk-m2g} proves (a), and Section~\ref{sec:mk-proof} assembles the theorem and the
+corollary. Chapter~\ref{ch:arrival} uses only Section~\ref{sec:mk-m2g}; Section~\ref{sec:mk-g2m}, the longer direction, is needed only for part~(b) and Corollary~\ref{cor:mk-one-resource}, and a first reading can skip it. 
+
+\section{Game to market}\label{sec:mk-g2m}
+
+\paragraph{Idea.} The proof has four steps.
+\begin{enumerate}[nosep]
+\item Fix a cutoff $\lambda$. The game's equilibrium conditions become those of a \emph{box market}
+(Definition~\ref{def:mk-box}), and a box market is one (M1) call (Lemma~\ref{lem:mk-box-m1}).
+\item As $\lambda$ grows the equilibrium coverage falls, and at a fixed $\lambda$ the equilibrium prices
+form a lattice (Proposition~\ref{prop:mk-lattice}). Bisection on $\lambda$ then brackets the budget $r$
+between two ordered equilibria $\Xlo{}\le \Xhi{}$ at one exact cutoff $\lambda_0$ (Lemma~\ref{lem:mk-bisect}).
+\item Pinning one coordinate between $\Xlo{}$ and $\Xhi{}$ and solving the smaller box market gives a new
+equilibrium in between (Lemma~\ref{lem:mk-pin}). Repeating this shrinks $[\Xlo{},\Xhi{}]$ until a linear program
+can repair the budget exactly (Lemma~\ref{lem:mk-narrow}).
+\item Zero slopes and gains are removed by a tiny perturbation (Lemma~\ref{lem:mk-degenerate}).
+\end{enumerate}
+Throughout, $p_i>0$ and $0<r<n$ (Section~\ref{sec:pre-game}).
+Figure~\ref{fig:g2m-flow} shows how the pieces fit together.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  st/.style={draw,rounded corners,align=center,font=\small,minimum height=0.95cm,text width=3.7cm},
+  or/.style={draw,thick,fill=gray!10,align=center,font=\small,minimum height=0.95cm,text width=3.0cm},
+  ar/.style={-{Stealth[length=2mm]},thick},
+  lb/.style={font=\scriptsize,fill=white,inner sep=1pt,align=center}]
+  \node[st] (g) at (0,0) {explicit game; zero slopes/gains perturbed (Lemma~\ref{lem:mk-degenerate})};
+  \node[st] (b) at (0,-1.9) {cutoff bisection on $\lambda$ (Lemma~\ref{lem:mk-bisect})};
+  \node[st] (n) at (0,-3.8) {narrowing: pin one coordinate in $[\Xlo,\Xhi]$, canonicalize, patch (Lemmas~\ref{lem:mk-pin}, \ref{lem:mk-narrow})};
+  \node[st] (r) at (0,-5.9) {exact budget repair: price LP of the pattern of $\Xlo$ (Lemma~\ref{lem:mk-narrow})};
+  \node[st] (e) at (0,-7.8) {exact BNE (Lemma~\ref{lem:mk-box-cutoff}); if perturbed, decode by one LP (Lemma~\ref{lem:mk-degenerate}); realize by Lemma~\ref{lem:realize}};
+  \node[or] (q) at (6.9,-2.85) {box-market query (Def.~\ref{def:mk-box}) $\to$ one dense (M1) call (Lemma~\ref{lem:mk-box-m1})};
+  \draw[ar] (g) -- (b);
+  \draw[ar] (b) -- node[lb,right]{bracket $\Xlo\le\Xhi$ at $\lambda_0$} (n);
+  \draw[ar] (n) -- node[lb,right]{all widths $\le\eta$} (r);
+  \draw[ar] (r) -- (e);
+  \draw[{Stealth[length=2mm]}-{Stealth[length=2mm]},thick] (b.east) -| node[lb,above,pos=0.3]{midpoint query / any equilibrium} (q.north);
+  \draw[{Stealth[length=2mm]}-{Stealth[length=2mm]},thick] (n.east) -| node[lb,below,pos=0.3]{pinned sub-box / any equilibrium} (q.south);
+  \draw[ar,dashed] (b.west) to[out=180,in=180] node[lb,left]{total $=r$:\\stop} (e.west);
+  \draw[ar,dashed] (n.west) to[out=200,in=160] (e.170);
+  \node[font=\scriptsize,align=center,anchor=north] at (6.9,-4.5) {polynomially many calls, each of\\polynomial length (Lemma~\ref{lem:mk-bits})};
+\end{tikzpicture}
+\caption{The game-to-market reduction of Proposition~\ref{prop:mk-g2m}. Only the shaded box uses the (M1)
+oracle; every other step is rational linear programming. Bisection and narrowing each query the oracle
+repeatedly, and the oracle may return any equilibrium. Either loop may stop early with an exact BNE when an
+answer has total exactly $r$ (dashed arrow).}
+\label{fig:g2m-flow}
+\end{figure}
+
+\subsection{Box markets}
+
+\begin{definition}[Box market]\label{def:mk-box}
+Fix the types as buyers (masses $p_i$, payoffs $U_{ij}$), capacities $c_j\ge0$, and a price box
+$l\le h$ in $\mathbb R^n$. An \emph{equilibrium of the box market} is a pair $(x,f)$ with $l\le x\le h$,
+$f\ge0$, $\sum_jf_{ij}=p_i$ for all $i$, $f_{ij}>0$ only if $j$ maximizes $U_{ij}(x)$ over all of $[n]$,
+and
+\[
+x_j>l_j\ \Longrightarrow\ w_j\ge c_j,\qquad x_j<h_j\ \Longrightarrow\ w_j\le c_j .
+\]
+A pinned coordinate $l_j=h_j$ imposes no condition on its load.
+\end{definition}
+
+\begin{lemma}[The game at a fixed cutoff]\label{lem:mk-box-cutoff}
+Let $0<r<n$ and $d_j>0$ for all $j$. A pair $(x,f)$ is a BNE if and only if $\sum_jx_j=r$ and, for
+some $\lambda\in[0,\max_jd_j]$, $(x,f)$ is an equilibrium of the box market on $[0,1]^n$ with
+capacities $c_j=\lambda/d_j$.
+\end{lemma}
+
+\begin{proof}
+Since $d_j>0$, $d_jw_j\ge\lambda$ if and only if $w_j\ge\lambda/d_j$, and likewise for $\le$. Apply
+Lemma~\ref{lem:cutoff}.
+\end{proof}
+
+Until Section~\ref{sec:mk-degenerate} we assume $b_{ij}>0$ and $d_j>0$.
+
+\subsection{Demand comparison and the price lattice}
+
+\paragraph{Idea.} If the prices of a set $S$ of goods go up while all other prices weakly go down, the
+demand for $S$ cannot rise. This simple monotonicity gives order between cutoffs and a lattice at a
+fixed cutoff.
+
+For a set $S$ of goods and a flow $f$ write $w_f(S)=\sum_{j\in S}\sum_if_{ij}$. All slopes are
+strictly positive in this subsection.
+
+\begin{lemma}[Demand comparison]\label{lem:mk-demand}
+Suppose $x_j>y_j$ for $j\in S$ and $x_j\le y_j$ for $j\notin S$, and let $f$, $g$ be best-response flows
+(full rows, positive only on row maximizers) at $x$ and $y$. Then $w_f(S)\le w_g(S)$. If equality holds,
+exactly the same set of types sends mass to $S$ under $f$ and $g$, and each such type sends its entire
+mass to $S$ under both.
+\end{lemma}
+
+\begin{proof}
+If type $i$ sends mass to $S$ under $f$, some $j\in S$ has $U_{ij}(x)=V_i(x)$. Then
+$U_{ij}(y)>U_{ij}(x)=V_i(x)\ge U_{ik}(x)\ge U_{ik}(y)$ for every $k\notin S$, so all best goods of $i$
+at $y$ lie in $S$ and $i$ contributes $p_i$ to $w_g(S)$, at least its contribution to $w_f(S)$. Types
+sending nothing to $S$ under $f$ contribute $0$ to $w_f(S)$. Summing over types with positive priors
+gives the inequality. At equality every type's two contributions agree, which is the isolation
+statement. The case $S=\emptyset$ is trivial.
+\end{proof}
+
+\begin{proposition}[Order across cutoffs and lattice at one cutoff]\label{prop:mk-lattice}
+\statusrefereed
+Consider box markets on $[0,1]^n$ with capacities $c_j=\lambda/d_j$.
+\begin{enumerate}[nosep,label=(\alph*)]
+\item If $(x,f)$ is an equilibrium at cutoff $\lambda'$ and $(y,g)$ one at cutoff $\lambda<\lambda'$,
+then $x\le y$ coordinatewise. This holds for every pair of selections.
+\item At fixed capacities $c$ (on any common box), if $(x,f)$ and $(y,g)$ are equilibria, then so are
+$\min(x,y)$ and $\max(x,y)$, with explicitly patched flows: with $S=\{j:x_j>y_j\}$ and $C$ its
+complement, use $g$ on $S$ and $f$ on $C$ for the minimum, and $f$ on $S$ and $g$ on $C$ for the maximum.
+\end{enumerate}
+\end{proposition}
+
+\paragraph{Proof roadmap.} (a) applies Lemma~\ref{lem:mk-demand} to the set $S$ where $x>y$: higher prices on
+$S$ cannot come with higher demand there. (b) has three steps: (1) Lemma~\ref{lem:mk-demand} forces equal
+loads on $S$ and isolates the types serving $S$; (2) for $\min(x,y)$, take $g$ on $S$ and $f$ on its
+complement and check every row through $V_i(\min(x,y))=\max(V_i(x),V_i(y))$; (3) the maximum is
+symmetric.
+
+\begin{proof}
+(a) Let $S=\{j:x_j>y_j\}$. For $j\in S$, $x_j>0$ and $y_j<1$, so
+$w_{f,j}\ge\lambda'/d_j>\lambda/d_j\ge w_{g,j}$. If $S\ne\emptyset$, summing over $S$ contradicts
+Lemma~\ref{lem:mk-demand}.
+
+(b) On $S$, $x_j>y_j$ gives $x_j>l_j$ and $y_j<h_j$, so $w_{f,j}\ge c_j\ge w_{g,j}$.
+Lemma~\ref{lem:mk-demand} forces equality on every good of $S$ and isolates the same set $I$ of types on
+$S$ under both flows. Let $z=\min(x,y)$, and let $q$ equal $g$ on the columns of $S$ and $f$ on the
+columns of $C$. Since prices enter separately and payoffs decrease, $U_{ij}(z)=\max(U_{ij}(x),U_{ij}(y))$
+and hence $V_i(z)=\max(V_i(x),V_i(y))$. For $i\in I$, a good of $S$ used at $x$ strictly improves at $y$,
+so $V_i(y)>V_i(x)$; its $q$-goods are $g$-goods in $S$ with value $V_i(y)=V_i(z)$. For $i\notin I$, a good
+it uses at $y$ lies in $C$, where $x\le y$, so $V_i(x)\ge V_i(y)$; its $q$-goods are $f$-goods in $C$ with
+value $V_i(x)=V_i(z)$. Row sums hold by isolation. Every column takes its flow and its price from the
+same source equilibrium, so its box condition holds. For $z'=\max(x,y)$, use $f$ on $S$ and $g$ on $C$:
+a selected $f$-good in $S$ keeps its price from $x$ while all competitors can only become more
+expensive, and the same holds for selected $g$-goods in $C$ relative to $y$. Rows and columns are as
+before.
+\end{proof}
+
+For unit-mass one-to-one assignment with general decreasing utilities, the price lattice and continua
+of equilibria have precedents in Demange and Gale~\cite{dg85} (the lattice) and in~\cite[\S4]{alaei12}.
+
+\subsection{Pinning}
+
+\paragraph{Idea.} Given two ordered equilibria $\Xlo{}\le \Xhi{}$, fix one coordinate $k$ at any value $t$ in
+between and solve the box market on $[\Xlo{},\Xhi{}]$. Whatever the oracle returns can be patched, column by
+column, with $\Xlo{}$ or $\Xhi{}$ into an equilibrium of the full box.
+
+\begin{lemma}[Pinning]\label{lem:mk-pin}
+Fix capacities $c$. Let $(\Xlo{},f^L)$ and $(\Xhi{},f^H)$ be equilibria of the box market on $[0,1]^n$ with
+$\Xlo{}\le \Xhi{}$. Let $k$ be a coordinate and $\Xlo_k\le t\le \Xhi_k$. Let $(x,f)$ be \emph{any} equilibrium of the
+box market on $[\Xlo{},\Xhi{}]$ with coordinate $k$ pinned to $t$ (that is, $l_k=h_k=t$). Then $x$ is an
+equilibrium price of the box market on $[0,1]^n$, with a supporting flow that takes each column from
+$f$, $f^L$ or $f^H$.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Two cases, according to whether the pinned coordinate $k$ is over- or
+under-demanded. In each case: (1) let $S$ be the set where $x$ differs from the bracket endpoint
+($\Xlo$ or $\Xhi$); (2) Lemma~\ref{lem:mk-demand} forces load exactly $c_j$ on $S$ and isolates the
+types serving $S$; (3) patch, taking columns of $S$ from $f$ and the other columns from the endpoint, and
+check rows and columns.
+
+\begin{proof}
+\emph{Case $w_{f,k}\ge c_k$.} Let $S=\{j:x_j>\Xlo_j\}$. For $j\in S\setminus\{k\}$ the sub-box gives
+$w_{f,j}\ge c_j$, and the hypothesis gives it at $k$. Since $\Xlo_j<x_j\le1$, the equilibrium $\Xlo{}$ has
+$w_{f^L,j}\le c_j$ on $S$. Outside $S$, $x_j=\Xlo_j$. Lemma~\ref{lem:mk-demand} applied to $x$ and $\Xlo{}$
+forces $w_{f,j}=c_j=w_{f^L,j}$ on $S$ and isolates the same set $I$ of types on $S$ under $f$ and $f^L$.
+Use $f$ on the columns of $S$ and $f^L$ elsewhere. Types in $I$ use $f$ only, so their choices are best
+at $x$. A type outside $I$ uses $f^L$-goods outside $S$, whose prices are unchanged from $\Xlo{}$, while all
+other prices have only risen; so its choices remain best at $x$. Rows are full by isolation. Columns of
+$S$ carry exactly $c_j$, which is admissible at every status in $[0,1]^n$, and columns outside $S$ keep
+the price and load of $\Xlo{}$.
+
+\emph{Case $w_{f,k}\le c_k$.} Let $S=\{j:x_j<\Xhi_j\}$. Here $w_{f,j}\le c_j$ on $S$ (by the sub-box for
+$j\ne k$ and the hypothesis at $k$) and $w_{f^H,j}\ge c_j$ on $S$ since $\Xhi_j>x_j\ge0$. Outside $S$,
+$x_j=\Xhi_j$. Lemma~\ref{lem:mk-demand} applied to $\Xhi{}$ and $x$ forces equality on $S$ and isolates the
+types serving $S$. Use $f$ on $S$ and $f^H$ elsewhere. Types serving $S$ use $f$ only. A type not serving
+$S$ under $f$ puts all its $f$-mass outside $S$, so its best value at $x$ is attained outside $S$; the
+prices outside $S$ are the same at $\Xhi{}$ and $x$, so every $f^H$-good it uses outside $S$ has value
+$V_i(\Xhi{})\ge\max_{k'\notin S}U_{ik'}(\Xhi{})=V_i(x)$, hence is best at $x$. Rows and columns are as in the first
+case.
+\end{proof}
+
+In either case a supporting flow can also be recovered by a transportation feasibility LP at the
+known prices $x$.
+
+\begin{example}[Interpolation does not work]\label{ex:mk-interp}
+One might hope to obtain the budget $r$ by interpolating between two ordered equilibria with totals
+on both sides of $r$. Take three targets, one resource, priors $(4,2,1)/7$, gains $(1,2/3,1)$ and attack
+payoffs
+\[
+\begin{pmatrix}
+4/3-2x_1&4/3-x_2&-2-x_3\\
+1-x_1&7/6-x_2&4/3-x_3\\
+-2-x_1&-2-x_2&4/3-x_3
+\end{pmatrix}.
+\]
+At $\lambda=2/7$, $\Xlo{}=(0,0,1/6)$ and $\Xhi{}=(1/3,2/3,2/3)$ are box equilibria, with attacks (in units of
+$1/7$) $((2,2,0),(0,1,1),(0,0,1))$ and $((1,3,0),(1,0,1),(0,0,1))$, both with loads $(2,3,2)/7$ and all
+scores $2/7$. Their totals are $1/6$ and $5/3$. The point $\tfrac49\Xlo{}+\tfrac59\Xhi{}=(5/27,10/27,4/9)$ has
+total one, but no BNE uses it: there the second type's payoffs are $(22/27,43/54,8/9)$, so types two and
+three both attack target three, whose score is then at least $3/7$, while all three coverages are
+interior and so all scores would have to equal $1/(1+3/2+1)=2/7$. A BNE off the chord is
+$x=(1/6,1/3,1/2)$ with the attacks of $\Xlo{}$, at which the second type is tied at $5/6$ on all targets. The
+procedure below never interpolates; it makes further pinned queries and then solves an LP on the
+support of an endpoint, which may leave the chord.
+\end{example}
+
+\subsection{Box queries are ordinary (M1) calls}
+
+\begin{lemma}[Box query to (M1)]\label{lem:mk-box-m1}
+Let $c_j>0$ for all $j$ and let $l\le h$ be rational. Form the dense (M1) instance in general form with
+buyers $i$ of mass $p_i$, goods $j$ of capacity $c_j$, payoffs $a_{ij}-b_{ij}P_j$, seller reserves $l_j$
+and buyer reserves
+\[
+v_i^0=\max_k\bigl(a_{ik}-b_{ik}h_k\bigr).
+\]
+From \emph{any} equilibrium $(P,v,f)$ of it one obtains in polynomial time an equilibrium of the box
+market on $[l,h]$ with capacities $c$, with $x=P$.
+\end{lemma}
+
+\begin{proof}
+Suppose $P_j>h_j$. Every buyer has $a_{ij}-b_{ij}P_j<a_{ij}-b_{ij}h_j\le v_i^0\le v_i$, so column $j$ is
+empty; but $P_j>h_j\ge l_j$ forces it to be full with $c_j>0$. Hence $l\le P\le h$. A buyer with spare
+mass has $v_i=v_i^0$. For a maximizer $k$ in its reserve formula, the no-blocking inequality gives
+$a_{ik}-b_{ik}h_k=v_i\ge a_{ik}-b_{ik}P_k$, so $P_k\ge h_k$ and hence $P_k=h_k$; and $k$ is a best good of
+$i$. Assign the spare mass to such a $k$. All used goods now maximize $U_{ij}(P)$, since $v_i$ is at
+least every payoff and equal on used goods. A good below its ceiling received no extra mass and has
+load at most $c_j$. A good above its floor had a full column and so still has load at least $c_j$.
+Pinned coordinates have no load condition.
+\end{proof}
+
+Subtracting the reserves (Section~\ref{sec:pre-market}) turns this call into a dense (M1) instance in
+the zero-reserve form, with intercepts $a_{ij}-b_{ij}l_j-v_i^0$, the original positive slopes, masses
+$p_i$ and capacities $c_j$. Pinned goods and ceilings are encoded in the data through $v_i^0$ and the
+floor shift; they are not part of the model. The capacities $c_j=\lambda/d_j$ are rationals written in
+binary but in general not dyadic. If an oracle requires dyadic data, multiplying all masses and
+capacities by a common integer (which preserves prices and utilities) is not enough by itself: one must
+also clear the denominators of each buyer's intercepts and slopes by a row rescaling with a positive integer $\nu_i$ (the proof of Lemma~\ref{lem:mk-rescale} uses only $\nu_i>0$).
+
+\subsection{Locating the cutoff exactly}
+
+\paragraph{Idea.} Bisection on $\lambda$ needs only finitely many steps, because the oracle's answers
+can be summarized by finitely many \emph{patterns}, and the cutoffs at which a pattern stops being
+valid are rationals of bounded denominator.
+
+Put $D=1+\max_jd_j$. At cutoff $0$ the corner $x=\mathbf1$ with any best responses is a box
+equilibrium (all capacities are $0$); at cutoff $D$ every $c_j=D/d_j>1\ge w_j$, so $x=\mathbf0$ with any
+best responses is one.
+
+A \emph{pattern} of a box equilibrium $(x,f)$ at cutoff $\lambda$ is its set $A$ of positive edges
+together with the label \emph{zero}, \emph{one} or \emph{free} of each target ($x_j=0$, $x_j=1$, or
+$0<x_j<1$). The \emph{pattern polytope} of a pattern, with a sign $\sigma\in\{\ge,\le\}$, is the set of
+$(x,f,\lambda)$ with $x\in[0,1]^n$, $f\in[0,1]^{m\times n}$, $0\le\lambda\le D$, $f_{ij}=0$ for
+$(i,j)\notin A$, $\sum_jf_{ij}=p_i$, $U_{ij}(x)\ge U_{ik}(x)$ for $(i,j)\in A$ and all $k$; $x_j=0$ and
+$d_jw_j\le\lambda$ at zero targets; $x_j=1$ and $d_jw_j\ge\lambda$ at one targets; $d_jw_j=\lambda$ at free
+targets; and $\sum_jx_j\ \sigma\ r$. Zero flow on an edge of $A$ is allowed. Every point of it is a box
+equilibrium at its own cutoff $\lambda$ with the indicated total inequality.
+
+Clear the denominators of every row of the polynomial-size menu of all rows that can occur in pattern
+polytopes, and let $H_1\ge1$ bound all absolute integer coefficients and right-hand sides. With
+$N_1=n+mn+1$ variables put $Q_1=(N_1H_1)^{N_1}$; its binary length is polynomial in the input.
+
+\begin{lemma}[Cutoff bisection with pattern intervals]\label{lem:mk-bisect}
+Let $0<r<n$, $b_{ij}>0$, $d_j>0$. Starting from $\lambda_L=0$, $\lambda_H=D$ with the explicit
+equilibria above, repeatedly query any box equilibrium on $[0,1]^n$ at the midpoint cutoff; return it
+if its total is $r$, make the midpoint the new $\lambda_L$ if its total exceeds $r$, and the new
+$\lambda_H$ if it is below $r$; record the pattern of the current endpoint equilibria. After at most
+$1+\lceil\log_2(DQ_1^2)\rceil$ queries, either a BNE has been returned or $\lambda_H-\lambda_L<1/Q_1^2$.
+In the latter case one computes by linear programming a rational $\lambda_0\in[0,D]$ and box equilibria
+$(\Xlo{},f^L)$, $(\Xhi{},f^H)$ at capacities $c=\lambda_0/d$ with
+\[
+\Xlo{}\le \Xhi{},\qquad \sum_j\Xlo_j\le r\le\sum_j\Xhi_j ,
+\]
+all of polynomial binary length. All queries are at positive rational cutoffs of polynomial length.
+\end{lemma}
+
+\paragraph{Proof roadmap.} (1) Each endpoint's pattern polytope projects to an interval of cutoffs; (2) by
+Cramer's rule these interval ends have denominators at most $Q_1$, so distinct ends differ by at least
+$1/Q_1^2$; (3) once $\lambda_H-\lambda_L<1/Q_1^2$ the two intervals meet, and a common cutoff
+$\lambda_0$ with two bracketing equilibria is found by LP; (4) Proposition~\ref{prop:mk-lattice}(b)
+orders them.
+
+\begin{proof}
+A returned answer is a BNE by Lemma~\ref{lem:mk-box-cutoff}. Let $\Pi_L$ be the pattern polytope of the
+lower endpoint with sign $\ge$ and $\Pi_H$ that of the upper endpoint with sign $\le$. Each contains its
+endpoint equilibrium, so its projection onto $\lambda$ is a nonempty closed interval $I_L\ni\lambda_L$,
+respectively $I_H\ni\lambda_H$, whose endpoints are computable by LP. Each endpoint of such an interval
+is attained at a vertex of a pattern polytope, so by Cramer's rule and the Hadamard bound it is a
+rational with denominator at most $Q_1$; two distinct such numbers, even from different patterns,
+differ by at least $1/Q_1^2$.
+
+When $\lambda_H-\lambda_L<1/Q_1^2$, the intervals $I_L$ and $I_H$ intersect. Otherwise, since
+$\lambda_L<\lambda_H$, $I_L$ lies strictly to the left of $I_H$, and the right end of $I_L$ and the left
+end of $I_H$ would be distinct such rationals in $[\lambda_L,\lambda_H]$, closer than $1/Q_1^2$. Choose
+$\lambda_0$ in the intersection, for example the larger of the two left ends, and compute rational
+points of $\Pi_L$ and $\Pi_H$ with $\lambda=\lambda_0$ by LP. These are box equilibria at $\lambda_0$
+with totals $\ge r$ and $\le r$. Their coordinatewise minimum $\Xlo{}$ and maximum $\Xhi{}$ are box equilibria by
+Proposition~\ref{prop:mk-lattice}(b), with $\sum \Xlo_j\le r\le\sum \Xhi_j$. Their bit lengths are polynomial
+by the rational LP bounds. The number of halvings needed to bring $D$ below $1/Q_1^2$ is at most
+$1+\lceil\log_2(DQ_1^2)\rceil$, and every midpoint is a positive rational number of polynomial length.
+\end{proof}
+
+The argument allows the oracle's selection to jump arbitrarily as the cutoff varies; an answer is used
+only through its pattern. If an oracle returns a richer representation of an equilibrium, recovering
+its positive support and price labels in polynomial time suffices.
+
+\subsection{Narrowing and exact budget repair}
+
+For a pattern as above, the \emph{price LP} has variables $x\in\mathbb R^n$ and $s$: keep the labels as
+closed bounds ($x_j=0$, $x_j=1$, or $0\le x_j\le1$), the inequalities $U_{ij}(x)\ge U_{ik}(x)$ for all
+allowed edges $(i,j)\in A$ and all $k$, add $0\le s\le n$ and $|\sum_jx_j-r|\le s$, and minimize $s$.
+Its rows do not involve $\lambda$ or $f$. Bound the integer entries of all possible rows, after
+clearing denominators, by $H_2\ge1$; with $N_2=n+1$ put $Q_2=(N_2H_2)^{N_2}$. A positive optimum is at
+least $1/Q_2$. Put $\eta=1/(4nQ_2)$.
+
+\emph{Canonicalization.} Given an equilibrium of a pinned sub-box, keep its positive support and its
+actual labels on coordinates of positive width; on each zero-width coordinate fix the price and leave
+the load unrestricted. Choose a vertex of the resulting price polytope (bounds, endpoint equalities,
+and two-coordinate rows $U_{ij}(x)\ge U_{ik}(x)$) by rational LP, and independently a vertex of the
+polytope of flows with this support, full rows, and the column conditions of the labels. If a formerly
+free price reaches an endpoint of its interval, its load equals its capacity, which satisfies the new
+label. The result still solves the pinned sub-box. In the procedure below, an answer is first
+canonicalized and then patched by Lemma~\ref{lem:mk-pin}; the size bound of Lemma~\ref{lem:mk-bits}
+needs this order.
+
+\begin{lemma}[Narrowing and exact budget repair]\label{lem:mk-narrow}
+In the situation of Lemma~\ref{lem:mk-bisect}, process coordinates in rounds. While some
+$\Xhi_k-\Xlo_k>\eta$, choose a dyadic $t$ in the middle third of $[\Xlo_k,\Xhi_k]$ from a grid of spacing at most
+$\eta/4$, query any equilibrium of the box market on $[\Xlo{},\Xhi{}]$ with $k$ pinned to $t$ (if $\lambda_0=0$,
+use instead the upper corner of the pinned sub-box with any best responses), canonicalize it, and
+recover an equilibrium $(x,f)$ of the box market on $[0,1]^n$ by Lemma~\ref{lem:mk-pin}. If
+$\sum_jx_j=r$, return it; if $\sum_jx_j<r$ replace $\Xlo{}$ by $x$, otherwise replace $\Xhi{}$ by $x$. After
+$O(n\log(1/\eta))$ queries every width is at most $\eta$. Then the price LP of the pattern of $\Xlo{}$ (with
+its flow and the cutoff $\lambda_0$ kept fixed) has optimum zero, and any optimal $x'$ together with the
+unchanged flow $f^L$ is an exact BNE.
+\end{lemma}
+
+\paragraph{Proof roadmap.} (1) Lemma~\ref{lem:mk-pin} keeps the invariants $\Xlo\le\Xhi$ and
+$\sum\Xlo_j\le r\le\sum\Xhi_j$; (2) each query shrinks one width by a factor $2/3$; (3) once all
+widths are at most $\eta$, $\Xlo$ is within $1/Q_2$ of the budget; (4) the Cramer gap of the price LP
+then forces optimum zero; (5) an optimal $x'$ with the flow $f^L$ is a BNE by
+Lemma~\ref{lem:mk-box-cutoff}.
+
+\begin{proof}
+At $\lambda_0=0$ all capacities vanish, so the upper corner is a box equilibrium of every sub-box. The
+recovered $x$ lies in $[\Xlo{},\Xhi{}]$ and is an equilibrium on $[0,1]^n$, so the replacement keeps $\Xlo{}\le \Xhi{}$ and
+$\sum \Xlo_j\le r\le\sum \Xhi_j$; a returned $x$ is a BNE by Lemma~\ref{lem:mk-box-cutoff}. Since $x_k=t$ is
+in the middle third, the processed width shrinks by a factor at most $2/3$, and no width grows. A grid
+point exists because the middle third has length more than $\eta/3$, and the grid needs
+$O(\log(1/\eta))$ bits. So $O(n\log(1/\eta))$ queries make all widths at most $\eta$, and then
+$|\sum_j\Xlo_j-r|\le\sum_j(\Xhi_j-\Xlo_j)\le n\eta<1/Q_2$. The point $\Xlo{}$ is feasible for the price LP of its own
+pattern with $s<1/Q_2$, so the optimum is $0$. Let $x'$ be optimal. With the unchanged flow $f^L$ and
+cutoff $\lambda_0$, every used edge is a best response at $x'$; zero and one labels keep their load
+inequalities, and free labels have load exactly $c_j$, which is admissible at any price in $[0,1]$. So
+$(x',f^L)$ is a box equilibrium at $\lambda_0$ with $\sum_jx'_j=r$, a BNE by
+Lemma~\ref{lem:mk-box-cutoff}.
+\end{proof}
+
+\begin{lemma}[Sizes of adaptive queries]\label{lem:mk-bits}
+With canonicalization, every endpoint and every query in Lemma~\ref{lem:mk-narrow} has binary length
+polynomial in the input.
+\end{lemma}
+
+\paragraph{Proof roadmap.} A canonical price vertex is determined along spanning trees of tight comparisons
+from one root. So each new coordinate is an affine image, with original-data coefficients, of a single
+previous number (an endpoint coordinate or the pin), or of original data only if its component has no
+active bound. Sizes therefore grow additively per call, not
+multiplicatively.
+
+\begin{proof}
+Feeding general LP vertex bounds into the next LP could multiply the bit length at every step; the
+canonical vertex avoids this. Make a graph on the coordinates of a canonical price vertex, joining two
+distinct goods by a tight comparison $U_{ij}(x)=U_{ik}(x)$. In each connected component traverse a
+spanning tree from a root. Each coordinate is an affine function of the root, a composition of at most
+$n-1$ maps
+\[
+x_j=\frac{a_{ij}-a_{ik}}{b_{ij}}+\frac{b_{ik}}{b_{ij}}\,x_k
+\]
+built from original data only; multiplying all edge denominators along a path gives a common
+denominator, and a sum of $n$ terms needs at most $\lceil\log_2(n+1)\rceil$ further bits.
+
+If the
+component has an active bound, take that coordinate as root: every value then involves only \emph{one}
+previous endpoint coordinate or the dyadic pin. If it has none, some remaining tight comparison must
+determine the root uniquely, since otherwise a small move of the whole component in both directions
+preserves all active rows, contradicting that the point is a vertex; that equation uses original data
+only.
+
+Measuring the size of a rational by the larger bit length of its numerator and denominator, a map
+$u\mapsto A+Bu$ with original-data coefficients increases the size additively by a fixed polynomial in
+the input size. Hence the maximum endpoint size grows additively by a fixed polynomial per call, and
+with polynomially many calls and polynomial initial sizes every query is polynomial. Flow vertices
+depend only on the masses and capacities, and patching copies existing entries.
+\end{proof}
+
+\subsection{Zero slopes and zero gains}\label{sec:mk-degenerate}
+
+\begin{lemma}[Degenerate data]\label{lem:mk-degenerate}
+Let a game have $b_{ij}\ge0$, $d_j\ge0$, all $p_i>0$ and $0<r<n$. There is an explicitly computable
+rational $\epsilon>0$ of polynomial bit length such that from any BNE of the game with
+$b'_{ij}=b_{ij}+\epsilon$ and $d'_j=d_j+\epsilon$ one computes an exact BNE of the original game by one LP.
+\end{lemma}
+
+\paragraph{Proof roadmap.} (1) Relax each pattern LP by one slack $t$ and get a Cramer gap $1/Q_3$ for
+positive optima; (2) set $\epsilon=1/(8Q_3)$; (3) a BNE of the perturbed game satisfies its own pattern
+at the original data with slack at most $\epsilon$; (4) hence that pattern's slack is $0$, and an optimal
+solution is an exact BNE.
+
+\begin{proof}
+For a pattern (allowed edges and zero/one/free labels), use the original variables $(x,f,\lambda)$ of
+the pattern polytope with the \emph{exact} budget $\sum_jx_j=r$. Introduce a slack $t$ with
+$0\le t\le1$, split each free-target equality into two inequalities, and relax every pairwise
+best-response inequality and every target cutoff inequality by $t$, in unscaled payoff units. Keep
+exact all flow bounds, row sums, zeros off allowed edges, price bounds, label equalities and the
+budget; bound $0\le\lambda\le D$ with $D=1+\max_jd_j$. After inserting the slack coefficients, clear
+denominators row by row over the full menu of possible rows, let $H_3\ge1$ bound all integer entries,
+and with $N_3=n+mn+2$ put $Q_3=(N_3H_3)^{N_3}$. The LP is bounded, so by Cramer's rule every positive
+minimum of $t$ over every pattern is at least $1/Q_3$. Set $\epsilon=1/(8Q_3)$.
+
+Take a BNE of the perturbed game and its actual support and labels. At the original payoffs, the
+pairwise difference $U_{ij}-U_{ik}$ changes by $\epsilon(x_j-x_k)$, so a used good falls short by at
+most $\epsilon$. Each score changes by $\epsilon w_j\le\epsilon$. A positively covered and an
+unsaturated target exist, and every perturbed score lies in $[0,\max_jd'_j]\subseteq[0,D]$, so the
+perturbed equilibrium has a cutoff in $[0,D]$. The original pattern LP is therefore feasible with
+$t=\epsilon<1/Q_3$, its minimum is $0$, and a rational optimal solution is an exact BNE of the original
+game. Formerly positive edges that lose their flow remain allowed tight edges, which preserves all
+best-response conditions.
+\end{proof}
+
+\subsection{The game-to-market direction}
+
+\begin{proposition}[Game to market]\label{prop:mk-g2m}
+\statusrefereed
+Theorem~\ref{thm:mk-main}(b) holds: polynomially many calls to an oracle returning any equilibrium of
+a dense (M1) instance, each call of polynomial binary length and each answer assumed of polynomial
+length, together with polynomial-time rational linear programming, compute an exact BNE of any explicit
+game.
+\end{proposition}
+
+\begin{proof}
+Drop zero-prior types and handle $r\in\{0,n\}$ directly. If some slope or gain is zero, pass to the
+perturbed game of Lemma~\ref{lem:mk-degenerate}, whose data have polynomial length. For the positive
+game, run Lemma~\ref{lem:mk-bisect} and Lemma~\ref{lem:mk-narrow}. Every box query is made at a positive
+cutoff (bisection midpoints are positive and at $\lambda_0=0$ no query is made), so all capacities are
+positive and Lemma~\ref{lem:mk-box-m1} turns it into one dense (M1) call in zero-reserve form whose
+every answer decodes. The number of calls is $O(\log(DQ_1^2)+n\log(1/\eta))$, which is polynomial, and
+each call has polynomial length by Lemma~\ref{lem:mk-bits}. Decode by Lemma~\ref{lem:mk-degenerate} if
+needed, realize the coverage by Lemma~\ref{lem:realize}, and give zero-prior types any best response.
+\end{proof}
+
+The (M1) calls made here have the complete edge set and arbitrary positive slopes; they do not stay
+within a restricted slope class. The reduction is adaptive, so it is a Turing reduction, not a many-one
+reduction.
+
+\section{Market to game}\label{sec:mk-m2g}
+
+\paragraph{Idea.} Each good becomes a target and each buyer a type whose payoff at target $j$ is its
+market payoff, scaled down by a constant $S$ so that coverages stay small. Three kinds of extra types
+force the defender to behave like a price-setter. A \emph{dedicated} type per good puts weight
+$W-c_j$ on that target, so a target is ``full'' (load $W$) exactly when buyers fill its capacity $c_j$. A
+\emph{control} type guarantees that the maximal load is exactly $W$. A \emph{private} target per buyer
+absorbs all of the buyer's weight beyond its mass $\mu_i$ and encodes its utility $v_i$ in its
+coverage. One condition is essential: all slopes must be at least one.
+
+\subsection{Reducing to slopes at least one}
+
+\begin{lemma}[Row rescaling]\label{lem:mk-rescale}
+\statuslean
+Given an (M1) instance with positive slopes, multiply all intercepts and slopes of each buyer $i$ by a
+positive power of two $\nu_i$ with $\nu_i\min_{j\in E_i}b_{ij}\ge1$. Then $(P,v,f)$ is an equilibrium of
+the original instance if and only if $(P,(\nu_iv_i)_i,f)$ is an equilibrium of the rescaled one. Each
+$\nu_i$ has polynomial binary length.
+\end{lemma}
+
+\begin{proof}
+Conditions (a) and (b) for buyer $i$ are multiplied by $\nu_i>0$, and $v_i>0$ if and only if
+$\nu_iv_i>0$; conditions (c) and (d) involve only $f$, $P$ and the sign of $v_i$. The exponent of
+$\nu_i$ is bounded by the bit length of $\min_jb_{ij}$.
+\end{proof}
+
+\subsection{The one-resource embedding}
+
+Let an (M1) instance have buyers $I$, goods $J$, and slopes $b_{ij}\ge1$ on all
+listed pairs. Fix a rational $0<\omega\le1$. Put
+\begin{equation}\label{eq:mk-consts}
+\hat D=1+\max\Bigl(\sum_i\mu_i,\ \max_jc_j\Bigr),\quad W=\Bigl(2+\frac2\omega\Bigr)\hat D,\quad
+A=1+\max\bigl(0,\max_{ij}a_{ij}\bigr),\quad S=1+(|I|+|J|)A .
+\end{equation}
+The game $\Gamma_\omega$ has a \emph{real} target $j$ for each good, a \emph{private} target $g_i$ for
+each buyer, one \emph{outside} target $o$ and one \emph{control} target $h$; one defender resource; and
+defender payoffs $0$ at an uncovered and $1$ at a covered target, for every target. Write $\xi_k$ for
+the coverage of target $k$. Every attacker payoff below has the form $u_2^0-\beta\xi_k$ with slope
+$\beta\ge0$, i.e.\ $u_2^1=u_2^0-\beta$. The types, with unnormalized weights, are listed in
+Table~\ref{tab:mk-types}.
+\begin{table}[h]
+\centering
+\begin{tabular}{lll}
+\toprule
+type & weight & payoffs \\
+\midrule
+source $i\in I$ & $W+\mu_i$ & $a_{ij}/S-b_{ij}\xi_j$ at real $j\in E_i$; $A/S-\xi_{g_i}$ at $g_i$; $-\xi_o$ at $o$\\
+dedicated $j\in J$ & $W-c_j$ & $2-\xi_j$ at real $j$\\
+control & $W$ & $2-\xi_h$ at $h$\\
+\bottomrule
+\end{tabular}
+\caption{The types of $\Gamma_\omega$. Every other (type, target) pair pays $-2-\xi_k$.}
+\label{tab:mk-types}
+\end{table}
+
+In particular a non-listed pair $(i,j)$, $j\notin E_i$, pays $-2-\xi_j$. The prior is the weight vector
+divided by its total. There are $|I|+|J|+1$ types and $|I|+|J|+2$ targets. By the one-resource remark of
+Section~\ref{sec:pre-game}, a BNE is exactly a profile in which every type mixes over its maximizing
+targets and $\supp\xi\subseteq\argmax_k\ell_k$, where $\ell_k$ is the total weight attacking $k$.
+
+\begin{theorem}[One-resource embedding]\label{thm:mk-embed}
+\statusrefereed
+Let the (M1) instance have all listed slopes $b_{ij}\ge1$. Then $\Gamma_\omega$ is a legal Bayesian
+simple security game, computable in time polynomial in the market and the length of $\omega$, with
+one resource, defender payoffs $0$ and $1$, attacker slopes equal to $b_{ij}$ on listed source$\times$real
+pairs and $1$ elsewhere, and priors with $1-\omega\le|\Theta|\Pr(\theta)\le1+\omega$ (where $|\Theta|$ is its number of types) and
+largest-to-smallest ratio at most $1+\omega$. For \emph{every} BNE of $\Gamma_\omega$, let $f_{ij}$
+be the unnormalized weight that source type $i$ puts on real target $j$ and $u_i$ that type's
+equilibrium payoff. Then
+\[
+P_j=S\xi_j,\qquad v_i=Su_i,\qquad f
+\]
+form an equilibrium of the market. Conversely every market equilibrium lifts to a BNE, and the two maps
+are mutually inverse between market price vectors and BNE coverage vectors.
+\end{theorem}
+
+\paragraph{Proof roadmap.} (1) Legality and the prior bounds are arithmetic. (2) Decoding has four steps:
+the control type pins the maximal load to at least $W$; private targets absorb at least $W$ of each
+source; the coverage bound (the only use of $b_{ij}\ge1$) shows the control target is covered, so the
+maximal load is exactly $W$; then conditions (a)--(d) are read off. (3) The lift constructs a BNE from a
+market equilibrium. (4) The two maps are inverse.
+
+\begin{proof}
+\emph{Legality and priors.} All slopes are nonnegative and $0\le1$ for the defender. Every weight lies
+in $[W-\hat D,W+\hat D]$, and $(W+\hat D)/(W-\hat D)=1+2\omega/(\omega+2)\le1+\omega$; the average
+weight also lies in this interval, which gives both prior bounds, using $(1+\omega)^{-1}\ge1-\omega$.
+All numbers have polynomial length.
+
+\emph{Decoding.}
+\begin{enumerate}[nosep,label=\arabic*.]
+\item \emph{Control.} The control type gets $2-\xi_h\ge1$ at $h$ and at most $-2$ elsewhere, so it
+attacks $h$. No other type attacks $h$: a source type has the outside target worth
+$-\xi_o\ge-1>-2-\xi_h$, and a dedicated type has its own target worth at least $1$. So $\ell_h=W$, and
+every covered target has load $\max_k\ell_k\ge W$. Likewise a dedicated type attacks only its own
+target, only source $i$ attacks $g_i$, and no non-listed pair is ever used.
+\item \emph{Private targets.} If $\xi_{g_i}>0$, then $g_i$ has load at least $W$, all from source $i$.
+If $\xi_{g_i}=0$, then $g_i$ pays $A/S$, which strictly beats every real option
+($a_{ij}/S-b_{ij}\xi_j\le a_{ij}/S<A/S$; this uses only $b_{ij}\ge0$), the outside ($\le0$) and every
+unlisted target ($\le-2$); so source $i$ puts all $W+\mu_i$ on $g_i$. In both cases at least $W$ goes to
+$g_i$. The source mass left for real targets and $o$ is at most $\sum_i\mu_i<W$. Only source types
+attack $o$, so $\ell_o<W$ and $\xi_o=0$. Hence every source type has $u_i\ge0$.
+\item \emph{Coverage bound.} If $\xi_j>0$ for a real $j$, then $\ell_j\ge W$ while the dedicated weight
+is $W-c_j$, so some source $i$ attacks $j$; from $a_{ij}/S-b_{ij}\xi_j=u_i\ge0$ we get
+$\xi_j\le a_{ij}/(Sb_{ij})<A/S$. \emph{This is the only step of the decoding that uses $b_{ij}\ge1$.}
+If $\xi_{g_i}>0$ its owner attacks it, so $\xi_{g_i}\le A/S$. Hence
+$\sum_j\xi_j+\sum_i\xi_{g_i}\le(|I|+|J|)A/S<1$; with $\xi_o=0$ this gives $\xi_h>0$, so
+$\max_k\ell_k=\ell_h=W$. An uncovered private target would carry $W+\mu_i>W$, so every $\xi_{g_i}>0$,
+every $g_i$ receives exactly $W$, and source $i$ places exactly $\mu_i$ on real targets and $o$.
+\item \emph{Reading off.} For a listed pair, $u_i\ge a_{ij}/S-b_{ij}\xi_j$ is condition (a) after
+multiplying by $S$, since $a_{ij}/S-b_{ij}\xi_j=(a_{ij}-b_{ij}P_j)/S$; tightness of used pairs is (b).
+If $v_i>0$ then $u_i>0=-\xi_o$, so nothing goes to $o$ and $\sum_jf_{ij}=\mu_i$, which is (c). Finally
+$\sum_if_{ij}=\ell_j-(W-c_j)\le c_j$, with equality when $\xi_j>0$, which is (d).
+\end{enumerate}
+
+\emph{Lift.} Given a market equilibrium, $v_i=\max(0,\max_{j\in E_i}(a_{ij}-b_{ij}P_j))$ by (a)--(c). A
+good with $P_j>0$ is full and has a user with nonnegative payoff, so $0\le P_j\le a_{ij}/b_{ij}<A$ (using
+$b_{ij}\ge1$), and $0\le v_i<A$. Set
+\[
+\xi_j=P_j/S,\qquad \xi_{g_i}=(A-v_i)/S,\qquad \xi_o=0,\qquad \xi_h=1-\sum_j\xi_j-\sum_i\xi_{g_i}>0 .
+\]
+Give $W$ units of source $i$ to $g_i$ (worth $v_i/S$, its row maximum), the market flow $f$ to real
+targets, and the rest to $o$ (worth $0$, used only if $v_i=0$ by (c)); dedicated and control types use
+their own targets. Real loads are at most $W$, with equality when covered by (d); private and control
+loads are $W$; the outside load is below $W$. So every covered target has maximum load and all types
+best respond. Dividing flows by type weights gives conditional attack distributions.
+
+\emph{Inverse maps.} In every BNE, step 3 shows $\xi_o=0$ and that source $i$ uses $g_i$, so
+$u_i=A/S-\xi_{g_i}$, i.e.\ $\xi_{g_i}=(A-v_i)/S$, and $\xi_h$ is determined by the rest. Since $v$ is
+determined by $P$, the coverage vector of a BNE is the lift of its decoded price vector, and decoding a
+lift returns $P$.
+\end{proof}
+
+The proof uses $W$ only through $W>\sum_i\mu_i$ and $W>\max_jc_j$. For $\omega=1$ the base weight is
+$W=4\hat D$; this is the case used in Chapter~\ref{ch:arrival}. Since $\Gamma_\omega$ is finite it
+has a BNE, so every (M1) market with slopes $\ge1$ has an equilibrium; with
+Lemma~\ref{lem:mk-rescale} this extends to all positive slopes.
+
+\begin{proposition}[The embedding fails for a slope below one]\label{prop:mk-below-one}
+\statusrefereed
+Consider the market with one buyer of mass $2$, one good of capacity $1$, and payoff $1-P/100$ (slope
+$1/100$). Its unique equilibrium has $P=100$. Apply the construction literally with $\omega=1$, so
+$\hat D=3$, $W=12$, $A=2$, $S=5$, and order the targets as (real, private, outside, control). Then
+\[
+\xi=\Bigl(\tfrac{80}{101},\ \tfrac{21}{101},\ 0,\ 0\Bigr)
+\]
+is a BNE with the control uncovered, and it decodes to $P=S\xi_1=400/101$, which is not a market
+equilibrium.
+\end{proposition}
+
+\begin{proof}
+For $P<100$ demand $2$ exceeds capacity $1$, and for $P>100$ the buyer's payoff is negative, so
+$P=100$ is the only equilibrium price. In the game, the source type (weight $14$) gets
+$1/5-\xi_1/100=97/505$ at the real target, $2/5-\xi_2=97/505$ at its private target, $0$ at the outside
+and at most $-2$ elsewhere, so it is tied between real and private. Send $3/2$ of its
+weight to the real target and $25/2$ to the private one. The dedicated type (weight $11$) attacks the
+real target and the control type (weight $12$) the control. Loads are $(25/2,25/2,0,12)$: both covered
+targets carry the maximum load $25/2$, so the defender best responds. The decoded price $400/101$ is not
+$100$.
+\end{proof}
+
+So the hypothesis $b_{ij}\ge1$ cannot be dropped from Theorem~\ref{thm:mk-embed}. We handle arbitrary
+positive slopes by the row rescaling of Lemma~\ref{lem:mk-rescale}.
+
+\section{Proof of the main theorem and the corollary}\label{sec:mk-proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:mk-main}]
+(b) is Proposition~\ref{prop:mk-g2m}. For (a), given an (M1) instance with arbitrary positive slopes,
+rescale rows by Lemma~\ref{lem:mk-rescale} so that all slopes are at least one, build
+$\Gamma_\omega$ (say with $\omega=1$) by Theorem~\ref{thm:mk-embed}, call the BNE oracle once,
+decode, and undo the rescaling of the utilities. All steps take polynomial time.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{cor:mk-one-resource}]
+Given a general game, run the algorithm of Proposition~\ref{prop:mk-g2m}. Answer each of its
+polynomially many (M1) calls by rescaling rows (Lemma~\ref{lem:mk-rescale}), building $\Gamma_\omega$
+(Theorem~\ref{thm:mk-embed}), calling the restricted BNE oracle once, and decoding. Each
+$\Gamma_\omega$ has one resource, defender payoffs $0$ and $1$ and the stated priors, and its length is
+polynomial in the call and in the length of $\omega$. The reverse reduction is inclusion.
+\end{proof}
+
+\section{What the equivalence says}
+
+The equivalence is a reduction in both directions. By itself it is neither a polynomial algorithm nor
+a hardness result: it isolates the complexity of exact equilibrium search in general (M1) markets as the
+question. Hardness proved for either formulation transfers to the other. It concerns \emph{exact}
+equilibria: the decoding uses the exact equilibrium conditions, and the bisection and budget repair use
+exact rational separation bounds. A balanced matching market with a prescribed price anchor (every row
+and column filled, signed prices, one price fixed at zero) is a \emph{different} model, into which (M1)
+with zero reserves embeds; neither direction of Theorem~\ref{thm:mk-main} uses it.

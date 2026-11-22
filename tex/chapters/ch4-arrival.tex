@@ -1,0 +1,705 @@
+\chapter{Computing a BNE is at least as hard as ARRIVAL}\label{ch:arrival}
+
+\paragraph{Idea.} By Chapter~\ref{ch:market}, a market with slopes at least one can be hidden in a
+one-resource game. So it suffices to build, from an ARRIVAL instance, a market whose every equilibrium
+reveals where the run ends. The bridge is the continuous switch map of Section~\ref{sec:pre-arrival}:
+each switch vertex $v$ must split the flow $x_v$ entering it into $h_0(x_v)$ and $h_1(x_v)$. We build a
+market \emph{gadget} that does exactly this. Inside the gadget, min-cost flow does the work: two copies
+of the Disser--Skutella counting network share a source, and the cheapest way to send $x$ units
+alternates between the copies, unit by unit, like a switch.
+
+\begin{theorem}[ARRIVAL-hardness]\label{thm:A}
+\statusrefereed
+There are polynomial-time algorithms $\Red$ and $\Dec$ with the following properties. $\Red$ maps an
+ARRIVAL instance with $n$ switch vertices to an explicit Bayesian simple security game $\Gamma$ with one
+defender resource, at most $12n^2+6n+6$ attacker types and at most $12n^2+6n+7$ targets, in which the
+defender gets $0$ at every uncovered target and $1$ at every covered target. For every BNE $\beta$ of
+$\Gamma$, $\Dec(\beta)$ is the correct answer to the ARRIVAL instance.
+\end{theorem}
+
+\begin{corollary}\label{cor:A}
+\statusrefereed
+If a BNE of such games can be computed in polynomial time, then ARRIVAL is in P.
+\end{corollary}
+
+The same hardness result, for the shorter construction of Appendix~\ref{app:short}, is machine-checked in Lean for rational BNEs, except that $\Red$ and $\Dec$ run in polynomial time (Section~\ref{sec:lean-status}); the construction of this chapter is not formalized.
+
+
+Theorem~\ref{thm:A} rules out a polynomial-time BNE algorithm only if ARRIVAL is not in $\mathsf P$, and
+it says nothing against subexponential algorithms. It is much weaker than $\mathsf{PPAD}$-hardness and does not imply it. It
+concerns \emph{exact} BNE: the decoder uses the exact equilibrium conditions. Since ARRIVAL is in
+$\mathsf{UEOPL}$, every $\mathsf{UEOPL}$-hard problem is ARRIVAL-hard, and natural $\mathsf{UEOPL}$-hard problems are
+known~\cite{hmr26}, so this is not the first natural ARRIVAL-hard problem; it is a direct reduction
+from ARRIVAL to a problem that is not known to be $\mathsf{UEOPL}$-hard.
+
+Appendix~\ref{app:short} gives a shorter proof of Theorem~\ref{thm:A} by a different construction. This chapter's construction is the one Chapter~\ref{ch:upper} builds on: its market (Theorem~\ref{thm:arrival-m1}) gives ARRIVAL $\le_m$ P-LCP (Corollary~\ref{plcp:cor:arrival}).
+
+\paragraph{Structure of the proof.} The proof has three links.
+\begin{enumerate}[nosep]
+\item An (M1) market whose slopes are all at least $1$ embeds into a one-resource game, and every BNE
+decodes to a market equilibrium. This is Theorem~\ref{thm:mk-embed} with $\omega=1$.
+\item An ARRIVAL instance is composed into one (M1) market from copies of a switch gadget. If the gadget
+meets a local specification (S1--S4), every market equilibrium is a fixed point of the switch map, and
+every such fixed point puts load $1$ on the terminal the run reaches (Section~\ref{sec:ar-compose}).
+\item A gadget with $12\log_2K-6$ buyers and goods and $O(\log^2K)$ bits meets S1 and S2 for $K=2^{n+1}$ (S3 with the composition's choice of $c_{p_v}$; S4 by construction)
+(Section~\ref{sec:ar-gadget}).
+\end{enumerate}
+The decoder $\Dec$ maps the BNE to a market equilibrium and reads the load on the \yes{} terminal good. Figure~\ref{fig:ar-map} maps the proof.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[
+  font=\footnotesize,
+  nohy/.style={execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000}},
+  res/.style={draw,rounded corners,align=left,inner sep=3pt,nohy},
+  cit/.style={draw,dashed,gray!80!black,text=black!80,rounded corners,align=left,inner sep=3pt,nohy},
+  obj/.style={draw,rounded corners,align=center,inner sep=3pt,fill=gray!8,text width=3.0cm,
+    minimum height=1.0cm,nohy},
+  use/.style={-{Stealth[length=2mm]},thick},
+  usec/.style={-{Stealth[length=2mm]},thick,gray!80!black},
+  lb/.style={font=\scriptsize,fill=white,inner sep=1pt,align=center,nohy}]
+% ---------------- (a) the reduction and the decoder ----------------
+\node[anchor=west,font=\small\bfseries] at (0,1.2) {(a) What $\Red$ builds, and how $\Dec$ reads a BNE};
+\node[obj] (inst) at (1.6,0)    {ARRIVAL instance with $n$ switch vertices};
+\node[obj] (mkt)  at (8.0,0)    {(M1) market with $O(n^2)$ buyers and goods};
+\node[obj] (game) at (14.2,0)   {game $\Gamma_1$ with one resource, $O(n^2)$ types and targets};
+\node[obj] (ans)  at (1.6,-2.4) {answer \yes{} if and only if that load is $1$};
+\node[obj] (meq)  at (8.0,-2.4) {an equilibrium of the market};
+\node[obj] (bne)  at (14.2,-2.4){any BNE $\beta$ of $\Gamma_1$};
+\draw[use] (inst) -- node[lb,above=1pt,text width=2.8cm]{$\Red$: preprocess, then one switch gadget per vertex}
+  node[lb,below=1pt]{Theorem~\ref{thm:arrival-m1}} (mkt);
+\draw[use] (mkt) -- node[lb,above=1pt,text width=2.6cm]{$\Red$: embed with $\omega=1$}
+  node[lb,below=1pt]{Theorem~\ref{thm:mk-embed}} (game);
+\draw[use,dashed] (game) -- node[lb,right=2pt,fill=none,align=left]{any BNE\\algorithm} (bne);
+\draw[use] (bne) -- node[lb,above=1pt,text width=2.6cm]{$\Dec$: read prices and purchases off $\beta$}
+  node[lb,below=1pt]{Theorem~\ref{thm:mk-embed}} (meq);
+\draw[use] (meq) -- node[lb,above=1pt,text width=2.8cm]{$\Dec$: load of non-terminal buyers on $T_{\yes}$}
+  node[lb,below=1pt]{correct by Theorem~\ref{thm:arrival-m1}} (ans);
+% ---------------- (b) the dependencies ----------------
+\node[anchor=west,font=\small\bfseries] at (0,-3.95) {(b) Which result is used where};
+\node[res,very thick,text width=7.2cm,align=center] (A) at (7.9,-4.85)
+  {\textbf{Theorem~\ref{thm:A}} (ARRIVAL-hardness): $\Red$ and $\Dec$ run in polynomial time, and
+  $\Dec(\beta)$ is the correct answer for every BNE $\beta$};
+\node[res,text width=5.5cm,anchor=north] (E) at (2.85,-6.0)
+  {\textbf{Theorem~\ref{thm:mk-embed}} (Chapter~\ref{ch:market}): a market whose slopes are all $\ge1$
+  embeds in a one-resource game, and every BNE of that game gives a market equilibrium};
+\node[res,text width=7.2cm,anchor=north] (AM) at (12.1,-6.0)
+  {\textbf{Theorem~\ref{thm:arrival-m1}} (ARRIVAL to (M1)): in every equilibrium of the composed market,
+  the non-terminal buyers put load $1$ on the terminal that the run reaches and $0$ on the other.
+  S3 and S4 hold by construction.};
+\node[res,text width=7.0cm,anchor=north] (C) at ($(3.6,0 |- E.south)+(0,-0.9)$)
+  {\textbf{Theorem~\ref{thm:compose}} (Composition): if the gadget meets S1--S4, then in every
+  equilibrium the port prices lie in $[0,\bar P]$, halving gives $x_v\le K$, the loads form a fixed
+  point, and the terminal that the run reaches gets load $1$};
+\node[res,text width=7.2cm,anchor=north] (G) at ($(AM.south)+(0,-0.9)$)
+  {\textbf{Theorem~\ref{thm:gadget}} (the gadget meets S1 and S2), from C1--C6:\\[1pt]
+  $\bullet$ Lemma~\ref{lem:lp}: at fixed port prices the gadget market is an LP\\
+  $\bullet$ Lemma~\ref{lem:full} (C3): every private good is full\\
+  $\bullet$ Lemma~\ref{lem:flow} (C3--C6): every optimum is a flow of value $\min(x,K)$\\
+  $\bullet$ Lemma~\ref{lem:alt} (C2, so $0<\theta<6$): min-cost flows send $h_0(x)$ to $a$ and
+  $h_1(x)$ to $b$\\
+  $\bullet$ C1 gives the ratio bound in S1};
+\node[res,text width=7.0cm,anchor=north] (D) at ($(C.south)+(0,-0.8)$)
+  {\textbf{Lemma~\ref{lem:decoder}} (Decoder): every fixed point puts inflow $1$ on the terminal that
+  the run reaches and $0$ on the other};
+\node[cit,text width=7.0cm,anchor=north] (H) at ($(D.south)+(0,-0.7)$)
+  {cited: Haslebacher~\cite{haslebacher25}, Lemma~14 and Theorem~1; Dohrau et al.~\cite{dgkmw17},
+  Lemma~1 (switching flows certify where the run ends)};
+\node[res,text width=7.2cm,anchor=north] (I) at ($(G.south)+(0,-0.9)$)
+  {\textbf{Lemma~\ref{lem:incr}} (Increments): the unit costs of the counting network $G_k$ have gaps
+  $\ge6$, and its maximum flow is $2^k$};
+\node[cit,text width=7.2cm,anchor=north] (DS) at ($(I.south)+(0,-0.7)$)
+  {cited: Disser and Skutella~\cite{ds15}, the counting network (\S3.1) and the alternation argument
+  that Lemma~\ref{lem:alt} adapts (\S3.2)};
+% edges: an arrow goes from a result to a proof that uses it
+\draw[use] (E.north) |- node[lb,pos=0.3,text width=1.9cm]{$\omega=1$; slopes $1$ and $\lambda$} (A.west);
+\draw[use] (10.3,0 |- AM.north) -- (10.3,0 |- A.south);
+\draw[use] (6.6,0 |- C.north) |- (AM.west);
+\draw[use] (G.north) -- node[lb]{S1, S2} (AM.south);
+\draw[use] (D.north) -- node[lb]{step (d)} (C.south);
+\draw[usec] (H.north) -- (D.south);
+\draw[use] (I.north) -- node[lb]{gaps: Lemma~\ref{lem:alt}; maximum flow: Lemma~\ref{lem:flow}} (G.south);
+\draw[usec] (DS.north) -- node[lb]{the network $G_k$} (I.south);
+\draw[usec] (DS.west) -- ++(-0.4,0) |- node[pos=0.3,sloped,above,inner sep=1pt,font=\scriptsize,text=gray]{alternation (Lemma~\ref{lem:alt})} (G.west);
+\end{tikzpicture}
+\caption{A map of the proof of Theorem~\ref{thm:A}. (a) What $\Red$ builds, and the two steps of $\Dec$;
+exact sizes are in Section~\ref{sec:ar-size}. (b) The results that the proof uses. An arrow points from
+a result to a proof that uses it, and dashed gray boxes are cited results. The local specification
+S1--S4 (Section~\ref{sec:ar-compose}) connects the left and right halves: Theorem~\ref{thm:compose}
+assumes it; Theorem~\ref{thm:gadget} supplies S1 and S2, and the construction in
+Section~\ref{sec:ar-gadget-market} supplies S3 and S4. Conditions C1--C6 (also in
+Section~\ref{sec:ar-gadget-market}) are inequalities on the gadget's parameters, and the labels show where the main ones are used. From Chapter~\ref{ch:prelim} the proof uses the game (Definition~\ref{def:game}),
+the market (M1) (Definition~\ref{def:m1}) and Section~\ref{sec:pre-arrival}: ARRIVAL, its
+preprocessing, the switch map $h_0,h_1$ and the fixed-point equations~\eqref{eq:fixedpoint}. The chapter proves the results
+bottom-up: Lemma~\ref{lem:decoder}, Theorem~\ref{thm:compose}, the gadget
+(Section~\ref{sec:ar-gadget}), then Theorem~\ref{thm:arrival-m1} and Theorem~\ref{thm:A}.}
+\label{fig:ar-map}
+\end{figure}
+
+
+\section{Fixed points of the switch map decide ARRIVAL}
+
+\begin{lemma}[Decoder]\label{lem:decoder}
+\statusrefereed
+In every fixed point~\eqref{eq:fixedpoint}, the terminal that the run reaches has inflow $1$ and the
+other terminal has inflow $0$.
+\end{lemma}
+
+\begin{proof}
+The proof has three steps: make the fixed point integral, observe that an integral fixed point is a
+switching flow, and invoke the known theory of switching flows.
+
+\emph{Step 1 (removing fractional vertices).} If $x_u$ is an integer, both out-edges of $u$ are
+integral. On $(2z,2z+1)$ only the label-$0$ edge is fractional, and on $(2z+1,2z+2)$ only the label-$1$
+edge, with slope $1$ on that piece. A fractional $x_u$ needs a fractional in-edge, because the source
+term is integral, and the tail of that in-edge is fractional. Walking backwards therefore closes a simple
+cycle $C$ of fractional vertices, and each edge of $C$ is the unique fractional out-edge of its tail.
+Terminals have no out-edges, so they lie on no such cycle. Lower $x$ on $C$ by $\Delta$, the least
+fractional part on $C$. Each vertex of $C$ stays on its closed affine piece. Its active out-edge, which is
+its $C$-edge, drops by $\Delta$, and so does its $C$-in-edge. Its inactive edge is constant, and vertices
+off $C$ are unchanged. The result is again a fixed point with the same terminal inflows and at least one
+fewer fractional vertex. After at most $n$ rounds the fixed point is integral. (The backward walk is the
+first part of~\cite[Lemma 14]{haslebacher25}; the lowering step is new.)
+
+\emph{Step 2 (integral fixed points).} An integral fixed point is a switching
+flow~\cite[Lemma 14]{haslebacher25}; this is also immediate from the values of $h_0$ and $h_1$ at
+integers. Its terminal inflows are integers summing to $1$, so they are $(1,0)$ or $(0,1)$.
+
+\emph{Step 3 (the run).} Suppose the unit sits on terminal $t$, and let $t'$ be the other terminal. Give
+both $t$ and $t'$ two self-loops carrying flow $0$ (in~\cite{dgkmw17} the successor maps are defined at every vertex, the destination included, and the switching-flow conditions must hold there too; with these loops they hold at $t$ and $t'$ trivially). The fixed point is then a switching flow for destination $t$ in
+the sense of~\cite{dgkmw17}. By~\cite[Lemma 1]{dgkmw17}, if a switching flow exists then
+$\mathrm{Run}(G,o,t)$ terminates. The run therefore reaches $t$, and it reaches $t$ before $t'$, since a
+token at $t'$ stays there. (Alternatively, \cite[Theorem 1]{haslebacher25} states the needed fact
+directly.)
+\end{proof}
+
+\section{Gadgets and composition}\label{sec:ar-compose}
+
+\paragraph{Idea.} A gadget is a small market with one input good $p$ and two output ``ports'' $a$ and
+$b$. Its specification says: if $x$ units of outside demand sit on $p$, the gadget sends exactly
+$h_0(x)$ to port $a$ and $h_1(x)$ to port $b$, whatever the port prices are within a box. Gluing a gadget
+per vertex, with ports equal to the input goods of the successors, turns market equilibria into fixed
+points of~\eqref{eq:fixedpoint}.
+
+\subsection{The local specification}
+
+A \emph{gadget} consists of an input good $p$ with capacity $c_p$, private goods, internal buyers, and two
+\emph{port goods} $a$ and $b$ that lie outside it. An internal option is \emph{$p$-labelled},
+\emph{$a$-labelled} or \emph{$b$-labelled} according to which of these goods it targets. Labels matter
+because $p$, $a$ and $b$ may coincide after composition. A \emph{gadget equilibrium at $(x,P_a,P_b)$} is
+defined for an external load $x\ge0$ on $p$ and given port prices $P_a,P_b\ge0$. It requires conditions
+(a)--(d) of Definition~\ref{def:m1} for the internal buyers and private goods, and (a) and (b) for port
+options at the given prices. For $p$ it requires ($p$-labelled internal load)${}+x\le c_p$, with
+equality if $P_p>0$. The ports have no capacity condition. Write $A$ and $B$ for the internal
+$a$-labelled and $b$-labelled loads. Fix $K=2^{n+1}$ and a price bound $\bar P>0$.
+
+\begin{description}[leftmargin=2.5em,style=nextline]
+\item[S1.] For all $x\in[0,K]$ and $(P_a,P_b)\in[0,\bar P]^2$, every gadget equilibrium has $A=h_0(x)$
+and $B=h_1(x)$. Every $p$-labelled option $(i,p)$ has $a_{ip}/b_{ip}\le\bar P$.
+\item[S2.] For all $x\in[K,c_p)$ and $(P_a,P_b)\in[0,\bar P]^2$, every gadget equilibrium has
+$A,B\ge K/2$ and $A+B\le x$.
+\item[S3.] In the composed market, $c_p$ exceeds the total mass of all buyers that hold a
+non-$p$-labelled option on this gadget's $p$. These are the predecessors' port buyers, this gadget's own
+port buyers when it has a self-loop, and the dispatch buyer.
+\item[S4.] No internal buyer holds options on two of $p$, $a$ and $b$.
+\end{description}
+Without S4, a self-loop would give one buyer two options on the same good, which (M1) does not allow.
+
+\subsection{Composition}
+
+Given a preprocessed instance (Section~\ref{sec:pre-arrival}) and a gadget, the composed market
+consists of:
+\begin{itemize}[nosep]
+\item one copy of the gadget for each $v\in V$, with input good $p_v$. Its $a$-port is the input good of
+$\succz(v)$, or the terminal good if $\succz(v)$ is a terminal. Its $b$-port is defined in the same way
+from $\succo(v)$;
+\item a \emph{dispatch} buyer of mass $1$ whose only option, on $p_o$, has intercept-to-slope ratio above $\bar P$;
+\item for each terminal $t$, a good $T_t$ whose capacity $C_T$ exceeds the total mass of the
+non-terminal buyers that hold an option on $T_t$, and a \emph{terminal buyer} of mass $>C_T$ whose only
+option is $T_t$, with ratio $r_T\in(0,\bar P)$.
+\end{itemize}
+
+Figure~\ref{fig:ar-instance} shows the composition for a two-vertex instance.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  sw/.style={circle,draw,minimum size=7mm,font=\small},
+  te/.style={draw,rounded corners,minimum size=6mm,font=\small},
+  gd/.style={draw,thick,rounded corners,minimum width=2.0cm,minimum height=1.0cm,align=center,font=\small,fill=gray!8},
+  good/.style={draw,minimum width=1.0cm,minimum height=0.6cm,font=\small},
+  buy/.style={draw,rounded corners=6pt,font=\scriptsize,align=center,inner sep=2pt},
+  ar/.style={-{Stealth[length=2mm]},thick},
+  lb/.style={font=\scriptsize,fill=white,inner sep=1pt}]
+  % switch graph
+  \node[font=\small] at (-1.5,5.3) {(i)};
+  \node[sw] (u) at (0,4.6) {$u$};
+  \node[sw] (v) at (3,4.6) {$v$};
+  \node[te] (Y) at (6,5.3) {\yes};
+  \node[te] (N) at (6,3.9) {\no};
+  \draw[ar] (-0.9,4.6) node[left,font=\scriptsize]{start} -- (u);
+  \draw[ar] (u) -- node[lb,above]{$0$} (v);
+  \draw[ar] (u) to[out=60,in=120,looseness=6] node[lb,above]{$1$} (u);
+  \draw[ar] (v) -- node[lb,above]{$0$} (Y);
+  \draw[ar] (v) -- node[lb,below]{$1$} (N);
+  % market
+  \node[font=\small] at (-2.3,2.2) {(ii)};
+  \node[buy] (disp) at (-2.3,1.2) {dispatch\\mass $1$};
+  \node[good] (pu) at (-0.4,1.2) {$p_u$};
+  \node[gd] (Gu) at (2.2,1.2) {gadget of $u$};
+  \node[good] (pv) at (5.6,1.2) {$p_v$};
+  \node[gd] (Gv) at (8.0,1.2) {gadget of $v$};
+  \node[good] (Ty) at (10.9,2.1) {$T_{\yes}$};
+  \node[good] (Tn) at (10.9,0.3) {$T_{\no}$};
+  \node[buy] (by) at (12.5,2.1) {terminal\\buyer};
+  \node[buy] (bn) at (12.5,0.3) {terminal\\buyer};
+  \draw[ar] (disp) -- node[lb,above]{$1$} (pu);
+  \draw[ar] (pu) -- node[lb,above]{$x_u$} (Gu);
+  \draw[ar] (Gu) -- node[lb,above]{$a$: $h_0(x_u)$} (pv);
+  \draw[ar] (Gu.south) .. controls (2.2,-0.4) and (-0.4,-0.4) .. node[lb,below]{$b$: $h_1(x_u)$} (pu.south);
+  \draw[ar] (pv) -- node[lb,above]{$x_v$} (Gv);
+  \draw[ar] (Gv) -- node[lb,above,sloped,pos=0.45]{$a$: $1$} (Ty);
+  \draw[ar] (Gv) -- node[lb,below,sloped,pos=0.45]{$b$: $0$} (Tn);
+  \draw[thick] (by) -- (Ty);
+  \draw[thick] (bn) -- (Tn);
+\end{tikzpicture}
+\caption{(i) An ARRIVAL instance with origin $u$: $\succz(u)=v$, $\succo(u)=u$, $\succz(v)=\yes$,
+$\succo(v)=\no$. The run is $u\to v\to\yes$: the token leaves $u$ by exit~$0$ (and $u$'s switch turns to
+$1$), then leaves $v$ by exit~$0$. The instance is discriminating: if both switches started at
+$\succo$, the run would be $u\to u\to v\to\no$. (ii) The composed market. The gadget of $u$ has input
+good $p_u$, $a$-port $p_v$ and, because of the self-loop, $b$-port $p_u$; the gadget of $v$ has
+$a$-port $T_{\yes}$ and $b$-port $T_{\no}$. Labels show the loads in an equilibrium. By Theorem~\ref{thm:compose} they form a fixed point
+of~\eqref{eq:fixedpoint}: $x_u=1+h_1(x_u)$ and $x_v=h_0(x_u)$. The first equation holds exactly for
+$x_u\in[1,2]$ (on that interval $h_1(x_u)=x_u-1$), so fixed points need not be integral, but every one
+has $x_v=h_0(x_u)=1$; hence $T_{\yes}$ receives $h_0(1)=1$ and $T_{\no}$ receives $h_1(1)=0$, the
+terminal the run reaches (Lemma~\ref{lem:decoder}).}
+\label{fig:ar-instance}
+\end{figure}
+
+\begin{theorem}[Composition]\label{thm:compose}
+\statusrefereed
+Assume S1--S4 and $K=2^{n+1}$. Every equilibrium of the composed market has the following properties:
+\begin{enumerate}[nosep]
+\item every port price lies in $[0,\bar P]$;
+\item $x_v\le K$ for all $v$, where $x_v$ is the non-$p$-labelled load on $p_v$, and $x$ is a fixed
+point;
+\item the load that non-terminal buyers place on $T_t$ is $1$ at the terminal the run reaches and $0$ at
+the other.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The proof restricts the equilibrium to each gadget, bounds the prices, and then shows by a halving
+argument that no vertex can receive more than $K$ units.
+
+\emph{(a) Restriction.} Fix gadget $v$, and let $x_v$ be the load on $p_v$ through all options that are
+not $p$-labelled options of $v$. Take the port prices from the market. Internal buyers keep their option
+sets, private goods are bought only by internal buyers, and the condition on $p_v$ reads ($p$-labelled
+internal load)${}+x_v\le c_p$, with equality if $P_{p_v}>0$. So the restriction is a gadget equilibrium
+at $(x_v,P_a,P_b)$. This includes coincident ports. If $a=b=w$, then $P_a=P_b$, which is a point of the
+box, and both labelled loads go to $p_w$. If $a=p_v$, the $a$-labelled load is part of $x_v$, and the
+restriction is still a gadget equilibrium.
+
+\emph{(b) Prices.} By S3, $x_v<c_p$. If $P_{p_v}>0$, then $p_v$ is full, so its $p$-labelled internal
+load $c_p-x_v$ is positive. Some $p$-labelled buyer $i$ is then tight, which gives
+$0\le v_i=a_{ip}-b_{ip}P_{p_v}$, so $P_{p_v}\le a_{ip}/b_{ip}\le\bar P$. At a terminal, $P_T<r_T$ would
+give the terminal buyer positive value, and it would then demand more than $C_T$. $P_T>r_T$ would make
+the terminal buyer leave, so $T$ would have to be filled by the other buyers, whose mass is below $C_T$.
+So $P_T=r_T$. All port prices therefore lie in $[0,\bar P]$, and the dispatch buyer, with ratio
+$>\bar P$, has positive value and buys exactly $1$.
+
+\emph{(c) Load bound.} By S1 or S2 at each gadget, $A_v+B_v\le x_v$. Counting labelled loads gives total
+terminal inflow ${}=1+\sum_v(A_v+B_v-x_v)\le1$. Every output satisfies output
+${}\ge\phi(x)=\min((x-1)/2,K/2)$: where $x\le K$, the output is at least $h_1(x)\ge(x-1)/2$ (check this
+on $[2z,2z+1]$ and on $[2z+1,2z+2]$); where $K\le x<c_p$, S2 gives at least $K/2$. Suppose $x_v>K$. Take
+a shortest path $v=u_0,u_1,\dots,u_l$ to a terminal, so $l\le n$. Let $y_0=x_v$, and for $i\ge1$ let
+$y_i$ be the load on the edge(s) from $u_{i-1}$ to $u_i$. Then $y_i\le x_{u_i}$ for $i<l$ and
+$y_l\le1$. Since $y_i\ge\phi(x_{u_{i-1}})$ and $\phi$ is nondecreasing, $y_i\ge\phi(y_{i-1})$.
+Induction gives $y_i\ge(K+1)/2^i-1$, because $(K+1)/2^{i+1}-1<K/2$. So
+$y_l\ge(2^{n+1}+1)/2^n-1=1+2^{-n}>1$, which contradicts the bound on terminal inflow. Hence $x_v\le K$
+everywhere, S1 gives $A_v=h_0(x_v)$ and $B_v=h_1(x_v)$, and the load equations are exactly the
+fixed-point equations.
+
+\emph{(d)} Property 3 then follows from Lemma~\ref{lem:decoder}.
+\end{proof}
+
+\section{The switch gadget}\label{sec:ar-gadget}
+
+\subsection{The counting network}
+
+\paragraph{Idea.} In the counting network $G_k$, the $y$-th unit of flow sent along a cheapest path
+costs the $y$-th entry of a list $D_k$. The list grows by mirroring: $D_k$ is $D_{k-1}$ followed by its
+reflection about $3^k$. All gaps are at least $6$, so there are no ties when $0<\theta<6$ (Lemma~\ref{lem:alt}).
+
+$G_0$ is a single arc $s_0\to t_0$ with capacity $1$ and cost $0$. $G_k$ adds nodes $s_k,t_k$ and four
+arcs of capacity $2^{k-1}$: $s_k\to s_{k-1}$ and $t_{k-1}\to t_k$ with cost $0$, and $s_k\to t_{k-1}$
+and $s_{k-1}\to t_k$ with cost $3^k$ (Figure~\ref{fig:Gk}). This is the counting gadget of Disser and
+Skutella~\cite[\S3.1]{ds15}, whose expensive arcs cost $2^{k-1}-\tfrac12$; the cost $3^k$ widens the gaps
+between increments.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  nd/.style={circle,draw,inner sep=1.5pt,minimum size=6.5mm,font=\small},
+  ar/.style={-{Stealth[length=2.2mm]},thick},
+  ex/.style={-{Stealth[length=2.2mm]},thick,red!70!black},
+  lb/.style={font=\scriptsize,fill=white,inner sep=1pt}]
+  \node[nd] (s0) at (0,0) {$s_0$};
+  \node[nd] (t0) at (5,0) {$t_0$};
+  \node[nd] (s1) at (0,2) {$s_1$};
+  \node[nd] (t1) at (5,2) {$t_1$};
+  \node[nd] (s2) at (0,4.4) {$s_2$};
+  \node[nd] (t2) at (5,4.4) {$t_2$};
+  \draw[ar] (s0) -- node[lb,below=1pt]{$1,\ 0$} (t0);
+  \draw[ar] (s1) -- node[lb,left=1pt]{$1,\ 0$} (s0);
+  \draw[ar] (t0) -- node[lb,right=1pt]{$1,\ 0$} (t1);
+  \draw[ex] (s1) -- node[lb,pos=0.22]{$1,\ 3$} (t0);
+  \draw[ex] (s0) -- node[lb,pos=0.22]{$1,\ 3$} (t1);
+  \draw[ar] (s2) -- node[lb,left=1pt]{$2,\ 0$} (s1);
+  \draw[ar] (t1) -- node[lb,right=1pt]{$2,\ 0$} (t2);
+  \draw[ex] (s2) -- node[lb,pos=0.22]{$2,\ 9$} (t1);
+  \draw[ex] (s1) -- node[lb,pos=0.22]{$2,\ 9$} (t2);
+  \node[font=\small,align=left,anchor=west] at (6.2,2.2) {labels: capacity, cost\\[2pt]
+    \textcolor{red!70!black}{red}: expensive arcs\\[2pt]
+    $D_1=(0,6)$\\ $D_2=(0,6,12,18)$};
+\end{tikzpicture}
+\caption{The counting network $G_2$ (two levels). Level $k$ adds the arcs $s_k\to s_{k-1}$ and
+$t_{k-1}\to t_k$ of cost $0$, and the crossing arcs $s_k\to t_{k-1}$ and $s_{k-1}\to t_k$ of cost $3^k$;
+all four have capacity $2^{k-1}$.}
+\label{fig:Gk}
+\end{figure}
+
+\begin{lemma}[Increments]\label{lem:incr}
+\statusrefereed
+Let $F_k(y)$ be the minimum cost of an $s_k\to t_k$ flow of value $y\in[0,2^k]$. Then $F_k$ is convex and
+piecewise linear with integer breakpoints. Its list of unit increments satisfies $D_0=(0)$ and
+\[
+D_k=\bigl(D_{k-1},\;2\cdot3^k-\mathrm{reverse}(D_{k-1})\bigr).
+\]
+For $k\ge1$ the list is strictly increasing, starts at $0$, ends at $2\cdot3^k$, and has minimum gap
+exactly $6$. The maximum flow is $2^k$.
+\end{lemma}
+
+\begin{proof}
+Induction on $k$. Put $c=2^{k-1}$ and $w=3^k$, and let $\alpha,\beta,\gamma,\eta$ be the flows on
+$s_k\to s_{k-1}$, $t_{k-1}\to t_k$, $s_k\to t_{k-1}$ and $s_{k-1}\to t_k$. The inner $G_{k-1}$ is acyclic
+and meets the outer arcs only at $s_{k-1}$ and $t_{k-1}$, so it carries an $s_{k-1}\to t_{k-1}$ flow of
+some value $y$. Conservation gives $\alpha+\gamma=x$, $\alpha=y+\eta$, $\beta=y+\gamma$ and
+$\beta+\eta=x$, so $\gamma+\eta=x-y$. The capacity box is feasible if and only if
+$0\le y\le\min(x,2c-x)$. So $F_k(x)=\min_y[wx-wy+F_{k-1}(y)]$ over that range. Every increment of
+$F_{k-1}$ is at most $\max D_{k-1}$, which is $0$ for $k=1$ and $2\cdot3^{k-1}$ for $k\ge2$, and both are
+below $3^k$. So the bracket strictly decreases in $y$, and $y=\min(x,2c-x)$. This gives $F_k=F_{k-1}$ on
+$[0,c]$ and $F_k(x)=2w(x-c)+F_{k-1}(2c-x)$ on $[c,2c]$, which yields the recursion for $D_k$. The gap at
+the junction is $2w-2\max D_{k-1}$. It equals $6$ for $k=1$, because $D_0=(0)$, and $2\cdot3^{k-1}\ge6$
+for $k\ge2$. All other gaps are gaps of $D_{k-1}$. The value $x=2c$ is feasible.
+\end{proof}
+
+For example, $D_1=(0,6)$, $D_2=(0,6,12,18)$ and $D_3=(0,6,12,18,36,42,48,54)$.
+
+\subsection{Two copies and the alternation}
+
+Let $N_m$ consist of two copies of $G_m$ that share their source $s$. Copy A ends at sink $a$, and copy
+B ends at sink $b$. Each unit entering $b$ costs an extra $\theta$. The copies share only $s$. Each sink
+has in-capacity $2^m$, and $s$ has out-capacity $K=2^{m+1}$ (Figure~\ref{fig:Nm}).
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  nd/.style={circle,draw,inner sep=1.5pt,minimum size=7mm,font=\small},
+  bx/.style={draw,rounded corners,minimum width=3.4cm,minimum height=1.1cm,align=center,font=\small},
+  ar/.style={-{Stealth[length=2.2mm]},thick}]
+  \node[nd] (s) at (0,0) {$s$};
+  \node[bx] (A) at (3.6,1.3) {copy A of $G_m$};
+  \node[bx] (B) at (3.6,-1.3) {copy B of $G_m$};
+  \node[nd] (a) at (9.6,1.3) {$a$};
+  \node[nd] (b) at (9.6,-1.3) {$b$};
+  \draw[thick] (s) -- (A.west);
+  \draw[thick] (s) -- (B.west);
+  \draw[ar] (A.east) -- node[above,font=\scriptsize]{in-capacity $2^m$} (a);
+  \draw[ar] (B.east) -- node[above,font=\scriptsize]{in-capacity $2^m$}
+     node[below,font=\scriptsize]{extra cost $\theta$ per unit} (b);
+  \node[font=\scriptsize,align=center,anchor=east] at (-0.4,0) {out-capacity\\$K=2^{m+1}$};
+\end{tikzpicture}
+\caption{The splitter $N_m$: two copies of the counting network share their source $s$ (the node $s_m$
+of both copies); copy A's sink $t_m$ is $a$ and copy B's is $b$. Copy B is offset by $\theta$ per unit.}
+\label{fig:Nm}
+\end{figure}
+
+\paragraph{Idea.} Copy A's $y$-th unit costs $\delta_y$, copy B's costs $\delta_y+\theta$. With
+$0<\theta<6$ and all gaps of the increment list at least $6$, the merged order of unit costs is
+$\delta_1<\delta_1+\theta<\delta_2<\delta_2+\theta<\dots$, so the cheapest flow sends units to
+$a,b,a,b,\dots$. Table~\ref{tab:alt} shows this for $m=2$ and $\theta=3$.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{@{}lcccccccc@{}}
+\toprule
+unit number & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8\\
+\midrule
+cheapest remaining unit & $0$ & $3$ & $6$ & $9$ & $12$ & $15$ & $18$ & $21$\\
+goes to & $a$ & $b$ & $a$ & $b$ & $a$ & $b$ & $a$ & $b$\\
+$\inflow(a)=h_0(x)$ after $x$ units & 1 & 1 & 2 & 2 & 3 & 3 & 4 & 4\\
+$\inflow(b)=h_1(x)$ after $x$ units & 0 & 1 & 1 & 2 & 2 & 3 & 3 & 4\\
+\bottomrule
+\end{tabular}
+\caption{Alternation in $N_2$ with $\theta=3$. Copy A's increments are $D_2=(0,6,12,18)$; copy B's
+are $D_2+3=(3,9,15,21)$.}
+\label{tab:alt}
+\end{table}
+
+\begin{lemma}[Alternation]\label{lem:alt}
+\statusrefereed
+Let $0<\theta<6$ and $x\in[0,K]$. Among the flows of value $x$ from $s$ to $\{a,b\}$, every flow
+minimizing $\sum_e\kappa_ef_e+\theta\cdot\inflow(b)$ has $\inflow(a)=h_0(x)$ and $\inflow(b)=h_1(x)$.
+\end{lemma}
+
+This is Disser and Skutella's alternation argument~\cite[\S3.2, proof of Lemma 2]{ds15}. Their network
+joins two copies of the counting gadget at a common source and a common sink, and they show that
+successive shortest paths alternate between the copies. The version here differs in four ways: the sinks
+are separate, there is no cross arc, a constant offset puts copy A first in each pair, and the gaps are
+wide enough that the order survives every pair of port prices in the box.
+
+\begin{proof}
+A flow splits as $A+B=x$ with $0\le A,B\le2^m$, and its cost is at least
+$\Phi(A)=F_m(A)+F_m(x-A)+\theta(x-A)$, with equality exactly when both parts are min-cost. $\Phi$ is
+convex. Write $\delta_j$ for the $j$-th increment and $x=2z+\rho$.
+\begin{itemize}[nosep]
+\item For $\rho\in[0,1]$ take $A^*=z+\rho$. The right derivative of $\Phi$ at $A^*$ is at least
+$\delta_{z+1}-\delta_z-\theta\ge6-\theta>0$, or $A^*$ is the right end of the domain. The left derivative
+is $-\theta<0$ if $\rho>0$, and $\delta_z-\delta_{z+1}-\theta<0$ if $\rho=0$, or $A^*$ is the left end.
+\item For $\rho\in[1,2)$ take $A^*=z+1$. The right derivative is at least
+$\delta_{z+2}-\delta_{z+1}-\theta>0$, or $A^*$ is the right end. The left derivative is
+$\delta_{z+1}-\delta_{z+1}-\theta<0$.
+\end{itemize}
+So $A^*=h_0(x)$ is the unique minimizer, and $B=h_1(x)$.
+\end{proof}
+
+At $\theta=0$ or $\theta=6$ ties appear. For example, at $\theta=0$ every split is optimal for
+$x\in(0,1]$, since both copies have $\delta_1=0$. This is why condition C2 below is strict.
+
+\subsection{Market embedding of the gadget}\label{sec:ar-gadget-market}
+
+\paragraph{Idea.} Turn the network into a market: arcs become goods, nodes become buyers who
+``buy'' arcs, and arc costs become payoff differences. With unit slopes this market is a linear program
+(Lemma~\ref{lem:lp}), and its optimal flows are min-cost flows of $N_m$ with $\theta=\varepsilon+P_b-P_a$.
+
+Let the arcs of $N_m$ be $e=(u,w)$, with capacity $c_e$ and cost $\kappa_e$.
+\begin{itemize}[nosep]
+\item Each arc becomes a private good $g_e$ with capacity $c_e$.
+\item The tail $u$ holds an option on $g_e$ with payoff $M-\kappa_e-P_{g_e}$. Its purchase $f_e$ is the
+arc flow.
+\item The head $w$ holds an option on $g_e$ with payoff $M-P_{g_e}$ if $w$ is internal, and
+$M+H-P_{g_e}$ if $w\in\{a,b\}$. Its purchase $\sigma_e$ is slack.
+\item An internal node is a buyer whose mass is the total capacity of its in-arcs.
+\item Sink $a$ (respectively $b$) is a buyer of mass $2^m$. It also has a port option with payoff
+$M-P_a$ (respectively $M-\varepsilon-P_b$).
+\item The source $s$ is a buyer of mass $c_p$. Its options are $p$, with payoff $M_p-\lambda P_p$, and
+its out-arc goods.
+\item The input good $p$ has capacity $c_p$.
+\end{itemize}
+
+We use $\varepsilon=3$, $H=1$, $\bar P=1$, $M=4(\sum_ec_e\kappa_e+\varepsilon+H+10)$, $M_p=M+1$ and
+$\lambda=M_p/\bar P$. Standalone, $c_p=2K$. In the composition, $c_{p_v}=\max(2K,\ \indeg(v)\cdot2^m+2)$,
+where $\indeg$ counts labelled in-edges. Each port buyer has mass $2^m=K/2$, so this choice meets S3.
+The terminals use $C_T=\indeg(T)\cdot2^m+2$, a terminal buyer of mass $C_T+1$ with payoff $1/2-P_T$ (so
+$r_T=1/2$), and a dispatch buyer with payoff $2-P_{p_o}$. The only slope other than $1$ is $\lambda$, on
+the source's option on $p$, so every slope is at least $1$, as Theorem~\ref{thm:mk-embed} requires. S4
+holds because $s$ holds $p$, sink $a$ holds $a$ and sink $b$ holds $b$.
+
+The proof uses the following conditions:
+\begin{description}[leftmargin=2.5em,itemsep=0pt]
+\item[C1:] $M_p/\lambda\le\bar P$;
+\item[C2:] $\bar P<\varepsilon<6-\bar P$, with strict inequalities;
+\item[C3:] $H>0$;
+\item[C4:] $M>\varepsilon+\bar P+\Upsilon$, where $\Upsilon=\sum_e\kappa_e+4H=2\cdot3^{m+1}-6+4H$;
+\item[C5:] $M_p>M-H$;
+\item[C6:] $c_p>K$, and buyer $s$ has mass $c_p$.
+\end{description}
+The parameters above satisfy all six.
+
+\begin{theorem}[The gadget meets the specification]\label{thm:gadget}
+\statusrefereed
+Under C1--C6, for every $m\ge1$, the gadget meets S1 and S2 with $K=2^{m+1}$ and box $[0,\bar P]^2$.
+\end{theorem}
+
+The proof has three steps: the gadget market is an LP (Lemma~\ref{lem:lp}); every private good is full
+(Lemma~\ref{lem:full}); and every optimum of the LP is a flow of value $\min(x,K)$
+(Lemma~\ref{lem:flow}). Then Lemma~\ref{lem:alt} finishes.
+
+\begin{lemma}[LP form]\label{lem:lp}
+Fix $x\in[0,c_p]$ and port prices $P_a,P_b\ge0$, and put $\pi=\lambda P_p$. Consider the welfare LP (W).
+It maximizes $\sum\tilde a_{ij}f_{ij}$ subject to the row bounds (mass) and column bounds (capacity of
+private goods, and $c_p-x$ for $p$). Here $\tilde a=a_{ij}$ on private goods, $\tilde a=M_p$ on $(s,p)$,
+and $\tilde a=a_{it}-P_t$ on port options, which have no column. Then gadget equilibria are exactly the
+optimal primal--dual pairs of (W), with dual prices $(P_{\text{private}},\pi)$.
+\end{lemma}
+
+\begin{proof}
+With unit slopes on private goods, conditions (a)--(d) are primal feasibility, dual feasibility and
+complementary slackness. In particular $v_s\ge M_p-\lambda P_p$ is the same as $v_s+\pi\ge M_p$.
+\end{proof}
+
+The LP form has three consequences. Equilibria exist at all port prices $\ge0$. Every optimal flow pairs
+with every optimal dual. And if $x<c_p$ and $P_p>0$, then $s$ buys $p$, which gives
+$P_p\le M_p/\lambda\le\bar P$.
+
+\begin{lemma}[Private goods are full]\label{lem:full}
+Assume C3, $\varepsilon\ge0$ and $M>0$, and take any $x$ and any $P_a,P_b\ge0$. In every equilibrium, $f_e+\sigma_e=c_e$ for every
+arc $e$.
+\end{lemma}
+
+\begin{proof}
+Every internal buyer other than the source $s$ has payoffs at most $M$; the walk below visits only heads of arcs, and $s$ is never one. A sink's payoffs are at most $M+H$, and its port option pays
+less than $M+H$.
+
+Suppose first that an in-arc of sink $t$ has price $0$. Then $v_t=M+H$, so $t$ is full and buys only
+zero-price slack. Its mass equals its in-capacity, so $\sigma_e=c_e$ and $f_e=0$ on all its in-arcs; call
+this $(\ast)$.
+
+Now suppose $e=(u,w)$ with $w$ internal is not full. Then $P_{g_e}=0$, so $v_w=M$ and $w$ is full. Its
+slack is less than its mass, so it buys flow on an out-arc with $\kappa=0$ and price $0$. The head of that
+arc is again at value $M$, and the argument repeats. $N_m$ is acyclic, so the walk reaches a sink
+through a zero-price arc with positive flow, which contradicts $(\ast)$.
+
+An arc into a sink that is not full has price $0$, so it is full by $(\ast)$, a contradiction.
+\end{proof}
+
+\paragraph{Flow notation.} Write $\varepsilon_a=0$ and $\varepsilon_b=\varepsilon$ for the port offsets of the two
+sinks, so sink $t$'s port option pays $M-\varepsilon_t-P_t$. For a flow $f$ on $N_m$, $F_{\mathrm{out}}$ is
+the total flow on the out-arcs of $s$, the \emph{excess} of an internal node is its inflow minus its
+outflow, and the \emph{residual network} has a forward arc $e$ wherever $f_e<c_e$ and a backward copy of
+$e$ wherever $f_e>0$. Pushing $\delta$ along a residual path raises the flow on its forward arcs and lowers
+it on its backward arcs, so its cost change is at most $\delta$ times the sum of $\kappa'_e$ over its
+forward arcs.
+
+\begin{lemma}[Flow structure]\label{lem:flow}
+Assume C3--C6, $x\in[0,c_p)$ and $(P_a,P_b)\in[0,\bar P]^2$. Substitute $\sigma_e=c_e-f_e$, which is
+valid by Lemma~\ref{lem:full}, and write $z_t$ for sink $t$'s port purchase and $y$ for $s$'s purchase
+of $p$. Up to a constant, (W) becomes the program (R):
+\[
+\text{maximize } M_py-\sum_e\kappa'_ef_e+\sum_tg_tz_t,
+\]
+where $\kappa'_e=\kappa_e+H\cdot[\text{head is a sink}]$ and $g_t=M-\varepsilon_t-P_t$, subject to
+$y\le c_p-x$, $y+F_{\mathrm{out}}\le c_p$, outflow $\le$ inflow at internal nodes, $z_t\le\inflow(t)$
+and $0\le f\le c$. Every equilibrium flow is optimal for (R), and every optimum of (R) has $y=c_p-x$,
+conservation at every internal node, $z_t=\inflow(t)$ and $F_{\mathrm{out}}=\min(x,K)$.
+\end{lemma}
+
+\begin{proof}
+By C4, $g_t\ge M-\varepsilon-\bar P>\Upsilon\ge\sum_e\kappa'_e$.
+\begin{enumerate}[nosep]
+\item If $z_t<\inflow(t)$, raising $z_t$ gains $g_t>0$.
+\item Suppose $y<c_p-x$. If $s$ has spare mass, raising $y$ gains $M_p$. Otherwise
+$F_{\mathrm{out}}>x\ge0$. Take a positive-flow path from $s$ to a sink or to an internal node with excess,
+and move $\delta$ from it to $y$, lowering $z_t$ if the path ends at sink $t$. The gain is at least
+$\delta(M_p-\max(0,M-H))>0$ by C5. So $y=c_p-x$, and therefore $F_{\mathrm{out}}\le x$.
+\item Suppose an internal node $w$ has excess, and let $R$ be its residual-reachable set. If $R$ contains
+a sink $t$, push $\delta$ along a simple residual path to it and raise $z_t$ by $\delta$. The gain is at
+least $\delta(g_t-\Upsilon)>0$, because a simple path costs at most the sum of $\kappa'$ over its forward
+arcs. Otherwise, walking back from $w$ along positive arcs reaches $s$, so $s\in R$. Every arc leaving
+$R$ is saturated and every arc entering $R$ is empty. So
+$\mathrm{cap}(\delta^+(R))=F_{\mathrm{out}}-\sum_{u\in R}\mathrm{excess}(u)<F_{\mathrm{out}}\le K$. But
+$R$ separates $s$ from both sinks, so its capacity is at least the maximum flow $K$
+(Lemma~\ref{lem:incr}). Contradiction.
+\item If $F_{\mathrm{out}}<\min(x,K)$, then $s$ has spare mass. Either a residual path from $s$ to a
+sink exists, and pushing along it gains $g_t-\Upsilon>0$, or there is a cut of capacity
+$F_{\mathrm{out}}<K$. Both are impossible.\qedhere
+\end{enumerate}
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:gadget}]
+By Lemmas~\ref{lem:lp}--\ref{lem:flow}, an equilibrium flow is an $s\to\{a,b\}$ flow of value
+$\min(x,K)$, with $A=\inflow(a)$ and $B=\inflow(b)$. On such flows the objective of (R) equals a
+constant minus $[\sum_e\kappa_ef_e+\theta B]$, where $\theta=\varepsilon+P_b-P_a$.
+\begin{itemize}[nosep]
+\item S1: for $x\le K$, C2 gives $\theta\in[\varepsilon-\bar P,\varepsilon+\bar P]\subset(0,6)$, and
+Lemma~\ref{lem:alt} gives $A=h_0(x)$ and $B=h_1(x)$. The only $p$-labelled option is $(s,p)$, whose
+ratio is $M_p/\lambda\le\bar P$ by C1.
+\item S2: for $x\in[K,c_p)$ we have $A+B=K\le x$ and $A,B\le2^m$, so $A=B=K/2$.\qedhere
+\end{itemize}
+\end{proof}
+
+\paragraph{Sharpness.} Exact computations confirm that C2 cannot be weakened to closed inequalities
+and that C3 cannot be dropped. With $\varepsilon\in\{1,5\}$
+the box reaches the ties $\theta\in\{0,6\}$. With $H=0$, sink $a$ buys its port with no flow behind it at
+$x=0$. The strict inequality in C6 is convenient for the composition, where S3 ensures $x<c_p$ and hence
+caps $P_p$; at $c_p=K$, $P_p$ can be unbounded at $x=K$, although the stated S1/S2 output properties still
+hold. (The exact checker also tests the input-price bound $P_p\le\bar P$, which is stronger than S1; that
+check, not S1, fails at $c_p=K$.) C4 is far from tight, and C5 was not probed.
+
+\paragraph{Where the non-unit slope matters.} If every slope is $1$, the (M1) conditions are the
+optimality conditions of one transportation LP. The same holds after rescaling when the slopes factor as
+$b_{ij}=\beta_i\gamma_j$. So with such slopes a reduction of this kind would put ARRIVAL in P. Inside one gadget at
+fixed port prices, $\lambda$ only rescales the price of $p$ (Lemma~\ref{lem:lp}), and the gadget is an LP.
+Across gadgets, the good $p_v$ is bought at slope $\lambda$ by $v$'s source and at slope $1$ by the port
+buyers of $v$'s predecessors. All buyers of one gadget are linked through slope-$1$ private goods, so a
+factorization would need $\beta_u=\beta_v/\lambda$ along every edge $u\to v$ of the switch graph. That
+is impossible around a cycle. We know no reduction of these markets to an LP or to a concave generalized
+flow problem~\cite{vegh14}. Such a reduction, combined with this chapter, would put ARRIVAL in P.
+
+\section{Sizes, and the proof of the theorem}\label{sec:ar-size}
+
+\begin{itemize}[nosep]
+\item \emph{Gadget of depth $m$.} The network $N_m$ has $8m+2$ arcs, and the gadget has $4m+3$ buyers.
+Counting buyers, private goods and $p$ gives $12m+6=12\log_2K-6$ buyers and goods. The numbers are capacities
+$2^{k-1}$, costs $3^k$ and $M=\Theta(6^m)$, so there are $O(m)$ numbers of $O(m)$ bits each. Measured
+encodings take $282$, $564$, $978$, $1428$, $2042$, $2660$ and $3474$ bits for $K=4,\dots,256$. The
+exponentially large quantities sit in binary-encoded capacities and intercepts, so algorithms that are
+pseudo-polynomial in these numbers are exponential on these instances.
+\item \emph{Composed market ($m=n$, $K=2^{n+1}$).} The market has $4n^2+3n+3$ buyers and $8n^2+3n+2$
+goods. Every number has $O(n)$ bits. The largest are $M$ and $\lambda=M+1$, of order $6^n$, and
+$c_{p_v}=O(n2^n)$. For $n=2$, $M=392$ and $\lambda=393$.
+\item \emph{Game.} The game has at most $12n^2+6n+6$ types and at most $12n^2+6n+7$ targets (fewer if preprocessing
+deletes vertices). The constants $\hat D$, $W$, $A$ and $S$ of~\eqref{eq:mk-consts}, and every payoff and
+prior, have $O(n)$ bits. Listing payoffs for every (type, target) pair takes $O(n^4)$ numbers, or
+$O(n^5)$ bits. For $n=1$ there are $24$ types and $25$ targets, and for $n=2$ there are $66$ types and
+$67$ targets, with $A=394$ and $S=25611$. The constant $W$ depends on the in-degrees: for the checked
+two-vertex instance with $(\succz(0),\succo(0))=(0,1)$ and $(\succz(1),\succo(1))=(\yes,\no)$ it is
+$W=400$. For the chain instance with $n=7$, $\succz(v)=v+1$ (with $\succz(6)=\yes$), $\succo(v)=0$ and
+origin $0$, the explicit game takes about $2.6$ Mbit, counting numerator and denominator bits of every
+prior and every listed payoff.
+Both $\Red$ and $\Dec$ run in polynomial time.
+\end{itemize}
+
+The market part of the construction is worth recording on its own, since Chapter~\ref{ch:upper} uses it
+without the game.
+
+\begin{theorem}[ARRIVAL to (M1)]\label{thm:arrival-m1}
+\statusrefereed
+There is a polynomial-time map from ARRIVAL instances with $n$ switch vertices to (M1) markets with the
+following properties. After a preprocessing step that deletes vertices unable to reach a terminal (which
+preserves the answer), the market is composed of one copy, for each vertex $v$, of a switch gadget built
+from two copies of the Disser--Skutella counting network, with an input good $p_v$, plus a dispatch buyer
+of mass $1$ on $p_o$, and for each terminal $t$ a terminal good $T_t$ and a terminal buyer. All masses
+and capacities are positive and all slopes are at least $1$; the market has at most $4n^2+3n+3$
+buyers, at most $8n^2+3n+2$ goods, and numbers of $O(n)$ bits. The construction satisfies the gadget specification
+(S1--S4) with $K=2^{n+1}$, and each terminal capacity $C_T$ exceeds the total mass of the non-terminal
+buyers holding an option on $T_t$. Under these conditions, in \emph{every} equilibrium of the market the
+load placed on $T_t$ by non-terminal buyers is $1$ for the terminal $t$ that the run of the preprocessed instance reaches and $0$ for
+the other terminal.
+\end{theorem}
+
+\begin{proof}
+Preprocess (Section~\ref{sec:pre-arrival}) and compose the gadget of
+Section~\ref{sec:ar-gadget-market} with $m=n$. By Theorem~\ref{thm:gadget} it meets S1 and S2; S3 and
+the terminal condition hold by the choice of $c_{p_v}$ and $C_T$ above; S4 holds by the structure of the
+gadget ($s$ holds $p$, sink $a$ holds $a$, sink $b$ holds $b$). The dispatch buyer has ratio $2>\bar P=1$,
+and the terminal buyers have ratio $r_T=1/2\in(0,\bar P)$, as the composition requires. The conclusion is
+Theorem~\ref{thm:compose}(3), and the sizes are those just listed.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:A}]
+$\Red$ builds the market of Theorem~\ref{thm:arrival-m1} and then the game $\Gamma_1$ of
+Theorem~\ref{thm:mk-embed} (with $\omega=1$, so $W=4\hat D$); this is legal because every slope is $1$
+or $\lambda\ge1$. Given any BNE, $\Dec$ decodes it to a market equilibrium by Theorem~\ref{thm:mk-embed}
+and answers \yes{} if and only if the non-terminal buyers' load on $T_{\yes}$ is $1$, which is correct
+by Theorem~\ref{thm:arrival-m1}. The game has one resource and defender payoffs $0$ and $1$, and its size
+is as listed above.
+\end{proof}
+
+\begin{remark}[Smaller terminals]\label{rem:ar-smallterm}
+One can also show a ``no mass creation'' lemma: under S1 and S2, for $x\in[0,c_p)$, no gadget equilibrium
+at any port prices $\ge0$ has $A+B>x$. With it, $C_T>1$ suffices. This lemma has been checked exactly
+for small gadgets only, and the present proof does not use it.
+\end{remark}

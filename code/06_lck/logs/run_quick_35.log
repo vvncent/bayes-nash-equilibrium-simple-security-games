@@ -1,0 +1,41 @@
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+(a,b) proof inequalities and strong connectivity:
+   n=1..40: all inequalities hold exactly and network strongly connected: True
+(c) exact equilibria at the forced budgets:
+   n=1: 2 equilibria exact-verified=True, budgets strictly monotone=True, budget range [1.526961, 1.998162] (r=2), 0.00s
+   n=2: 4 equilibria exact-verified=True, budgets strictly monotone=True, budget range [1.907386, 2.999621] (r=3), 0.00s
+   n=3: 8 equilibria exact-verified=True, budgets strictly monotone=True, budget range [2.275962, 3.999914] (r=4), 0.00s
+   n=4: 16 equilibria exact-verified=True, budgets strictly monotone=True, budget range [2.673914, 4.999980] (r=5), 0.01s
+   n=5: 32 equilibria exact-verified=True, budgets strictly monotone=True, budget range [3.104801, 5.999995] (r=6), 0.03s
+   n=6: 64 equilibria exact-verified=True, budgets strictly monotone=True, budget range [3.561274, 6.999999] (r=7), 0.08s
+   n=7: 128 equilibria exact-verified=True, budgets strictly monotone=True, budget range [4.035057, 8.000000] (r=8), 0.19s
+   n=8: 256 equilibria exact-verified=True, budgets strictly monotone=True, budget range [4.519734, 9.000000] (r=9), 0.46s
+   n=9: 512 equilibria exact-verified=True, budgets strictly monotone=True, budget range [5.010968, 10.000000] (r=10), 1.24s
+   n=10: 1024 equilibria exact-verified=True, budgets strictly monotone=True, budget range [5.506034, 11.000000] (r=11), 2.93s
+(d) MILP sanity check (floating point) over ALL equilibria at the forced budgets:
+   n=1: max |extreme return mass - (j+1)/Kappa| over j = 2.78e-17  (0.5s)
+   n=2: max |extreme return mass - (j+1)/Kappa| over j = 1.11e-16  (0.9s)
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();

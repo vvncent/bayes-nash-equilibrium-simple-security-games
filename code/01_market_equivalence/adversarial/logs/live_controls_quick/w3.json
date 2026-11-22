@@ -1,0 +1,1 @@
+{"worker": 3, "pid": 72891, "task": "audit_bracket_2/7 ctl_interp lexmin 1", "started": 1795363278.6018791, "phase": "idle (finished audit_bracket_2/7 ctl_interp lexmin 1)", "updated": 1795363278.812163, "call": 25, "call_started": null, "query_bits": 30, "last_call_s": 0.006, "max_call_s": 0.006, "max_call_at": 5}

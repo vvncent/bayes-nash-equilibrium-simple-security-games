@@ -1,0 +1,10 @@
+n=2: 56 discriminating instances; checking 8; eps=-3; swap=False; term_cap=S3
+succ=[(0, 1), ('yes', 'no')] run->yes (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(yes)=2, in(no)=4 (15s)
+succ=[(0, 1), ('no', 'yes')] run->no (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(no)=2, in(yes)=4 (29s)
+succ=[(1, 'yes'), (1, 'no')] run->no (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(no)=4, in(yes)=4 (28s)
+succ=[(1, 'no'), (1, 'yes')] run->yes (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(yes)=4, in(no)=4 (24s)
+succ=[(1, 0), ('yes', 'no')] run->yes (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(yes)=1, in(no)=4 (27s)
+succ=[(1, 0), ('no', 'yes')] run->no (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(no)=1, in(yes)=4 (21s)
+succ=[(1, 1), ('yes', 'no')] run->yes (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(yes)=2, in(no)=4 (19s)
+succ=[(1, 'yes'), ('no', 1)] run->no (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(no)=2, in(yes)=4 (17s)
+NOT ALL OK

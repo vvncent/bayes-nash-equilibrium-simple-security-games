@@ -1,0 +1,9 @@
+succ=[(2, 1), ('yes', 0), (0, 'no')] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (358.5s)
+succ=[('yes', 'no'), ('yes', 2), (2, 1)] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (85.6s)
+succ=[(2, 2), (2, 'no'), ('yes', 'no')] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (49.4s)
+succ=[(2, 0), ('yes', 2), (1, 'no')] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (89.0s)
+succ=[('no', 2), ('yes', 2), ('yes', 1)] -> no | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (22.4s)
+succ=[(0, 1), ('yes', 'no'), (2, 'no')] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (15.3s)
+succ=[('yes', 'no'), ('yes', 'yes'), ('yes', 'yes')] -> yes | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (6.5s)
+succ=[('no', 'yes'), (1, 2), (2, 'no')] -> no | types=132 | Q1 sat Q2 unsat Q3 unsat | OK | swapped control Q2 sat Q3 unsat (13.4s)
+8 instances; all OK: True; swapped control caught on 8/8

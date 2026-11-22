@@ -1,0 +1,14 @@
+negative control: at eps=1 the support [Fraction(1, 1), Fraction(0, 1), Fraction(0, 1)] gives an infeasible system (1); the findings' eps decodes
+1x1 tie u+P=2: N=3, eps has 16 bits, 2 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+1x2 two goods: N=5, eps has 25 bits, 7 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+2x2 balanced p(I)=c(J): N=8, eps has 47 bits, 44 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+2x2 negative intercepts: N=8, eps has 92 bits, 44 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+2x2 all zero intercepts: N=8, eps has 49 bits, 44 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+2x2 binary scale: N=8, eps has 591 bits, 44 positive principal minors, unique P-LCP solution, decoded M1 equilibrium
+random: 60 markets (ties, balances, negative intercepts, sparse edges): all checks pass
+large: 8 markets up to N=19, eps up to 828 bits: unique P-LCP solution and exact decode
+ALL CHECKS PASSED
+real 34.06
+user 31.57
+sys 0.21
+exit=0

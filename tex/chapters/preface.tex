@@ -1,0 +1,67 @@
+\chapter*{Preface}
+\addcontentsline{toc}{chapter}{Preface}
+
+Vincent Conitzer asked whether a Bayes--Nash equilibrium of a Bayesian simple security game, given
+explicitly in binary, can be computed in polynomial time~\cite{conitzer26}. The question is still
+open. This book places the problem between two known problems and adds two algorithmic results.
+
+\emph{Terms.} ARRIVAL asks whether a token that walks a directed graph, leaving each vertex alternately by its two exits, reaches a given vertex; it lies in $\mathsf{NP}\cap\mathsf{coNP}$, and no polynomial algorithm is known. P-LCP is the linear complementarity problem for P-matrices, and $\mathsf{UEOPL}$ (unique end of potential line) is a class of total search problems that contains both. (M1) is a matching market of buyers and goods with affine utilities, which Chapter~\ref{ch:market} links to the game. $\le_m$ is a polynomial-time many-one reduction and $\equiv_T$ polynomial-time Turing equivalence. An exact BNE is an exact rational equilibrium, not an approximate one.
+\begin{itemize}[nosep]
+\item \emph{Lower bound.} Exact BNE search is ARRIVAL-hard, already for games with one defender
+resource and defender payoffs $0$ and $1$ (Theorem~\ref{thm:A}). A polynomial-time algorithm would
+therefore put ARRIVAL in $\mathsf P$, which has been open since ARRIVAL was
+introduced~\cite{dgkmw17}. For the shorter construction of Appendix~\ref{app:short}, the statement
+that every rational BNE decodes to the right answer is machine-checked in Lean~4
+(Section~\ref{sec:lean-status}).
+\item \emph{Upper bound.} Exact BNE search reduces many-one to a single P-matrix linear
+complementarity problem and lies in $\mathsf{UEOPL}$, the best known class bound for ARRIVAL as well
+(Chapter~\ref{ch:upper}). Via the market (Corollary~\ref{plcp:cor:arrival}), ARRIVAL $\le_m$ P-LCP, one direction of the question of G\"artner et al.~\cite{ghhkms18} whether ARRIVAL and P-LCP reduce to each other.
+\item \emph{Structure.} The problem is polynomial-time Turing equivalent to finding an equilibrium of
+an affine matching market (Chapter~\ref{ch:market}).
+\item \emph{Algorithms.} It can be solved with $L^{O(\sqrt n)}$ bit operations for $n$ targets and
+input length $L$, using the block search of Ghorbani, Lopes and Mnich~\cite{glm26}. The algorithm of Li, Conitzer and Korzhyk~\cite{lck16}, designed for these games, can take exponentially many steps on worst-case instances
+(Chapter~\ref{ch:lck}).
+\end{itemize}
+\begin{center}
+\resizebox{0.82\textwidth}{!}{%
+\begin{tikzpicture}[
+  box/.style={draw,rounded corners,minimum width=2.3cm,minimum height=0.8cm,align=center,font=\small},
+  cls/.style={draw,dashed,rounded corners,minimum width=2.0cm,minimum height=0.7cm,align=center,font=\small},
+  arr/.style={-{Stealth[length=2.5mm]},thick},
+  lab/.style={font=\scriptsize,midway,fill=white,inner sep=1.5pt}]
+  \node[box] (arr) at (-1.0,0) {ARRIVAL};
+  \node[box] (bne) at (4.2,0) {exact BNE};
+  \node[box] (m1)  at (8.4,0) {(M1) market};
+  \node[box] (plcp) at (8.4,-2.6) {P-LCP};
+  \node[cls] (ueopl) at (4.2,-4.6) {$\mathsf{UEOPL}$};
+  \node[cls] (eopl) at (4.2,-5.9) {$\mathsf{EOPL}=\mathsf{CLS}$};
+  \draw[arr,vlean,line width=1.6pt] (arr) -- node[lab,align=center]{$\le_m$ (Ch.~\ref{ch:arrival};\\ Lean: App.~\ref{app:short})} (bne);
+  \draw[arr,vref,{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}] (bne) -- node[lab]{$\equiv_T$ (Ch.~\ref{ch:market})} (m1);
+  \draw[arr,vpartial,line width=1.3pt,dashed] (m1) -- node[lab]{$\le_m$ (Ch.~\ref{ch:upper})} (plcp);
+  \draw[arr,vpartial,line width=1.3pt,dashed] (bne) -- node[lab,pos=0.55]{$\le_m$, direct (Ch.~\ref{ch:upper})} (plcp);
+  \draw[arr,vref] (arr.north) |- node[lab,pos=0.75]{ARRIVAL $\le_m$ P-LCP, new (Cor.~\ref{plcp:cor:arrival})} (10.3,1.1) |- (plcp.east);
+  \draw[arr,vpartial,line width=1.3pt,dashed] (bne) -- node[lab,pos=0.45]{$\in$, one $\ell_1$ contraction (Ch.~\ref{ch:upper})} (ueopl);
+  \draw[arr,gray] (plcp) to[out=-90,in=0] node[lab,pos=0.4]{$\in$ \cite{fgms18}} (ueopl);
+  \draw[arr,gray] (arr) to[out=-90,in=180] node[lab,pos=0.6]{$\in$ \cite{ghhkms18,fgms18}} (ueopl);
+  \draw[arr,gray] (ueopl) -- node[lab,right=2pt,fill=none]{$\subseteq$} (eopl);
+\end{tikzpicture}}
+\end{center}
+\noindent{\small Arrow colors show how each arrow's correctness was checked: \textcolor{vlean}{\textbf{dark green, thick}} = correctness machine-checked in Lean (via the Appendix~\ref{app:short} construction; running time not formalized); \textcolor{vpartial}{\textbf{light green, dashed}} = partly machine-checked (Section~\ref{sec:lean-status} lists what is covered); \textcolor{vref}{\textbf{amber}} = checked by independent AI referees; gray = known results ($\mathsf{EOPL}=\mathsf{CLS}$~\cite{gjhmprt22,fghs23}). The top arrow composes ARRIVAL $\le_m$ (M1) (Theorem~\ref{thm:arrival-m1}) with (M1) $\le_m$ P-LCP (Theorem~\ref{plcp:thm:main}). Figure~\ref{fig:landscape} in Chapter~\ref{ch:intro} explains the picture.}
+
+A first reading needs Chapter~\ref{ch:intro} (three pages), Appendix~\ref{app:short} (about six pages), the shortest complete proof of the lower bound, and Section~\ref{sec:direct-lcp} (about seven pages), the complete proof of the main upper bound. Both are largely machine-checked in Lean; Section~\ref{sec:lean-status} says exactly what is and is not.
+
+\paragraph{AI-generated.} Everything in this book (the constructions, proofs, Lean formalization, computer checks and text) was generated by AI agents. Vincent Lin (\texttt{vincent2@alumni.cmu.edu}) coordinated the agents (choosing the questions, starting and directing the agent runs and reviews, and requesting corrections) but wrote none of the content. The results were checked by independent AI referees, which started without the authoring context
+and tried to break each proof, and most results were also checked by exact computer experiments on
+small instances. No human expert has verified any of the proofs. For the shorter construction of Appendix~\ref{app:short}, the statement that every rational BNE decodes to the right answer, together with the size and bit-length bounds, is additionally machine-checked in Lean~4; so are parts of Chapters~\ref{ch:market} and~\ref{ch:upper}, including the correctness of Theorem~\ref{thm:direct-lcp} for $0<r<n$ in marginal coordinates (Section~\ref{sec:lean-status} lists exactly which statements). Polynomial running time is not formalized, and the other results are not formalized. The referees ran on model families
+similar to the authors' and may share their blind spots. Appendix~\ref{app:status} lists, for every
+result, what was checked and how; Appendix~\ref{app:sources} records the corrections the referees
+required.
+
+\paragraph{How status is marked.} Each main result carries one tag directly under its statement:
+\begin{itemize}[nosep]
+\item \textcolor{vlean}{\small\textsf{[machine-checked in Lean~4; also refereed]}}: the statement, for rational numbers, is proved in Lean against the project's own definitions (Section~\ref{sec:lean-status}); used in Chapter~\ref{ch:market}, Chapter~\ref{ch:upper} and Appendix~\ref{app:short};
+\item \textcolor{vref}{\small\textsf{[checked by an independent AI referee]}};
+\item \textcolor{gray}{\small\textsf{[known result, cited]}}.
+\end{itemize}
+Lemmas inside a proof chain sometimes carry no tag; their status is in the table of
+Appendix~\ref{app:status}. The tags are conservative: a result built from refereed parts carries the referee tag only if a referee also checked the step that combines them.

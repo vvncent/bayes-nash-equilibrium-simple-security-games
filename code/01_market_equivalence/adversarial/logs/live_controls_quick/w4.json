@@ -1,0 +1,1 @@
+{"worker": 4, "pid": 72892, "task": "pin_witness#3 ctl_interp degen 1", "started": 1795363277.7687092, "phase": "idle (finished pin_witness#3 ctl_interp degen 1)", "updated": 1795363278.983222, "call": 182, "call_started": null, "query_bits": 29, "last_call_s": 0.005, "max_call_s": 0.007, "max_call_at": 87}

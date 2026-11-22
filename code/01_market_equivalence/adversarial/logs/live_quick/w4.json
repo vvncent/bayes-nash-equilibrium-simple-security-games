@@ -1,0 +1,1 @@
+{"worker": 4, "pid": 72865, "task": "pos#q random 124", "started": 1795363263.546914, "phase": "idle (finished pos#q random 124)", "updated": 1795363264.983618, "call": 151, "call_started": null, "query_bits": 153, "last_call_s": 0.01, "max_call_s": 0.016, "max_call_at": 15}

@@ -1,0 +1,5 @@
+n6_mixed: n=6 run->yes (11 steps; s1-start run->no) kept=[0, 1, 2, 3, 4, 5] buyers=165 goods=308
+  exists: sat (43.4s)
+  model: x={0: '4', 1: '2', 2: '2', 3: '802616876353/401308550160', 4: '1', 5: '1'} fixed point: True; load(want)=1 load(other)=0
+  some equilibrium decodes wrongly: unsat (36.0s)
+  OK

@@ -1,0 +1,56 @@
+\usepackage[margin=1.1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{enumitem}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning,calc}
+\usepackage[hidelinks]{hyperref}
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Status tags. Put one right after every theorem/lemma/proposition/corollary header.
+% \statusrefereed  : checked by an independent AI referee (named review exists)
+% \statusaudited   : checked inside the producing run (monitor/audit pass, exact checker), no independent referee
+% \statusdraft     : written up, no audit found
+% \statuscited     : a known result from the literature
+% \statusconjecture: open / conjectured
+% Verification spectrum (strongest to weakest evidence); also used in Figure 1.2.
+\definecolor{vlean}{RGB}{0,115,55}      % machine-checked in Lean
+\definecolor{vpartial}{RGB}{105,160,30} % partly machine-checked
+\definecolor{vref}{RGB}{190,135,0}      % independent AI referee
+\definecolor{vaud}{RGB}{215,95,0}       % internally audited
+\definecolor{vdraft}{RGB}{185,25,25}    % draft
+\definecolor{vconj}{RGB}{120,60,150}    % conjecture / open
+\newcommand{\statustag}[2]{\par\noindent\textcolor{#1}{\small\textsf{[#2]}}\par\smallskip}
+\newcommand{\statusrefereed}{\statustag{vref}{Status: checked by an independent AI referee}}
+\newcommand{\statusaudited}{\statustag{vaud}{Status: internally audited, no independent referee}}
+\newcommand{\statusdraft}{\statustag{vdraft}{Status: draft, not audited}}
+\newcommand{\statuscited}{\statustag{gray}{Status: known result, cited}}
+\newcommand{\statuslean}{\statustag{vlean}{Status: machine-checked in Lean~4 (Section~\ref{sec:lean-status}); also checked by an independent AI referee}}
+\newcommand{\statusconjecture}{\statustag{vconj}{Status: conjecture / open}}
+
+\newcommand{\Red}{\mathsf{Red}}
+\newcommand{\Dec}{\mathsf{Dec}}
+\newcommand{\yes}{\textit{yes}}
+\newcommand{\no}{\textit{no}}
+\newcommand{\succz}{\mathrm{succ}_0}
+\newcommand{\succo}{\mathrm{succ}_1}
+\newcommand{\inflow}{\mathrm{inflow}}
+\newcommand{\indeg}{\mathrm{indeg}}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator*{\argmax}{arg\,max}

@@ -1,0 +1,9 @@
+[0] 0:(0,yes) run->yes types=20 targets=21 exist=None wrong-decode=unsat 1.6s
+[1] 0:(0,no) run->no types=20 targets=21 exist=None wrong-decode=unsat 0.1s
+[2] 0:(yes,0) run->yes types=20 targets=21 exist=None wrong-decode=unsat 3.2s
+[3] 0:(yes,yes) run->yes types=20 targets=21 exist=None wrong-decode=unsat 2.4s
+[4] 0:(yes,no) run->yes types=20 targets=21 exist=None wrong-decode=sat dec=0 expected=1 1.3s
+[5] 0:(no,0) run->no types=20 targets=21 exist=None wrong-decode=unsat 0.0s
+[6] 0:(no,yes) run->no types=20 targets=21 exist=None wrong-decode=sat dec=1 expected=0 0.2s
+[7] 0:(no,no) run->no types=20 targets=21 exist=None wrong-decode=unsat 0.0s
+NEG swap: caught 2, other 6

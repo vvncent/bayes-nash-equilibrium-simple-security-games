@@ -1,0 +1,14 @@
+m=1 done, checks so far 315, failures 0
+m=2 done, checks so far 780, failures 0
+m=3 done, checks so far 1525, failures 0
+m=4 done, checks so far 2830, failures 0
+m=5 done, checks so far 3160, failures 0
+m=6 done, checks so far 3490, failures 0
+--- negative controls (must FAIL) ---
+eps=0,P'=1,P"=0 (theta=-1) m= 2 counterexample: (Fraction(1, 2), (Fraction(0, 1), Fraction(1, 2), Fraction(1, 2), 0))
+eps=0,P'=1,P"=0 (theta=-1) m= 3 counterexample: (Fraction(1, 2), (Fraction(0, 1), Fraction(1, 2), Fraction(1, 2), 0))
+eps=6,P'=0,P"=1 (theta=7) m= 2 counterexample: (Fraction(3, 2), (Fraction(3, 2), Fraction(0, 1), 1, Fraction(1, 2)))
+eps=6,P'=0,P"=1 (theta=7) m= 3 counterexample: (Fraction(3, 2), (Fraction(3, 2), Fraction(0, 1), 1, Fraction(1, 2)))
+M=Sigma_kappa/3 m= 2 counterexample: (Fraction(13, 2), (Fraction(3, 1), Fraction(3, 1), Fraction(7, 2), 3))
+M=Sigma_kappa/3 m= 3 counterexample: (Fraction(29, 2), (Fraction(7, 1), Fraction(7, 1), Fraction(15, 2), 7))
+TOTAL 3490 FAILURES 0

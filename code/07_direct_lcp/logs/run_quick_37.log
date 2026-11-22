@@ -1,0 +1,5 @@
+minors 27904 12000
+formulation 15 negative-control-rejected
+decoder 3
+boundary-and-zero-prior
+PASS

@@ -1,0 +1,5 @@
+n5_coincident: n=5 run->no (11 steps; s1-start run->yes) kept=[0, 1, 2, 3, 4] buyers=118 goods=217
+  exists: sat (39.2s)
+  model: x={0: '6', 1: '6', 2: '3', 3: '3', 4: '1'} fixed point: True; load(want)=1 load(other)=0
+  some equilibrium decodes wrongly: unsat (21.6s)
+  OK

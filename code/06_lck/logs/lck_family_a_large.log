@@ -1,0 +1,6 @@
+{'h': 9, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 256, 'fail': 1, 'below': 256, 'bound': 256, 'path_mismatch': 0, 'cancels': 512, 'secs': 11.1, 'types': 47, 'targets': 20}
+{'h': 9, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 256, 'fail': 19, 'below': 256, 'bound': 256, 'path_mismatch': 0, 'cancels': 0, 'secs': 44.3, 'types': 47, 'targets': 20}
+{'h': 10, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 512, 'fail': 1, 'below': 512, 'bound': 512, 'path_mismatch': 0, 'cancels': 1024, 'secs': 42.5, 'types': 52, 'targets': 22}
+{'h': 10, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 512, 'fail': 21, 'below': 512, 'bound': 512, 'path_mismatch': 0, 'cancels': 0, 'secs': 118.1, 'types': 52, 'targets': 22}
+{'h': 11, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 1024, 'fail': 1, 'below': 1024, 'bound': 1024, 'path_mismatch': 0, 'cancels': 2048, 'secs': 135.4, 'types': 57, 'targets': 24}
+{'h': 11, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 1024, 'fail': 23, 'below': 1024, 'bound': 1024, 'path_mismatch': 0, 'cancels': 0, 'secs': 374.5, 'types': 57, 'targets': 24}

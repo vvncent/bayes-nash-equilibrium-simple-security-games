@@ -1,0 +1,3 @@
+1026 games x 5 oracles = 5130 runs (+ audit bracket x 5), workers=10
+<python-install>/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown
+  warnings.warn('resource_tracker: There appear to be %d '

@@ -1,0 +1,8 @@
+n=1 geps=3 discriminating=2 N=49 options=26 buyers=10 goods=13 U=114 C=210 delta_bits=676
+n=1 geps=-3 discriminating=2 N=49 options=26 buyers=10 goods=13 U=92 C=166 delta_bits=659
+n=2 geps=3 discriminating=56 N=146 options=81 buyers=25 goods=40 U=410 C=786 delta_bits=2482
+n=2 geps=-3 discriminating=56 N=146 options=81 buyers=25 goods=40 U=388 C=742 delta_bits=2470
+n=3 geps=3 discriminating=3418 N=299 options=168 buyers=48 goods=83 U=2154 C=4242 delta_bits=6096
+n=3 geps=-3 discriminating=3418 N=299 options=168 buyers=48 goods=83 U=2132 C=4198 delta_bits=6092
+n=4 geps=3 discriminating=- N=508 options=287 buyers=79 goods=142 U=12554 C=24978 delta_bits=12027
+n=4 geps=-3 discriminating=- N=508 options=287 buyers=79 goods=142 U=12532 C=24934 delta_bits=12026

@@ -1,0 +1,6 @@
+m=1 M=18 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.0s)
+m=2 M=54 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.0s)
+m=3 M=162 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.1s)
+m=4 M=486 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.3s)
+m=5 M=1458 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.6s)
+m=6 M=4374 eps=3 control=None : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (1.6s)

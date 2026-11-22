@@ -1,0 +1,1 @@
+n=3 control=None instances(canonical, preprocessed) 675 bad 0 tags {'origin-in-edge': 497, 'selfloop': 502, 'a=b': 265, 'preproc-deleted': 13, 'both-same-terminal': 171}  314s

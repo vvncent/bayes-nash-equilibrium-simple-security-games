@@ -1,0 +1,9 @@
+[0] 0:(0,yes) run->yes size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[1] 0:(0,no) run->no size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[2] 0:(yes,0) run->yes size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[3] 0:(yes,yes) run->yes size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[4] 0:(yes,no) run->yes size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[5] 0:(no,0) run->no size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[6] 0:(no,yes) run->no size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+[7] 0:(no,no) run->no size(b,g,opt)=(7, 12, 23) exist=sat wrong-decode=unsat 0.0s
+n=1: OK 8, FAIL 0

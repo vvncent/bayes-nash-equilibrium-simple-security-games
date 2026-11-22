@@ -1,0 +1,16 @@
+{'h': 5, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 16, 'fail': 1, 'below': 16, 'bound': 16, 'path_mismatch': 0, 'cancels': 32, 'secs': 0.2, 'types': 27, 'targets': 12}
+{'h': 5, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 16, 'fail': 11, 'below': 16, 'bound': 16, 'path_mismatch': 0, 'cancels': 0, 'secs': 0.7, 'types': 27, 'targets': 12}
+{'h': 5, 'rule': 'R3', 'seed': 0, 'bne': True, 'succ': 16, 'fail': 5, 'below': 16, 'bound': 16, 'path_mismatch': 0, 'cancels': 36, 'secs': 0.3, 'types': 27, 'targets': 12}
+{'h': 5, 'rule': 'R4', 'seed': 0, 'bne': True, 'succ': 16, 'fail': 6, 'below': 16, 'bound': 16, 'path_mismatch': 0, 'cancels': 0, 'secs': 0.6, 'types': 27, 'targets': 12}
+{'h': 6, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 32, 'fail': 1, 'below': 32, 'bound': 32, 'path_mismatch': 0, 'cancels': 64, 'secs': 0.5, 'types': 32, 'targets': 14}
+{'h': 6, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 32, 'fail': 13, 'below': 32, 'bound': 32, 'path_mismatch': 0, 'cancels': 0, 'secs': 1.7, 'types': 32, 'targets': 14}
+{'h': 6, 'rule': 'R3', 'seed': 0, 'bne': True, 'succ': 32, 'fail': 5, 'below': 32, 'bound': 32, 'path_mismatch': 0, 'cancels': 65, 'secs': 0.6, 'types': 32, 'targets': 14}
+{'h': 6, 'rule': 'R4', 'seed': 0, 'bne': True, 'succ': 32, 'fail': 5, 'below': 32, 'bound': 32, 'path_mismatch': 0, 'cancels': 0, 'secs': 1.4, 'types': 32, 'targets': 14}
+{'h': 7, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 64, 'fail': 1, 'below': 64, 'bound': 64, 'path_mismatch': 0, 'cancels': 128, 'secs': 1.4, 'types': 37, 'targets': 16}
+{'h': 7, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 64, 'fail': 15, 'below': 64, 'bound': 64, 'path_mismatch': 0, 'cancels': 0, 'secs': 4.1, 'types': 37, 'targets': 16}
+{'h': 7, 'rule': 'R3', 'seed': 0, 'bne': True, 'succ': 64, 'fail': 6, 'below': 64, 'bound': 64, 'path_mismatch': 0, 'cancels': 129, 'secs': 1.6, 'types': 37, 'targets': 16}
+{'h': 7, 'rule': 'R4', 'seed': 0, 'bne': True, 'succ': 64, 'fail': 8, 'below': 64, 'bound': 64, 'path_mismatch': 0, 'cancels': 0, 'secs': 3.5, 'types': 37, 'targets': 16}
+{'h': 8, 'rule': 'R1', 'seed': 0, 'bne': True, 'succ': 128, 'fail': 1, 'below': 128, 'bound': 128, 'path_mismatch': 0, 'cancels': 256, 'secs': 3.5, 'types': 42, 'targets': 18}
+{'h': 8, 'rule': 'R2', 'seed': 0, 'bne': True, 'succ': 128, 'fail': 17, 'below': 128, 'bound': 128, 'path_mismatch': 0, 'cancels': 0, 'secs': 10.5, 'types': 42, 'targets': 18}
+{'h': 8, 'rule': 'R3', 'seed': 0, 'bne': True, 'succ': 128, 'fail': 7, 'below': 128, 'bound': 128, 'path_mismatch': 0, 'cancels': 255, 'secs': 3.8, 'types': 42, 'targets': 18}
+{'h': 8, 'rule': 'R4', 'seed': 0, 'bne': True, 'succ': 128, 'fail': 7, 'below': 128, 'bound': 128, 'path_mismatch': 0, 'cancels': 0, 'secs': 8.9, 'types': 42, 'targets': 18}

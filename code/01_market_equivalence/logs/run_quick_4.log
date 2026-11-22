@@ -1,0 +1,5 @@
+U=12 A=2 S=5; market needs P=100, i.e. x=20
+BNE exists: sat; witness x=['80/101', '21/101', '0', '0']
+some BNE fails the M1 decoding: sat (0.0s)
+market equilibrium with P != 100: unsat
+market equilibrium exists: sat

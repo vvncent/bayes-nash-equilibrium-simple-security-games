@@ -1,0 +1,5 @@
+n5_selfloop_chain: n=5 run->yes (5 steps; s1-start run->no) kept=[0, 1, 2, 3, 4] buyers=118 goods=217
+  exists: sat (2.7s)
+  model: x={0: '1', 1: '1', 2: '1', 3: '1', 4: '1'} fixed point: True; load(want)=1 load(other)=0
+  some equilibrium decodes wrongly: unsat (18.4s)
+  OK

@@ -1,0 +1,47 @@
+
+=== seed 4 game 0: n=2 m=2 Game(r=1, p=[Fraction(1, 2), Fraction(1, 2)], a=[[Fraction(-1, 1), Fraction(-3, 2)], [Fraction(-3, 2), Fraction(-2, 1)]], b=[[Fraction(1, 1), Fraction(3, 1)], [Fraction(0, 1), Fraction(5, 4)]], d=[Fraction(0, 1), Fraction(0, 1)])
+N=10 H=13 log10(Q)~21 bits(delta)~231
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '686816138008971171693995382592005701468274933367712451085359999999999/30298699828310851635793875655664182893053767345340890220069846350398933488304350080000000001', 'br_bound_ok': True, 'cut_res': '1/176458869566720000000000', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [2, 2], 'support': [(0, 0), (0, 1), (1, 0)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.125', 'cut_res': '0.03125'}
+pair tests: worst ratio = 1 - 1/13736322760179423433880374717829845499..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 144 patterns, 9 with t*=0, unknown 0, smallest positive t*=1/18, bad=[]
+time 1.5s
+
+=== seed 4 game 1: n=3 m=2 Game(r=1, p=[Fraction(3, 4), Fraction(1, 4)], a=[[Fraction(3, 4), Fraction(-3, 2), Fraction(3, 2)], [Fraction(-3, 4), Fraction(2, 1), Fraction(2, 1)]], b=[[Fraction(0, 1), Fraction(5, 4), Fraction(5, 4)], [Fraction(5, 2), Fraction(1, 1), Fraction(1, 1)]], d=[Fraction(1, 1), Fraction(0, 1), Fraction(1, 4)])
+N=13 H=21 log10(Q)~31 bits(delta)~778
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '22659483047590009685345613342297570600188834900566362995463070304164640928904993742784225167662921330218720928777437698923982096063569027843409609760380991676889940629008889396619544410002881269242141802091482541063459855974277544078197/96927350871516624604042695028528539751019170743729596467145576821624217033459370731885739830596013848370677000278513672859026029337337875266450711079221829775826793664818940961662047851882893513365840174402676450760927377971182677098470612499171302711675110198115907816', 'budget_bound_ok': True, 'br_res': '5249292690187017256573675755730734073918057654370375925427818711042570404614075197037933437574064916348939729692274877596844177819464978156847790248588627024231559838724013555342865936056884763864034186264538301338156026582247100986921243311802423807813163069279726657252830444568625753624433718577547156160992237933640957424140194982211639131488111034954791481194467932481187095730413425440395170359585176063664130208689614553020586701/13098269693469873294251468652041305486697679569596606183979605880520885227227006985549676135496774585515053849071602887520847376072826207224382134172532607232602650385123875689788857706804680851274861020317079730799037405819123803326545806339303602712645326622357000803436917517501851482733247007505169537179464406927367637109673631098219499447041688698503702655791235397294981486100227009497958495283286808106594533940423114321831091109223427439849876422163208824625728', 'br_bound_ok': True, 'cut_res': '72768164963721518301397048066896125492503741826930532132941383726920679904351574329280629007317141478819772567453366119691724400547884103916110555073741720742797191153594660919432359667475005494715129646082750234369122337735903938998312839826426362018853106441862267831621960690856108627556545440607741134541851829296090777379029761358656644623149690745008217337425317369397207664692014749779795307379971966152660786986718703348849091755296631999541585694582059139327/408542348199579558441788675690621537512029941545891978957733253004338536415955848670273573534615546592160025990822190579407972668695074026215209866147908674886592199582954394489474112697798350684376721385755246354255138127970212914044261082834056294869522963998112977151524325552357514695992639622041803033832875252195209337965295648720209316561028737184640133530322912663310408665101985825682231622418345522156746238166476526942110704962926693625926564227573019583900208415387413629133428885075577216', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [2, 0, 2], 'support': [(0, 0), (0, 2), (1, 1)]}
+  residuals/g: {'budget_res': '0.04375', 'br_res': '0.075', 'cut_res': '0.03333333333333333'}
+pair tests: worst ratio = 1 - 2241448576518354079355418937454354835096..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+time 46.7s
+
+=== seed 4 game 2: n=2 m=2 Game(r=1, p=[Fraction(1, 2), Fraction(1, 2)], a=[[Fraction(2, 1), Fraction(3, 2)], [Fraction(3, 1), Fraction(-2, 1)]], b=[[Fraction(0, 1), Fraction(0, 1)], [Fraction(3, 4), Fraction(3, 4)]], d=[Fraction(11, 4), Fraction(0, 1)])
+N=10 H=23 log10(Q)~23 bits(delta)~430
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '0', 'br_bound_ok': True, 'cut_res': '0', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [1, 0], 'support': [(0, 0), (1, 0)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.0', 'cut_res': '0.0'}
+pair tests: worst ratio = 1 - 72910659736022240000000001/1910858664541..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 144 patterns, 3 with t*=0, unknown 0, smallest positive t*=1/6, bad=[]
+time 1.2s
+
+=== seed 4 game 3: n=2 m=1 Game(r=1, p=[Fraction(1, 1)], a=[[Fraction(0, 1), Fraction(-1, 2)]], b=[[Fraction(0, 1), Fraction(0, 1)]], d=[Fraction(3, 4), Fraction(1, 2)])
+N=7 H=7 log10(Q)~11 bits(delta)~274
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '0', 'br_bound_ok': True, 'cut_res': '0', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [1, 0], 'support': [(0, 0)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.0', 'cut_res': '0.0'}
+pair tests: worst ratio = 1 - 706539320132774837906194257/176660558632..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 36 patterns, 3 with t*=0, unknown 0, smallest positive t*=3/16, bad=[]
+time 0.6s

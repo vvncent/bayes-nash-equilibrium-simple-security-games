@@ -1,0 +1,9 @@
+negative controls (expect False):
+  m=2 K=8 eps=0: certified=False; failing pieces=[(0, 1), (1, 2), (2, 3), (3, 4)]
+  m=2 K=8 eps=7: certified=False; failing pieces=[(1, 2), (2, 3), (3, 4), (4, 5)]
+  m=2 K=8 w=4: certified=False; failing pieces=[(0, 1), (1, 2), (2, 3), (3, 4)]
+larger K (expect True):
+  m=4 K=32 agents=54 bits=1428 certified=True (8.9s); chain(K) would need 34 agents
+  m=5 K=64 agents=66 bits=2042 certified=True (35.3s); chain(K) would need 66 agents
+  m=6 K=128 agents=78 bits=2660 certified=True (112.7s); chain(K) would need 130 agents
+  m=7 K=256 agents=90 bits=3474 certified=True (405.6s); chain(K) would need 258 agents

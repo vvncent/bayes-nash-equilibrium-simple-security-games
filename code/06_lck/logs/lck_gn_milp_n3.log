@@ -1,0 +1,62 @@
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+artifact/06_lck/verify_theorem1.py:120: RuntimeWarning: Unrecognized options detected: {'primal_feasibility_tolerance'}. These will be passed to HiGHS verbatim.
+  res = milp(c, constraints=cons, bounds=Bounds(lb, ub), integrality=integrality,
+(a,b) proof inequalities and strong connectivity:
+   n=1..1: all inequalities hold exactly and network strongly connected: True
+(c) exact equilibria at the forced budgets:
+   n=1: 2 equilibria exact-verified=True, budgets strictly monotone=True, budget range [1.526961, 1.998162] (r=2), 0.00s
+(d) MILP sanity check (floating point) over ALL equilibria at the forced budgets:
+   n=1: max |extreme return mass - (j+1)/Kappa| over j = 2.78e-17  (1.6s)
+   n=2: max |extreme return mass - (j+1)/Kappa| over j = 1.11e-16  (4.0s)
+   n=3: max |extreme return mass - (j+1)/Kappa| over j = 3.89e-16  (21.3s)
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();
+HighsMipSolverData::transformNewIntegerFeasibleSolution tmpSolver.run();

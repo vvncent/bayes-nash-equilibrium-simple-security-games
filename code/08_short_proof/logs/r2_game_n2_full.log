@@ -1,0 +1,2 @@
+[0] 0:(1,1) 1:(no,no) run->no types=62 targets=63 exist=sat wrong-decode=unsat 823.3s
+n=2: OK 1, other 0

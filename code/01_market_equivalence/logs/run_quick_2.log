@@ -1,0 +1,6 @@
+interpolated point admits a BNE flow: unsat
+row-2 utilities at interpolation: ['22/27', '43/54', '8/9']
+two-target from audit bracket: opt ['1/2', '1/2'] hit
+two-target from audit bracket: interior ['1/2', '1/2'] hit
+two-target from audit bracket: plain ['1/2', '1/2'] hit
+audit cases OK

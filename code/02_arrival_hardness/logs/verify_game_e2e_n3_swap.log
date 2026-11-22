@@ -1,0 +1,3 @@
+n=3: 3418 discriminating instances; checking 1; eps=3; swap=True; term_cap=S3
+succ=[(0, 1), (0, 2), ('yes', 'no')] run->yes (7 steps) | types=132 targets=133 | BNE exists: sat; some BNE decodes wrongly: sat | CAUGHT/FAIL witness: in(yes)=0, in(no)=1 (427s)
+NOT ALL OK

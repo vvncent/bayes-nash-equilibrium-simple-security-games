@@ -1,0 +1,1 @@
+control: A+B>x satisfiable: sat (expect sat); S1+S2 certified: False (expect False)

@@ -1,0 +1,13 @@
+all b=0: n=2 m=2 r=1 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[0, 1] | res/g=0.0000,0.0000,0.0000 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 5.4s
+all d=0: n=2 m=2 r=1 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[2, 2] | res/g=0.0000,0.0000,0.0312 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 13.6s
+all b=0 and d=0: n=3 m=1 r=2 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[2, 2, 2] | res/g=0.0208,0.0000,0.0208 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 4.4s
+identical tied types: n=2 m=2 r=1 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[2, 2] | res/g=0.0000,0.0000,0.0312 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 14.2s
+r=n-1, n=3: n=3 m=2 r=2 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[2, 0, 1] | res/g=0.0500,0.0000,0.0037 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 107.5s
+n=4 random #0: n=4 m=2 r=3 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[1, 2, 2, 1] | res/g=0.0625,0.0000,0.0115 | pairs_violation=False | z3agree=True | 108.0s
+n=4 random #1: n=4 m=1 r=1 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[0, 2, 0, 0] | res/g=0.0625,0.0000,0.0625 | pairs_violation=False | z3agree=True | z3viol(true)=unsat | z3viol(struct)=unsat | jac=40/0fail | 22.1s
+n=4 random #2: n=4 m=2 r=2 | unique=unsat lp=sat bne=(True, 'ok') failed_flags=[] labels=[0, 1, 2, 2] | res/g=0.0625,0.1250,0.0312 | pairs_violation=False | z3agree=True | 37.5s
+teeth: factor (1-delta)*0.999 -> sat, ratio found 137234472000/137234664881 (should be sat with ratio > that factor)
+teeth: factor (1-delta) -> unsat (should be unsat)
+teeth: mutated eta = 3 tau/B -> sat, ratio 36210294528322517858048000/27157744269216035866974163 (expect sat)
+teeth: mutated eta with s-column sum 0.677 -> unsat, ratio None (expect sat if > 1)
+exit=0 runtime_s=317

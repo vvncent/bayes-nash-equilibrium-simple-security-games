@@ -1,0 +1,149 @@
+08:01:08 +      0s START   w0 audit_three_target corrupt_price lexmin 0
+08:01:08 +      0s START   w1 audit_three_target corrupt_capacity lexmin 0
+08:01:08 +      0s START   w2 audit_three_target corrupt_drop lexmin 0
+08:01:08 +      0s START   w3 audit_two_target corrupt_price lexmin 0
+08:01:08 +      0s START   w4 audit_two_target corrupt_capacity lexmin 0
+08:01:08 +      0s START   w5 audit_two_target corrupt_drop lexmin 0
+08:01:08 +      0s DONE    w0 audit_three_target corrupt_price lexmin 0 result=True calls=1 t=0.1s [1/74 done]
+08:01:08 +      0s START   w0 pin_witness#0 corrupt_price lexmin 0
+08:01:08 +      0s DONE    w0 pin_witness#0 corrupt_price lexmin 0 result=True calls=1 t=0.0s [2/74 done]
+08:01:08 +      0s START   w0 pin_witness#0 corrupt_capacity lexmin 0
+08:01:08 +      0s DONE    w3 audit_two_target corrupt_price lexmin 0 result=True calls=1 t=0.1s [3/74 done]
+08:01:08 +      0s START   w3 pin_witness#0 corrupt_drop lexmin 0
+08:01:08 +      0s DONE    w0 pin_witness#0 corrupt_capacity lexmin 0 result=True calls=1 t=0.0s [4/74 done]
+08:01:08 +      0s START   w0 pin_witness#1 corrupt_price lexmin 0
+08:01:08 +      0s DONE    w4 audit_two_target corrupt_capacity lexmin 0 result=True calls=2 t=0.1s [5/74 done]
+08:01:08 +      0s START   w4 pin_witness#1 corrupt_capacity lexmin 0
+08:01:08 +      0s DONE    w5 audit_two_target corrupt_drop lexmin 0 result=True calls=1 t=0.1s [6/74 done]
+08:01:08 +      0s START   w5 pin_witness#1 corrupt_drop lexmin 0
+08:01:08 +      0s DONE    w2 audit_three_target corrupt_drop lexmin 0 result=True calls=1 t=0.1s [7/74 done]
+08:01:08 +      0s START   w2 pin_witness#2 corrupt_price lexmin 0
+08:01:08 +      0s DONE    w3 pin_witness#0 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [8/74 done]
+08:01:08 +      0s START   w3 pin_witness#2 corrupt_capacity lexmin 0
+08:01:08 +      0s DONE    w1 audit_three_target corrupt_capacity lexmin 0 result=True calls=3 t=0.1s [9/74 done]
+08:01:08 +      0s START   w1 pin_witness#2 corrupt_drop lexmin 0
+08:01:08 +      0s DONE    w0 pin_witness#1 corrupt_price lexmin 0 result=True calls=1 t=0.0s [10/74 done]
+08:01:08 +      0s START   w0 pin_witness#3 corrupt_price lexmin 0
+08:01:08 +      0s DONE    w5 pin_witness#1 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [11/74 done]
+08:01:08 +      0s START   w5 pin_witness#3 corrupt_capacity lexmin 0
+08:01:08 +      0s DONE    w2 pin_witness#2 corrupt_price lexmin 0 result=True calls=1 t=0.0s [12/74 done]
+08:01:08 +      0s START   w2 pin_witness#3 corrupt_drop lexmin 0
+08:01:08 +      0s DONE    w1 pin_witness#2 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [13/74 done]
+08:01:08 +      0s START   w1 audit_three_target ctl_nopatch lexmin 1
+08:01:08 +      0s DONE    w0 pin_witness#3 corrupt_price lexmin 0 result=True calls=1 t=0.0s [14/74 done]
+08:01:08 +      0s START   w0 audit_three_target ctl_nopatch degen 1
+08:01:08 +      0s DONE    w3 pin_witness#2 corrupt_capacity lexmin 0 result=True calls=2 t=0.0s [15/74 done]
+08:01:08 +      0s START   w3 audit_three_target ctl_nopin lexmin 1
+08:01:08 +      0s DONE    w2 pin_witness#3 corrupt_drop lexmin 0 result=True calls=1 t=0.0s [16/74 done]
+08:01:08 +      0s START   w2 audit_three_target ctl_nopin degen 1
+08:01:08 +      0s DONE    w4 pin_witness#1 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [17/74 done]
+08:01:08 +      0s START   w4 audit_three_target ctl_norepair lexmin 1
+08:01:08 +      0s DONE    w5 pin_witness#3 corrupt_capacity lexmin 0 result=True calls=3 t=0.0s [18/74 done]
+08:01:08 +      0s START   w5 audit_three_target ctl_norepair degen 1
+08:01:09 +      2s DONE    w2 audit_three_target ctl_nopin degen 1 result=True calls=None t=1.4s [19/74 done]
+08:01:09 +      2s START   w2 audit_three_target ctl_interp lexmin 1
+08:01:09 +      2s DONE    w3 audit_three_target ctl_nopin lexmin 1 result=True calls=None t=1.4s [20/74 done]
+08:01:09 +      2s START   w3 audit_three_target ctl_interp degen 1
+08:01:10 +      2s DONE    w0 audit_three_target ctl_nopatch degen 1 result=False calls=None t=1.7s [21/74 done]
+08:01:10 +      2s START   w0 audit_two_target ctl_nopatch lexmin 1
+08:01:10 +      2s DONE    w5 audit_three_target ctl_norepair degen 1 result=True calls=None t=1.7s [22/74 done]
+08:01:10 +      2s START   w5 audit_two_target ctl_nopatch degen 1
+08:01:10 +      2s DONE    w1 audit_three_target ctl_nopatch lexmin 1 result=False calls=None t=1.8s [23/74 done]
+08:01:10 +      2s START   w1 audit_two_target ctl_nopin lexmin 1
+08:01:10 +      2s DONE    w4 audit_three_target ctl_norepair lexmin 1 result=True calls=None t=1.8s [24/74 done]
+08:01:10 +      2s START   w4 audit_two_target ctl_nopin degen 1
+08:01:10 +      2s DONE    w0 audit_two_target ctl_nopatch lexmin 1 result=False calls=None t=0.2s [25/74 done]
+08:01:10 +      2s START   w0 audit_two_target ctl_norepair lexmin 1
+08:01:10 +      2s DONE    w1 audit_two_target ctl_nopin lexmin 1 result=True calls=None t=0.1s [26/74 done]
+08:01:10 +      2s START   w1 audit_two_target ctl_norepair degen 1
+08:01:10 +      2s DONE    w5 audit_two_target ctl_nopatch degen 1 result=False calls=None t=0.2s [27/74 done]
+08:01:10 +      2s START   w5 audit_two_target ctl_interp lexmin 1
+08:01:10 +      2s DONE    w4 audit_two_target ctl_nopin degen 1 result=True calls=None t=0.1s [28/74 done]
+08:01:10 +      2s START   w4 audit_two_target ctl_interp degen 1
+08:01:10 +      2s DONE    w0 audit_two_target ctl_norepair lexmin 1 result=False calls=None t=0.1s [29/74 done]
+08:01:10 +      2s START   w0 pin_witness#0 ctl_nopatch lexmin 1
+08:01:10 +      2s DONE    w1 audit_two_target ctl_norepair degen 1 result=False calls=None t=0.2s [30/74 done]
+08:01:10 +      2s START   w1 pin_witness#0 ctl_nopatch degen 1
+08:01:10 +      2s DONE    w5 audit_two_target ctl_interp lexmin 1 result=False calls=None t=0.1s [31/74 done]
+08:01:10 +      2s START   w5 pin_witness#0 ctl_nopin lexmin 1
+08:01:10 +      2s DONE    w4 audit_two_target ctl_interp degen 1 result=False calls=None t=0.2s [32/74 done]
+08:01:10 +      2s START   w4 pin_witness#0 ctl_nopin degen 1
+08:01:11 +      3s DONE    w3 audit_three_target ctl_interp degen 1 result=True calls=None t=1.8s [33/74 done]
+08:01:11 +      3s START   w3 pin_witness#0 ctl_norepair lexmin 1
+08:01:11 +      3s DONE    w2 audit_three_target ctl_interp lexmin 1 result=True calls=None t=1.8s [34/74 done]
+08:01:11 +      3s START   w2 pin_witness#0 ctl_norepair degen 1
+08:01:11 +      4s DONE    w5 pin_witness#0 ctl_nopin lexmin 1 result=True calls=None t=1.3s [35/74 done]
+08:01:11 +      4s START   w5 pin_witness#0 ctl_interp lexmin 1
+08:01:11 +      4s DONE    w4 pin_witness#0 ctl_nopin degen 1 result=True calls=None t=1.3s [36/74 done]
+08:01:11 +      4s START   w4 pin_witness#0 ctl_interp degen 1
+08:01:12 +      4s DONE    w0 pin_witness#0 ctl_nopatch lexmin 1 result=True calls=None t=1.6s [37/74 done]
+08:01:12 +      4s START   w0 pin_witness#1 ctl_nopatch lexmin 1
+08:01:12 +      4s DONE    w1 pin_witness#0 ctl_nopatch degen 1 result=True calls=None t=1.6s [38/74 done]
+08:01:12 +      4s START   w1 pin_witness#1 ctl_nopatch degen 1
+08:01:13 +      5s DONE    w3 pin_witness#0 ctl_norepair lexmin 1 result=True calls=None t=1.6s [39/74 done]
+08:01:13 +      5s START   w3 pin_witness#1 ctl_nopin lexmin 1
+08:01:13 +      5s DONE    w2 pin_witness#0 ctl_norepair degen 1 result=True calls=None t=1.7s [40/74 done]
+08:01:13 +      5s START   w2 pin_witness#1 ctl_nopin degen 1
+08:01:13 +      5s DONE    w5 pin_witness#0 ctl_interp lexmin 1 result=False calls=None t=1.6s [41/74 done]
+08:01:13 +      5s START   w5 pin_witness#1 ctl_norepair lexmin 1
+08:01:13 +      5s DONE    w4 pin_witness#0 ctl_interp degen 1 result=False calls=None t=1.7s [42/74 done]
+08:01:13 +      5s START   w4 pin_witness#1 ctl_norepair degen 1
+08:01:13 +      6s DONE    w1 pin_witness#1 ctl_nopatch degen 1 result=True calls=None t=1.9s [43/74 done]
+08:01:13 +      6s START   w1 pin_witness#1 ctl_interp lexmin 1
+08:01:14 +      6s DONE    w0 pin_witness#1 ctl_nopatch lexmin 1 result=True calls=None t=2.1s [44/74 done]
+08:01:14 +      6s START   w0 pin_witness#1 ctl_interp degen 1
+08:01:14 +      7s DONE    w2 pin_witness#1 ctl_nopin degen 1 result=True calls=None t=1.6s [45/74 done]
+08:01:14 +      7s START   w2 pin_witness#2 ctl_nopatch lexmin 1
+08:01:14 +      7s DONE    w3 pin_witness#1 ctl_nopin lexmin 1 result=True calls=None t=1.7s [46/74 done]
+08:01:14 +      7s START   w3 pin_witness#2 ctl_nopatch degen 1
+08:01:15 +      7s DONE    w4 pin_witness#1 ctl_norepair degen 1 result=True calls=None t=1.9s [47/74 done]
+08:01:15 +      7s START   w4 pin_witness#2 ctl_nopin lexmin 1
+08:01:15 +      7s DONE    w5 pin_witness#1 ctl_norepair lexmin 1 result=True calls=None t=2.0s [48/74 done]
+08:01:15 +      7s START   w5 pin_witness#2 ctl_nopin degen 1
+08:01:15 +      8s DONE    w0 pin_witness#1 ctl_interp degen 1 result=False calls=None t=1.9s [49/74 done]
+08:01:15 +      8s START   w0 pin_witness#2 ctl_norepair lexmin 1
+08:01:16 +      8s DONE    w1 pin_witness#1 ctl_interp lexmin 1 result=False calls=None t=2.0s [50/74 done]
+08:01:16 +      8s START   w1 pin_witness#2 ctl_norepair degen 1
+08:01:16 +      8s DONE    w2 pin_witness#2 ctl_nopatch lexmin 1 result=True calls=None t=1.2s [51/74 done]
+08:01:16 +      8s START   w2 pin_witness#2 ctl_interp lexmin 1
+08:01:16 +      8s DONE    w3 pin_witness#2 ctl_nopatch degen 1 result=True calls=None t=1.2s [52/74 done]
+08:01:16 +      8s START   w3 pin_witness#2 ctl_interp degen 1
+08:01:16 +      8s DONE    w4 pin_witness#2 ctl_nopin lexmin 1 result=True calls=None t=1.0s [53/74 done]
+08:01:16 +      8s START   w4 pin_witness#3 ctl_nopatch lexmin 1
+08:01:16 +      8s DONE    w5 pin_witness#2 ctl_nopin degen 1 result=True calls=None t=1.0s [54/74 done]
+08:01:16 +      8s START   w5 pin_witness#3 ctl_nopatch degen 1
+08:01:17 +      9s DONE    w0 pin_witness#2 ctl_norepair lexmin 1 result=True calls=None t=1.3s [55/74 done]
+08:01:17 +      9s START   w0 pin_witness#3 ctl_nopin lexmin 1
+08:01:17 +      9s DONE    w1 pin_witness#2 ctl_norepair degen 1 result=True calls=None t=1.2s [56/74 done]
+08:01:17 +      9s START   w1 pin_witness#3 ctl_nopin degen 1
+08:01:17 +      9s DONE    w2 pin_witness#2 ctl_interp lexmin 1 result=False calls=None t=1.3s [57/74 done]
+08:01:17 +      9s START   w2 pin_witness#3 ctl_norepair lexmin 1
+08:01:17 +      9s DONE    w3 pin_witness#2 ctl_interp degen 1 result=False calls=None t=1.2s [58/74 done]
+08:01:17 +      9s START   w3 pin_witness#3 ctl_norepair degen 1
+08:01:17 +      9s DONE    w5 pin_witness#3 ctl_nopatch degen 1 result=True calls=None t=1.3s [59/74 done]
+08:01:17 +      9s START   w5 pin_witness#3 ctl_interp lexmin 1
+08:01:17 +     10s DONE    w4 pin_witness#3 ctl_nopatch lexmin 1 result=True calls=None t=1.4s [60/74 done]
+08:01:17 +     10s START   w4 pin_witness#3 ctl_interp degen 1
+08:01:18 +     10s DONE    w1 pin_witness#3 ctl_nopin degen 1 result=True calls=None t=0.9s [61/74 done]
+08:01:18 +     10s START   w1 audit_bracket_2/7 ctl_nopatch lexmin 1
+08:01:18 +     10s DONE    w0 pin_witness#3 ctl_nopin lexmin 1 result=True calls=None t=1.0s [62/74 done]
+08:01:18 +     10s START   w0 audit_bracket_2/7 ctl_nopatch degen 1
+08:01:18 +     10s DONE    w1 audit_bracket_2/7 ctl_nopatch lexmin 1 result=False calls=None t=0.2s [63/74 done]
+08:01:18 +     10s START   w1 audit_bracket_2/7 ctl_nopin lexmin 1
+08:01:18 +     10s DONE    w1 audit_bracket_2/7 ctl_nopin lexmin 1 result=True calls=None t=0.0s [64/74 done]
+08:01:18 +     10s START   w1 audit_bracket_2/7 ctl_nopin degen 1
+08:01:18 +     10s DONE    w0 audit_bracket_2/7 ctl_nopatch degen 1 result=False calls=None t=0.2s [65/74 done]
+08:01:18 +     10s START   w0 audit_bracket_2/7 ctl_norepair lexmin 1
+08:01:18 +     10s DONE    w1 audit_bracket_2/7 ctl_nopin degen 1 result=True calls=None t=0.0s [66/74 done]
+08:01:18 +     10s START   w1 audit_bracket_2/7 ctl_norepair degen 1
+08:01:18 +     10s DONE    w3 pin_witness#3 ctl_norepair degen 1 result=True calls=None t=1.2s [67/74 done]
+08:01:18 +     10s START   w3 audit_bracket_2/7 ctl_interp lexmin 1
+08:01:18 +     10s DONE    w2 pin_witness#3 ctl_norepair lexmin 1 result=True calls=None t=1.3s [68/74 done]
+08:01:18 +     10s START   w2 audit_bracket_2/7 ctl_interp degen 1
+08:01:18 +     10s DONE    w0 audit_bracket_2/7 ctl_norepair lexmin 1 result=True calls=None t=0.2s [69/74 done]
+08:01:18 +     10s DONE    w1 audit_bracket_2/7 ctl_norepair degen 1 result=True calls=None t=0.2s [70/74 done]
+08:01:18 +     11s DONE    w3 audit_bracket_2/7 ctl_interp lexmin 1 result=True calls=None t=0.2s [71/74 done]
+08:01:18 +     11s DONE    w2 audit_bracket_2/7 ctl_interp degen 1 result=True calls=None t=0.2s [72/74 done]
+08:01:18 +     11s DONE    w5 pin_witness#3 ctl_interp lexmin 1 result=False calls=None t=1.2s [73/74 done]
+08:01:18 +     11s DONE    w4 pin_witness#3 ctl_interp degen 1 result=False calls=None t=1.2s [74/74 done]
+08:01:19 +     11s ALL DONE 74/74

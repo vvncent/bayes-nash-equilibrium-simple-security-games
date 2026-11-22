@@ -1,0 +1,6 @@
+m=1: LP increments == recursion: True; linear between integers: True; min gap 6; max increment 6 (2*3^m = 6); first [0, 6]
+m=2: LP increments == recursion: True; linear between integers: True; min gap 6; max increment 18 (2*3^m = 18); first [0, 6, 12, 18]
+m=3: LP increments == recursion: True; linear between integers: True; min gap 6; max increment 54 (2*3^m = 54); first [0, 6, 12, 18, 36, 42, 48, 54]
+m=4: LP increments == recursion: True; linear between integers: True; min gap 6; max increment 162 (2*3^m = 162); first [0, 6, 12, 18, 36, 42, 48, 54]
+m=5: LP increments == recursion: True; linear between integers: True; min gap 6; max increment 486 (2*3^m = 486); first [0, 6, 12, 18, 36, 42, 48, 54]
+ALL OK

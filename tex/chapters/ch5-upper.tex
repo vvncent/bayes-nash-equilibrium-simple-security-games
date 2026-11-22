@@ -1,0 +1,1926 @@
+\chapter{Upper bounds: P-LCP, UEOPL and a subexponential algorithm}\label{ch:upper}
+
+\paragraph{Idea.} This chapter gives three upper bounds, by three routes.
+\begin{itemize}[nosep]
+\item \emph{Through the market} (Section~\ref{sec:plcp}). The equilibrium conditions of (M1) are a
+linear complementarity problem whose matrix is almost a P-matrix. Adding a tiny multiple of the identity
+makes it one, and the support of the perturbed solution fixes an LP whose every feasible point is an
+exact equilibrium. So (M1),
+and with it ARRIVAL, reduce many-one to P-LCP.
+\item \emph{Directly from the game to one P-matrix LCP} (Section~\ref{sec:direct-lcp}). The BNE conditions
+of the game itself, after a row shift, form one LCP whose matrix is $P_0$; a tiny diagonal perturbation
+makes it a P-matrix. This is a many-one reduction of exact BNE to P-LCP, and it puts the game in
+$\mathsf{UEOPL}$.
+\item \emph{Through one contraction} (Sections~\ref{sec:contraction}--\ref{sec:subexp}). The game itself
+is encoded as the unique fixed point of an explicit piecewise-linear map
+$F:[0,1]^{n+1}\to[0,1]^{n+1}$ that contracts the $\ell_1$ norm. The map is built once, in
+Section~\ref{sec:contraction}, and used twice: read as a PL-Contraction instance it puts exact BNE in
+$\mathsf{UEOPL}$ (Section~\ref{sec:ueopl}); handed to the block search of Ghorbani, Lopes and Mnich it
+gives an $L^{O(\sqrt n)}$ algorithm (Section~\ref{sec:subexp}).
+\end{itemize}
+
+\section{The market reduces to P-matrix LCP}\label{sec:plcp}
+
+\paragraph{Idea.} Write the four conditions (a)--(d) of Definition~\ref{def:m1} as complementarity
+between each variable and its slack. The resulting matrix $M$ has a zero diagonal, so it is not a
+P-matrix, but all its principal minors are nonnegative because the market's bipartite graph turns
+every nonzero minor into a single matching term. Then $M+\varepsilon I$ is a P-matrix. If $\varepsilon$
+is small enough, a Cramer-rule gap shows that the support of the unique perturbed solution fixes an LP that is
+feasible and whose every feasible point is an exact equilibrium.
+
+The scheme is that of Adler and Verma~\cite[\S4]{av11}. Their Theorem~4.3 covers nondegenerate LCPs whose matrix lies in a Lemke-processable class of semimonotone matrices: for every sufficiently small $\varepsilon>0$, a solution of $\mathrm{LCP}(q,M+\varepsilon I)$ yields in polynomial time, by linear programs on its support, a solution of $\mathrm{LCP}(q,M)$ or a certificate that none exists. They note that $P_0\cap Q_0$-LCPs thereby reduce to P-LCP, and every (M1) matrix lies in $P_0\cap Q_0$ (Proposition~\ref{plcp:prop:q0}). The proof below is self-contained. It adds an explicit $\varepsilon$ of polynomial bit length, which a polynomial-time many-one reduction needs, and it assumes no nondegeneracy.
+
+\paragraph{Example.} For one buyer and one good the LCP has three coordinates $(f,u,P)$, and
+Example~\ref{plcp:ex:negative} below works it out. It also shows that $\varepsilon$ cannot be arbitrary: with
+$\varepsilon=1$ the perturbed solution has the wrong support and the decoding LP is infeasible, while for every $\varepsilon<1$ the support is right and the LP returns the equilibrium. In this section all (M1) slopes need only be positive, $b_{ij}>0$.
+
+\subsection{The LCP formulation and its matrix}
+
+Fix an (M1) market with edge set $E$. Index coordinates by edges, buyers and goods:
+$N=|E|+|I|+|J|$, and $z=(f,u,P)\in\mathbb R^E\times\mathbb R^I\times\mathbb R^J$. Define $w=q+Mz$ by
+\[
+  w_{ij}=u_i+b_{ij}P_j-a_{ij}\ \ ((i,j)\in E),\qquad
+  w_i=\mu_i-\sum_{j}f_{ij}\ \ (i\in I),\qquad
+  w_j=c_j-\sum_{i}f_{ij}\ \ (j\in J).
+\]
+So $q=(-a,\mu,c)$ and, with the vertex set $V=I\cup J$,
+\[
+  M=\begin{pmatrix}0&B\\-K^{\top}&0\end{pmatrix},
+\]
+where $B,K\in\mathbb Q^{E\times V}$: the row of edge $(i,j)$ has entries $1$ (column $i$) and $b_{ij}$
+(column $j$) in $B$, entries $1$ in both columns $i$ and $j$ in $K$, and zeros elsewhere. The pairs
+$(f_{ij},w_{ij})$, $(u_i,w_i)$ and $(P_j,w_j)$ are complementary.
+
+\begin{lemma}[LCP formulation]\label{plcp:lem:formulation}
+$(f,u,P)\in\mathrm{SOL}(q,M)$ if and only if $(P,v,f)$ with $v=u$ is an (M1) equilibrium.
+\end{lemma}
+
+\begin{proof}
+$z\ge0$ is $f,v,P\ge0$. $w_{ij}\ge0$ is (a), and $f_{ij}w_{ij}=0$ is (b). $w_i\ge0$ with $u_iw_i=0$ is
+(c), and $w_j\ge0$ with $P_jw_j=0$ is (d).
+\end{proof}
+
+Both signs of $a_{ij}$ are allowed, and the edge set $E$ is arbitrary. The diagonal of $M$ is zero, so
+$M$ is not a P-matrix.
+
+\begin{lemma}[$P_0$]\label{plcp:lem:p0}
+For every (M1) market (any edge set $E$ and any positive slopes), every principal minor of $M$ is
+nonnegative.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Three cases for a principal submatrix with edge rows $E'$ and vertex columns
+$V'$: (1) if $|E'|\ne|V'|$ the rank is too small; (2) if $E'$ contains a cycle, the alternating sum of
+its rows of $K$ vanishes; (3) if $E'$ is a forest, both determinants have the same single matching term,
+and the minor is a product of positive entries.
+
+\begin{proof}
+A principal submatrix of $M$ is determined by a set $E'\subseteq E$ of edge coordinates and a set
+$V'\subseteq V$ of vertex coordinates, and has the form
+$\left(\begin{smallmatrix}0&X\\Y&0\end{smallmatrix}\right)$ with $X=B_{E'V'}$ and $Y=-(K_{E'V'})^{\top}$.
+If $|E'|\ne|V'|$, its rank is at most $2\min(|E'|,|V'|)<|E'|+|V'|$, so the minor is $0$. If
+$|E'|=|V'|=k$, the minor equals $(-1)^{k}\det X\det Y=(-1)^k\det B_{E'V'}\cdot(-1)^k\det K_{E'V'}
+=\det B_{E'V'}\det K_{E'V'}$.
+
+If the edges $E'$ contain a cycle of the bipartite graph $(V,E)$, sum the rows of $K$ indexed by the
+edges of the cycle with alternating signs $\pm1$. The cycle has even length, every vertex on it is an
+endpoint of exactly two consecutive cycle edges, which receive opposite signs, and vertices off the cycle
+receive nothing. So the combination is $0$, also after deleting the columns outside $V'$; hence
+$\det K_{E'V'}=0$ and the minor is $0$.
+
+If $E'$ is a forest, consider the bipartite graph $G'$ whose two sides are the rows $E'$ and the
+columns $V'$, with $e$ adjacent to $v$ when $v$ is an endpoint of $e$. It is a subgraph of the
+subdivision of a forest, hence a forest, and therefore has at most one perfect matching (the symmetric
+difference of two distinct perfect matchings contains a cycle). The nonzero entries of $B_{E'V'}$ and of
+$K_{E'V'}$ occupy exactly the positions of the edges of $G'$, because $b_{ij}>0$. A nonzero term in the
+Leibniz expansion of either determinant is a perfect matching of $G'$. So either both determinants are
+$0$, or both consist of the same single term $\sigma$: $\det K_{E'V'}=\operatorname{sgn}\sigma$ and
+$\det B_{E'V'}=\operatorname{sgn}\sigma\cdot\beta$, where $\beta$ is a product of entries equal to $1$
+or to some $b_{ij}>0$. The minor is then $\beta>0$.
+\end{proof}
+
+\begin{lemma}[Diagonal perturbation]\label{plcp:lem:pmatrix}
+For every $P_0$-matrix $M$ and every $\varepsilon>0$, $M+\varepsilon I$ is a P-matrix. In particular
+this holds for the (M1) matrix.
+\end{lemma}
+
+\begin{proof}
+By multilinearity of the determinant in the columns,
+\[\det(M_{SS}+\varepsilon I)=\sum_{T\subseteq S}\varepsilon^{|S\setminus T|}\det M_{TT}.\] Every term is
+nonnegative, and the term $T=\emptyset$ equals $\varepsilon^{|S|}>0$.
+\end{proof}
+
+\subsection{The reduction}
+
+In this section only, define for a given (M1) market
+\[
+  H=\max\Bigl(0,\max_{(i,j)\in E}a_{ij}\Bigr),\qquad b_{\min}=\min_{(i,j)\in E}b_{ij},\qquad
+  \bar Z=1+\max\Bigl\{\max_i\mu_i+H,\ \frac{H}{b_{\min}}\Bigr\},
+\]
+$d=N+1$, $D$ the least common multiple of all denominators of entries of $M$ and $q$, and
+$C=D\cdot\max(1,\max_{k,l}|M_{kl}|,\max_k|q_k|)$, an integer.
+
+\begin{lemma}[Uniform bound]\label{plcp:lem:bound}
+For every $0<\varepsilon\le1$, every solution $z^\varepsilon=(f,u,P)$ of $\mathrm{LCP}(q,M+\varepsilon I)$
+satisfies $0\le z^\varepsilon_k\le\bar Z-1$ for all $k$.
+\end{lemma}
+
+\begin{proof}
+Write the perturbed slacks $w^\varepsilon=q+(M+\varepsilon I)z^\varepsilon$. If $u_i>0$, then
+$w^\varepsilon_i=0$, i.e.\ $\sum_jf_{ij}=\mu_i+\varepsilon u_i>0$, so some $f_{ij}>0$, and then
+$w^\varepsilon_{ij}=0$ reads $u_i+b_{ij}P_j+\varepsilon f_{ij}=a_{ij}$; since all terms on the left are
+nonnegative, $u_i\le a_{ij}\le H$. If $P_j>0$, then $\sum_if_{ij}=c_j+\varepsilon P_j>0$, so some
+$f_{ij}>0$, and the same equation gives $b_{ij}P_j\le a_{ij}$, so $P_j\le H/b_{\min}$. Finally
+$w^\varepsilon_i\ge0$ gives $f_{ij}\le\sum_{j'}f_{ij'}\le\mu_i+\varepsilon u_i\le\mu_i+H$.
+\end{proof}
+
+For $A\subseteq[N]$ write $\bar A=[N]\setminus A$, and consider the LP
+\[
+  \mathrm{LP}(A):\quad\min\ \rho\quad\text{s.t.}\quad z\ge0,\ \rho\ge0,\ z_{\bar A}=0,\
+  q+Mz\ge-\rho\mathbf 1,\ (q+Mz)_A\le\rho\mathbf 1 .
+\]
+
+\begin{lemma}[Uniform gap]\label{plcp:lem:gap}
+For every $A\subseteq[N]$, $\mathrm{LP}(A)$ has an optimum $\rho^*_A$, and either $\rho^*_A=0$ or
+$\rho^*_A\ge(dC)^{-d}$.
+\end{lemma}
+
+\begin{proof}
+$z=0$ with $\rho$ large is feasible, and $\rho\ge0$ bounds the objective, so an optimum exists. The
+feasible region lies in the orthant $\{z\ge0,\rho\ge0\}$, so it is a pointed polyhedron and the optimum
+is attained at a vertex. Multiply every constraint by $D$: all coefficients and right-hand sides become
+integers of absolute value at most $C$ (the coefficient of $\rho$ becomes $D\le C$). A vertex is the
+unique solution of $d$ linearly independent tight constraints, so by Cramer's rule
+$\rho^*_A=\Delta'/\Delta$ with integers $\Delta',\Delta$ and $0<|\Delta|\le d!\,C^d\le(dC)^d$. If
+$\rho^*_A>0$ then $|\Delta'|\ge1$ and $\rho^*_A\ge(dC)^{-d}$.
+\end{proof}
+
+\begin{theorem}[(M1) $\le_m$ P-LCP]\label{plcp:thm:main}
+\statusrefereed
+Let an (M1) market be given, with $q,M,\bar Z,d,C$ as above, and put
+\[
+  \varepsilon=\frac{1}{2\lceil\bar Z\rceil(dC)^d}.
+\]
+Then $M+\varepsilon I$ is a P-matrix. Let $z^\varepsilon$ be the unique solution of
+$\mathrm{LCP}(q,M+\varepsilon I)$ and $A=\{k:z^\varepsilon_k>0\}$. Then the system
+\[
+  z\ge0,\qquad z_{\bar A}=0,\qquad q+Mz\ge0,\qquad(q+Mz)_A=0 \tag{$\ast$}
+\]
+is feasible, and every feasible point $z=(f,u,P)$ of $(\ast)$ gives an (M1) equilibrium $(P,u,f)$.
+Moreover $\log_2(1/\varepsilon)=O(L^2)$, the instance $(q,M+\varepsilon I)$ has $O(L^3)$ bits and is
+computable in polynomial time, and $(\ast)$ is a rational LP feasibility problem of polynomial size.
+Hence the (M1) equilibrium problem has a polynomial-time many-one reduction to P-LCP, whose solution map
+is one rational LP.
+\end{theorem}
+
+\begin{proof}
+The proof has three parts: feasibility of $(\ast)$ via the gap lemma, soundness via the LCP
+formulation, and size.
+
+$M+\varepsilon I$ is a P-matrix by Lemmas~\ref{plcp:lem:p0} and~\ref{plcp:lem:pmatrix}, so
+$z^\varepsilon$ exists and is unique (Proposition~\ref{prop:classical}(i)).
+
+\emph{Feasibility of $(\ast)$.} Since $\varepsilon\le1$, Lemma~\ref{plcp:lem:bound} gives
+$z^\varepsilon\le(\bar Z-1)\mathbf 1$. As $q+(M+\varepsilon I)z^\varepsilon\ge0$, every original slack
+satisfies $(q+Mz^\varepsilon)_k\ge-\varepsilon z^\varepsilon_k\ge-\varepsilon\bar Z$. For $k\in A$,
+complementarity in the perturbed LCP gives $(q+Mz^\varepsilon)_k=-\varepsilon z^\varepsilon_k\le0$. And
+$z^\varepsilon_{\bar A}=0$ by definition of $A$. Hence $(z^\varepsilon,\rho)$ with
+$\rho=\varepsilon\bar Z$ is feasible for $\mathrm{LP}(A)$, and
+\[
+  \varepsilon\bar Z=\frac{\bar Z}{2\lceil\bar Z\rceil(dC)^d}\le\frac{1}{2(dC)^d}<(dC)^{-d}.
+\]
+By Lemma~\ref{plcp:lem:gap}, $\rho^*_A=0$; an optimal $z$ of $\mathrm{LP}(A)$ is feasible for $(\ast)$.
+
+\emph{Soundness.} A feasible $z$ of $(\ast)$ has $z\ge0$ and $w=q+Mz\ge0$, with $w_k=0$ for $k\in A$ and
+$z_k=0$ for $k\notin A$. So $z\in\mathrm{SOL}(q,M)$, and Lemma~\ref{plcp:lem:formulation} applies. This
+holds even if some coordinates in $A$ vanish at $z$, so the decoder never needs to identify a particular
+equilibrium.
+
+\emph{Size.} $N=|E|+|I|+|J|=O(L)$, so $d=O(L)$. $D$ divides the product of all input denominators, so
+$\log D=O(L)$, and $\log C=O(L)$; also $\log\lceil\bar Z\rceil=O(L)$. Hence
+$\log_2(1/\varepsilon)=1+\log_2\lceil\bar Z\rceil+d\log_2(dC)=O(L^2)$, and the $N^2$ entries of
+$M+\varepsilon I$ together with $q$ take $O(N^2+NL^2)=O(L^3)$ bits. All of $H$, $b_{\min}$, $\bar Z$,
+$D$, $C$ and $\varepsilon$ are computed directly from the input. The system $(\ast)$ has the original
+(polynomial-size) data, and a rational solution of polynomial size is found in polynomial time by the
+ellipsoid or an interior-point method.
+\end{proof}
+
+The proof uses only that $z^\varepsilon$ is \emph{some} solution of the perturbed LCP. Since a P-matrix
+LCP always has a solution, it also shows that every (M1) market (with $b_{ij}>0$) has an equilibrium. The
+perturbation $\varepsilon$ is exponentially small (polynomially many bits), and the decoding uses only
+the support of the perturbed solution, not its values.
+
+\begin{example}[The size of $\varepsilon$ matters]\label{plcp:ex:negative}
+Take one buyer and one good with $\mu=1$, $c=2$, $a=b=1$. The unique equilibrium is $f=1$, $v=1$,
+$P=0$. At $\varepsilon=1$ the perturbed LCP has the solution $(f,u,P)=(1,0,0)$: indeed
+$w_f=u+P-1+f=0$, $w_u=1-f+u=0$ and $w_P=2-f+P=1$. Its support $A=\{f\}$ forces $u=P=0$ in $(\ast)$, and
+then $w_f=-1<0$, so $(\ast)$ is infeasible. For $0<\varepsilon<1$ the perturbed solution is
+$u=(1-\varepsilon)/(1+\varepsilon^2)>0$, $f=1+\varepsilon u$, $P=0$, with support $\{f,u\}$, and $(\ast)$
+returns the equilibrium.
+\end{example}
+
+\begin{corollary}[(M1) is in UEOPL]\label{plcp:cor:ueopl}
+\statusrefereed
+The (M1) equilibrium problem lies in $\mathsf{UEOPL}$.
+\end{corollary}
+
+\begin{proof}
+The instance $(q,M+\varepsilon I)$ produced by Theorem~\ref{plcp:thm:main} is a P-matrix instance, so it
+has no PV2 violation. Compose with the promise-preserving reduction of~\cite[Thm.~81]{fgms18} from P-LCP
+with PV2 violations to $\mathsf{UEOPL}$, and decode by $(\ast)$; $\mathsf{UEOPL}$ is closed under
+many-one reductions.
+\end{proof}
+
+\subsection{Consequences for ARRIVAL and for the game}
+
+\begin{corollary}[ARRIVAL $\le_m$ P-LCP]\label{plcp:cor:arrival}
+\statusrefereed
+The ARRIVAL decision problem has a polynomial-time many-one reduction to P-LCP. The P-LCP instance
+produced is a P-matrix instance of $\mathrm{poly}(n)$ bits. Because $M+\varepsilon I$ is a P-matrix, this is a reduction to the
+promise version of P-LCP.
+\end{corollary}
+
+\begin{proof}
+Map the ARRIVAL instance to the market of Theorem~\ref{thm:arrival-m1}, which has $\mathrm{poly}(n)$
+size and positive slopes, and that market to $(q,M+\varepsilon I)$ by Theorem~\ref{plcp:thm:main}. Given
+the solution $z^\varepsilon$, solve $(\ast)$ to get an exact (M1) equilibrium, and answer \yes{} if and
+only if the non-terminal buyers' load on $T_{\yes}$ is $1$. By Theorem~\ref{thm:arrival-m1} this is
+correct, because its conclusion holds for \emph{every} equilibrium. There is one instance map and one
+solution map (an LP plus a readout), so the composite is many-one.
+\end{proof}
+
+Both ARRIVAL and P-LCP were known to lie in $\mathsf{UEOPL}$ (ARRIVAL by~\cite{ghhkms18,fgms18}, P-LCP
+by~\cite{fgms18}), but P-LCP is not known to be $\mathsf{UEOPL}$-hard, so membership alone does not give a
+reduction. Known reductions from ARRIVAL go to $\mathsf{EOPL}$/$\mathsf{UEOPL}$~\cite{ghhkms18,fgms18},
+to Tarski fixed points~\cite{ghh21}, and to $\ell_1$-contraction~\cite{haslebacher25}; known
+equivalences of P-LCP (with P-GLCP, P-Lin-Bellman and an $\alpha$-Ham-Sandwich
+variant~\cite{bfgssw24}) do not involve ARRIVAL. G\"artner et al.~\cite[Section~6]{ghhkms18} asked whether there is any reduction between ARRIVAL and
+P-LCP; Corollary~\ref{plcp:cor:arrival} gives one direction. A Google Scholar search, including the papers
+that cite~\cite{ghhkms18}, found no earlier reduction from ARRIVAL to P-LCP. If correct, Corollary~\ref{plcp:cor:arrival} is a new statement about $\mathsf{TFNP}$, and it
+should be checked by an expert before it is used as one.
+
+\begin{remark}[The market route]\label{plcp:cor:bne}
+By Proposition~\ref{prop:mk-g2m} and Theorem~\ref{plcp:thm:main}, exact BNE also has a polynomial-time Turing reduction to P-LCP through the market; the direct reduction of Section~\ref{sec:direct-lcp} is stronger.
+\end{remark}
+
+\begin{proof}
+Run the oracle algorithm of Proposition~\ref{prop:mk-g2m} (Theorem~\ref{thm:mk-main}(b)), whose every
+call is an ordinary (M1) market with positive masses, capacities and slopes, and answer each (M1) call by
+one P-LCP call and one LP (Theorem~\ref{plcp:thm:main}). Each call has polynomial size, and there are
+polynomially many.
+\end{proof}
+
+The composition is Turing, not many-one, because the game-to-market reduction is adaptive. In
+particular, composing the many-one reduction from ARRIVAL to the game with
+Corollary~\ref{plcp:cor:bne} would give only a Turing reduction from ARRIVAL to P-LCP;
+Corollary~\ref{plcp:cor:arrival} obtains a many-one reduction by bypassing the game and going through
+(M1) directly. Corollary~\ref{plcp:cor:bne} by itself does not place the game in $\mathsf{UEOPL}$; that needs
+a many-one reduction. Section~\ref{sec:direct-lcp} gives one directly, and Section~\ref{sec:ueopl} gives a second,
+independent route.
+
+\subsection{Lemke's algorithm on the unperturbed matrix}
+
+One may ask whether the perturbation is needed at all. $M$ is not a P-matrix, and $\mathrm{LCP}(0,M)$
+has nonzero solutions (for one buyer and one good with $a=\mu=c=0$, $u>0$ and $f=P=0$ is one), so the
+classical finite-termination criteria for Lemke's algorithm that exclude such solutions do not apply. A
+different criterion does.
+
+\begin{proposition}[$Q_0$]\label{plcp:prop:q0}
+\statusrefereed
+For every (M1) matrix $M$ (any edge set, positive slopes), $M\in P_0\cap Q_0$.
+\end{proposition}
+
+\paragraph{Proof roadmap.} (1) Feasibility of $q$ forces $\mu,c\ge0$; (2) delete zero-mass buyers and
+zero-capacity goods; (3) Kakutani's theorem on a price box gives an equilibrium of the rest; (4) restore
+the deleted buyers and goods with zero flow and suitable prices and utilities.
+
+\begin{proof}
+$P_0$ is Lemma~\ref{plcp:lem:p0}. Let $q=(-a,\mu,c)$ be feasible, i.e.\ some $z\ge0$ has $q+Mz\ge0$.
+The buyer and good rows of $q+Mz$ are $\mu_i-\sum_jf_{ij}$ and $c_j-\sum_if_{ij}$, so feasibility forces
+$\mu\ge0$ and $c\ge0$, while the intercepts $a$ are arbitrary. We show that such a market, possibly with
+zero masses or capacities, has an equilibrium, which by Lemma~\ref{plcp:lem:formulation} solves
+$\mathrm{LCP}(q,M)$.
+
+Delete buyers with $\mu_i=0$ and goods with $c_j=0$. For the remaining market take a price box
+$[0,\bar B]^J$ with $\bar B>\max(0,\max_{ij}a_{ij}/b_{ij})$. At prices $P$, let each buyer distribute its
+mass over its best replies, the outside option included; at an allocation $f$, let the prices be chosen to
+maximize $\sum_jP_j(\sum_if_{ij}-c_j)$ over the box. Both correspondences have nonempty convex values and
+closed graphs, so Kakutani's theorem on the product of the allocation simplices and the price box gives a
+joint fixed point. No good has price $\bar B$ there: its payoff is negative for every buyer, so it has
+zero load against a positive capacity, and the unique price best reply is $0$. Hence the fixed point
+satisfies (a)--(d). (If one side or every edge was deleted, zero flows with zero prices and utilities
+solve the remaining market; a maximum over an empty family is $0$ here.) Restore deleted goods with zero
+flow and price at least $\max(0,\max_ia_{ij}/b_{ij})$ (price zero for a good that no buyer lists),
+and deleted buyers with zero flow and utility $\max(0,\max_j(a_{ij}-b_{ij}P_j))$. All slacks and
+complementarity conditions hold.
+\end{proof}
+
+For $P_0$ matrices, Aganagi\'c and Cottle~\cite{ac87} give a constructive characterization of $Q_0$.
+What matters here is the following standard fact: Lemke's algorithm with lexicographic pivoting always
+terminates, either at a solution or on a secondary ray, and for $M\in P_0\cap Q_0$ a secondary ray
+certifies that $q$ is infeasible (see~\cite[\S2, Remarks~2 and~5]{av13}). Since a market with positive
+masses and capacities gives a feasible $q$ (take $f=0$, $P=0$ and $u_i=H$ for every buyer), Lemke's algorithm applied to $\mathrm{LCP}(q,M)$
+terminates at an (M1) equilibrium. No polynomial bound on the number of pivots is known, neither on $M$
+nor on $M+\varepsilon I$.
+
+\begin{remark}[No secondary ray, directly; a sketch]\label{plcp:rem:noray}
+For positive masses and capacities there is also a direct argument. For a strictly positive rational
+covering vector $h$, consider $w=q+Mz+\tau h$, $\tau\ge0$, with all pairs complementary. At fixed $\tau$
+this is the (M1) market with intercepts $a_{ij}-\tau h_{ij}$, masses $\mu_i+\tau h_i$ and capacities
+$c_j+\tau h_j$. For $\tau>T=\max(0,\max_{ij}a_{ij}/h_{ij})$ all intercepts are negative, so $f=0$, and the
+positive margins force $u=P=0$. For $\tau\le T$ the flows are bounded by the row inequalities, and a
+positive utility or price needs a used edge, which gives the bounds of Lemma~\ref{plcp:lem:bound}. So the
+only unbounded ray is the primary ray $z=0$, $\tau\ge T$. Under the lexicographic rule the primary path
+then ends at $\tau=0$; degenerate inputs are handled by a symbolic perturbation of $q$ and a limiting
+argument over finitely many bases.
+\end{remark}
+
+\section{The game reduces directly to one P-matrix LCP}\label{sec:direct-lcp}
+
+This section proves the main upper bound for the game: exact BNE search has a polynomial-time many-one reduction to one P-LCP instance whose matrix is a genuine P-matrix (Theorem~\ref{thm:direct-lcp}). Unlike Section~\ref{sec:plcp}, it does not go through the market and its adaptive reduction.
+
+\paragraph{Idea.} Write the BNE conditions of the game itself as one linear complementarity problem,
+with one variable per type--target pair, per type, per target (two) and one for the budget. A forest and
+cofactor argument on two incidence matrices shows that its matrix $M$ is $P_0$. Then every $M+\delta I$
+with $\delta>0$ is a P-matrix, and a uniform bound together with a Cramer-rule gap shows that one
+explicit $\delta$ of polynomial bit length suffices: the support of the unique solution of the
+perturbed LCP determines a linear program whose solutions are exact equilibria. The reduction allows zero
+slopes, zero defender gains, payoff ties and every budget.
+
+\paragraph{Notation.} The game is that of Definition~\ref{def:game}, in the coordinates of
+Section~\ref{sec:pre-game}: types $i\in[m]$ with priors $p_i$, targets $j\in[n]$, budget $r$, intercepts
+$a_{ij}$, slopes $b_{ij}\ge0$ and defender gains $d_j\ge0$ as in~\eqref{eq:dictionary}, coverage $x$,
+attack masses $f_{ij}$, loads $w_j=\sum_if_{ij}$ and scores $\pi_j=d_jw_j$. LCPs, P- and $P_0$-matrices
+and principal submatrices $M_{SS}$ are as in Section~\ref{sec:pre-classes}, and many-one reductions as in
+Section~\ref{sec:pre-red}. For $\mathrm{LCP}(q,M)$ the coordinate $(q+Mz)_k$ is the \emph{slack} paired
+with $z_k$. The symbols $M$, $q$, $N$, $B$, $D$ and the constants $U$, $W$, $D_*$, $S$, $K$, $C$, $Q$ are
+local to this section and differ from Section~\ref{sec:plcp}; in particular $U$ without indices is a constant,
+not the payoff $U_{ij}(x)$, and the LCP variable $\lambda$ is the cutoff of Lemma~\ref{lem:cutoff} plus
+one. Appendix~\ref{app:sources} records its history, and Appendix~\ref{app:status} its checks.
+
+\subsection{BNE in marginal coordinates}\label{app-dl:sec:bne}
+
+Let types $1,\dots,m$ be the types of positive prior, so $p_i>0$ and $\sum_ip_i=1$. Types of prior zero
+are handled separately (Section~\ref{app-dl:sec:decode}).
+
+\begin{definition}[BNE in marginal coordinates]\label{app-dl:def:bne}
+A pair $(x,f)$ with $x\in[0,1]^n$, $\sum_jx_j=r$, $f\ge0$ and $\sum_jf_{ij}=p_i$ for all $i$ is a
+\emph{BNE in marginal coordinates} if (a) $f_{ij}>0$ implies $a_{ij}-b_{ij}x_j=\max_k(a_{ik}-b_{ik}x_k)$,
+and (b) $x$ maximizes $\sum_j\pi_jx'_j$ over all $x'\in[0,1]^n$ with $\sum_jx'_j=r$.
+\end{definition}
+
+Up to a term that does not depend on the defender's strategy, the defender's expected payoff is
+$\sum_j\pi_jx_j$. Every mixed defender strategy induces a feasible $x'$, and every feasible $x'$ is
+induced by an explicit mixed strategy (Lemma~\ref{app-dl:lem:decode}). Hence a defender mixed strategy
+with marginals $x$, together with the attack distributions $f_{ij}/p_i$, is a BNE if and only if $(x,f)$
+is a BNE in marginal coordinates. For $0<r<n$ we use the cutoff form of~(b), Lemma~\ref{lem:cutoff}(a):
+condition~(b) holds if and only if there is $\lambda_0\in\mathbb R$ with
+$x_j>0\Rightarrow\pi_j\ge\lambda_0$ and $x_j<1\Rightarrow\pi_j\le\lambda_0$.
+
+\subsection{Normalization and the complementarity system}\label{app-dl:sec:lcp}
+
+\paragraph{Edge cases.} If $r=0$, the coverage is $x=0$. If $r=n$, it is $x=(1,\dots,1)$. In both cases
+the defender has a single pure strategy, and a BNE is obtained by giving each type, including every
+zero-prior type, a target maximizing $a_{ij}-b_{ij}x_j$. To keep the many-one format, the instance map
+sends such games to the fixed instance $M=[1]$, $q=[0]$, and the solution map ignores the answer.
+\emph{From now on $0<r<n$}, and zero-prior types are dropped until Section~\ref{app-dl:sec:decode}.
+
+\paragraph{Shifting the attacker payoffs.} For each type $i$ put
+\[
+  A_{ij}=a_{ij}+1+\max_k\,(b_{ik}-a_{ik}) .
+\]
+Then $A_{ij}-b_{ij}=1+\max_k(b_{ik}-a_{ik})-(b_{ij}-a_{ij})\ge1$, so the shifted payoff
+$A_{ij}-b_{ij}x_j$ is at least $1$ on $[0,1]^n$. The shift is a constant for each type, so it preserves
+every type's preferences over targets at every coverage vector.
+
+\paragraph{Shifting the defender scores.} We add $1$ to every defender score, that is, we use the scores
+$1+\pi_j$. On full-budget coverage vectors ($\sum_jx_j=r$) this changes the objective
+$\sum_j\pi_jx_j$ by the constant $r$, so it does not change the set of maximizers. Its purpose is to make
+all shifted scores at least $1$, which forces the budget multiplier below to be positive.
+
+\paragraph{Variables and pairs.} The LCP has nonnegative variables $f_{ij}$ (joint attack masses),
+$u_i$ (shifted best attacker utility of type $i$), $x_j$ (coverage), $t_j$ (multiplier of the cap
+$x_j\le1$) and $\lambda$ (shifted defender cutoff). With $w_j=\sum_if_{ij}$, the complementary pairs are
+\begin{equation}\label{app-dl:eq:lcp}
+\begin{array}{c|l}
+  \text{variable} & \text{paired slack}\\\hline
+  f_{ij} & u_i+b_{ij}x_j-A_{ij}\\
+  t_j    & 1-x_j\\
+  \lambda& r-\sum_jx_j\\
+  u_i    & p_i-\sum_jf_{ij}\\
+  x_j    & \lambda-1+t_j-d_jw_j .
+\end{array}
+\end{equation}
+Write this system as $\mathrm{LCP}(q,M)$. The variable order is $z=(f,t,\lambda,u,x)$, so the dimension is
+\[
+  N=mn+n+1+m+n=mn+m+2n+1 .
+\]
+
+\begin{lemma}[LCP formulation]\label{app-dl:lem:formulation}
+\statuslean
+Let $0<r<n$. (a) If $z=(f,t,\lambda,u,x)$ solves $\mathrm{LCP}(q,M)$, then $\lambda>0$,
+$\sum_jx_j=r$, and $(x,f)$ is a BNE in marginal coordinates. (b) Conversely, every BNE $(x,f)$ in
+marginal coordinates extends to a solution $(f,t,\lambda,u,x)$ of $\mathrm{LCP}(q,M)$.
+\end{lemma}
+
+\begin{proof}
+(a) The cap slacks give $x_j\le1$, so $0\le x\le1$. The first slack gives
+$u_i\ge A_{ij}-b_{ij}x_j\ge A_{ij}-b_{ij}\ge1>0$. Complementarity at $u_i$ then makes its slack zero:
+$\sum_jf_{ij}=p_i$. If $f_{ij}>0$, then $u_i=A_{ij}-b_{ij}x_j$, while $u_i\ge A_{ik}-b_{ik}x_k$ for every
+$k$. So positive flow uses only maximizers of the shifted, hence of the original, payoff. This is
+condition~(a) of Definition~\ref{app-dl:def:bne}.
+
+\emph{Why $\lambda>0$.} Suppose $\lambda=0$. The slack of $x_j$ is nonnegative, so
+$t_j\ge1+d_jw_j\ge1>0$ for every $j$. Complementarity at $t_j$ gives $x_j=1$ for every $j$, so
+$\sum_jx_j=n>r$, contradicting the nonnegative budget slack $r-\sum_jx_j$. Hence $\lambda>0$, and
+complementarity at $\lambda$ gives $\sum_jx_j=r$.
+
+\emph{Defender optimality.} Put $\lambda_0=\lambda-1$. If $x_j<1$, complementarity at $t_j$ gives
+$t_j=0$, and the nonnegative slack of $x_j$ gives $\pi_j=d_jw_j\le\lambda_0$. If $x_j>0$, the slack of
+$x_j$ is zero, so $\pi_j=\lambda_0+t_j\ge\lambda_0$. By Lemma~\ref{lem:cutoff}, condition~(b)
+holds. This is valid also for scores equal to zero, including $d_j=0$.
+
+(b) Let $(x,f)$ be a BNE in marginal coordinates. Since $0<r<n$, some target has $x_j>0$ and some has
+$x_k<1$. By Lemma~\ref{lem:cutoff} we may choose
+\[
+  \lambda_0\in\Bigl[\max_{k:\,x_k<1}\pi_k,\ \min_{j:\,x_j>0}\pi_j\Bigr],
+\]
+and $\lambda_0\ge0$ because the scores are nonnegative and the first set is nonempty. Set
+$\lambda=1+\lambda_0$, $u_i=\max_k(A_{ik}-b_{ik}x_k)$ and $t_j=(\pi_j-\lambda_0)_+$. We check the five
+rows of~\eqref{app-dl:eq:lcp}. The slack of $f_{ij}$ is $u_i-(A_{ij}-b_{ij}x_j)\ge0$, and it vanishes
+when $f_{ij}>0$ because $j$ is then a best target. The slack of $t_j$ is $1-x_j\ge0$; if $t_j>0$ then
+$\pi_j>\lambda_0$, so $x_j=1$. The budget slack is $0$. The slack of $u_i$ is $0$. The slack of $x_j$ is
+$\lambda_0+(\pi_j-\lambda_0)_+-\pi_j=(\lambda_0-\pi_j)_+\ge0$, and it vanishes when $x_j>0$ because
+then $\pi_j\ge\lambda_0$. No tie-breaking between equally good targets is needed in either direction.
+\end{proof}
+
+\subsection{The matrix is \texorpdfstring{$P_0$}{P0}}\label{app-dl:sec:p0}
+
+Split the variables into the first block $(f,t,\lambda)$ and the second block $(u,x)$. The slacks of the
+first block depend only on $(u,x)$, and those of the second block only on $(f,t,\lambda)$. So
+\[
+  M=\begin{pmatrix}0&B^{\mathsf T}\\-D&0\end{pmatrix},
+\]
+where $B$ and $D$ are matrices with rows indexed by the second block (one \emph{type row} $i$ per type and
+one \emph{target row} $j$ per target) and columns indexed by the first block. We name them after the
+payoff data they carry: $B$ carries the slopes $b_{ij}$ and $D$ the defender gains $d_j$.
+Reading off~\eqref{app-dl:eq:lcp}, their columns are as follows; all unspecified entries are zero.
+\begin{itemize}[nosep]
+  \item \emph{Attack column $ij$.} In $B$: entry $1$ in type row $i$ and $b_{ij}$ in target row $j$. In
+        $D$: entry $1$ in type row $i$ and $d_j$ in target row $j$.
+  \item \emph{Cap column $t_j$.} In both $B$ and $D$: a single entry $-1$ in target row $j$.
+  \item \emph{Budget column $\lambda$.} In both $B$ and $D$: entry $-1$ in every target row, $0$ in every
+        type row.
+\end{itemize}
+(For example, the slack of $x_j$ is $\lambda-1+t_j-\sum_id_jf_{ij}$; its row of $-D$ has $+1$ at
+$\lambda$ and $t_j$ and $-d_j$ at each $f_{ij}$.) Attack and cap columns are \emph{sparse}; the budget
+column is \emph{dense}.
+
+\paragraph{The block determinant.} A principal submatrix of $M$ selects a set $F$ of first-block indices
+and a set $R$ of second-block indices. It is
+\[
+  M_{F\cup R,\,F\cup R}=\begin{pmatrix}0&(B_{R,F})^{\mathsf T}\\-D_{R,F}&0\end{pmatrix},
+\]
+where $B_{R,F}$ and $D_{R,F}$ have rows $R$ and columns $F$. If $|F|\ne|R|$, the rank of this
+matrix is at most $2\min(|F|,|R|)$, which is less than $|F|+|R|$, so the minor is $0$. If $|F|=|R|=k$, then
+\begin{equation}\label{app-dl:eq:blockdet}
+\begin{aligned}
+  \det\begin{pmatrix}0&(B_{R,F})^{\mathsf T}\\-D_{R,F}&0\end{pmatrix}
+  &=(-1)^{k^2}\det(B_{R,F})^{\mathsf T}\det(-D_{R,F})\\
+  &=(-1)^{k^2+k}\det B_{R,F}\det D_{R,F}=\det B_{R,F}\det D_{R,F}.
+\end{aligned}
+\end{equation}
+The factor $(-1)^{k^2}$ comes from swapping the two block-column groups, and $(-1)^k$ from removing the
+sign of the lower block; together they cancel. So it suffices to prove
+$\det B_{R,F}\det D_{R,F}\ge0$ for all equal-size $R,F$.
+
+\begin{lemma}[$P_0$]\label{app-dl:lem:p0}
+\statuslean
+For all data with $b_{ij}\ge0$ and $d_j\ge0$, every principal minor of $M$ is nonnegative.
+\end{lemma}
+
+\begin{proof}
+\emph{Step 0: strictly positive data.} First assume $b_{ij}>0$ and $d_j>0$ for all $i,j$. Fix $R,F$ with
+$|R|=|F|$ and write $B'$, $D'$ for the following rescaled versions of $B_{R,F}$, $D_{R,F}$. Negate every
+type row in \emph{both} matrices. This multiplies each of the two determinants by $(-1)^{\#\text{type
+rows in }R}$, the same factor, so it does not change their product. Divide every target row $j$ of $D$
+by $d_j>0$; this multiplies $\det D_{R,F}$ by a positive number. After these operations:
+\begin{itemize}[nosep]
+  \item an attack column $ij$ has entries $(-1,+1)$ in $D'$ and $(-1,b_{ij})$ in $B'$, at type row $i$
+        and target row $j$ (restricted to those rows that lie in $R$);
+  \item a cap column has a single entry, $-1$ in $B'$ and $-1/d_j<0$ in $D'$, at its target row $j$;
+  \item the budget column has, at every selected target row $j$, the entry $-1$ in $B'$ and $-1/d_j<0$ in
+        $D'$, and $0$ elsewhere. (Only the signs of these entries are used below.)
+\end{itemize}
+In particular $B'$ and $D'$ have the same zero pattern and the same sign at every nonzero entry. It
+suffices to show $\det B'\cdot\det D'\ge0$.
+
+A restricted sparse column has two entries of opposite sign (an attack column with both endpoints in
+$R$), one nonzero entry (a cap column, or an attack column with one endpoint in $R$), or none. Let $G$ be
+the graph on the vertex set $R$ whose edges are the selected two-entry columns; isolated vertices are
+kept. $G$ is bipartite (type rows versus target rows) and simple. A one-entry column is attached to the
+vertex of its entry. Every sparse column lies within one connected component of $G$.
+
+\emph{Step 1: the cases in which the product is zero.} In each of the following cases
+$\det B'\cdot\det D'=0$.
+\begin{enumerate}[label=(Z\arabic*),nosep]
+  \item Some selected sparse column has no entry in $R$. Then both matrices have a zero column.
+  \item $G$ contains a cycle. Its edge columns in $D'$ are oriented incidence vectors $(-1,+1)$, and
+        the alternating $\pm1$ combination around the cycle is zero. So $\det D'=0$.
+  \item Some component $T$ of $G$ carries more selected sparse columns than it has vertices. These
+        columns are supported on the $|T|$ rows of $T$, so they are linearly dependent in both matrices.
+  \item The budget column is selected, and (after excluding (Z1)--(Z3)) the unique component $T_0$
+        described in Step~3 below contains no target row. This case is treated in Step~3: both
+        determinants vanish.
+\end{enumerate}
+From now on assume that (Z1)--(Z3) fail. Then $G$ is a forest, every component $T$ is a tree with
+$|T|-1$ edge columns, and it carries at most one one-entry column.
+
+\emph{Step 2: unique terms in trees.} Call a tree \emph{anchored} if it carries exactly one one-entry
+column, and call the vertex of that entry its \emph{root}. In a square matrix whose columns are the
+columns of anchored trees, the determinant expansion has exactly one nonzero term. Indeed, a nonzero
+term is a bijection from columns to rows using nonzero entries only, and columns can only be matched
+within their own tree. In a tree, a leaf other than the root has a nonzero entry only in its unique edge
+column, so it must be matched to that edge. Removing the leaf and repeating, every edge is matched to its
+endpoint farther from the root, and the one-entry column to the root. The same argument shows: if a
+tree $T$ carries no one-entry column and one of its rows $\rho$ is deleted, the remaining $|T|-1$ rows of
+$T$ and its $|T|-1$ edges have exactly one nonzero matching, with $\rho$ serving as root. Because $B'$
+and $D'$ have the same zero pattern and the same entry signs, the unique term is given by the same
+permutation in both matrices, with the same sign.
+
+\emph{Case A: the budget column is not selected.} There are $|R|$ sparse columns. Each tree $T$ carries
+$|T|-1$ or $|T|$ of them, and the total is $|R|=\sum_T|T|$. Hence every tree carries exactly $|T|$
+columns, that is, every tree is anchored. By Step~2, $\det B'$ and $\det D'$ each consist of one nonzero
+term, with the same sign. So $\det B'\cdot\det D'>0$.
+
+\emph{Step 3 / Case B: the budget column is selected.} Put it last in both matrices. There are $|R|-1$
+sparse columns, so by the same count exactly one tree $T_0$ carries no one-entry column (it is
+\emph{unanchored}) and all others are anchored. For $X\in\{B',D'\}$ expand $\det X$ along the budget
+column:
+\[
+  \det X=\sum_{v\in R}X_{v,\lambda}\,C^X_v=\sum_{j\in R\text{ target row}}X_{j,\lambda}\,C^X_j,
+\]
+where $C^X_v$ is the cofactor of position $(v,\lambda)$. The budget entry $X_{j,\lambda}$ of a target row is $-1$ in $B'$ and $-1/d_j$ in $D'$, negative in both; type rows have budget entry $0$. If $v$ lies in an anchored tree $T'$, deleting
+row $v$ leaves the $|T'|$ columns of $T'$ supported on $|T'|-1$ rows, so $C^X_v=0$. Hence only target rows
+of $T_0$ contribute.
+
+\emph{Determinant-zero subcase (Z4).} If $T_0$ contains no target row (for example, $T_0$ is a single type
+row), every term of the expansion vanishes, and $\det B'=\det D'=0$.
+
+\emph{Nonzero subcase.} Now $T_0$ contains at least one target row. For $v\in T_0$, deleting row $v$ and
+the budget column leaves anchored trees and the tree $T_0$ with root $v$, so by Step~2 the cofactor
+$C^X_v$ is a single nonzero term. Moreover $C^{B'}_v$ and $C^{D'}_v$ have the same sign: they are given by
+the same permutation, the entries have the same signs, and the position sign $(-1)^{v+\lambda}$ is the
+same. Next, within one matrix all nonzero cofactors have one common sign. Indeed, the cofactor vector
+$C^X=(C^X_v)_{v\in R}$ lies in the left kernel of every other column of $X$: for each sparse column $s$,
+$\sum_vC^X_vX_{v,s}$ is the determinant of $X$ with the budget column replaced by $s$, which has a
+repeated column. Applied to an edge column of $T_0$ with endpoints $i$ (type, entry $-1$) and $j$
+(target, entry $\beta=1$ in $D'$ or $\beta=b_{ij}>0$ in $B'$), this gives $-C^X_i+\beta C^X_j=0$, so
+$C^X_i$ and $C^X_j$ have the same sign. Since $T_0$ is connected and all its cofactors are nonzero, they
+all have one common sign $\sigma_X$, and $\sigma_{B'}=\sigma_{D'}$ by the previous observation. We compare
+signs only for these nonzero terms. Hence $\det X=\sum_{j\in T_0\text{ target}}X_{j,\lambda}C^X_j$ is a nonempty sum of terms of sign $-\sigma_X$, so $\det X$ is nonzero with sign $-\sigma_X$, the same for $X=B'$ and
+$X=D'$. Thus $\det B'\cdot\det D'>0$.
+
+Together with Step~1 and~\eqref{app-dl:eq:blockdet}, every principal minor of $M$ is nonnegative when
+all $b_{ij},d_j$ are positive.
+
+\emph{Step 4: zero coefficients, by continuity.} For arbitrary $b_{ij}\ge0$ and $d_j\ge0$, take a sequence
+of strictly positive coefficient vectors converging to the given ones. Each principal minor of $M$ is a
+polynomial in the coefficients, nonnegative along the sequence by Steps~0--3, hence nonnegative in the
+limit. The input itself is not changed.
+\end{proof}
+
+\subsection{Perturbation, bound, gap and the main theorem}\label{app-dl:sec:main}
+
+\begin{lemma}[Diagonal perturbation]\label{app-dl:lem:pmatrix}
+\statuslean
+For every rational $\delta>0$, $M+\delta I$ is a P-matrix. In particular
+$M+\delta I$ has no sign-reversing vector, and $\mathrm{LCP}(q,M+\delta I)$ has at most one solution for every $q$.
+\end{lemma}
+
+\begin{proof}
+For a nonempty principal index set $S$,
+$\det(M+\delta I)_{SS}=\sum_{U\subseteq S}\delta^{|S|-|U|}\det M_{UU}\ge\delta^{|S|}>0$, because every
+term is nonnegative by Lemma~\ref{app-dl:lem:p0} and the term $U=\emptyset$ equals $\delta^{|S|}$. The
+rest is Proposition~\ref{prop:classical}(i) and the classical fact that a P-matrix has no nonzero $y$
+with $y_k(My)_k\le0$ for all $k$~\cite{cps92} (see the remark after Proposition~\ref{prop:classical}).
+\end{proof}
+
+By Proposition~\ref{prop:classical}(i) the solution exists; this classical fact is not part of the Lean proof.
+
+\paragraph{Constants.} Define
+\[
+  U=\max_{i,j}A_{ij},\quad W=1+mU,\quad D_*=\max_jd_j,\quad S=1+D_*W,\quad
+  K=\bigl\lceil\max(1,U,W,1+S)\bigr\rceil .
+\]
+Note $U\ge1$ because $A_{ij}\ge1+b_{ij}$.
+
+\begin{lemma}[Uniform bound]\label{app-dl:lem:bound}
+\statuslean
+For every $0<\delta\le1$, the solution $z=(f,t,\lambda,u,x)$ of $\mathrm{LCP}(q,M+\delta I)$ lies in
+$[0,K]^N$.
+\end{lemma}
+
+\begin{proof}
+The perturbed slack of each variable is its slack in~\eqref{app-dl:eq:lcp} plus $\delta$ times the
+variable. \emph{Types.} If $u_i>0$, its slack vanishes: $\sum_jf_{ij}=p_i+\delta u_i>0$. On a positive
+$f_{ij}$ the slack of $f_{ij}$ vanishes, so $u_i=A_{ij}-b_{ij}x_j-\delta f_{ij}\le U$. Thus $u_i\le U$ in
+all cases. \emph{Flows.} The nonnegative type slacks give $\sum_jf_{ij}\le p_i+\delta u_i$, so
+$\sum_{i,j}f_{ij}\le1+\delta mU\le W$; in particular every $f_{ij}$ and every $w_j$ is at most $W$.
+\emph{Caps.} If $t_j>0$, then its slack vanishes, $x_j=1+\delta t_j>0$, so the slack of $x_j$ vanishes:
+$t_j=1+d_jw_j-\lambda-\delta x_j\le1+D_*W=S$. \emph{Coverage.} The nonnegative cap slack gives
+$x_j\le1+\delta t_j\le1+S$. \emph{Cutoff.} If $\lambda>0$, then $\sum_jx_j=r+\delta\lambda>0$, so some
+$x_j>0$, and its vanishing slack gives $\lambda=1+d_jw_j-t_j-\delta x_j\le S$. All coordinates are at most
+$K$.
+\end{proof}
+
+\paragraph{The pattern LP.} For a set $P\subseteq[N]$ (a \emph{pattern}), the \emph{pattern LP} in the
+variables $z\in\mathbb R^N$ is
+\[
+  0\le z\le K,\qquad z_k=0\ (k\notin P),\qquad (q+Mz)_k\ge0\ (\text{all }k),\qquad (q+Mz)_k=0\ (k\in P).
+\]
+Every feasible point solves $\mathrm{LCP}(q,M)$: off $P$ the variable is zero, on $P$ the slack is zero.
+This holds even if some coordinate in $P$ is zero at the feasible point.
+
+\paragraph{The relaxed pattern LP.} In the variables $(z,\tau)\in\mathbb R^{N+1}$, minimize $\tau$ subject
+to the following rows.
+\begin{enumerate}[label=(R\arabic*),nosep]
+  \item For every $k\in[N]$: $(q+Mz)_k+\tau\ge0$ (the relaxed slack inequality; coefficient of $\tau$
+        is $+1$).
+  \item For every $k\in P$: $-(q+Mz)_k+\tau\ge0$. Together with (R1) this replaces the equality
+        $(q+Mz)_k=0$ by the two inequalities $-\tau\le(q+Mz)_k\le\tau$ (coefficient of $\tau$ is $+1$).
+  \item Boxes, exact: $z_k\ge0$ and $z_k\le K$ for every $k$ (coefficient of $\tau$ is $0$).
+  \item Pins, exact: $z_k\le0$ for every $k\notin P$, which with (R3) gives $z_k=0$ (coefficient of
+        $\tau$ is $0$).
+  \item $\tau\ge0$ and $\tau\le1$.
+\end{enumerate}
+Every row that can occur for any pattern belongs to the fixed list consisting of the $2N$ rows
+$\pm(q+Mz)_k+\tau\ge0$, the $3N$ rows $z_k\ge0$, $z_k\le K$, $z_k\le0$, and the two rows of (R5). It is
+written with the coefficient of $\tau$ inserted \emph{before} clearing denominators. Clear the
+denominators of each of these $5N+2$ rows separately (multiply the row by the least common multiple of
+the denominators of its coefficients and its right side). Let $C\ge1$ be an integer bounding the absolute
+values of all resulting integer coefficients and right sides, and put
+\[
+  Q=\bigl((N+1)C\bigr)^{N+1} .
+\]
+
+\begin{lemma}[Gap]\label{app-dl:lem:gap}
+\statuslean
+For every pattern $P$ for which the relaxed pattern LP is feasible, its optimal value is either $0$ or at
+least $1/Q$.
+\end{lemma}
+
+\begin{proof}
+The feasible region is a nonempty polytope, bounded by (R3) and (R5), so the minimum is attained at a
+vertex. A vertex of a polytope in $\mathbb R^{N+1}$ is the unique solution of at most $N+1$ linearly
+independent tight rows; choose exactly $N+1$ of them, giving a nonsingular integer system $Gy=h$ with
+entries bounded by $C$. By Cramer's rule $\tau=\det G_\tau/\det G$, where $G_\tau$ is $G$ with the
+$\tau$-column replaced by $h$. If $\tau>0$, then $|\det G_\tau|\ge1$, so
+$\tau\ge1/|\det G|\ge1/\bigl((N+1)!\,C^{N+1}\bigr)\ge1/Q$.
+\end{proof}
+
+\begin{theorem}[Exact BNE $\le_m$ P-LCP]\label{app-dl:thm:main}\label{thm:direct-lcp}
+\statusrefereed
+Put $\delta=1/(2KQ)$. The map $\Gamma\mapsto(q,M+\delta I)$ is computable in time polynomial in $L$, and
+$M+\delta I$ is a P-matrix. If $0<r<n$ the instance has dimension $N=mn+m+2n+1$; if $r$ is $0$ or $n$,
+the instance map returns the fixed one-dimensional instance described in
+Section~\ref{app-dl:sec:lcp}. Let $z^*$ be the unique solution of $\mathrm{LCP}(q,M+\delta I)$ and let
+$P=\{k:z^*_k>0\}$. Then the pattern LP of $P$ is feasible, each of its solutions solves
+$\mathrm{LCP}(q,M)$, and hence (Lemma~\ref{app-dl:lem:formulation}) gives a BNE in marginal
+coordinates. Together with the decoder of Lemma~\ref{app-dl:lem:decode}, this is a polynomial-time
+many-one reduction from exact BNE search in Bayesian simple security games to P-LCP, using one oracle
+query that satisfies the P-matrix promise.
+\end{theorem}
+
+\begin{proof}
+\emph{The query is a P-matrix} by Lemma~\ref{app-dl:lem:pmatrix}.
+
+\emph{Exact recovery.} Since $\delta\le1$, Lemma~\ref{app-dl:lem:bound} gives $z^*\in[0,K]^N$. The
+perturbed slacks satisfy $(q+Mz^*)_k+\delta z^*_k\ge0$, so $(q+Mz^*)_k\ge-\delta K$ for every $k$. For
+$k\in P$ the perturbed slack is zero, so $(q+Mz^*)_k=-\delta z^*_k\in[-\delta K,0]$. Thus
+$(z^*,\tau=\delta K)$ satisfies (R1)--(R5), with $\tau=\delta K=1/(2Q)\le1$. The optimal value of the
+relaxed pattern LP is at most $1/(2Q)<1/Q$, hence $0$ by Lemma~\ref{app-dl:lem:gap}. An optimal point
+with $\tau=0$ is a feasible point of the pattern LP. Any solution of the pattern LP, computed by a
+polynomial-time LP algorithm from the original payoffs, priors, budget and unit caps, solves
+$\mathrm{LCP}(q,M)$. Coordinates in $P$ that become zero are harmless.
+
+\emph{Size.} The matrix and $q$ have entries built from the input by a polynomial number of additions,
+comparisons and maxima. $K$ is an integer with $\log K$ polynomial in $L$. Every coefficient and right
+side in the list (R1)--(R5) is $0$, $\pm1$, $K$, an input number ($b_{ij}$, $d_j$, $p_i$, $r$) up to
+sign, or a shifted intercept $A_{ij}$ (a sum of $1$ and three input numbers). So the least common
+multiple of the denominators of a row, and the cleared integers, have polynomial bit length, and
+$\log C$ is polynomial in $L$. Hence
+\[
+  \frac1\delta=2KQ,\qquad \log_2\frac1\delta=1+\log_2K+(N+1)\log_2\bigl((N+1)C\bigr),
+\]
+so $\delta$ is the reciprocal of an integer of bit length at most $2+\log_2K+(N+1)\log_2((N+1)C)$,
+polynomial in $L$. The unique solution $z^*$ is rational of polynomial encoding length, since it solves
+the nonsingular principal linear system of $M+\delta I$ on its support. The solution map (support, LP,
+decoder) runs in polynomial time. Enumeration of minors and patterns is used only in the proofs, never by
+the algorithms. Edge cases and zero-prior types are handled as in Section~\ref{app-dl:sec:lcp} and
+Lemma~\ref{app-dl:lem:decode}.
+\end{proof}
+
+On the small games of Appendix~\ref{app:sources}, $1/\delta$ had between $56$ and $958$ bits.
+
+\subsection{Returning the strategies}\label{app-dl:sec:decode}
+
+\begin{lemma}[Decoder]\label{app-dl:lem:decode}
+\statusrefereed
+Let $(x,f)$ be a BNE in marginal coordinates of the positive-prior game. The following is computable in
+polynomial time and is a BNE of the original explicit game.
+\begin{enumerate}[label=(\alph*),nosep]
+  \item Type $i$ with $p_i>0$ attacks $j$ with probability $f_{ij}/p_i$.
+  \item Each zero-prior type plays one target maximizing $a_{ij}-b_{ij}x_j$.
+  \item The defender plays the following mixed strategy on at most $n$ pure strategies, whose coverage
+        marginals are exactly $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) is a probability distribution since $\sum_jf_{ij}=p_i$, and it uses only best targets. (b) A
+zero-prior type has zero weight in the defender's expected payoff, so restoring it with a best response
+does not change the scores $\pi_j$ or the defender's incentives.
+
+(c) This is the construction of Lemma~\ref{lem:realize}, in detail. Let $c_0=0$ and $c_j=x_1+\dots+x_j$,
+so $c_n=r$. Partition $[0,r)$ into the consecutive half-open intervals $I_j=[c_{j-1},c_j)$ of lengths
+$x_j\le1$ (empty if $x_j=0$). For $\theta\in[0,1)$, the points $\theta,\theta+1,\dots,\theta+r-1$ all lie
+in $[0,r)$, so each lies in exactly one interval. Let $S(\theta)$ be the set of targets whose intervals
+contain one of these points. A half-open interval of length at most one contains at most one of the
+points, which are spaced one apart. Hence the $r$ points hit $r$ distinct intervals, and $S(\theta)$ is an
+$r$-subset of the targets, that is, a pure defender strategy. For $\theta$ uniform on $[0,1)$, target $j$
+is selected exactly when $\theta$ lies in the image of $I_j$ modulo $1$; this image has measure
+$|I_j|=x_j$ because $|I_j|\le1$. Endpoint choices form a set of measure zero and are resolved by the
+half-open convention above. Let $0=\alpha_0<\alpha_1<\dots<\alpha_s<1$ be the distinct fractional parts of
+$c_0,\dots,c_n$; since $c_0$ and $c_n$ have fractional part $0$, there are $s+1\le n$ of them. On each
+piece $[\alpha_k,\alpha_{k+1})$ (with $\alpha_{s+1}=1$) no point $\theta+\ell$ crosses an interval
+endpoint, so $S(\theta)$ is constant. Identify each piece's pure strategy as an $r$-subset, group pieces
+with equal subsets, and give each subset the total length of its pieces. This is a rational mixed
+strategy on at most $n$ pure strategies with marginals $x$. By Definition~\ref{app-dl:def:bne} and the
+remark after it, the profile is a BNE.
+\end{proof}
+
+\begin{corollary}[Exact BNE is in UEOPL; ARRIVAL $\le_m$ P-LCP]\label{cor:direct-lcp}
+\statusrefereed
+Exact BNE search is in $\mathsf{UEOPL}$ (by Theorem~\ref{thm:direct-lcp} and \cite[Thm.~81]{fgms18}; the
+query is a genuine P-matrix, so no violation exists). Composing Theorem~\ref{thm:A} with
+Theorem~\ref{thm:direct-lcp} gives a second proof of ARRIVAL $\le_m$ P-LCP, through the game instead of through Theorem~\ref{plcp:thm:main}.
+\end{corollary}
+
+Since no polynomial-time algorithm for P-LCP is known,
+Theorem~\ref{app-dl:thm:main} gives no polynomial-time algorithm for exact BNE, and since P-LCP is not
+known to be $\mathsf{UEOPL}$-hard, it says nothing about hardness. The game may have many equilibria:
+uniqueness is a property of the perturbed LCP, not of the game.
+
+\section{One \texorpdfstring{$\ell_1$}{l1} contraction for the game}\label{sec:contraction}
+
+\paragraph{Idea.} We want a map whose fixed point is (close to) an equilibrium and which contracts.
+\begin{enumerate}[nosep]
+\item \emph{Attackers.} Replace each type's best response by a soft version: project the payoff vector,
+divided by a small temperature $\sigma$, onto the probability simplex. Positive flows then sit within
+$\sigma$ of the best payoff, and the projection's Jacobian has zero column sums.
+\item \emph{Defender.} Move coverage towards targets whose load exceeds the capacity
+$\lambda/d_j$, by a small step $\eta$. One extra coordinate $q$ selects the cutoff $\lambda(q)$ and
+tracks the budget.
+\item \emph{Contraction.} The Jacobian of the combined update is nonnegative with column sums at most
+one, so the map is $\ell_1$-nonexpansive; mixing in a constant point with weight $\delta$ makes it a
+$(1-\delta)$-contraction.
+\item \emph{Repair.} At the fixed point every equilibrium condition holds up to an error below a
+threshold $g$. A Cramer-rule gap shows that then one pattern LP has an exact solution.
+\end{enumerate}
+Throughout this section $p_i>0$, $\sum_ip_i=1$ and $0<r<n$. Zero slopes and zero gains are allowed.
+
+\paragraph{Intuition.} In the example of Figure~\ref{fig:example-market}, type~1 is exactly tied between
+its two targets. The soft response of step~1 replaces the tie by a smooth split, which moves continuously
+as the coverage moves; step~2 then pushes coverage towards the target whose load exceeds $\lambda/d_j$.
+An exact fixed point of the combined map is only an \emph{approximate} equilibrium, off by about $\sigma$
+in payoffs and $\kappa$ in the budget, and step~4 is what turns it into an exact one.
+
+\subsection{Pattern LPs and the repair threshold}
+
+A \emph{pattern} specifies a set of allowed type--target edges and, for every target, a label in
+$\{\text{zero},\text{one},\text{free}\}$. The \emph{pattern LP} has variables $x,f,v,\lambda$ and
+requires:
+\begin{itemize}[nosep]
+  \item the budget $\sum_jx_j=r$, the bounds $0\le x\le1$, and the row sums $\sum_jf_{ij}=p_i$;
+  \item $f_{ij}=0$ off the allowed edges, and $v_i\ge U_{ij}(x)$ for all $(i,j)$, with equality on
+        allowed edges;
+  \item $x_j=0$ and $d_jw_j\le\lambda$ on zero targets, $x_j=1$ and $d_jw_j\ge\lambda$ on one targets,
+        and $d_jw_j=\lambda$ on free targets.
+\end{itemize}
+It also has the \emph{outer boxes} $x,f\in[0,1]$, $0\le\lambda\le1+\max_jd_j$ and
+$|v_i|\le2+\max_{i,j}(|a_{ij}|+b_{ij})$. All conditions are closed and linear.
+
+\begin{lemma}[Soundness and uniform repair threshold]\label{lem:ueopl-pattern}
+\statusrefereed
+\begin{enumerate}[label=(\alph*),nosep]
+  \item Every feasible point of a pattern LP is an exact BNE, even if some allowed flows vanish.
+  \item Relax every pattern constraint, writing each equality as two inequalities, by a common
+        additive slack $t\ge0$. Keep the outer boxes exact and minimize $t$. Write every row that can
+        occur in any pattern LP with the coefficient of $t$ inserted \emph{before} clearing
+        denominators. Then clear denominators row by row, let $H\ge1$ bound all resulting integer
+        entries and right-hand sides, let $N=n+mn+m+2$ be the number of variables including $t$, and
+        put $Q=(NH)^N$. For every pattern, the optimal slack is either $0$ or at least $1/Q$.
+  \item Consequently, put $g=1/(4Q)$. If a point satisfies all constraints of a pattern to accuracy
+        strictly better than $g$ and satisfies the outer boxes exactly, then the unrelaxed LP of
+        this pattern is feasible, and solving it gives an exact BNE.
+\end{enumerate}
+$Q$ is computable in polynomial time without enumerating patterns, and $\log Q=N\log(NH)$ is
+polynomial in $L$.
+\end{lemma}
+
+\begin{proof}
+(a) A feasible point satisfies (i) and (ii) of Lemma~\ref{lem:cutoff}(b). Flows off the allowed
+edges are zero, and allowed edges are best responses whether or not their flow is positive.
+(b) The relaxed polyhedron is pointed, since all variables are boxed and $t\ge0$. So a minimum is
+attained at a vertex. By Cramer's rule, $t^*$ at a vertex is an integer divided by a basis determinant
+of absolute value at most $N!\,H^N\le Q$. (c) The point gives a feasible relaxed solution with
+$t<g<1/Q$, so the optimum is $0$. Then (a) applies.
+\end{proof}
+
+The same argument applies if $t$ is in addition restricted to $[0,1]$: a positive minimum is still
+attained at a vertex and is at least $1/Q$, and a witness with all residuals below $g$ forces the minimum
+to be zero. This is the form used in Proposition~\ref{prop:sx-min}. The rest of the construction
+produces, in polynomial time from one fixed point, a point that meets the hypothesis of
+Lemma~\ref{lem:ueopl-pattern}(c). The budget need hold only approximately at that point.
+
+\subsection{Constants}
+
+Let $g=1/(4Q)$ be as in Lemma~\ref{lem:ueopl-pattern}. Put $b_{\max}=\max_{i,j}b_{ij}$,
+$d'_j=d_j+g/16>0$ and $\bar d=\max_jd'_j$. Choose the rational constants
+\begin{gather*}
+  \sigma=\kappa=\frac g8,\qquad
+  \eta=\min\Bigl(1,\ \frac{\sigma}{1+b_{\max}},\ \frac{\kappa}{4(1+\bar d)(1+\sum_j1/d'_j)}\Bigr),\\
+  \delta=\min\Bigl(\frac18,\ \frac{\eta g}{8(1+\bar d)},\ \frac{g}{8(1+b_{\max})}\Bigr).
+\end{gather*}
+They satisfy
+\begin{equation}\label{eq:ueopl-const}
+  \eta\,\bar d\sum_j\frac1{d'_j}\le\frac\kappa4\le\kappa(1-2\delta),
+\end{equation}
+because $\delta\le1/8$. Each constant is a minimum or product of $O(1)$ quantities of bit length $O(n(\log Q+L))$; the factor $n$ comes from the sum $\sum_j1/d'_j$. This includes the case $d_j=0$, where $1/d'_j=16/g=64Q$. So all constants have
+polynomial bit length. They are rationals but need not be dyadic; no step uses dyadic values, and one
+may round $\eta$ and then $\delta$ down to powers of two if dyadic constants are wanted, since every
+requirement below is an upper bound on $\eta$ or $\delta$. The constant $\delta$ may be exponentially
+small in $L$. Let $a^0=(r/n)\mathbf 1\in[0,1]^n$, and write $C_{l,h}(u)=\min(h,\max(l,u))$ for clipping.
+
+\subsection{The map}
+
+\paragraph{Attackers: simplex projection.} At $x\in[0,1]^n$, let $y_i(x)$ be the Euclidean projection
+of the vector $U_i(x)/\sigma=(U_{ij}(x)/\sigma)_j$ onto the probability simplex on the $n$ targets. Put
+$f_{ij}(x)=p_iy_{ij}(x)$ and $w_j(x)=\sum_ip_iy_{ij}(x)$.
+
+\begin{lemma}[Projection circuit and its pieces]\label{lem:ueopl-proj}
+Let $u\in\mathbb R^n$ have entries sorted as $u_{(1)}\ge\dots\ge u_{(n)}$. Its projection onto the
+simplex is
+\[
+  y_j=\max(0,u_j-\theta),\qquad \theta=\max_{1\le k\le n}\frac{\sum_{h\le k}u_{(h)}-1}{k}.
+\]
+So $y_i(x)$ is computed by a circuit with a comparator sorting network (min/max gates), prefix sums,
+division by the integer constants $k$, and $\max$. Moreover:
+\begin{enumerate}[label=(\alph*),nosep]
+  \item if $y_{ij}(x)>0$ then $U_{ij}(x)\ge\max_kU_{ik}(x)-\sigma$;
+  \item on a region where the positive set of row $i$ is $S$ with $|S|=k$,
+        \[
+          \frac{\partial y_{ij}}{\partial x_h}=\frac{b_{ih}}{\sigma}\Bigl(\frac1k-[j=h]\Bigr)\qquad(j,h\in S),
+        \]
+        and all other entries of this Jacobian vanish;
+  \item hence each column of $\partial w/\partial x$ sums to zero, its off-diagonal entries are
+        nonnegative, its diagonal is at least $-b_{\max}/\sigma$, and $x+\eta w(x)$ has a nonnegative
+        Jacobian with all column sums equal to one.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The formula for $\theta$ is the standard solution of $\sum_j\max(0,u_j-\theta)=1$. (a) Every positive
+coordinate has $u_j=\theta+y_j$ with $0<y_j\le1$. The maximal coordinate is at most $\theta+1$, since
+$y\le 1$. So the two differ by at most one in units of $1/\sigma$, that is, by at most $\sigma$ in
+payoff. (b) On $S$, $\theta=(\sum_{h\in S}u_h-1)/k$ and $y_j=u_j-\theta$, with
+$\partial u_j/\partial x_h=-(b_{ih}/\sigma)[j=h]$. For $h\notin S$, $\theta$ and the positive $y_j$ do
+not depend on $x_h$, and $y_h=0$. (c) Each column of (b) sums to $(b_{ih}/\sigma)(1-1)=0$, and the
+off-diagonal entries are nonnegative. Summing with weights $p_i$, the diagonal is at least
+$-\sum_ip_ib_{ih}/\sigma\ge-b_{\max}/\sigma$. Since $\eta\le\sigma/(1+b_{\max})$, the diagonal of
+$I+\eta\,\partial w/\partial x$ is at least $1-b_{\max}/(1+b_{\max})>0$, and its column sums are one.
+\end{proof}
+
+A zero slope $b_{ih}=0$ only zeroes the corresponding column in (b).
+
+\paragraph{Defender: one cutoff coordinate.} Add one coordinate $q\in[0,1]$ and put
+$s=C_{0,\kappa}(q)$. Let $\lambda(s)$ equal $\bar d$ for $s\le\delta\kappa$, decrease affinely to $0$ at
+$s=(1-\delta)\kappa$, and equal $0$ for larger $s$. That is,
+$\lambda(s)=C_{0,\bar d}\bigl(\bar d\,((1-\delta)\kappa-s)/((1-2\delta)\kappa)\bigr)$. Define
+\begin{gather*}
+  T_j(x,s)=C_{0,1}\Bigl(x_j+\eta\bigl(w_j(x)-\lambda(s)/d'_j\bigr)\Bigr)\quad(j=1,\dots,n),\qquad
+  R(x,s)=C_{0,\kappa}\Bigl(s+\sum_jx_j-\sum_jT_j(x,s)\Bigr),\\
+  F(x,q)=(1-\delta)\bigl(T(x,s),R(x,s)\bigr)+\delta\,(a^0,\kappa/2).
+\end{gather*}
+Because $T\in[0,1]^n$, $R\in[0,\kappa]\subseteq[0,1]$ and $(a^0,\kappa/2)\in[0,1]^{n+1}$, $F$ maps
+$[0,1]^{n+1}$ into itself. Every division is by a rational constant. So $F$ is a LinearFIXP circuit in
+the sense of~\cite{fgms18} (Section~\ref{sec:pre-classes}). It has $O(mn^2+n)$ gates, counting a
+comparator sorting network of $O(n^2)$ comparators per type, and polynomially many constant bits.
+Clipping $q$ to $s$ makes $F$ a circuit on the ordinary unit cube. The narrow interval for $s$ lets the
+fixed point select the defender's cutoff while keeping the budget accurate enough for
+Lemma~\ref{lem:ueopl-pattern}.
+
+\subsection{Contraction}
+
+\begin{lemma}[$\ell_1$ contraction]\label{lem:ueopl-contraction}
+\statusrefereed
+For all $u,u'\in[0,1]^{n+1}$, $\|F(u)-F(u')\|_1\le(1-\delta)\|u-u'\|_1$. In particular $F$ has a unique
+fixed point in $[0,1]^{n+1}$. Zero slopes $b_{ij}=0$ and zero gains $d_j=0$ are allowed.
+\end{lemma}
+
+\paragraph{Proof roadmap.} (1) On one affine piece, bound the Jacobian column by column: the $x$
+columns by Lemma~\ref{lem:ueopl-proj}(c), the $s$ column by~\eqref{eq:ueopl-const}, and the $R$ row by
+construction; clipping only lowers column sums. (2) Extend from pieces to all pairs along segments.
+(3) Check that zero slopes and gains change nothing.
+
+\begin{proof}
+\emph{One affine piece.} Fix an affine piece and treat $s$ for the moment as an independent input.
+\begin{itemize}[nosep]
+  \item \emph{The $x$ columns of $\partial T$.} On rows where $T_j$ is unclipped, they are the rows of
+        $I+\eta\,\partial w/\partial x$. On clipped rows they are zero. By
+        Lemma~\ref{lem:ueopl-proj}(c), they are nonnegative with column sums at most one.
+  \item \emph{The $s$ column of $\partial T$.} On an unclipped row $j$ its entry is $-\eta\lambda'(s)/d'_j$;
+        on a clipped row it is zero. Here
+        $\lambda'(s)\in\{0,-\bar d/((1-2\delta)\kappa)\}$. So it is nonnegative, and
+        by~\eqref{eq:ueopl-const} its sum is at most
+        $\eta\bar d\sum_j(1/d'_j)/(\kappa(1-2\delta))\le1$.
+  \item \emph{The row of $R$.} Before clipping $R$, its entry in each column, $x_h$ or $s$, is one minus
+        that column's sum in $\partial T$. This is nonnegative by the two previous items. Hence the
+        Jacobian of $(T,R)$ with respect to $(x,s)$ is nonnegative with all column sums equal to one.
+\end{itemize}
+Clipping $R$ zeroes its row. The chain rule through $s=C_{0,\kappa}(q)$ multiplies the $s$ column by $0$
+or $1$. Both steps keep the entries nonnegative and can only lower column sums. The $\ell_1$ operator norm
+is the largest absolute column sum, so on every affine piece the Jacobian of $(T,R)$ as a function of
+$(x,q)$ has $\ell_1$ operator norm at most one, and that of $F$ at most $1-\delta$.
+
+\emph{All pairs.} $F$ is continuous and piecewise linear. Subdivide the segment $[u,u']$ at its finitely
+many crossings of piece boundaries and apply the piecewise bound to each subsegment, using limits at the
+boundaries. In more detail, since $F$ is continuous and piecewise affine, the cube has a finite partition into
+relatively open polyhedral cells on each of which $F$ agrees with an affine map; on every cell choose
+one affine realization of $F$, whose linear part is one of the Jacobians above. (Refine the partition so that the positive set $S_i$ of every row is constant on each cell. Gate ties may persist on a whole cell, and then not every tied realization has a linear part from the list above. On each cell use the realization in which $\theta$ is computed from that cell's positive set, with $k=|S_i|$; Lemma~\ref{lem:ueopl-proj}(b) gives its linear part.) The segment $[u,u']$ meets finitely many cells
+in finitely many subintervals. On each subinterval the directional derivative of $F$ along $u'-u$ is
+given by the chosen affine realization, so it has $\ell_1$ norm at most $(1-\delta)\|u'-u\|_1$.
+Integrating along the segment and using continuity of $F$ at cell boundaries gives the bound for all
+pairs. Uniqueness and existence
+of the fixed point follow from Banach's theorem, since $F$ maps the compact cube into itself.
+
+\emph{Degenerate data.} A zero slope only zeroes Jacobian columns in Lemma~\ref{lem:ueopl-proj}(b). A
+zero gain enters only through $d'_j=g/16>0$, and $1/d'_j=64Q$ keeps the constants polynomial.
+\end{proof}
+
+\subsection{Decoding the fixed point}
+
+\begin{lemma}[Budget at the fixed point]\label{lem:ueopl-budget}
+Let $(x,q)$ be the fixed point of $F$. Then $q\in[\delta\kappa/2,(1-\delta/2)\kappa]$, $s=q$, $R$ is
+unclipped, and
+\[
+  \sum_jx_j+q=r+\frac\kappa2,\qquad \Bigl|\sum_jT_j-r\Bigr|\le\frac\kappa{2(1-\delta)}.
+\]
+\end{lemma}
+
+\begin{proof}
+The last coordinate gives $q=(1-\delta)R+\delta\kappa/2$ with $R\in[0,\kappa]$. This gives the
+interval for $q$, and $s=q$ because $0\le q\le\kappa$. Suppose $R=0$. Then $q=\delta\kappa/2\le\delta\kappa$,
+so $\lambda=\bar d$. Since $w_j\le1$ and $d'_j\le\bar d$, we get $w_j-\lambda/d'_j\le0$ and $T\le x$. The
+argument of the clip defining $R$ is then at least $q>0$, a contradiction. Suppose $R=\kappa$. Then
+$q=(1-\delta/2)\kappa\ge(1-\delta)\kappa$, so $\lambda=0$ and $T\ge x$. The argument is then at most
+$q<\kappa$, again a contradiction. So $R=q+\sum_jx_j-\sum_jT_j$.
+
+The $x$ coordinates give $x=(1-\delta)T+\delta a^0$, so $\sum_jx_j=(1-\delta)\sum_jT_j+\delta r$.
+Substituting into $q=(1-\delta)R+\delta\kappa/2$ and cancelling gives $\sum_jx_j+q=r+\kappa/2$. Then
+$\sum_jT_j-r=(\kappa/2-q)/(1-\delta)$, and the bound follows from $q\in[0,\kappa]$.
+\end{proof}
+
+The interval for $q$ gives $|\kappa/2-q|\le(1-\delta)\kappa/2$, which yields the sharper bound
+$|\sum_jT_j-r|\le\kappa/2$. Either bound suffices below.
+
+\begin{lemma}[Decoding]\label{lem:ueopl-decoding}
+\statusrefereed
+Let $(x,q)$ be the fixed point and $z=T(x,q)$. Build a pattern as follows. The allowed edges are the
+pairs with $f_{ij}(x)=p_iy_{ij}(x)>0$. Each target gets the label zero, one or free according to
+whether $z_j=0$, $z_j=1$ or $0<z_j<1$. Then the point $(z,\,f(x),\,v,\,\lambda(q))$ with
+$v_i=\max_jU_{ij}(z)$ satisfies the outer boxes exactly and all constraints of this pattern with
+residual strictly below $g$. Hence, by Lemma~\ref{lem:ueopl-pattern}(c), one LP with the original
+coefficients returns an exact BNE.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Bound the residual of each kind of pattern constraint at
+$(z,f(x),v,\lambda(q))$: exact constraints have residual $0$; best responses are off by at most
+$\sigma+2b_{\max}\delta$ (Lemma~\ref{lem:ueopl-proj}(a)); cutoff conditions by at most
+$\bar d\delta/\eta+g/16$; the budget by Lemma~\ref{lem:ueopl-budget}. All are below $g$, and
+Lemma~\ref{lem:ueopl-pattern}(c) finishes.
+
+\begin{proof}
+Since $x=(1-\delta)z+\delta a^0$ and both lie in $[0,1]^n$, $|x_j-z_j|\le\delta$.
+
+\emph{Exact constraints.} The bounds and boxes hold. We have $z\in[0,1]^n$, $f\in[0,1]$,
+$0\le\lambda\le\bar d\le1+\max_jd_j$, and $|v_i|\le\max_{i,j}(|a_{ij}|+b_{ij})$. The row sums are exact,
+flows off the pattern are zero, $v_i\ge U_{ij}(z)$ holds for all pairs, and $z_j\in\{0,1\}$ holds exactly
+on zero and one targets.
+
+\emph{Best responses.} On an allowed edge, Lemma~\ref{lem:ueopl-proj}(a) gives a payoff at $x$ within
+$\sigma$ of the row maximum. Moving from $x$ to $z$ changes every payoff by at most $b_{\max}\delta$. So
+$0\le v_i-U_{ij}(z)\le\sigma+2b_{\max}\delta<g/8+g/4$, using $\delta\le g/(8(1+b_{\max}))$.
+
+\emph{Cutoff.} If $z_j>0$, the argument of the clip defining $T_j$ is at least $z_j$. So
+$\eta(w_j-\lambda/d'_j)\ge z_j-x_j\ge-\delta$, that is, $d'_jw_j\ge\lambda-\bar d\delta/\eta$. If
+$z_j<1$, the reverse argument gives $d'_jw_j\le\lambda+\bar d\delta/\eta$. Replacing $d'_j$ by $d_j$
+changes the score by at most $(g/16)w_j\le g/16$. So every cutoff residual is at most
+$\bar d\delta/\eta+g/16\le g/8+g/16$, using $\delta\le\eta g/(8(1+\bar d))$.
+
+\emph{Budget.} By Lemma~\ref{lem:ueopl-budget}, $|\sum_jz_j-r|\le\kappa/(2(1-\delta))\le(8/7)(g/16)<g$.
+
+All residuals are strictly below $g$, and Lemma~\ref{lem:ueopl-pattern}(c) applies.
+\end{proof}
+
+The decoder evaluates the circuit exactly at the fixed point and solves one rational LP. Both take
+polynomial time. Zero-prior types are then given best responses, and Lemma~\ref{lem:realize} produces
+explicit mixed strategies if they are wanted. In one statement:
+
+\begin{theorem}[The game's $\ell_1$ contraction]\label{thm:sx-game}
+\statusrefereed
+$F:[0,1]^{n+1}\to[0,1]^{n+1}$ satisfies $\|F(u)-F(u')\|_1\le(1-\delta)\|u-u'\|_1$, and from its unique
+fixed point an exact BNE is computed in polynomial time by one pattern LP. This holds with zero slopes
+and zero gains.
+\end{theorem}
+
+\begin{proof}
+Lemma~\ref{lem:ueopl-contraction} gives the contraction and the unique fixed point.
+Lemmas~\ref{lem:ueopl-budget} and~\ref{lem:ueopl-decoding} decode it: at the fixed point $R$ is
+unclipped, $\sum_jx_j+q=r+\kappa/2$, every $|z_j-x_j|\le\delta$, the used attacker payoffs at $z$ are
+within $\sigma+2b_{\max}\delta$ of their row maxima, the cutoff residuals are at most
+$\bar d\delta/\eta+g/16$, $\lambda\le\bar d\le1+\max_jd_j$, and all residuals are below $g$; so the
+pattern LP recorded at $z$ (positive flow support, labels zero, one or free, and $v_i=\max_jU_{ij}(z)$)
+is feasible by Lemma~\ref{lem:ueopl-pattern} and its solution is an exact BNE.
+\end{proof}
+
+\section{Exact BNE search is in UEOPL}\label{sec:ueopl}
+
+\paragraph{Idea.} PL-Contraction asks for the fixed point of a piecewise-linear contraction \emph{or} a
+certificate that the map is not one. Our $F$ is genuinely a contraction, maps the cube into itself and
+has a fixed point, so no certificate exists and the only solution is the fixed point.
+
+\begin{theorem}[Exact BNE search is in UEOPL]\label{thm:ueopl-main}
+\statusrefereed
+Exact BNE search for Bayesian simple security games with rational data written in binary reduces in
+polynomial time to computing the unique fixed point of the LinearFIXP circuit map
+$F:[0,1]^{n+1}\to[0,1]^{n+1}$ constructed above. Zero slopes and zero gains are allowed. $F$ is a
+$(1-\delta)$-contraction in $\ell_1$ for the explicit rational $\delta>0$ of polynomial bit length.
+Read as the \textsc{PL-Contraction} instance $(F,\ c=1-\delta,\ p=1)$, it has no violation
+solutions, so its only solution is the fixed point. Hence exact BNE search is in $\mathsf{UEOPL}$.
+\end{theorem}
+
+\begin{proof}
+Delete the zero-prior types. If $r\in\{0,n\}$, map the game to a fixed trivial instance; the decoder then returns $x=\mathbf 0$ or $x=\mathbf 1$. Every deleted type gets a best response.
+The instance map $\Gamma\mapsto(F,1-\delta,1)$ runs in polynomial time: $Q$, the constants and the
+circuit all have polynomial size. Lemma~\ref{lem:ueopl-contraction} excludes CMV1, and CMV2 is excluded
+because $F$ maps the cube into itself. CMV3 is excluded because $F$ is contracting and has a fixed point
+in the cube (\cite[Lemmas~30--31 and the remark after Def.~32]{fgms18}). So the only solution is the fixed point. Theorem~\ref{thm:fgms} applies, and
+Lemma~\ref{lem:ueopl-decoding} decodes the fixed point with one LP. The game itself may have many
+equilibria. Uniqueness is a property of $F$, not of the game.
+\end{proof}
+
+\begin{remark}[CLS]\label{rem:ueopl-cls}
+$\mathsf{UEOPL}\subseteq\mathsf{EOPL}=\mathsf{CLS}$~\cite{fgms18,gjhmprt22,fghs23}, so
+Theorem~\ref{thm:ueopl-main} also puts exact BNE search in $\mathsf{EOPL}$ and in
+$\mathsf{CLS}=\mathsf{PPAD}\cap\mathsf{PLS}$~\cite{fghs23}.
+\end{remark}
+
+\begin{remark}[Comparison with ARRIVAL]\label{rem:ueopl-arrival}
+Theorem~\ref{thm:ueopl-main} gives exact BNE search the same $\mathsf{TFNP}$ class bound as ARRIVAL,
+$\mathsf{UEOPL}$, hence $\mathsf{EOPL}$ and $\mathsf{CLS}$. It does so through an \emph{exact}
+piecewise-linear $\ell_1$ contraction in dimension $n+1$, whereas Haslebacher's reduction for ARRIVAL
+goes to an \emph{approximate} fixed point~\cite{haslebacher25}. Hardness for $\mathsf{CLS}$ or
+$\mathsf{EOPL}$ under many-one reductions would now give $\mathsf{EOPL}\subseteq\mathsf{UEOPL}$, which
+fails relative to decision-tree many-one reductions~\cite[Thm.~5]{goos22}. So such hardness is not a
+sensible target.
+\end{remark}
+
+\begin{remark}[No polynomial algorithm follows]\label{rem:ueopl-nopoly}
+Plain fixed-point iteration needs a number of iterations that grows like $1/\delta$, which may be
+exponential in $L$. Within a known choice of affine pieces the fixed point solves a rational linear
+system. The difficulty is identifying the pieces when the solution lies on or near changes in the
+attackers' choices. Daskalakis, Farina and Zhang compute $\varepsilon$-approximate fixed points of
+$\ell_p$-nonexpansive maps in time polynomial in $d$ and $\log(1/\varepsilon)$ for even integers
+$p$~\cite{dfz26}. This excludes $p=1$.  In the other direction, a generic polynomial-time $\ell_1$ solver would also put ARRIVAL in
+$\mathsf P$ by~\cite{haslebacher25}. A targeted algorithm would have to exploit the special structure
+here: every Jacobian column comes from explicitly listed attacker rows, each a projection onto a simplex.
+\end{remark}
+
+\begin{remark}[Fixed dimension]\label{rem:ueopl-fixeddim}
+\cite[Theorem~40]{fgms18} solves \textsc{PL-Contraction} in time polynomial in the circuit size and
+exponential in $d$. Combined with Theorem~\ref{thm:ueopl-main}, this would give a polynomial-time exact
+algorithm for every fixed number of targets. We use only its statement. Theorem~\ref{thm:sx-main} below gives the same consequence
+independently.
+\end{remark}
+
+\section{A subexponential exact algorithm}\label{sec:subexp}
+
+\paragraph{Idea.} The fixed point of a $d$-dimensional $\ell_1$ contraction can be found by splitting
+the coordinates into $\sqrt d$ blocks of size $\sqrt d$. For a guess of the first block, solve the rest
+recursively; then cut away, in the first block, an $\ell_1$ halfspace that cannot contain the fixed point.
+Ghorbani, Lopes and Mnich showed how to choose the guesses deterministically so that each cut removes at
+least a $\frac1{2(k+1)}$ fraction of a grid of block points; combined with slicing (Lemma~\ref{lem:sx-slice}), this gives roughly $(\text{bits})^{O(\sqrt d)}$ work. Applied to the
+$(n+1)$-dimensional map of Section~\ref{sec:contraction}, this solves the game.
+
+\begin{theorem}[Subexponential exact BNE]\label{thm:sx-main}
+\statusrefereed
+An exact BNE of an explicitly given Bayesian simple security game with $n$ targets and binary input
+length $L\ge2$ can be computed deterministically in $L^{O(\sqrt n)}$ bit operations. Zero attacker
+slopes $b_{ij}$, zero defender gains $d_j$, rational payoffs and rational priors are allowed. In
+particular the problem is solvable in $2^{O(\sqrt L\log L)}$ bit operations, and in polynomial time for
+every fixed number of targets.
+\end{theorem}
+
+Theorem~\ref{thm:sx-main} follows from Theorem~\ref{thm:sx-pl} applied to the contraction of
+Theorem~\ref{thm:sx-game}; the deduction is at the end of Section~\ref{sec:sx-recon}. The algorithm gives
+nothing new for ARRIVAL: the reduction of Chapter~\ref{ch:arrival} produces games with $O(n^2)$
+targets and types and $\mathrm{poly}(n)$ bits, on which even the bound of Proposition~\ref{prop:sx-min}
+below is $2^{O(n\log n)}$, slower than the known ARRIVAL algorithms (Section~\ref{sec:pre-arrival}).
+
+\paragraph{Relation to known results.} Theorem~\ref{thm:sx-pl} below combines known tools: the deterministic $\ell_1$ deep-point block search of Ghorbani, Lopes and Mnich~\cite{glm26}, developed there for ARRIVAL, and a slicing lemma (Lemma~\ref{lem:sx-slice}). It is not a new technique, and \cite{glm26} do not state it; this section adds the slicing step for strict contractions, the error control in the recursion and the exact reconstruction. They guess blocks of $k$ coordinates, recurse on the rest, and search each block by cutting $\ell_1$ halfspaces
+at deterministic $\frac1{2(k+1)}$-deep points; their block solver (their Theorem~1.2) uses
+$O(k^3\log(kN+2))$ evaluations and $(2k\log(N+2))^{O(k)}$ additional time, and their overall running time
+has the same shape as the bound $(\bar Q+1)^a\cdot A^{O(b)}$ of Section~\ref{sec:sx-time}. Their
+cube-root exponent comes from a trade-off specific to ARRIVAL (a dominating set and a base case exponential in a distance parameter);
+for a general $d$-dimensional map the same balance gives $\sqrt d$. Their halfspace search works on maps
+with unit increments, which are $\ell_1$-nonexpansive, and needs a ``leaky'' map to handle ties; the
+strict contraction gap here avoids ties. Haslebacher, Lill, Schnider and Weber~\cite{hlsw25} give the same
+cut search for $\ell_1$ contractions with $O(d^2(\log(1/\varepsilon)+\log(1/(1-\lambda))))$ queries
+($\lambda$ the contraction factor); as noted by Chen, Li and Yannakakis~\cite{cly26}, choosing each query
+point by brute force takes $\Omega((1/\varepsilon)^k)$ time in a $k$-dimensional block, and the
+deep-point lemma of~\cite{glm26} removes exactly this bottleneck. Feodorov and Haslebacher~\cite{fh26}
+prove the $\ell_\infty$ analogue, $(\log(1/\varepsilon))^{O(\sqrt d\log d)}$ time, by pairing a
+query-efficient algorithm with a decomposition theorem; for $\ell_1$ the deep-point lemma supplies the
+first ingredient and Lemma~\ref{lem:sx-slice} the decomposition. \cite{cly26} recurse on $\ell_1$
+contractions by fixing coordinates and solving the rest to a boosted precision (for constant block size),
+and remark that a full $\ell_1$ decomposition was unclear in their nonexpansive setting;
+Lemma~\ref{lem:sx-slice} uses the known gap $\delta$, which is allowed here because $\log(1/\delta)$ is
+part of the input length. Haslebacher~\cite{haslebacher25} reduces G-ARRIVAL to $\ell_1$ contraction and
+gives the coordinate-at-a-time recursive framework. The exact-recovery step (a vertex denominator bound
+plus continued fractions) is standard for exact PL contraction problems in the style of~\cite{fgms18}.
+
+\begin{theorem}[Exact PL $\ell_1$ contraction in $S^{O(\sqrt d)}$; after~\cite{glm26}]\label{thm:sx-pl}
+\statusrefereed
+Let $F:[0,1]^d\to[0,1]^d$ be computed by a rational piecewise-linear circuit whose gates are addition,
+subtraction, multiplication by a rational constant, minimum and maximum. Suppose a rational
+$0<\delta\le1$ certifies that $\|F(u)-F(u')\|_1\le(1-\delta)\|u-u'\|_1$ for all $u,u'$. Let $S\ge2$ be the
+combined binary encoding length of the circuit (including its input and output coordinates) and
+$\delta$. Then the exact, unique fixed point of $F$ can be computed deterministically in $S^{O(\sqrt d)}$
+bit operations.
+\end{theorem}
+
+\paragraph{Intuition: block size one.} For $d=2$ and blocks of size one, the outer search is a search on
+the first coordinate. At a test value $c$, solve the one-dimensional tail approximately, compute
+$h=G_X(c,y)$, and discard the side of $c$ away from $h$, where by Lemma~\ref{lem:sx-protect} the fixed
+point cannot lie. Testing a median of the surviving grid points halves the candidates each time; this is
+the variant used in the end-to-end checks (Appendix~\ref{app:status}). For larger blocks the median is
+replaced by the deep points of Lemma~\ref{lem:sx-deep}.
+
+Throughout the proof, $\alpha=1-\delta$ and all norms are $\ell_1$ norms. The proof has four parts: a
+geometric primitive (halfspaces and deep points), slicing, one recursive call with a protected grid
+point, and exact reconstruction.
+
+\subsection{The geometric primitive}
+
+For a center $c\in\mathbb R^k$ and a direction $v\ne0$, the \emph{$\ell_1$ halfspace} is
+\[
+  \mathcal H(c,v)=\{z:\ \|z-c\|_1\le\|z-(c-\epsilon v)\|_1\ \text{for every }\epsilon>0\}.
+\]
+Positive rescaling of $v$ does not change $\mathcal H(c,v)$.
+
+\begin{lemma}[Sign formula]\label{lem:sx-sign}
+Let $\sigma_i=\operatorname{sgn}(z_i-c_i)$. Then $z\in\mathcal H(c,v)$ if and only if
+\[
+  \sum_{i:\sigma_i\ne0}\sigma_iv_i+\sum_{i:\sigma_i=0}|v_i|\ \ge\ 0 .
+\]
+\end{lemma}
+
+\begin{proof}
+The left side is the right derivative at $\epsilon=0$ of the convex PL function
+$\epsilon\mapsto\|z-c+\epsilon v\|_1$. A convex function is at least its value at $0$ for all $\epsilon>0$
+if and only if its right derivative at $0$ is nonnegative.
+\end{proof}
+
+This tie convention (it matters at grid cuts and on singleton box sides) is the same as
+in~\cite{glm26} (their Definition~3.2 and Lemma~7.1), which take the definition from~\cite{hlsw25}. A
+point $w$ is \emph{$\beta'$-deep} in a finite set $C\subset\mathbb R^k$ if
+$|C\cap\mathcal H(w,v)|\ge\beta'|C|$ for every $v\ne0$.
+
+\begin{lemma}[Deep lattice point~\cite{glm26}]\label{lem:sx-deep}
+\statuscited
+Let $\beta\in\mathbb N$ and let $C\subseteq[0,2^\beta]^k$ be a nonempty disjoint union of $p$ integer
+boxes, given by their corners; $|C|$ counts its integer points. One can compute deterministically an
+integer point $w$ in the coordinate bounding box of $C$ that is $\frac1{2(k+1)}$-deep in $C$, in time
+$(2k)^{O(k)}\cdot p\cdot\mathrm{poly}(\beta,\log(p+1))$.
+\end{lemma}
+
+This is the deep-point lemma of~\cite[\S8.4]{glm26}. Its guarantee applies to arbitrary finite unions
+of such boxes, including lower-dimensional ones, and the bounding-box guarantee keeps every queried
+center inside the domain even if it lies in a previously discarded part. We use the lemma independently
+of the switch-graph algorithms of~\cite{glm26}; its centerpoint construction builds on the finite-point $\ell_1$ centerpoint theorem of~\cite{hlsw25} (Theorem~3.18 in its PDF, Theorem~3.20 in the arXiv HTML).
+
+\subsection{Slicing preserves the contraction gap}
+
+A contraction $G$ of a closed cube with fixed point $u^*$ satisfies the a posteriori bound
+\begin{equation}\label{eq:sx-apost}
+  \|u-u^*\|_1\le\|u-G(u)\|_1/\delta,
+\end{equation}
+since $\|u-u^*\|\le\|u-G(u)\|+\|G(u)-G(u^*)\|\le\|u-G(u)\|+\alpha\|u-u^*\|$.
+
+A recursive call works with a \emph{restricted map} $G$: it freezes a prefix of the original input
+coordinates, evaluates the original circuit, and keeps the remaining outputs. Fixing the same prefix in
+both arguments and deleting outputs preserves the bound $\alpha$.
+
+\begin{lemma}[Slicing]\label{lem:sx-slice}
+\statusrefereed
+Let $G=(G_X,G_Y)$ be an $\alpha$-contraction of a product of cubes with coordinates split into a block
+$x$ of size $k\ge1$ and a tail $y$. For each $x$ the map $y\mapsto G_Y(x,y)$ is an $\alpha$-contraction;
+let $y(x)$ be its fixed point and set $T(x)=G_X(x,y(x))$. Then $T$ is an $\alpha$-contraction, and if
+$x^*$ is its fixed point, $(x^*,y(x^*))$ is the unique fixed point of $G$. For an empty tail, $T=G$.
+\end{lemma}
+
+\begin{proof}
+By the fixed-point equations and additivity of the $\ell_1$ norm over coordinate blocks,
+\[
+  \|T(x)-T(x')\|_1+\|y(x)-y(x')\|_1=\|G(x,y(x))-G(x',y(x'))\|_1\le\alpha\bigl(\|x-x'\|_1+\|y(x)-y(x')\|_1\bigr).
+\]
+Rearranging, $\|T(x)-T(x')\|_1\le\alpha\|x-x'\|_1-(1-\alpha)\|y(x)-y(x')\|_1\le\alpha\|x-x'\|_1$. The
+lifting statement is immediate from the definitions and uniqueness.
+\end{proof}
+
+\subsection{One call: precision and a protected grid point}
+
+\paragraph{The call.} Given a restricted map $G$ and a rational tolerance $0<\tau\le1$, a call returns
+a dyadic point of residual $\|u-G(u)\|_1\le\tau$. Split the free coordinates into a block $x$ of size $k$
+and a tail. At a tested block point $c$, recursively solve the tail map $G_Y(c,\cdot)$ to residual
+\[
+  \theta=\delta^2\tau/16
+\]
+(with no tail, use the empty vector and residual zero). Call the result $y$ and evaluate $h=G_X(c,y)$
+exactly with the original circuit. By~\eqref{eq:sx-apost} and contraction,
+\[
+  \|y-y(c)\|_1\le\delta\tau/16,\qquad \|h-T(c)\|_1\le e,\qquad e:=\delta\tau/16.
+\]
+If $\|h-c\|_1\le\tau/2$, return $(c,y)$; its full residual is at most $\tau/2+\theta\le\tau$. Otherwise
+cut with the halfspace $\mathcal H(c,c-h)$; the direction $c-h$ is nonzero, rational, and computed
+without rounding.
+
+\paragraph{The grid.} Let $\beta=\lceil\log_2(16k/(\delta\tau))\rceil$, $N=2^\beta$, and search the grid
+$\{0,1/N,\dots,1\}^k$. Initially all grid points are candidates; after a failed test at $c$, remove
+$\mathcal H(c,c-h)$ from the candidates.
+
+\begin{lemma}[Protected grid point]\label{lem:sx-protect}
+Let $x^*$ be the fixed point of $T$ and let $z$ be a grid point obtained by rounding $x^*$
+coordinatewise, so that $\rho:=\|z-x^*\|_1\le k/N\le e$. Then $z$ is never removed, even though the cuts
+use approximate tail solutions.
+\end{lemma}
+
+\begin{proof}
+Suppose $z\in\mathcal H(c,c-h)$ after a failed test at $c$. Taking $\epsilon=1$ in the definition gives
+$\|z-c\|_1\le\|z-h\|_1$. Let $A=\|c-x^*\|_1$. Since $T(x^*)=x^*$,
+\[
+  A\le\rho+\|z-c\|_1\le\rho+\|z-h\|_1\le2\rho+\|h-x^*\|_1\le2\rho+\|h-T(c)\|_1+\|T(c)-T(x^*)\|_1\le2\rho+e+\alpha A .
+\]
+Hence $A\le(2\rho+e)/\delta\le3e/\delta=3\tau/16$, and
+\[
+  \|h-c\|_1\le\|h-T(c)\|_1+\|T(c)-x^*\|_1+\|x^*-c\|_1\le e+(1+\alpha)A\le\frac{\delta\tau}{16}+\frac{6\tau}{16}
+  \le\frac{7\tau}{16}<\frac\tau2,
+\]
+contradicting the failed test.
+\end{proof}
+
+The algorithm never needs to identify $z$.
+
+\paragraph{Implementing the cuts.} Store candidates in integer coordinates scaled by $N$. Each round
+applies Lemma~\ref{lem:sx-deep} to the current candidate boxes, giving $w$, and tests $c=w/N$; positive
+scaling preserves halfspace membership. A failed test removes at least a $\frac1{2(k+1)}$ fraction of the
+candidates. The initial count is $(N+1)^k$ and $z$ always survives, so after $O(k^2\log(N+1))$ tests some
+test succeeds. The argument allows $c$ outside the current candidate set and uses only that $c$ lies in
+the cube.
+
+After $r'$ cuts, divide each coordinate interval $[0,N]$ at every previous center coordinate, using a
+singleton for the center and the nonempty gaps on either side. This gives at most $2r'+1$ intervals per
+coordinate (also when centers coincide or lie on the boundary), hence at most $(2r'+1)^k$ disjoint
+product boxes, and on each box every sign vector $\operatorname{sgn}(z-c)$ is constant for \emph{each}
+previous center. To maintain the surviving union, test one corner of each product box against each cut
+with Lemma~\ref{lem:sx-sign}. This is polynomial work per box, round, coordinate and bit of the
+directions; no coordinate's $N+1$ values are ever enumerated. Frozen coordinates are absent from the
+grid, and a coordinate collapsed to a singleton is handled by the zero-sign term of the formula.
+
+\subsection{Recursion and running time}\label{sec:sx-time}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  nd/.style={draw,rounded corners,font=\scriptsize,align=center,inner sep=2pt},
+  ar/.style={-{Stealth[length=1.6mm]}}]
+  \node[nd,text width=5.6cm] (r) at (0,0) {level 1: block $x^{(1)}$ ($b$ coordinates), grid of spacing $2^{-\beta}$;
+    test deep points $c_1,c_2,\dots$ (Lemma~\ref{lem:sx-deep}), cut $\mathcal H(c,c-h)$ after each failure};
+  \foreach \i/\xx in {1/-4.2,2/-1.4,3/1.4} {
+    \node[nd,text width=2.3cm] (c\i) at (\xx,-1.9) {tail solve at $c_\i$:\\level 2, tolerance $\theta=\delta^2\tau/16$};
+    \draw[ar] (r) -- (c\i);
+  }
+  \node[font=\small] (dots) at (3.9,-1.9) {$\cdots$};
+  \node[font=\scriptsize,align=left,anchor=west] at (4.4,-1.9) {at most $\bar Q=O(b^2(P+1))$\\tests per node};
+  \foreach \i in {1,2,3} {
+    \draw[ar] (c\i.south) -- ++(-0.5,-0.8);
+    \draw[ar] (c\i.south) -- ++(0,-0.8);
+    \draw[ar] (c\i.south) -- ++(0.5,-0.8);
+  }
+  \node[font=\scriptsize,align=center] at (-1.4,-3.6) {levels $3,\dots,a=\lceil d/b\rceil$: same pattern};
+  \node[nd,text width=7.5cm] (leaf) at (-0.3,-4.4) {last level: block only (empty tail), exact evaluation of the circuit};
+\end{tikzpicture}
+\caption{The block recursion behind Theorem~\ref{thm:sx-pl}. A node searches one block of $b$ coordinates
+by deep-point cuts; every test point $c$ triggers a recursive solve of the remaining coordinates, which by
+Lemma~\ref{lem:sx-slice} is again an $\alpha$-contraction, and Lemma~\ref{lem:sx-protect} guarantees that
+the inexact tail solutions never cut off the rounded fixed point. Accounting: each node makes at most
+$\bar Q=O(b^2(P+1))$ tests, so the tree has $(\bar Q+1)^a$ nodes up to a constant; the deep-point
+computations are local to a node and cost $A^{O(b)}W_*$ with $A=2+b+d+P$. The total is $A^{O(a+b)}W_*$;
+with $b=\lceil\sqrt d\rceil$, so $a=O(\sqrt d)$, and $P$, $W_*$ polynomial in $S$, this is
+$S^{O(\sqrt d)}$.}
+\label{fig:sx-tree}
+\end{figure}
+
+The recursion is drawn in Figure~\ref{fig:sx-tree}.
+
+Fix a block size $b$ with $1\le b\le d$ and let $a=\lceil d/b\rceil$ be the maximum number of nonempty
+levels (the last block may be smaller). A call at depth $s$ has target $\tau_s=\tau(\delta^2/16)^s$. In
+this subsection put
+\[
+  P=4+\lceil\log_2(16d/(\delta\tau))\rceil+a\lceil\log_2(16/\delta^2)\rceil .
+\]
+Every block exponent $\beta$ is at most $P$, and every dyadic coordinate produced anywhere in the
+recursion has a denominator dividing $2^P$. Each $\tau_s$ is stored exactly with
+$O(\mathrm{bits}(\tau)+a(\mathrm{bits}(\delta)+1))$ bits, and $\beta$ is found by integer comparisons with
+powers of two.
+
+\paragraph{Circuit evaluations.} For dyadic inputs with at most $P$ fractional bits, process the gates
+in topological order. Every intermediate denominator divides $2^P$ times the product of the
+denominators of the rational constant leaves and of the scalar-multiplication constants (each occurrence
+counted once): addition and subtraction preserve a common denominator, a scalar gate adds the
+denominator of its constant, and $\min$/$\max$ select an earlier value. Every magnitude is at most the
+product of a factor $2$ per addition or subtraction, a factor $\max(1,|\text{constant}|)$ per scalar
+gate, and the largest absolute leaf, so its logarithm is polynomial in $S$. Exact evaluations, residual
+tests, cut directions and sign sums therefore use numbers of $\mathrm{poly}(S)+O(P)$ bits. A frozen prefix
+never creates a new circuit.
+
+\paragraph{Running time.} Each call makes at most $\bar Q=O(b^2(P+1))$ recursive tail calls, so after any
+round the candidates form at most $(2\bar Q+1)^b$ boxes, and each application of
+Lemma~\ref{lem:sx-deep} costs $(2b)^{O(b)}(2\bar Q+1)^b\,\mathrm{poly}(P,b\log(\bar Q+1))$; the cut
+bookkeeping is of the same order up to polynomial factors in the direction bit lengths. With
+$A=2+b+d+P$ and $W_*$ a fixed polynomial in $S$, $P$ and the tolerance encodings, the local work per node
+is $A^{O(b)}W_*$. The recursion tree has $(\bar Q+1)^a$ nonempty nodes up to an absolute constant, so the
+total work is
+\[
+  A^{O(a+b)}\,W_* .
+\]
+Only the polynomial number of tail evaluations branches at each level; the more expensive deep-point
+computation is local to each node. Taking $b=\lceil\sqrt d\rceil$ gives $(d+P+2)^{O(\sqrt d)}W_*$ bit
+operations for residual $\tau$. These bounds hold up to constants.
+
+\subsection{Exact reconstruction}\label{sec:sx-recon}
+
+\begin{lemma}[Denominator bound]\label{lem:sx-denom}
+Introduce variables for the cube coordinates and for all gate values. For a choice of one active
+argument at every $\min$ and $\max$ gate, impose the gate equalities, the weak inequalities that validate
+the choices, the affine gate equalities, the cube bounds, and the equations identifying input
+coordinates with output gates. Clear denominators row by row, let $H\ge1$ bound all resulting integer
+entries and right sides, let $M$ be the number of variables, and put $D=(MH)^M$. Then every coordinate of
+the fixed point $u^*$ of $F$ is a fraction with denominator at most $D$, and $\log D$ is polynomial in
+$S$.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Fix the branch pattern active at $u^*$. Its lifted polyhedron is a single point,
+so that point is a vertex, and Cramer's rule bounds its denominators.
+
+\begin{proof}
+The menu of all possible rows has polynomial size, so $H$ and $M$ are polynomially bounded without
+enumerating branch choices. Choose a branch pattern that occurs at $u^*$, resolving ties arbitrarily. Its
+lifted polyhedron is a singleton: every feasible point projects to a fixed point of $F$, which is unique,
+and topological evaluation then fixes every gate value. The active rows at this point span all $M$
+coordinates; otherwise a nonzero common null vector could be followed a small distance in either
+direction while keeping the strict slack of the inactive rows, contradicting the singleton property.
+Cramer's rule on $M$ independent active rows bounds the denominator of every coordinate by $D$. This
+covers branch regions of lower dimension and singular affine pieces.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sx-pl}]
+Run the recursion on $G=F$ with root tolerance $\tau=2^{-B}$, $B$ minimal with $\tau\le\delta/(8D^2)$;
+then $B$, $P$ and all tolerance encodings are polynomial in $S$, so the running time of
+Section~\ref{sec:sx-time} is $S^{O(\sqrt d)}$. By~\eqref{eq:sx-apost} the returned dyadic vector $u$
+satisfies $\|u-u^*\|_1\le1/(8D^2)$. In each coordinate there is at most one fraction with denominator at
+most $D$ within this distance, because two distinct such fractions are at least $1/D^2$ apart. The true
+coordinate $p/q$, $q\le D$, satisfies $|u_i-p/q|<1/(2q^2)$, so by Legendre's criterion it is a convergent
+of the continued fraction of $u_i$. List the convergents of $u_i$ (including $u_i$ itself) and pick the
+one with denominator at most $D$ within distance $1/(8D^2)$. A final exact evaluation of $F$ verifies the
+recovered point.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~\ref{thm:sx-main}]
+For $r\in\{0,n\}$ the answer is immediate. Otherwise apply Theorem~\ref{thm:sx-pl} to the map $F$ of
+Theorem~\ref{thm:sx-game}: its dimension is $n+1$ and its encoding length $S$, including
+$\log(1/\delta)$, is polynomial in $L$, so the fixed point is found in $L^{O(\sqrt{n+1})}=L^{O(\sqrt n)}$
+bit operations. Decode it with one LP and convert to mixed strategies (Lemma~\ref{lem:realize}). Since
+$n\le L$, this is $2^{O(\sqrt L\log L)}$.
+\end{proof}
+
+\subsection{A bound in the smaller dimension}
+
+\paragraph{Idea.} If there are fewer types than targets, use the game-to-market reduction of
+Chapter~\ref{ch:market}, transpose each market call so that types become goods, and turn the call back
+into a game with about $2m$ targets. Theorem~\ref{thm:sx-main} then solves each call in
+$L^{O(\sqrt m)}$.
+
+\providecommand{\Xlo}{\underline{X}}\providecommand{\Xhi}{\overline{X}}
+\paragraph{Setting and notation.} In this subsection a \emph{positive game} is a game with $p_i>0$ for
+all $i$, $\sum_ip_i=1$, $b_{ij}>0$, $d_j>0$ and $0<r<n$. The letters $P$, $v$, $f$ have their meaning
+in the market (M1) of Definition~\ref{def:m1} (prices, utilities, flows); the precision $P$ and the
+level count $a$ of Section~\ref{sec:sx-time} do not occur here. For a rational number, its
+\emph{binary length} is the total number of bits of its numerator and denominator.
+
+\paragraph{Box queries.} Fix a positive game. A \emph{box query} is a triple $(c,l,h)$ of rational
+vectors in $\mathbb Q^n$ with $c_j>0$ and $0\le l_j\le h_j\le1$ for all $j$. An \emph{answer} to it is an
+equilibrium $(x,f)$ of the box market of Definition~\ref{def:mk-box} with the types as buyers
+(masses $p_i$, payoffs $U_{ij}(x)=a_{ij}-b_{ij}x_j$), capacities $c$ and price box $[l,h]$; that is,
+$l\le x\le h$, $f\ge0$, $\sum_jf_{ij}=p_i$ for all $i$, $f_{ij}>0$ only if $U_{ij}(x)=V_i(x)$, and, with
+$w_j=\sum_if_{ij}$,
+\begin{equation}\label{eq:sxm-box}
+x_j>l_j\ \Longrightarrow\ w_j\ge c_j,\qquad x_j<h_j\ \Longrightarrow\ w_j\le c_j .
+\end{equation}
+A coordinate with $l_j=h_j$ is \emph{pinned}; \eqref{eq:sxm-box} is then vacuous for it. The game data
+$(p,a,b)$ are part of every query.
+
+\begin{lemma}[Interface of the game-to-market reduction]\label{lem:sxm-interface}
+Let a positive game of binary length $L$ be given. The procedure of Lemmas~\ref{lem:mk-bisect}
+and~\ref{lem:mk-narrow} (cutoff bisection, then narrowing with canonicalization and the final price LP)
+has the following properties.
+\begin{enumerate}[nosep,label=(\alph*)]
+\item Every query is a box query $(c,l,h)$ with $c_j=\lambda/d_j$ for a rational $\lambda>0$. In the
+bisection $l=\mathbf0$ and $h=\mathbf1$. In the narrowing $l=\Xlo$ and $h=\Xhi$ for the current endpoints
+$\Xlo\le\Xhi$, except that $l_k=h_k=t$ at the pinned coordinate $k$, where $\Xlo_k\le t\le\Xhi_k$. If
+$\lambda_0=0$, no query is made in the narrowing.
+\item It makes at most $1+\lceil\log_2(DQ_1^2)\rceil+n\lceil\log_{3/2}(1/\eta)\rceil$ queries, a number
+bounded by a fixed polynomial in $L$, and every query has binary length at most a fixed polynomial in
+$L$.
+\item It accepts \emph{any} answer to each query: whatever answers are returned, it stops with an exact
+BNE $(x,f)$ of the game. Given the answers, it is deterministic.
+\item If every answer has binary length at most a fixed polynomial in $L$, then all its work other than
+answering the queries takes time polynomial in $L$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) The bisection queries box equilibria on $[0,1]^n$ at the midpoint cutoffs, which are positive
+rationals (Lemma~\ref{lem:mk-bisect}). The narrowing queries the box market on $[\Xlo,\Xhi]$ with $k$
+pinned to a grid point $t$ of the middle third of $[\Xlo_k,\Xhi_k]$, at the capacities
+$c=\lambda_0/d$, and at $\lambda_0=0$ it uses the upper corner of the pinned sub-box instead
+(Lemma~\ref{lem:mk-narrow}). The bracket satisfies $\Xlo\le\Xhi$ throughout, so $l\le h$, and
+$0\le l\le h\le1$ because all endpoints lie in $[0,1]^n$. Since $d_j>0$ and $\lambda>0$, every $c_j>0$.
+
+(b) The bisection makes at most $1+\lceil\log_2(DQ_1^2)\rceil$ queries (Lemma~\ref{lem:mk-bisect}). In
+the narrowing, each query on coordinate $k$ shrinks the width $\Xhi_k-\Xlo_k$ by a factor at most $2/3$, no
+width grows, every width starts at most $1$, and $k$ is queried only while its width exceeds $\eta$
+(Lemma~\ref{lem:mk-narrow}). Hence $k$ is queried at most $\lceil\log_{3/2}(1/\eta)\rceil$ times. Since
+$\log Q_1$, $\log Q_2$ and $\log(1/\eta)=\log(4nQ_2)$ are polynomial in $L$, so is the total. Bisection
+queries have polynomial length by Lemma~\ref{lem:mk-bisect} (the midpoints and $d$), and narrowing
+queries by Lemma~\ref{lem:mk-bits}.
+
+(c) Lemmas~\ref{lem:mk-bisect} and~\ref{lem:mk-narrow} are stated for \emph{any} box equilibrium
+returned by a query, and Lemma~\ref{lem:mk-pin} for any equilibrium of the pinned sub-box. A returned
+point of total $r$ is a BNE by Lemma~\ref{lem:mk-box-cutoff}; otherwise the price LP of
+Lemma~\ref{lem:mk-narrow} gives one. All other steps are rational linear programs and arithmetic, and
+every choice that Section~\ref{sec:mk-g2m} leaves open is fixed by a rule: rounds process the
+coordinates in index order and skip those of width at most $\eta$; $\lambda_0$ is the larger of the two
+left ends; $t$ is the smallest grid point in the middle third; and every linear program is solved by one
+fixed deterministic algorithm that returns a vertex.
+
+(d) Proposition~\ref{prop:mk-g2m} proves this when the box answers come from (M1) answers through
+Lemma~\ref{lem:mk-box-m1}; its proof uses only that the box answers have polynomial length. In detail,
+an answer enters the procedure only through its total $\sum_jx_j$, its pattern (positive edges and
+labels), and canonicalization, whose linear programs use only that pattern, the original data and the
+current endpoints and pin; an answer of total $r$ also enters as the returned BNE. All linear programs of the procedure have rows of polynomial length by
+Lemmas~\ref{lem:mk-bisect} and~\ref{lem:mk-bits}, and there are polynomially many of them by (b).
+\end{proof}
+
+\begin{lemma}[Answers of polynomial length]\label{lem:sxm-vertex}
+Let $(c,l,h)$ be a box query of a positive game, let $\sigma$ bound the binary length of every number
+among $p,a,b,c,l,h$, and put $N_{\mathrm v}=n+mn$. From any answer $(x,f)$ one computes, in time
+polynomial in $n$, $m$, $\sigma$ and the binary length of $(x,f)$, an answer $(x',f')$ each of whose
+entries has binary length at most $2N_{\mathrm v}(\log_2N_{\mathrm v}+4\sigma+2)$.
+\end{lemma}
+
+\begin{proof}
+Let $A=\{(i,j):f_{ij}>0\}$, and give each good $j$ the label \emph{pinned} if $l_j=h_j$, and otherwise
+\emph{floor}, \emph{ceiling} or \emph{interior} according to whether $x_j=l_j$, $x_j=h_j$ or
+$l_j<x_j<h_j$. Let $\Pi$ be the set of $(x',f')\in\mathbb R^n\times\mathbb R^{m\times n}$ with
+\begin{itemize}[nosep]
+\item $x'_j=l_j$ on pinned and floor goods, $x'_j=h_j$ on ceiling goods, $l_j\le x'_j\le h_j$ on
+interior goods;
+\item $f'\ge0$, $f'_{ij}=0$ for $(i,j)\notin A$, and $\sum_jf'_{ij}=p_i$ for all $i$;
+\item $a_{ij}-b_{ij}x'_j\ge a_{ik}-b_{ik}x'_k$ for all $(i,j)\in A$ and all $k$;
+\item $\sum_if'_{ij}\le c_j$ on floor goods, $\sum_if'_{ij}\ge c_j$ on ceiling goods and
+$\sum_if'_{ij}=c_j$ on interior goods.
+\end{itemize}
+\emph{$\Pi$ contains $(x,f)$.} The labels are read off $x$. A positive $f_{ij}$ has $(i,j)\in A$ and is a
+best response, so the comparison rows hold. A floor good has $x_j=l_j<h_j$, so \eqref{eq:sxm-box} gives
+$w_j\le c_j$; a ceiling good has $x_j=h_j>l_j$, so $w_j\ge c_j$; an interior good has both, so $w_j=c_j$.
+
+\emph{Every point of $\Pi$ is an answer.} It lies in $[l,h]$ and has full rows. If $f'_{ij}>0$ then
+$(i,j)\in A$, and the comparison rows say that $j$ maximizes $U_{ik}(x')$ over all $k$. For
+\eqref{eq:sxm-box}: a pinned good has no condition; a floor good has $x'_j=l_j$, so only $x'_j<h_j$ can
+apply, and then $\sum_if'_{ij}\le c_j$ holds; a ceiling good is symmetric; an interior good has load
+exactly $c_j$, which satisfies both implications.
+
+\emph{A vertex of $\Pi$ is short.} $\Pi$ is a nonempty polytope, since $x'\in[l,h]$ and
+$0\le f'_{ij}\le p_i$. So it has a vertex, and one is computed by rational linear programming in time
+polynomial in the length of the rows. Multiply each row by the product of the denominators of its
+entries and right-hand side. A comparison row involves $b_{ij},b_{ik},a_{ij},a_{ik}$, so its integer entries
+have absolute value below $2^{4\sigma+1}$; every other row involves one data number besides
+coefficients $\pm1$, so its entries are below $2^{\sigma}$. A vertex is the unique solution of
+$N_{\mathrm v}$ linearly independent rows of $\Pi$ satisfied with equality. By Cramer's rule each entry
+is a quotient of two determinants of integer $N_{\mathrm v}\times N_{\mathrm v}$ matrices with entries
+below $2^{4\sigma+1}$, and by Hadamard's inequality each determinant has absolute value at most
+$(N_{\mathrm v}2^{4\sigma+1})^{N_{\mathrm v}}$. So numerator and denominator each have at most
+$N_{\mathrm v}(\log_2N_{\mathrm v}+4\sigma+1)+1$ bits. Reading off $A$ and the labels from $(x,f)$ takes
+time linear in its length.
+\end{proof}
+
+In particular every box query that has an answer has one of binary length polynomial in the query.
+Every box query of a positive game has an answer (a BNE of $\widehat\Gamma$ exists by Nash's theorem,
+and Lemmas~\ref{lem:sxm-game}(b), \ref{lem:sxm-bounded}(b) and~\ref{lem:sxm-reserve} below turn it into
+an answer; alternatively, use Lemma~\ref{lem:mk-box-m1} together with the existence of (M1) equilibria,
+Section~\ref{sec:pre-market}).
+
+\paragraph{The reserve market of a query.} Fix a box query $(c,l,h)$ of a positive game and put
+\[
+v_i^0=\max_k\bigl(a_{ik}-b_{ik}h_k\bigr)\qquad(i\in[m]),
+\]
+as in Lemma~\ref{lem:mk-box-m1}. Let $\mathcal M$ be the dense (M1) market in general form
+(Section~\ref{sec:pre-market}) with buyers $i\in[m]$ of mass $p_i$ and reserve $v_i^0$, goods $j\in[n]$
+of capacity $c_j$ and reserve $l_j$, and payoff $a_{ij}-b_{ij}P_j$ to buyer $i$ from good $j$ at price
+$P_j$. Written out, $(P,v,f)$ with $P\in\mathbb R^n$, $v\in\mathbb R^m$, $f\in\mathbb R^{m\times n}$ is an
+equilibrium of $\mathcal M$ if and only if
+\begin{enumerate}[nosep,label=(R\arabic*)]
+\item $P_j\ge l_j$ for all $j$ and $v_i\ge v_i^0$ for all $i$;
+\item $f\ge0$; $v_i\ge a_{ij}-b_{ij}P_j$ for all $(i,j)$, with equality if $f_{ij}>0$;
+\item $\sum_jf_{ij}\le p_i$, with equality if $v_i>v_i^0$;
+\item $\sum_if_{ij}\le c_j$, with equality if $P_j>l_j$.
+\end{enumerate}
+This is a matching market with singles in the sense of Galichon and Jacquet~\cite{galichon25}: buyer
+mass left unmatched receives the reservation utility $v_i^0$, and capacity left unsold the reservation
+price $l_j$.
+
+\begin{lemma}[Singles]\label{lem:sxm-reserve}
+Every equilibrium $(P,v,f)$ of $\mathcal M$ satisfies $l\le P\le h$. For each $i$ fix an index
+$k(i)\in\argmax_k(a_{ik}-b_{ik}h_k)$, and put $x=P$ and
+\[
+f'_{ij}=f_{ij}+[j=k(i)]\Bigl(p_i-\sum_{k}f_{ik}\Bigr).
+\]
+Then $(x,f')$ is an answer to the query $(c,l,h)$.
+\end{lemma}
+
+\begin{proof}
+This is Lemma~\ref{lem:mk-box-m1} before the shift to zero reserves; we repeat the argument in the
+present notation. $P\ge l$ is (R1). Suppose $P_j>h_j$ for some $j$. For every $i$, since $b_{ij}>0$,
+\[
+a_{ij}-b_{ij}P_j<a_{ij}-b_{ij}h_j\le v_i^0\le v_i,
+\]
+so the equality in (R2) fails and $f_{ij}=0$. Column $j$ is then empty, while $P_j>h_j\ge l_j$ and
+(R4) require $\sum_if_{ij}=c_j>0$. This contradiction gives $P\le h$.
+
+Let $i$ have \emph{spare mass} $s_i=p_i-\sum_kf_{ik}>0$. By (R3), $v_i=v_i^0$. With $k=k(i)$, (R2)
+gives $a_{ik}-b_{ik}h_k=v_i^0=v_i\ge a_{ik}-b_{ik}P_k$, so $P_k\ge h_k$, hence $P_k=h_k$, and the pair
+$(i,k)$ satisfies (R2) with equality. So $f'$ is obtained from $f$ by adding mass only on pairs that are
+tight in (R2), and only at goods with $x_k=h_k$.
+
+Now check the answer conditions. $l\le x\le h$ was shown. $f'\ge0$ and $\sum_jf'_{ij}=p_i$ by
+construction. If $f'_{ij}>0$, the pair $(i,j)$ is tight, so $a_{ij}-b_{ij}x_j=v_i\ge a_{ik}-b_{ik}x_k$
+for all $k$ by (R2), and $j$ maximizes $U_{ik}(x)$. For \eqref{eq:sxm-box}: if $x_j>l_j$, then (R4) gives
+$\sum_if_{ij}=c_j$, and $f'\ge f$ gives $w_j\ge c_j$; if $x_j<h_j$, no mass was added at $j$, so
+$w_j=\sum_if_{ij}\le c_j$ by (R4).
+\end{proof}
+
+\begin{lemma}[Transposition]\label{lem:sxm-transpose}
+Let $\mathcal M^\top$ be the dense (M1) market in general form with buyers $j\in[n]$ of mass $c_j$ and
+reserve $l_j$, goods $i\in[m]$ of capacity $p_i$ and reserve $v_i^0$, and payoff
+\[
+\frac{a_{ij}}{b_{ij}}-\frac1{b_{ij}}\,t_i
+\]
+to buyer $j$ from a unit of good $i$ at price $t_i$ (slopes $1/b_{ij}>0$). Then $(P,v,f)$ is an
+equilibrium of $\mathcal M$ if and only if $(v,P,f^\top)$ is an equilibrium of $\mathcal M^\top$, where $v$
+is now the price vector, $P$ the utility vector, and $(f^\top)_{ji}=f_{ij}$ the flow.
+\end{lemma}
+
+\begin{proof}
+Write the conditions of $\mathcal M^\top$ for $(t,u,g)=(v,P,f^\top)$ (prices $t$, utilities $u$, flows
+$g$) and compare them with (R1)--(R4).
+\begin{itemize}[nosep]
+\item Reserves: $u_j\ge l_j$ and $t_i\ge v_i^0$, that is, $P_j\ge l_j$ and $v_i\ge v_i^0$: this is (R1).
+\item No blocking: $u_j\ge(a_{ij}-t_i)/b_{ij}$, that is, $b_{ij}P_j\ge a_{ij}-v_i$ (multiply by
+$b_{ij}>0$), that is, $v_i\ge a_{ij}-b_{ij}P_j$; with equality on the same pairs, and $g_{ji}>0$ if and
+only if $f_{ij}>0$: this is (R2).
+\item Buyer $j$'s row: $\sum_ig_{ji}=\sum_if_{ij}\le c_j$, with equality if $u_j>l_j$, that is, if
+$P_j>l_j$: this is (R4).
+\item Good $i$'s column: $\sum_jg_{ji}=\sum_jf_{ij}\le p_i$, with equality if $t_i>v_i^0$, that is, if
+$v_i>v_i^0$: this is (R3).
+\end{itemize}
+Each condition of one market is equivalent to one condition of the other, so the two sets of
+equilibria correspond exactly.
+\end{proof}
+
+\paragraph{Removing the singles.} Let $c_\Sigma=\sum_jc_j>0$ and define, for $i\in[m]$ and $j\in[n]$,
+\begin{gather*}
+\gamma_i=1+\max\Bigl(0,\ \max_{j}\bigl(a_{ij}-v_i^0-b_{ij}l_j\bigr)\Bigr),\qquad
+\hat a_{ji}=\frac{a_{ij}-v_i^0}{b_{ij}}-l_j,\qquad \hat b_{ji}=\frac{\gamma_i}{b_{ij}}>0,\\
+\mu_j=\frac{c_j}{2c_\Sigma},\qquad \hat c_i=\frac{p_i}{2c_\Sigma},\qquad \hat c_o=1 .
+\end{gather*}
+Since $v_i^0\ge a_{ij}-b_{ij}h_j$, we have $a_{ij}-v_i^0-b_{ij}l_j\le b_{ij}(h_j-l_j)$, so
+$1\le\gamma_i\le1+\max_jb_{ij}$. Let $\mathcal B$ be the box market (Definition~\ref{def:mk-box}, read
+with these buyers and goods) with buyers $j\in[n]$ of masses $\mu_j$, goods $[m]\cup\{o\}$ (the
+\emph{real goods} $i\in[m]$ and one \emph{outside good} $o$) of capacities $\hat c$, price box
+$[0,1]^{[m]\cup\{o\}}$, and payoffs
+\[
+\hat U_{ji}(\xi)=\hat a_{ji}-\hat b_{ji}\xi_i\quad(i\in[m]),\qquad \hat U_{jo}(\xi)=-\xi_o .
+\]
+So an equilibrium of $\mathcal B$ is a pair $(\xi,\varphi)$ with $\xi\in[0,1]^{[m]\cup\{o\}}$,
+$\varphi_{js}\ge0$, $\sum_s\varphi_{js}=\mu_j$, $\varphi_{js}>0$ only if $s$ maximizes $\hat U_{js'}(\xi)$
+over $s'\in[m]\cup\{o\}$, and, with $\hat w_s=\sum_j\varphi_{js}$,
+$\xi_s>0\Rightarrow\hat w_s\ge\hat c_s$ and $\xi_s<1\Rightarrow\hat w_s\le\hat c_s$. In words: prices
+and utilities are shifted so that both reserves become zero, masses and capacities are divided by
+$2c_\Sigma$, the price of real good $i$ is measured in units of $\gamma_i$ above $v_i^0$, and the
+buyers' reserves become one outside good that is never sold out. The point of $\gamma_i$ is the
+identity
+\begin{equation}\label{eq:sxm-shift}
+\hat U_{ji}(\xi)=\frac{a_{ij}-t_i}{b_{ij}}-l_j\qquad\text{for }t_i=v_i^0+\gamma_i\xi_i ,
+\end{equation}
+which follows by expanding $\hat a_{ji}-\hat b_{ji}\xi_i$.
+
+\begin{lemma}[Outside good and ceilings]\label{lem:sxm-bounded}
+\begin{enumerate}[nosep,label=(\alph*)]
+\item Every equilibrium $(\xi,\varphi)$ of $\mathcal B$ has $\xi_o=0$ and $\xi_i<1$ for all $i\in[m]$; hence
+$\hat w_i\le\hat c_i$ for all $i\in[m]$, with equality if $\xi_i>0$.
+\item \emph{Decoding.} For an equilibrium $(\xi,\varphi)$ of $\mathcal B$ put
+\[
+v_i=v_i^0+\gamma_i\xi_i,\qquad P_j=l_j+\max\Bigl(0,\ \max_{i\in[m]}\hat U_{ji}(\xi)\Bigr),\qquad
+f_{ij}=2c_\Sigma\,\varphi_{ji}\qquad(i\in[m],\ j\in[n]).
+\]
+Then $(v,P,f^\top)$ is an equilibrium of $\mathcal M^\top$, and so $(P,v,f)$ is an equilibrium of
+$\mathcal M$.
+\item \emph{Encoding.} Conversely, let $(P,v,f)$ be an equilibrium of $\mathcal M$. Put
+$\xi_i=(v_i-v_i^0)/\gamma_i$, $\xi_o=0$, $\varphi_{ji}=f_{ij}/(2c_\Sigma)$ and
+$\varphi_{jo}=\mu_j-\sum_i\varphi_{ji}$. Then $(\xi,\varphi)$ is an equilibrium of $\mathcal B$, and
+decoding it by (b) returns $(P,v,f)$.
+\end{enumerate}
+\end{lemma}
+
+\paragraph{Proof roadmap.} (a) The outside good cannot fill its capacity, so its price is zero; a real
+good at its ceiling is worse than the outside good for every buyer, so it would be unsold, which a
+positive price forbids. (b) and (c) are the conditions of $\mathcal M^\top$ read through
+\eqref{eq:sxm-shift}, in both directions.
+
+\begin{proof}
+(a) All buyers together have mass $\sum_j\mu_j=1/2$, so $\hat w_o\le1/2<1=\hat c_o$, and $\xi_o>0$ would
+require $\hat w_o\ge\hat c_o$. So $\xi_o=0$, $\hat U_{jo}=0$, and buyer $j$'s best value is
+\[
+\hat V_j=\max\Bigl(0,\ \max_{i\in[m]}\hat U_{ji}(\xi)\Bigr)\ \ge0 .
+\]
+Suppose $\xi_i=1$ for some $i\in[m]$. By \eqref{eq:sxm-shift} with $t_i=v_i^0+\gamma_i$, and by
+$\gamma_i>a_{ij}-v_i^0-b_{ij}l_j$ and $b_{ij}>0$,
+\[
+\hat U_{ji}(\xi)=\frac{a_{ij}-v_i^0-\gamma_i-b_{ij}l_j}{b_{ij}}<0\le\hat V_j\qquad\text{for every }j .
+\]
+So no buyer uses $i$ and $\hat w_i=0<\hat c_i$, as $p_i>0$; but $\xi_i=1>0$ requires
+$\hat w_i\ge\hat c_i$. Hence $\xi_i<1$, so $\hat w_i\le\hat c_i$, and if $\xi_i>0$ also
+$\hat w_i\ge\hat c_i$.
+
+(b) Let $t_i=v_i$, so that \eqref{eq:sxm-shift} reads $\hat U_{ji}(\xi)=(a_{ij}-v_i)/b_{ij}-l_j$, and
+$P_j-l_j=\hat V_j$ by (a). We verify the conditions of $\mathcal M^\top$ for prices $v$, utilities $P$
+and flows $g_{ji}=f_{ij}$.
+\begin{itemize}[nosep]
+\item Reserves: $P_j\ge l_j$ since $\hat V_j\ge0$; $v_i\ge v_i^0$ since $\xi_i\ge0$.
+\item No blocking: $P_j-l_j=\hat V_j\ge\hat U_{ji}(\xi)$, that is, $P_j\ge(a_{ij}-v_i)/b_{ij}$.
+\item Tightness: $g_{ji}>0$ gives $\varphi_{ji}>0$, so $\hat U_{ji}(\xi)=\hat V_j$, that is,
+$P_j=(a_{ij}-v_i)/b_{ij}$.
+\item Buyer $j$'s row: $\sum_ig_{ji}=2c_\Sigma(\mu_j-\varphi_{jo})=c_j-2c_\Sigma\varphi_{jo}\le c_j$. If
+$P_j>l_j$, then $\hat V_j>0=\hat U_{jo}$, so $\varphi_{jo}=0$ and the row is full.
+\item Good $i$'s column: $\sum_jg_{ji}=2c_\Sigma\hat w_i\le2c_\Sigma\hat c_i=p_i$ by (a). If
+$v_i>v_i^0$, then $\xi_i>0$, so $\hat w_i=\hat c_i$ by (a) and the column is full.
+\end{itemize}
+Lemma~\ref{lem:sxm-transpose} turns this into an equilibrium $(P,v,f)$ of $\mathcal M$.
+
+(c) By Lemma~\ref{lem:sxm-transpose}, $(v,P,f^\top)$ is an equilibrium of $\mathcal M^\top$. Two facts
+about it come first.
+
+\emph{The utility is a maximum:} $P_j=\max\bigl(l_j,\max_i(a_{ij}-v_i)/b_{ij}\bigr)$. The inequality
+$\ge$ is (R1) with (R2). If $P_j>l_j$, then (R4) fills the row of $j$ in $\mathcal M^\top$; since
+$c_j>0$ some $f_{ij}>0$, and that pair is tight.
+
+\emph{The price is below the ceiling:} $v_i-v_i^0<\gamma_i$. This is clear if $v_i=v_i^0$. If
+$v_i>v_i^0$, (R3) fills the column of $i$; since $p_i>0$ some $f_{ij}>0$, and tightness with $P_j\ge l_j$
+gives $(a_{ij}-v_i)/b_{ij}=P_j\ge l_j$, that is,
+$v_i-v_i^0\le a_{ij}-v_i^0-b_{ij}l_j<\gamma_i$.
+
+So $\xi\in[0,1)^m\times\{0\}$. The flows are nonnegative: $\varphi_{ji}\ge0$, and
+$\varphi_{jo}=(c_j-\sum_if_{ij})/(2c_\Sigma)\ge0$ by (R4); the rows sum to $\mu_j$ by definition. By
+\eqref{eq:sxm-shift} with $t_i=v_i$, $\hat U_{ji}(\xi)=(a_{ij}-v_i)/b_{ij}-l_j$, and $\hat U_{jo}=0$; so
+by the first fact the best value of $j$ is $P_j-l_j$. A real good used by $j$ has $f_{ij}>0$, hence is
+tight and attains $P_j-l_j$. If $\varphi_{jo}>0$, the row of $j$ is not full, so $P_j=l_j$ by (R4), and
+$o$ attains the best value $0$. Loads: $\hat w_i=\sum_jf_{ij}/(2c_\Sigma)\le p_i/(2c_\Sigma)=\hat c_i$ by
+(R3), with equality if $\xi_i>0$, because then $v_i>v_i^0$; since $\xi_i<1$ both box conditions hold. For
+$o$, $\xi_o=0<1$ and $\hat w_o\le1/2\le\hat c_o$. Finally, decoding returns $v_i^0+\gamma_i\xi_i=v_i$,
+$2c_\Sigma\varphi_{ji}=f_{ij}$, and $l_j+\max(0,\max_i\hat U_{ji}(\xi))=\max(l_j,\max_i(a_{ij}-v_i)/b_{ij})=P_j$.
+\end{proof}
+
+\paragraph{The game of a query.} Put $K=m+3$. The game $\widehat\Gamma$ has the following data
+(Definition~\ref{def:game}). In it the index $j$ runs over types and $i$ over targets.
+\begin{itemize}[nosep]
+\item \emph{Targets:} the real targets $i\in[m]$, the outside target $o$, and auxiliary targets
+$\mathrm{aux}_1,\dots,\mathrm{aux}_K$; in total $2m+4$ targets.
+\item \emph{Resources:} $\hat r=m+2$.
+\item \emph{Types:} real types $j\in[n]$ with prior $\mu_j=c_j/(2c_\Sigma)$, and dedicated types
+$\mathrm{ded}_1,\dots,\mathrm{ded}_K$ with prior $1/(2K)$ each; in total $n+m+3$ types, with positive
+priors summing to $1$.
+\item \emph{Defender:} payoff $0$ at an uncovered target, and gains $\hat d_i=1/\hat c_i=2c_\Sigma/p_i$
+at real targets, $\hat d_o=1/\hat c_o=1$, and $\hat d_{\mathrm{aux}_k}=2K$.
+\item \emph{Attackers:} with coverage $\xi$, real type $j$ receives $\hat a_{ji}-\hat b_{ji}\xi_i$ at real
+target $i$, $-\xi_o$ at $o$, and $-2-\xi_{\mathrm{aux}_k}$ at $\mathrm{aux}_k$; dedicated type
+$\mathrm{ded}_k$ receives $2-\xi_{\mathrm{aux}_k}$ at $\mathrm{aux}_k$ and $-2-\xi_s$ at every other target
+$s$.
+\end{itemize}
+Write $\varphi_{\theta s}$ for the attack mass of type $\theta$ on target $s$, $\hat w_s$ for the load,
+and $\hat\pi_s=\hat d_s\hat w_s$ for the score.
+
+\begin{lemma}[The auxiliary targets force the cutoff]\label{lem:sxm-game}
+\begin{enumerate}[nosep,label=(\alph*)]
+\item $\widehat\Gamma$ is a Bayesian simple security game with $2m+4$ targets, $n+m+3$ types and
+$\hat r=m+2$ resources, $0<\hat r<2m+4$, all attacker slopes positive. If $\sigma\ge1$ bounds the
+binary length of every number of the query and the game, every number of $\widehat\Gamma$ has binary
+length $O(n\sigma)$, and $\widehat\Gamma$ is computed in time polynomial in $n$, $m$ and $\sigma$.
+\item Let $(\xi,\varphi)$ be a BNE of $\widehat\Gamma$ (coverage and attack masses). Then every dedicated
+type $\mathrm{ded}_k$ attacks only $\mathrm{aux}_k$, no real type attacks an auxiliary target, every
+auxiliary score equals $1$, $1\le\sum_k\xi_{\mathrm{aux}_k}\le m+2<K$, and every cutoff $\hat\lambda$ of
+Lemma~\ref{lem:cutoff} for this BNE equals $1$. At a real target and at $o$ the score is the load divided
+by the capacity, $\hat\pi_s=\hat w_s/\hat c_s$, and the restriction of $(\xi,\varphi)$ to the goods
+$[m]\cup\{o\}$ and the real types is an equilibrium of $\mathcal B$.
+\item Conversely, every equilibrium of $\mathcal B$ extends to a BNE of $\widehat\Gamma$.
+\end{enumerate}
+\end{lemma}
+
+\paragraph{Proof roadmap.} (b) has four steps: (1) payoffs separate the type classes, so auxiliary loads
+are constant and auxiliary scores are $1$; (2) counting the budget puts the auxiliary coverage strictly
+inside $(0,K)$; (3) one auxiliary target with positive coverage and one below full coverage pin the
+cutoff to $1$; (4) at cutoff $1$ the defender's conditions on the other targets are the box conditions
+of $\mathcal B$.
+
+\begin{proof}
+(a) All attacker slopes ($\hat b_{ji}$ and $1$) are positive, so $u_2^0\ge u_2^1$ holds at every pair;
+all gains are positive, so $u_1^0=0\le u_1^1$. The priors are positive with
+$\sum_j\mu_j+K/(2K)=1/2+1/2=1$, and $0<m+2<2m+4$. For the lengths, $v_i^0$ and the inner maximum in
+$\gamma_i$ are each the maximum of $n$ numbers, each obtained from at most six query numbers by two
+products and three additions, so they and $\gamma_i$, $\hat a_{ji}$, $\hat b_{ji}$ have binary length
+$O(\sigma)$; the sum $c_\Sigma$ of $n$ rationals has binary length $O(n\sigma)$, hence so do $\mu_j$ and
+$\hat d_i$; the remaining numbers are integers or $1/(2K)$, of length $O(\log m)\subseteq O(\sigma)$
+because some $p_i\le1/m$. The construction uses $O((m+n)m)$ arithmetic operations.
+
+(b) \emph{Separation.} A dedicated type $\mathrm{ded}_k$ gets $2-\xi_{\mathrm{aux}_k}\ge1$ at
+$\mathrm{aux}_k$ and at most $-2$ elsewhere, so it attacks only $\mathrm{aux}_k$. A real type gets
+$-\xi_o\ge-1$ at $o$ and at most $-2$ at every auxiliary target, so it never attacks an auxiliary target,
+and its best value is attained on $[m]\cup\{o\}$. Hence $\hat w_{\mathrm{aux}_k}=1/(2K)$ and
+$\hat\pi_{\mathrm{aux}_k}=2K/(2K)=1$, and the loads of the real targets and of $o$ come from real types
+only.
+
+\emph{Counting.} The $m+1$ targets in $[m]\cup\{o\}$ carry coverage at most $m+1$ in total, and the total
+coverage is $\hat r=m+2$. So $\sum_k\xi_{\mathrm{aux}_k}\ge1>0$, and also
+$\sum_k\xi_{\mathrm{aux}_k}\le m+2<K$. Hence some auxiliary target has $\xi_{\mathrm{aux}_k}>0$ and some
+has $\xi_{\mathrm{aux}_{k'}}<1$.
+
+\emph{Cutoff.} Since $0<\hat r<2m+4$, Lemma~\ref{lem:cutoff} gives a cutoff $\hat\lambda$ with
+$\xi_s>0\Rightarrow\hat\pi_s\ge\hat\lambda$ and $\xi_s<1\Rightarrow\hat\pi_s\le\hat\lambda$. Applied to
+$\mathrm{aux}_k$ and $\mathrm{aux}_{k'}$ this gives $1\ge\hat\lambda$ and $1\le\hat\lambda$. So every such
+$\hat\lambda$ equals $1$.
+
+\emph{Box conditions.} For $s\in[m]\cup\{o\}$, $\hat d_s=1/\hat c_s$ gives $\hat\pi_s=\hat w_s/\hat c_s$.
+With $\hat\lambda=1$ the cutoff conditions read $\xi_s>0\Rightarrow\hat w_s\ge\hat c_s$ and
+$\xi_s<1\Rightarrow\hat w_s\le\hat c_s$, which are the box conditions of $\mathcal B$ on $[0,1]$. A real
+type $j$ has total mass $\mu_j$, all of it on $[m]\cup\{o\}$, on targets that maximize its payoff over all
+targets and hence over $[m]\cup\{o\}$, where its payoffs are those of $\mathcal B$. So the restriction is
+an equilibrium of $\mathcal B$.
+
+(c) Let $(\xi,\varphi)$ be an equilibrium of $\mathcal B$. By Lemma~\ref{lem:sxm-bounded}(a),
+$\xi_o=0$ and $\xi_i<1$, so $\Sigma:=\sum_{s\in[m]\cup\{o\}}\xi_s<m$. Give every auxiliary target the
+coverage $\zeta=(m+2-\Sigma)/K$, which lies in $(2/K,(m+2)/K]\subseteq(0,1)$, so the total coverage is
+$m+2$ and every coverage lies in $[0,1]$; let $\mathrm{ded}_k$ attack $\mathrm{aux}_k$ and the real types
+play $\varphi$. Attackers best respond: the dedicated types as in (b), and the real types because their
+payoffs at auxiliary targets are at most $-2<0=-\xi_o$, so their best value over all targets is the one
+in $\mathcal B$. For the defender take the cutoff $\hat\lambda=1$: auxiliary scores equal $1$, and on
+$[m]\cup\{o\}$ the cutoff conditions are the box conditions of $\mathcal B$, as in (b). By
+Lemma~\ref{lem:cutoff}(b) and Lemma~\ref{lem:realize} this is a BNE.
+\end{proof}
+
+\begin{proposition}[$L^{O(\sqrt{\min(m,n)})}$]\label{prop:sx-min}
+\statusrefereed
+An exact BNE of an explicitly given Bayesian simple security game with $m$ types, $n$ targets and binary
+input length $L\ge2$ can be computed deterministically in $L^{O(\sqrt{\min(m,n)})}$ bit operations. Zero
+attacker slopes $b_{ij}$ and zero defender gains $d_j$ are allowed. Since $mn\le L$, this is
+$2^{O(L^{1/4}\log L)}$ bit operations. For $m<n$ the algorithm is the game-to-market reduction of
+Section~\ref{sec:mk-g2m} (Proposition~\ref{prop:mk-g2m}), whose box queries
+(Lemma~\ref{lem:sxm-interface}) are answered through games with $2m+4$ targets
+(Lemma~\ref{lem:sxm-game}) solved by Theorem~\ref{thm:sx-main}.
+\end{proposition}
+
+The bound depends on the separate game-to-market reduction of Chapter~\ref{ch:market}, through
+Lemma~\ref{lem:sxm-interface}. Theorem~\ref{thm:sx-main} enters twice: directly when $n\le m$, and as the
+solver of the query games when $m<n$.
+
+\paragraph{Proof roadmap.} (1) Delete zero-prior types and settle $r\in\{0,n\}$ and $n\le m$ directly.
+(2) Make slopes and gains positive by the perturbation $\epsilon=g/4$ and repair at the end with one
+pattern LP of Section~\ref{sec:contraction}. (3) For a positive game with $m<n$, run the procedure of
+Lemma~\ref{lem:sxm-interface}, and answer each query through $\mathcal M$, $\mathcal M^\top$,
+$\mathcal B$ and $\widehat\Gamma$ (Lemmas~\ref{lem:sxm-reserve}--\ref{lem:sxm-game}), solving
+$\widehat\Gamma$ by Theorem~\ref{thm:sx-main} and shortening the answer by Lemma~\ref{lem:sxm-vertex}.
+(4) Count: polynomially many queries, each in $L^{O(\sqrt m)}$, plus polynomial work.
+
+\begin{proof}
+\emph{Step 1: reductions.} Delete the types of prior zero; they are given any best response at the end
+(Section~\ref{sec:pre-game}). Let $m'\le m$ be the number of remaining types; their priors still sum to
+$1$. If $r\in\{0,n\}$ the coverage is forced and every type attacks a best target. If $n\le m'$, apply
+Theorem~\ref{thm:sx-main}, which allows zero slopes and gains, in $L^{O(\sqrt n)}$ bit operations; here
+$n=\min(m,n)$. From now on $0<r<n$, all priors are positive, and $m'<n$, so $m'\le\min(m,n)$. To keep the
+notation, write $m$ for $m'$.
+
+\emph{Step 2: zero slopes or gains.} If every $b_{ij}$ and every $d_j$ is positive, go to Step~3 with
+the game itself. Otherwise let $Q$ be the constant of Lemma~\ref{lem:ueopl-pattern}(b) for the game,
+computable in polynomial time with $\log Q$ polynomial in $L$, put $g=1/(4Q)$ and $\epsilon=g/4$, and let
+$\Gamma_\epsilon$ be the game with $b^\epsilon_{ij}=b_{ij}+\epsilon$ and $d^\epsilon_j=d_j+\epsilon$ and the
+same $p$, $a$ and $r$. It is a positive game with the same $m$ and $n$, and its binary length $L_\epsilon$
+is polynomial in $L$. Let $(x,f)$ be an exact BNE of $\Gamma_\epsilon$ (coverage and attack masses),
+computed by Step~3. By Lemma~\ref{lem:cutoff}(a) it has a cutoff
+$\lambda^\epsilon\in[0,\max_jd^\epsilon_j]$. Take the pattern of Section~\ref{sec:contraction} with
+allowed edges $\{(i,j):f_{ij}>0\}$ and labels zero, one or free according to $x_j=0$, $x_j=1$ or
+$0<x_j<1$, and the point $(x,f,v,\lambda^\epsilon)$ with $v_i=\max_kU_{ik}(x)$ for the \emph{original}
+payoffs $U_{ik}(x)=a_{ik}-b_{ik}x_k$. We bound its residual in every constraint of this pattern LP of the
+original game.
+\begin{itemize}[nosep]
+\item Exactly satisfied: the budget, $0\le x\le1$, the row sums, $f_{ij}=0$ off the allowed edges,
+$v_i\ge U_{ij}(x)$ for all pairs, $x_j=0$ at zero targets and $x_j=1$ at one targets.
+\item Best responses on allowed edges: $f_{ij}>0$ means
+$a_{ij}-b^\epsilon_{ij}x_j=\max_k(a_{ik}-b^\epsilon_{ik}x_k)$. Since
+$U_{ik}(x)=a_{ik}-b^\epsilon_{ik}x_k+\epsilon x_k$ and $0\le x\le1$,
+$v_i\le\max_k(a_{ik}-b^\epsilon_{ik}x_k)+\epsilon=a_{ij}-b^\epsilon_{ij}x_j+\epsilon\le U_{ij}(x)+\epsilon$. So
+$0\le v_i-U_{ij}(x)\le\epsilon$.
+\item Cutoff conditions: $d_jw_j=d^\epsilon_jw_j-\epsilon w_j$ with $0\le w_j\le1$. At a zero target
+$x_j<1$, so $d_jw_j\le d^\epsilon_jw_j\le\lambda^\epsilon$ exactly. At a one target $x_j>0$, so
+$d_jw_j\ge\lambda^\epsilon-\epsilon$. At a free target both hold, so
+$\lambda^\epsilon-\epsilon\le d_jw_j\le\lambda^\epsilon$.
+\item Outer boxes, exactly: $x\in[0,1]^n$; $0\le f_{ij}\le p_i\le1$;
+$0\le\lambda^\epsilon\le\max_jd_j+\epsilon\le1+\max_jd_j$ since $\epsilon\le1$; and
+$|v_i|\le\max_j(|a_{ij}|+b_{ij})$.
+\end{itemize}
+Every residual is at most $\epsilon=g/4<g$. By Lemma~\ref{lem:ueopl-pattern}(c), in the form with the
+slack restricted to $[0,1]$ noted after its proof, the unrelaxed pattern LP of the original game is
+feasible, and by Lemma~\ref{lem:ueopl-pattern}(a) any rational feasible point, computed by one LP in
+polynomial time, is an exact BNE of the original game. In either case, realize the coverage of the BNE
+of the original game by Lemma~\ref{lem:realize}, and give the deleted types of prior zero any best
+response.
+
+\emph{Step 3: a positive game with $m<n$.} Run the procedure of Lemma~\ref{lem:sxm-interface} and answer
+each query $(c,l,h)$ as follows.
+\begin{enumerate}[nosep,label=(\roman*)]
+\item Build $\widehat\Gamma$ from the query (Lemma~\ref{lem:sxm-game}(a)).
+\item Compute an exact BNE of $\widehat\Gamma$ by Theorem~\ref{thm:sx-main}, and from it the coverage
+vector $\xi$ and the attack masses $\varphi_{\theta s}$ (prior times conditional probability).
+\item By Lemma~\ref{lem:sxm-game}(b) the restriction of $(\xi,\varphi)$ is an equilibrium of
+$\mathcal B$; decode it to an equilibrium $(P,v,f)$ of $\mathcal M$ by
+Lemma~\ref{lem:sxm-bounded}(b), and turn it into an answer $(x,f')$ by Lemma~\ref{lem:sxm-reserve}.
+\item Replace $(x,f')$ by the short answer of Lemma~\ref{lem:sxm-vertex}, and return it.
+\end{enumerate}
+Each returned pair is an answer to its query, so by Lemma~\ref{lem:sxm-interface}(c) the procedure stops
+with an exact BNE of the positive game. Every step is deterministic.
+
+\emph{Step 4: running time.} Let $L_0$ be the binary length of the positive game of Step~3 (the game
+itself or $\Gamma_\epsilon$); then $2\le L_0\le L^{c_0}$ for a constant $c_0$. By
+Lemma~\ref{lem:sxm-interface}(b) there are at most $L_0^{c_1}$ queries, and each query, with the game
+data, has binary length at most $L_0^{c_1}$, for a constant $c_1$. By Lemma~\ref{lem:sxm-game}(a), each
+$\widehat\Gamma$ has binary length $\hat L$ with $2\le\hat L\le L_0^{c_2}$ and $2m+4\le6m$ targets.
+Theorem~\ref{thm:sx-main} gives a constant $C$ such that (ii) takes at most
+$\hat L^{C\sqrt{2m+4}}\le L_0^{\sqrt6\,c_2C\sqrt m}$ bit operations; this also bounds the binary length of
+the BNE it outputs. Steps (i), (iii) and (iv) take time polynomial in $L_0$ and in that length
+(Lemmas~\ref{lem:sxm-game}(a), \ref{lem:sxm-bounded}, \ref{lem:sxm-reserve} and~\ref{lem:sxm-vertex}).
+So each query costs $L_0^{O(\sqrt m)}$ bit operations. Every returned answer has binary length polynomial
+in $L_0$ by Lemma~\ref{lem:sxm-vertex}, so by Lemma~\ref{lem:sxm-interface}(d) the rest of the
+procedure takes time polynomial in $L_0$. Step~2 adds the computation of $Q$ and one LP, Step~1 and the
+realization add polynomial time. In total, with $L_0\le L^{c_0}$ and $m\le\min(m,n)$ (for the original
+$m$ and $n$),
+\[
+L_0^{c_1}\cdot L_0^{O(\sqrt m)}+L^{O(1)}=L^{O(\sqrt{\min(m,n)})} .
+\]
+
+\emph{Step 5: the bound in $L$.} The input lists the $2mn$ attacker utilities $u_2^0(i,j)$ and
+$u_2^1(i,j)$, each of binary length at least one, so $mn\le L$ and
+$\min(m,n)\le\sqrt{mn}\le\sqrt L$. Hence
+$L^{O(\sqrt{\min(m,n)})}\le L^{O(L^{1/4})}=2^{O(L^{1/4}\log L)}$.
+\end{proof}
+
+The constants of $\widehat\Gamma$ are not tight: the proof uses $K=m+3$ and $\hat r=m+2$ only through
+$1\le\sum_k\xi_{\mathrm{aux}_k}<K$, and $\hat c_o=1$ only through $\hat c_o>\sum_j\mu_j$.

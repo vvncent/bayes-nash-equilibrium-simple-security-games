@@ -1,0 +1,4 @@
+[reduced] instance n2: succ=[(0, 1), ('yes', 'no')] m=2 gadget eps=3 -> run ends at yes; game 66 types, 67 targets, U=400 A=394 S=25611
+Q1 BNE exists: sat (0.6s) | inflow(yes)=1, inflow(no)=0
+Q2 some BNE decodes to the wrong terminal: unsat (0.8s)
+Q3 some BNE fails the M1 decoding or the doc's lemmas: unsat (2.1s)

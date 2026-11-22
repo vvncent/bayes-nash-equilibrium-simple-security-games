@@ -1,0 +1,3 @@
+m=1 M=18 eps=3 control=Pbox2 : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.0s)
+m=2 M=54 eps=3 control=Pbox2 : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.1s)
+m=3 M=162 eps=3 control=Pbox2 : violation query unsat   sanity ['sat', 'sat', 'sat', 'sat', 'sat']  (0.1s)

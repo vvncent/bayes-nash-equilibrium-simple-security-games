@@ -1,0 +1,10 @@
+n=2: 56 discriminating instances; checking 8; eps=3; swap=False; term_cap=S3
+succ=[(0, 1), ('yes', 'no')] run->yes (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (34s)
+succ=[(0, 1), ('no', 'yes')] run->no (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (43s)
+succ=[(1, 'yes'), (1, 'no')] run->no (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (52s)
+succ=[(1, 'no'), (1, 'yes')] run->yes (3 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (43s)
+succ=[(1, 0), ('yes', 'no')] run->yes (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (32s)
+succ=[(1, 0), ('no', 'yes')] run->no (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (47s)
+succ=[(1, 1), ('yes', 'no')] run->yes (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (59s)
+succ=[(1, 'yes'), ('no', 1)] run->no (2 steps) | types=66 targets=67 | BNE exists: sat; some BNE decodes wrongly: unsat | OK (45s)
+ALL OK

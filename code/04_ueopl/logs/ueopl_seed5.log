@@ -1,0 +1,48 @@
+
+=== seed 5 game 0: n=3 m=2 Game(r=2, p=[Fraction(5, 6), Fraction(1, 6)], a=[[Fraction(3, 2), Fraction(-1, 4), Fraction(3, 1)], [Fraction(-7, 4), Fraction(-3, 4), Fraction(-5, 4)]], b=[[Fraction(3, 4), Fraction(1, 4), Fraction(0, 1)], [Fraction(3, 2), Fraction(3, 1), Fraction(3, 1)]], d=[Fraction(1, 2), Fraction(7, 4), Fraction(0, 1)])
+N=13 H=25 log10(Q)~32 bits(delta)~802
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '857197728977063686364961897489899063287945410853789856701713119734417779790332292946082959151803479850596705893439241612060114138445903698692795200222178357861652957696878640678160709830435455427643641664436991420500490819674450448017945771223619683749145931667751736111111111/24759660104233299461020611651317796866335375951174291431680725076479942817471461638898129291904171222935509885657750362890718653312283443271362566036920704660432883370700865809085228225605955572381982810076652066650789967198274104288164137578221766518865873877014699295800457824392187413870694902208116319444444', 'budget_bound_ok': True, 'br_res': '274508127063580238472070674689811613478945164387785341983431287105087632481571571279750028288654624884650772051591151936026915699454168329820261263566514669368898569851469712094196005575278090436553110752086660876926534817961310566556996337622951643920323149110642183687845075573955948929851718908660999852506079600690275695904354042886808137456716640058068038355524282512453524946789720650127043333236102843411380733891953064140219411401959599974959800998161551058733904803240740741/3964504158249931108690274744604470215884646608895994056008045836325361337234229667496735172812606355515673882772679742897918034060291400075424690530776086410498565621077991514951963366830748531397308533721918494656266300326092785278257728624063044841512883260852725018631860842968878009262651235021083496207790979608941170487450619878764757887557575628577826933350360789372638750765651104704018525710688331679033539461302754911994090323795143040350836840044098864930732409183170788031127314247624867050736038773148148', 'br_bound_ok': True, 'cut_res': '12379830052116649730510305825658897331056322147933834675175065765512733823080178735121895422733940618295534466390017128167880627436382407985919150471773982494627603966729165083424300199988824442525011936138709229522405146144627714615332382441669505532201022204341937963128354277415992036067242092556423611111111/357584223425751428542082067859914449591909121047949302437592458199640524694255979982954511762119034219115414957040002689005112848818392446661888603241856201204667170240498471315677840227735013032736192784409061814704155575229840411968812980717686452819029256648127003386367593786574444599995554028849770175434558494138445488548278808593750000000', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [2, 2, 2], 'support': [(0, 2), (1, 0), (1, 1), (1, 2)]}
+  residuals/g: {'budget_res': '0.0625', 'br_res': '0.125', 'cut_res': '0.0625'}
+pair tests: worst ratio = 1 - 2433403518780628157889309902138090278510..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+time 187.6s
+
+=== seed 5 game 1: n=2 m=1 Game(r=1, p=[Fraction(1, 1)], a=[[Fraction(7, 4), Fraction(5, 4)]], b=[[Fraction(0, 1), Fraction(5, 4)]], d=[Fraction(9, 4), Fraction(0, 1)])
+N=7 H=13 log10(Q)~13 bits(delta)~264
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '0', 'br_bound_ok': True, 'cut_res': '0', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [1, 0], 'support': [(0, 0)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.0', 'cut_res': '0.0'}
+pair tests: worst ratio = 1 - 7441358678745265/28433355890920291946584..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 36 patterns, 3 with t*=0, unknown 0, smallest positive t*=1/4, bad=[]
+time 3.9s
+
+=== seed 5 game 2: n=2 m=2 Game(r=1, p=[Fraction(2, 3), Fraction(1, 3)], a=[[Fraction(3, 4), Fraction(2, 1)], [Fraction(2, 1), Fraction(3, 1)]], b=[[Fraction(1, 4), Fraction(1, 1)], [Fraction(3, 1), Fraction(0, 1)]], d=[Fraction(0, 1), Fraction(5, 2)])
+N=10 H=7 log10(Q)~18 bits(delta)~344
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '0', 'br_bound_ok': True, 'cut_res': '0', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [0, 1], 'support': [(0, 1), (1, 1)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.0', 'cut_res': '0.0'}
+pair tests: worst ratio = 1 - 451960398400000000001/327127906159996301..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 144 patterns, 3 with t*=0, unknown 0, smallest positive t*=1/9, bad=[]
+time 5.8s
+
+=== seed 5 game 3: n=2 m=1 Game(r=1, p=[Fraction(1, 1)], a=[[Fraction(-7, 4), Fraction(3, 1)]], b=[[Fraction(3, 2), Fraction(0, 1)]], d=[Fraction(0, 1), Fraction(1, 1)])
+N=7 H=21 log10(Q)~15 bits(delta)~285
+fixed point found; other fixed point exists? z3 says unsat (unsat = unique)
+decode: {'R_unclipped': True, 's_eq_q': True, 'sum_identity': True, 'budget_res': '0', 'budget_bound_ok': True, 'br_res': '0', 'br_bound_ok': True, 'cut_res': '0', 'cut_bound_ok': True, 'all_below_g': True, 'boxes_ok': True, 'lp': 'sat', 'bne': (True, 'ok'), 'labels': [0, 1], 'support': [(0, 1)]}
+  residuals/g: {'budget_res': '0.0', 'br_res': '0.0', 'cut_res': '0.0'}
+pair tests: worst ratio = 1 - 94929527060528833/3248368274142980999394..., violation: False
+z3 contraction-violation search (true constants): unsat
+structural (g=1/10) Jacobian tests: 60 pieces checked, 0 failures
+z3 contraction-violation search (structural g=1/10): unsat
+gap test: 36 patterns, 3 with t*=0, unknown 0, smallest positive t*=1/4, bad=[]
+time 2.9s
+exit=0 runtime_s=200

@@ -1,0 +1,8 @@
+instance n1: succ=[('yes', 'no')] origin=0 m=1 gadget eps=3 -> run ends at yes in 1 steps
+market: 10 buyers, 13 goods; slopes used: [Fraction(1, 1), Fraction(105, 1)]
+game: 24 types, 25 targets, 1 resource; U=120 A=106 S=2439; probabilities (unnormalized weights)
+prob range: min 112/2883, max 128/2883
+Q1 BNE exists: sat (1.0s) | witness: inflow(yes)=1, inflow(no)=0, P=['1/42', '3/2', '3/2', '3/2', '3/2', '3/2', '9/2', '3/2', '9/2', '9/2', '9/2', '1/2', '1/2']
+Q2 some BNE decodes to the wrong terminal: unsat (24.2s)
+Q3 some BNE fails the M1 decoding or the doc's lemmas: unsat (22.1s)
+RESULT: OK

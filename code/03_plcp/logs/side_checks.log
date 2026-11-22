@@ -1,0 +1,16 @@
+n=1 geps=3: N=49, delta bits=676, same as check_plcp.epsilon_of: True (U=114, d=50, C=210, D=2)
+  300 random principal minors (size 1..14): all >= 0 for M (1 positive), all > 0 for M + delta I (0.1s)
+n=1 geps=-3: N=49, delta bits=659, same as check_plcp.epsilon_of: True (U=92, d=50, C=166, D=2)
+  300 random principal minors (size 1..14): all >= 0 for M (1 positive), all > 0 for M + delta I (0.1s)
+n=2 geps=3: N=146, delta bits=2482, same as check_plcp.epsilon_of: True (U=410, d=147, C=786, D=2)
+  300 random principal minors (size 1..14): all >= 0 for M (1 positive), all > 0 for M + delta I (0.2s)
+n=2 geps=-3: N=146, delta bits=2470, same as check_plcp.epsilon_of: True (U=388, d=147, C=742, D=2)
+  300 random principal minors (size 1..14): all >= 0 for M (1 positive), all > 0 for M + delta I (0.2s)
+delta-sensitivity (decoder with a delta far larger than the reduction's):
+RESULT n=1 | succ=[('yes', 'no')] | geps=3 | N=49 | buyers=10 | goods=13 | E=26 | delta_bits=1 | plcp=certified basis | solver_info={'t_guess': 2.0727529525756836, 't_cert': 0.012336969375610352, 'murty_iterations': 7, 'guess_support': 42, 'guess_bits': 17} | plcp_verified=True | support=45 | zbits=27 | zbound_ok=True | perturbed_terminal_inflow={'yes': 25.87982326815694, 'no': 24.652550540884214} | decode=unsat | t_build=0.00 | t_plcp=2.09 | t_decode=0.01 | ok=False | why=system (1) infeasible
+RESULT n=1 | succ=[('yes', 'no')] | geps=3 | N=49 | buyers=10 | goods=13 | E=26 | delta_bits=2 | plcp=certified basis | solver_info={'t_guess': 8.848747968673706, 't_cert': 0.0100860595703125, 'murty_iterations': 7, 'guess_support': 42, 'guess_bits': 17} | plcp_verified=True | support=45 | zbits=53 | zbound_ok=True | perturbed_terminal_inflow={'yes': 18.67833349715738, 'no': 17.663981757921185} | decode=unsat | t_build=0.00 | t_plcp=8.86 | t_decode=0.01 | ok=False | why=system (1) infeasible
+RESULT n=1 | succ=[('yes', 'no')] | geps=3 | N=49 | buyers=10 | goods=13 | E=26 | delta_bits=5 | plcp=certified basis | solver_info={'t_guess': 8.187416076660156, 't_cert': 0.04106783866882324, 'murty_iterations': 37, 'guess_support': 42, 'guess_bits': 17} | plcp_verified=True | support=41 | zbits=160 | zbound_ok=True | perturbed_terminal_inflow={'yes': 5.844938032664475, 'no': 5.6609111668829115} | decode=unsat | t_build=0.00 | t_plcp=8.23 | t_decode=0.01 | ok=False | why=system (1) infeasible
+real 20.15
+user 17.59
+sys 0.15
+exit=0

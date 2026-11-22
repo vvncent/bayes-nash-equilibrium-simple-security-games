@@ -1,0 +1,5 @@
+Depth 1: 7 types, 4 targets, 3 unique intermediate coverages, 1 affine pieces, integer-budget equilibrium verified.
+Depth 2: 12 types, 6 targets, 5 unique intermediate coverages, 2 affine pieces, integer-budget equilibrium verified.
+Depth 3: 17 types, 8 targets, 9 unique intermediate coverages, 4 affine pieces, integer-budget equilibrium verified.
+Depth 4: 22 types, 10 targets, 17 unique intermediate coverages, 8 affine pieces, integer-budget equilibrium verified.
+Depth 5: 27 types, 12 targets, 33 unique intermediate coverages, 16 affine pieces, integer-budget equilibrium verified.

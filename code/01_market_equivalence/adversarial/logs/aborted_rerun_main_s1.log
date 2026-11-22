@@ -1,0 +1,161 @@
+1026 games x 5 oracles = 5130 runs (+ audit bracket x 5), workers=10, per-run limit 1800s; progress: logs/progress_main_s1.log, live status: logs/live_main_s1/, records: logs/runs_main_s1.jsonl
+Process SpawnProcess-2:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-4:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-3:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-10:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-7:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-8:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-1:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-9:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-6:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe
+Process SpawnProcess-5:
+Traceback (most recent call last):
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 314, in _bootstrap
+    self.run()
+  File "<python-install>/lib/python3.12/multiprocessing/process.py", line 108, in run
+    self._target(*self._args, **self._kwargs)
+  File "<artifact>/01_market_equivalence/adversarial/test_adversarial.py", line 762, in _worker_main
+    conn.send(fn(task))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 206, in send
+    self._send_bytes(_ForkingPickler.dumps(obj))
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 427, in _send_bytes
+    self._send(header + buf)
+  File "<python-install>/lib/python3.12/multiprocessing/connection.py", line 384, in _send
+    n = write(self._handle, buf)
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+BrokenPipeError: [Errno 32] Broken pipe

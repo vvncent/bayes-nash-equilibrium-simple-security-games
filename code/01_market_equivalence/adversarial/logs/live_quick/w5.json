@@ -1,0 +1,1 @@
+{"worker": 5, "pid": 72866, "task": "zero#q lexmin 133", "started": 1795363264.012324, "phase": "idle (finished zero#q lexmin 133)", "updated": 1795363265.475882, "call": 389, "call_started": null, "query_bits": 110, "last_call_s": 0.003, "max_call_s": 0.006, "max_call_at": 278}

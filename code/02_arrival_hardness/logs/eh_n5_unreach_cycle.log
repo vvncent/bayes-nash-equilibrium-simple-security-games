@@ -1,0 +1,5 @@
+n5_unreach_cycle: n=5 run->no (2 steps; s1-start run->yes) kept=[0, 1, 2, 3, 4] buyers=118 goods=217
+  exists: sat (0.2s)
+  model: x={0: '1', 1: '1', 2: '0', 3: '0', 4: '0'} fixed point: True; load(want)=1 load(other)=0
+  some equilibrium decodes wrongly: unsat (15.1s)
+  OK

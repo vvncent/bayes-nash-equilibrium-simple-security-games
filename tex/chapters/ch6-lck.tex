@@ -1,0 +1,654 @@
+\chapter{An exponential lower bound for the Li--Conitzer--Korzhyk algorithm}\label{ch:lck}\chaptermark{A lower bound for the LCK algorithm}
+
+\paragraph{Idea.} Li, Conitzer and Korzhyk~\cite{lck16} give an algorithm for Nash equilibria of
+catcher--evader games, a class that contains Bayesian simple security games. Conitzer's statement of the problem~\cite{conitzer26} mentions a seemingly fast algorithm for Bayes--Nash equilibrium, not known to run in polynomial time, from joint work with Yuqian Li, Dmytro Korzhyk and Ronald Parr. We take it to be the algorithm of~\cite{lck16}; its authors thank Parr for early discussions of Bayesian security games. It raises the defender's
+resource continuously from $0$ to the true budget while keeping an equilibrium. Its termination proof gives an exponential bound, and in the authors' experiments the number of steps grew roughly linearly. We show that no polynomial bound holds in the worst case: on explicit games, every run that reaches the budget takes exponentially many steps. The argument has three parts.
+\begin{enumerate}[nosep]
+\item Every step of the algorithm that moves the coverage moves it along a \emph{straight} segment with a
+\emph{fixed} attack allocation (Lemma~\ref{artlck:lem:seg}).
+\item A circuit of min and max gates that ``folds'' a line $2^{h-1}$ times can be built into a game
+$\Gamma_h$ (Section~\ref{artlck:sec:game}), so that some coordinate of the coverage zig-zags with
+$2^{h-1}$ affine pieces as the budget grows (Lemma~\ref{artlck:lem:fold}).
+\item On $\Gamma_h$ the coverage at each budget in $(0,3/8]$ is \emph{unique}
+(Lemma~\ref{artlck:lem:unique}), so the algorithm has no choice: it must follow the zig-zag, one straight
+segment per piece (Figure~\ref{fig:zigzag}).
+\end{enumerate}
+A second family $G_n$ forces $2^n$ distinct attack allocations by a different mechanism.
+
+\paragraph{Example.} For $h=3$ the game $\Gamma_3$ has $17$ types and $8$ targets. Its equilibrium
+coverage path, projected on two coordinates, is the zig-zag of Figure~\ref{fig:zigzag} with
+$2^{h-1}=4$ pieces, and the exact implementation of the algorithm makes exactly $4$ successful calls on it
+(Proposition~\ref{artlck:prop:impl}), one per piece. $\Gamma_h$ is solved exactly in polynomial time by another method (Proposition~\ref{artlck:prop:easy}), and a bisection method sketched in Remark~\ref{artlck:rem:gn-easy} solved every tested $G_n$, so this is a lower bound for one algorithm, not for
+the problem.
+
+\section{Partial budgets and the algorithm}\label{artlck:sec:defs}
+
+The cutoff conditions of Lemma~\ref{lem:cutoff} make sense for any real budget $s\in[0,n]$. We call
+$(x,f)$ a \emph{partial-budget equilibrium with budget $s$} if $f$ is supported on best responses,
+$\sum_jx_j=s$, and for some cutoff $\lambda$
+\begin{equation}\label{artlck:eq:cutoff}
+ x_j>0\ \Rightarrow\ \pi_j\ge\lambda,\qquad x_j<1\ \Rightarrow\ \pi_j\le\lambda .
+\end{equation}
+At $s=r$ this is exactly a BNE. In every game of this chapter, $u_1^0\equiv0$ and $u_1^1(j)=d_j>0$. An
+instance with $n$ targets and $m$ types has $O(nm)$ numbers; if each has $O(\beta)$ bits, the input
+length is $L=O(nm\beta)$.
+
+\subsection{The algorithm}\label{artlck:sec:alg}
+
+We describe the parts of~\cite[Section~6.2]{lck16} that the lower bounds use, for Bayesian simple
+security games only, and translate them into our notation.
+
+\paragraph{The catcher--evader form.} \cite[Section~3.1]{lck16} turns a security game into a
+catcher--evader (CE) game. The \emph{sites} $\psi$ of the CE game are the targets. The catcher is the
+defender; it has resource $r$, places coverage $x_\psi\in[0,1]$, and has gain $d_\psi>0$. Evader $i$ is
+attacker type $i$; it has resource $p_i$ and site limits $p_i$, places $f_{i\psi}$, and has intercept
+$a_{i\psi}$ and slope $b_{i\psi}$ (in the CE notation of~\cite{lck16} these are written $b_{i,\psi}$ and
+$d_{i,\psi}=-b_{i\psi}<0$; so this chapter's $a$ and $b$ are the $b$ and $-d$ of~\cite{lck16}). The algorithm requires positive defender gains and positive attacker slopes.
+Write $w_\psi=\sum_if_{i\psi}$ for the load. The per-resource utilities are
+\[
+ \mu_{0,\psi}=d_\psi w_\psi=\pi_\psi\ \ (\text{the defender's score}),\qquad
+ \mu_{i,\psi}=a_{i\psi}-b_{i\psi}x_\psi\ \ (\text{type $i$'s expected payoff}).
+\]
+The thresholds are $\theta_0=\max\{\mu_{0,\psi}:x_\psi<1\}$ and $\theta_i=\min\{\mu_{i,\psi}:f_{i\psi}>0\}$.
+The boundary sites are $B_i=\{\psi:\mu_{i,\psi}=\theta_i\}$. The catcher's open boundary sites are
+$\hat B_0=\{\psi\in B_0:x_\psi<1\}$. The active edges are $\mathcal A=\{(i,\psi):\psi\in B_i\}$.
+
+\paragraph{Algorithm 1 (outer loop).} Start with $x=0$. Each evader puts its resource on the sites of
+maximum intercept $a_{i\psi}$. In a security game one such site receives the whole mass, and if several
+tie the choice is a tie-break. Then, while $\sum_\psi x_\psi<r$: run Algorithm~2; run Algorithm~3; and if
+Algorithm~3 failed, run Algorithm~4.
+
+\paragraph{Algorithm 2 (min-cost flow).} Build a network with a source, the evaders, the sites and a
+sink. It has the active edges $(i,\psi)$ with cost $\log b_{i\psi}$ and capacity $p_i$. The source and
+sink edges carry capacities equal to the current mass of each evader, and the current load of each site,
+on boundary edges. Replace the evader allocation on $\mathcal A$ by a min-cost flow that saturates the source and sink edges (read literally, the zero flow would qualify). This changes no $\mu$
+and no $\theta$~\cite[Lemma~2]{lck16}, and afterwards the residual graph has no negative cycle.
+
+\paragraph{Algorithm 3 (raise the catcher).} Work in the residual graph of Algorithm~2. Go through
+$\psi\in\hat B_0$ in some order and compute shortest-path distances $\mathrm{dist}$ from $\psi$. Take the
+first $\psi$ such that every site reachable from it lies in $\hat B_0$, and call it $\psi^*$. If there is
+none, return \emph{failure}. Otherwise set rates
+\[
+ \gamma_\psi=e^{-\mathrm{dist}(\psi)}\ \ \text{for sites},\qquad \gamma_i=e^{-\mathrm{dist}(i)}\ \ \text{for evaders},
+\]
+with $\gamma=0$ at unreachable vertices. Let $\Delta$ be the minimum of three kinds of bound:
+\begin{itemize}[nosep]
+\item the remaining budget $(r-\sum_\psi x_\psi)/\sum_\psi\gamma_\psi$;
+\item the cap bounds $(1-x_\psi)/\gamma_\psi$ for $\gamma_\psi>0$;
+\item for every inactive pair, the positive values of $(\mu_{i,\psi}-\theta_i)/(\gamma_\psi b_{i\psi}-\gamma_i)$,
+which mark when the pair would become active.
+\end{itemize}
+Finally set $x\leftarrow x+\Delta\gamma$. We call such a run a \emph{successful call}. It does not change
+any evader's allocation. Along the move, $\mu_{i,\psi}$ changes at rate $-\gamma_\psi b_{i\psi}$ and
+$\theta_i$ at rate $-\gamma_i$. By~\cite[Lemma~4]{lck16} the endpoint is again an equilibrium.
+
+\paragraph{Algorithm 4 (max flow).} After a failure, Algorithm~4 reroutes evader mass along active
+edges. It uses a maximum flow whose capacities depend on a parameter $\Delta$, and binary search for the
+largest feasible $\Delta$. This strictly lowers $\theta_0$~\cite[Lemma~5]{lck16} and does not change the coverage, since it changes only evader allocations~\cite[Algorithm~4, line~21]{lck16}. The termination proof of~\cite[Theorem~5]{lck16} uses the exact largest $\Delta$ (its Lemma~6); with an approximate $\Delta$ termination is not established, so the theorems below are stated for runs that reach the budget.
+
+\paragraph{Known bound.} \cite[Lemma~8, Theorem~5]{lck16} show that, for $m$ types and $n$ targets,
+Algorithm~3 succeeds at most $2n\cdot3^{mn}$ times, and that Algorithm~1 stops within
+$2n+4n\cdot3^{mn}$ iterations. The authors remark that the number of iterations grew about linearly in
+their experiments.
+
+\paragraph{The fact used about a successful call.} Only Algorithm~3 changes the coverage. It never
+decreases it, and it moves it along straight lines.
+
+\begin{lemma}[A successful call is a fixed-allocation segment]\label{artlck:lem:seg}
+\statusrefereed
+Consider a successful call of Algorithm~3 that moves the coverage from $x$ to $x+\Delta\gamma$ while the
+attack allocation stays $f$. For every $0\le s\le\Delta$, the pair $(x+s\gamma,f)$ is a partial-budget
+equilibrium with budget $\sum_j(x_j+s\gamma_j)$. With the exact maximum in Algorithm~4, every run of Algorithm~1 reaches budget $r$~\cite[Theorem~5]{lck16}. Hence the successful calls of any run of Algorithm~1
+cover all budgets in $[0,r]$ by closed straight segments, and each segment has one fixed attack
+allocation. This holds for every legal choice of the initial tied attacks, of the min-cost flow in
+Algorithm~2, of the order over $\hat B_0$ in Algorithm~3, and of the maximum flow in Algorithm~4. The argument
+also applies when Algorithm~4 uses any positive feasible update that preserves exact equilibrium, provided the execution reaches budget $r$.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Three checks along the segment: (1) the attackers' best-response
+inequalities are affine in $s$ and hold at both ends; (2) the defender's scores do not move, and every
+target whose coverage moves has the top unsaturated score, so the cutoff $\theta_0$ still works; (3)
+consecutive successful calls join end to end, since nothing else moves the coverage.
+
+\begin{proof}
+\emph{Evaders.} With $f$ fixed, type $i$'s best-response condition says that every target $\psi$ with
+$f_{i\psi}>0$ maximizes $a_{i\psi}-b_{i\psi}(x_\psi+s\gamma_\psi)$. Each such inequality compares two
+affine functions of $s$. It holds at $s=0$, because the state is an equilibrium, and at $s=\Delta$
+by~\cite[Lemma~4]{lck16}. So it holds on $[0,\Delta]$.
+
+\emph{Defender.} Because $f$ is fixed, the scores $\mu_{0,\psi}=\pi_\psi$ do not change. A target with
+$\gamma_\psi>0$ is reachable from $\psi^*$, so it lies in $\hat B_0$. Its score therefore equals
+$\theta_0$, the largest score among unsaturated targets. The cap bounds keep $x_\psi+s\gamma_\psi\le1$.
+Take $\lambda=\theta_0$. A target with $x_\psi+s\gamma_\psi>0$ either had positive coverage before, so
+its score is at least $\lambda$, or has score $\lambda$. A target with $x_\psi+s\gamma_\psi<1$ either had
+$x_\psi<1$, so its score is at most $\lambda$ by the definition of $\theta_0$, or lies in $\hat B_0$. So
+\eqref{artlck:eq:cutoff} holds.
+
+\emph{Coverage of $[0,r]$.} The run starts at budget $0$ and ends at $r$. Algorithms~2 and~4 do not
+change the coverage, so consecutive successful calls join end to end. None of the arguments uses a
+particular tie-break, and the argument applies when Algorithm~4 uses any positive feasible update
+that preserves exact equilibrium, provided the execution reaches budget $r$.
+\end{proof}
+
+\section{Main result}\label{artlck:sec:main}
+
+\begin{theorem}[Exponentially many successful calls]\label{artlck:thm:main}
+\statusrefereed
+For every $h\ge1$, the explicit Bayesian simple security game $\Gamma_h$ of
+Section~\ref{artlck:sec:game} has
+\begin{itemize}[nosep]
+\item one defender resource,
+\item $5h+2$ attacker types and $N=2h+2$ targets,
+\item rational data, with every attacker slope $b_{ij}$ equal to $1$ except on one pair, where it is $2$.
+\end{itemize}
+Every run of Algorithm~1 of~\cite{lck16} on $\Gamma_h$ that reaches budget $3/8$ (every run does if Algorithm~4 computes the exact largest $\Delta$, by~\cite[Theorem~5]{lck16}), under every legal tie-breaking, makes at least
+$2^{h-1}$ successful calls to Algorithm~3.
+\end{theorem}
+
+\begin{corollary}[Size]\label{artlck:cor:size}
+\statusrefereed
+Every number in $\Gamma_h$ has $O(h)$ bits, and the payoff table has $O(h^2)$ entries. So the input
+length is $L=O(h^3)$, and the number of successful calls is $2^{\Omega(L^{1/3})}$.
+\end{corollary}
+
+\subsection{The folding circuit}\label{artlck:sec:fold}
+
+\paragraph{Idea.} Start with two signals $y$ and $2y$. At each level replace the pair by its maximum
+and minimum, shifted towards each other by a halving amount. The sum of the pair stays $3y$, while their
+difference is folded like a paper strip: $|\delta-c|$ doubles the number of linear pieces. After $h$
+levels the top signal has $2^{h-1}$ pieces with slopes alternately $1$ and $2$.
+
+\begin{definition}[Folding signals]\label{artlck:def:fold}
+Fix $D>0$ and a depth $h\ge1$. For $y\ge0$ put $A_0(y)=y$ and $B_0(y)=2y$. For $s=1,\dots,h$ put
+\[
+ A_s=\max(A_{s-1},B_{s-1})-\frac{D}{2^{s+1}},\qquad
+ B_s=\min(A_{s-1},B_{s-1})+\frac{D}{2^{s+1}} .
+\]
+These are $2h+2$ \emph{signals}. $A_0$ is the \emph{terminal}. $B_0$ is the output of the \emph{unary
+gate}, which doubles $A_0$. For each $s$, $A_s$ is the output of a \emph{max gate} and $B_s$ the output of
+a \emph{min gate}, and both gates take the inputs $A_{s-1},B_{s-1}$. The \emph{shift} $\mathrm{sh}_g$ of a
+gate is $-D/2^{s+1}$ for $A_s$, $+D/2^{s+1}$ for $B_s$, and $0$ for the unary gate. For a signal $S$ let
+$P_S(y)=S(y)-S(0)$ be its \emph{reference value}.
+\end{definition}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[
+  sg/.style={draw,circle,minimum size=8mm,font=\small,inner sep=0pt},
+  gt/.style={draw,rounded corners,font=\scriptsize,align=center,inner sep=2pt},
+  ar/.style={-{Stealth[length=1.8mm]}}]
+  \node[sg] (A0) at (0,1.3) {$A_0$};
+  \node[sg] (B0) at (0,-1.3) {$B_0$};
+  \node[gt] (u) at (0,0) {unary: $\times2$};
+  \draw[ar] (A0) -- (u); \draw[ar] (u) -- (B0);
+  \node[font=\scriptsize] at (0,2.1) {$y$ (terminal)};
+  \foreach \s/\sh in {1/{D/4},2/{D/8},3/{D/16}} {
+    \pgfmathsetmacro{\xx}{3.6*\s}
+    \node[gt] (mx\s) at (\xx-1.4,1.3) {max\\$-\sh$};
+    \node[gt] (mn\s) at (\xx-1.4,-1.3) {min\\$+\sh$};
+    \node[sg] (A\s) at (\xx,1.3) {$A_\s$};
+    \node[sg] (B\s) at (\xx,-1.3) {$B_\s$};
+    \draw[ar] (mx\s) -- (A\s); \draw[ar] (mn\s) -- (B\s);
+  }
+  \foreach \s/\p in {1/0,2/1,3/2} {
+    \draw[ar] (A\p) -- (mx\s); \draw[ar] (B\p) -- (mx\s);
+    \draw[ar] (A\p) -- (mn\s); \draw[ar] (B\p) -- (mn\s);
+  }
+  \begin{scope}[shift={(0,-4.6)},x=2.8cm,y=2.2cm]
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (1.1,0);
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (0,1.12);
+    \draw (1,0.03) -- (1,-0.03) node[below,font=\scriptsize]{$D$};
+    \node[below,font=\scriptsize] at (0,0) {$0$};
+    \draw (0.03,1) -- (-0.03,1) node[left,font=\scriptsize]{$D$};
+    \draw[very thick,blue!70!black] plot coordinates {(0,0) (1,1)};
+    \node[font=\scriptsize,anchor=north] at (0.5,1.12) {$\delta_0$: $1$ piece};
+  \end{scope}
+  \begin{scope}[shift={(3.6,-4.6)},x=2.8cm,y=2.2cm]
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (1.1,0);
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (0,1.12);
+    \draw (1,0.03) -- (1,-0.03) node[below,font=\scriptsize]{$D$};
+    \node[below,font=\scriptsize] at (0,0) {$0$};
+    \draw (0.03,1) -- (-0.03,1) node[left,font=\scriptsize]{$D$};
+    \draw[very thick,blue!70!black] plot coordinates {(0,0.5) (0.5,0) (1,0.5)};
+    \node[font=\scriptsize,anchor=north] at (0.5,1.12) {$\delta_1$: $2$ pieces};
+  \end{scope}
+  \begin{scope}[shift={(7.2,-4.6)},x=2.8cm,y=2.2cm]
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (1.1,0);
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (0,1.12);
+    \draw (1,0.03) -- (1,-0.03) node[below,font=\scriptsize]{$D$};
+    \node[below,font=\scriptsize] at (0,0) {$0$};
+    \draw (0.03,1) -- (-0.03,1) node[left,font=\scriptsize]{$D$};
+    \draw[very thick,blue!70!black] plot coordinates {(0,0.25) (0.25,0) (0.5,0.25) (0.75,0) (1,0.25)};
+    \node[font=\scriptsize,anchor=north] at (0.5,1.12) {$\delta_2$: $4$ pieces};
+  \end{scope}
+  \begin{scope}[shift={(10.8,-4.6)},x=2.8cm,y=2.2cm]
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (1.1,0);
+    \draw[-{Stealth[length=1.5mm]}] (0,0) -- (0,1.12);
+    \draw (1,0.03) -- (1,-0.03) node[below,font=\scriptsize]{$D$};
+    \node[below,font=\scriptsize] at (0,0) {$0$};
+    \draw (0.03,1) -- (-0.03,1) node[left,font=\scriptsize]{$D$};
+    \draw[very thick,blue!70!black] plot coordinates {(0,0.125) (0.125,0) (0.25,0.125) (0.375,0) (0.5,0.125) (0.625,0) (0.75,0.125) (0.875,0) (1,0.125)};
+    \node[font=\scriptsize,anchor=north] at (0.5,1.12) {$\delta_3$: $8$ pieces};
+  \end{scope}
+\end{tikzpicture}
+\caption{The folding circuit for $h=3$ (Definition~\ref{artlck:def:fold}). Top: each level $s$ replaces
+the pair $(A_{s-1},B_{s-1})$ by its maximum minus $D/2^{s+1}$ and its minimum plus $D/2^{s+1}$, so
+$A_s+B_s=3y$ at every level. Bottom: the differences $\delta_s=|A_s-B_s|$ on $[0,D]$, computed from
+$\delta_0=y$ and $\delta_s=|\delta_{s-1}-D/2^s|$ (Lemma~\ref{artlck:lem:fold}(b)). Each fold doubles the
+number of affine pieces, each of slope $\pm1$, and $\delta_s$ maps every piece onto $[0,D/2^s]$
+(Lemma~\ref{artlck:lem:fold}(c)). The top signal $A_3=\tfrac12(3y+\delta_2)-D/16$ therefore has
+$2^{h-1}=4$ pieces (Figure~\ref{fig:zigzag}).}
+\label{fig:fold}
+\end{figure}
+
+\begin{lemma}[Folding]\label{artlck:lem:fold}
+\statusrefereed
+\begin{enumerate}[label=(\alph*),nosep]
+\item For $0\le y\le y'$, every signal satisfies $y'-y\le S(y')-S(y)\le2(y'-y)$. In particular
+$y\le P_S(y)\le2y$.
+\item $A_s+B_s=3y$ for all $s$. The differences $\delta_s=|A_s-B_s|$ satisfy $\delta_0=y$ and
+$\delta_s=|\delta_{s-1}-D/2^s|$.
+\item For $s\ge1$, on $[0,D]$ the function $\delta_s$ has exactly $2^s$ maximal affine pieces. Each has
+length $D/2^s$ and maps onto $[0,D/2^s]$, and their slopes are alternately $-1$ and $+1$.
+\item $A_h=\tfrac12(3y+\delta_{h-1})-D/2^{h+1}$. So on $[0,D]$ the reference value $P_{A_h}$ has exactly
+$2^{h-1}$ maximal affine pieces. Their slopes are alternately $1$ and $2$, and the interior breakpoints
+are $jD/2^{h-1}$ for $1\le j<2^{h-1}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+(a) $A_0$ and $B_0$ satisfy the bounds. Constant shifts preserve them. If $f$ and $g$ both have increments
+in $[y'-y,2(y'-y)]$, so do $\max(f,g)$ and $\min(f,g)$.
+
+(b) At level $s$ the two shifts cancel, and the maximum plus the minimum of two numbers is their sum.
+Moreover
+\[
+ \delta_s=\bigl|\max(A_{s-1},B_{s-1})-\min(A_{s-1},B_{s-1})-D/2^s\bigr|=|\delta_{s-1}-D/2^s| .
+\]
+
+(c) Use induction on $s$, starting from $\delta_0=y$, which maps $[0,D]$ onto itself. Put $c=D/2^s$. Each
+piece of $\delta_{s-1}$ has slope $\pm1$ and maps linearly onto the interval $[0,2c]$. Taking the absolute
+value of $\delta_{s-1}-c$ folds the piece at the point where $\delta_{s-1}=c$. This gives two pieces of
+half the length, and each maps onto $[0,c]$. If the old piece increases, the new slopes are $-1$ then
+$+1$. If it decreases, they are also $-1$ then $+1$. So the slopes alternate.
+
+(d) $A_h=\max(A_{h-1},B_{h-1})-D/2^{h+1}=\tfrac12(A_{h-1}+B_{h-1}+\delta_{h-1})-D/2^{h+1}$. On each of the
+$2^{h-1}$ pieces of $\delta_{h-1}$ the slope of $A_h$ is $(3\pm1)/2$. For $h=1$ this is the single slope
+$2$, and for $h\ge2$ the values $1$ and $2$ alternate. Consecutive slopes differ, so the pieces are
+maximal.
+\end{proof}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}[x=1.2cm,y=1.05cm]
+  \draw[-{Stealth[length=2mm]}] (0,0) -- (8.6,0) node[right,font=\small]{$y=x_{A_0}$};
+  \draw[-{Stealth[length=2mm]}] (0,0) -- (0,6.6) node[above,font=\small]{$x_{A_3}=P_{A_3}(y)$};
+  \foreach \t/\l in {2/{D/4},4/{D/2},6/{3D/4},8/{D}} {
+    \draw (\t,0.08) -- (\t,-0.08) node[below,font=\scriptsize]{$\l$};
+    }
+  \foreach \a/\b in {2/1,4/3,6/4,8/6} \draw[gray!60,dotted] (\a,\b) -- (\a,0);
+  \foreach \t/\l in {1/{D/4},3/{3D/4},4/{D},6/{3D/2}} {
+    \draw (0.08,\t) -- (-0.08,\t) node[left,font=\scriptsize]{$\l$};}
+  \draw[very thick,blue!70!black] (0,0) -- (2,1) -- (4,3) -- (6,4) -- (8,6);
+  \draw[line width=2.4pt,red!75!black] (2,1) -- (4,3);
+  \foreach \p in {(2,1),(4,3),(6,4)} \fill[blue!70!black] \p circle (2.2pt);
+  \draw[dashed,gray] (0,0) -- (4,3);
+  \node[font=\scriptsize,align=left,anchor=west,red!75!black] at (4.3,1.8)
+     {one successful call:\\straight, fixed allocation};
+  \node[font=\scriptsize,align=left,anchor=west,gray] (ch) at (0.25,4.9)
+     {a chord across a bend:\\not an equilibrium path};
+  \draw[gray,-{Stealth[length=1.6mm]}] (ch.south) -- (1.6,1.2);
+  \node[font=\scriptsize,blue!70!black,anchor=west] at (1.2,0.2) {slope $1$};
+  \node[font=\scriptsize,blue!70!black,anchor=west] at (3.2,1.75) {slope $2$};
+  \node[font=\scriptsize,blue!70!black] at (5.0,3.95) {slope $1$};
+  \node[font=\scriptsize,blue!70!black] at (6.55,5.55) {slope $2$};
+\end{tikzpicture}
+\caption{The equilibrium coverage path of $\Gamma_3$ (unique for budgets up to $3/8$), projected onto the terminal coordinate
+$x_{A_0}=y$ and the output coordinate $x_{A_3}$, as the budget grows (axis marks are multiples of $D$). It has
+$2^{h-1}=4$ affine pieces. A successful call of Algorithm~3 is a straight segment of this path, so it
+covers at most one piece (red); a straight move across a bend (dashed) leaves the path and is not an
+equilibrium.}
+\label{fig:zigzag}
+\end{figure}
+
+\paragraph{Thresholds.} Give each input $\ell$ of a gate $g$ a rate $r_\ell$. It is $2$ for the unary
+gate's input $A_0$ and $1$ otherwise. Put
+\[
+ C_{g\ell}=r_\ell S_\ell(0)+\mathrm{sh}_g-S_g(0),\qquad T_{g\ell}(z)=C_{g\ell}+r_\ell z .
+\]
+Then the reference value of a min gate is $P_g=\min_\ell T_{g\ell}(P_\ell)$, and that of a max gate is
+$P_g=\max_\ell T_{g\ell}(P_\ell)$. For the unary gate $C=0$ and $P_{B_0}=2P_{A_0}$.
+
+\subsection{The game \texorpdfstring{$\Gamma_h$}{Gamma\_h}}\label{artlck:sec:game}
+
+\paragraph{Idea.} Each signal becomes a target and its reference value its coverage. A gate is enforced
+by attacker types (``generators'') that are indifferent between the gate's output and its inputs exactly
+when the output coverage is the gate's value. Masses are chosen so that, in equilibrium, every target
+has the same score.
+
+Fix $h\ge1$, $N=2h+2$ and $D=1/(4N)$. There is one target per signal. Target $A_0$ is the terminal, and
+every other target is the output of its gate. The defender has one resource.
+
+\paragraph{Types and payoffs.} Each gate $g$ has the following types.
+\begin{itemize}[nosep]
+\item A min gate $B_s$ has one \emph{generator}, whose menu is both inputs.
+\item A max gate $A_s$ has two generators, one for each input, each with that single input as its menu.
+\item The unary gate has one generator, whose menu is $A_0$.
+\item Every gate has one \emph{dedicated} type.
+\end{itemize}
+This gives $2h+3h+2=5h+2$ types. A generator of gate $g$ has uncovered payoff $4$ and slope $1$ on the
+output $g$. On each input $\ell$ in its menu it has uncovered payoff $4-C_{g\ell}$ and slope $r_\ell$. On
+every other target it has uncovered payoff $-1$ and slope $1$. Its expected payoffs are therefore
+\[
+ 4-x_g\ \text{on $g$},\qquad 4-C_{g\ell}-r_\ell x_\ell=4-T_{g\ell}(x_\ell)\ \text{on a listed input},\qquad -1-x_j\ \text{elsewhere}.
+\]
+A dedicated type of gate $g$ has uncovered payoff $4$ on $g$ and $-1$ elsewhere, with slope $1$
+everywhere. Thus every slope is $1$ except the unary generator's slope $2$ on the terminal. Covered
+payoffs are the uncovered payoffs minus the slope.
+
+\paragraph{Masses and weights.} Treat the gates in reverse topological order: level $h$ down to level
+$1$, with the min gate before the max gate within a level (the proofs work for either order; the experiments use this one), and the unary gate last. Start with running mass $R=0$. At gate $g$:
+\begin{itemize}[nosep]
+\item give each generator mass $K_g=R+2$ and the dedicated type mass $1$;
+\item give the output target the weight $c_g=K_g$;
+\item add the new masses to $R$, that is, $R\leftarrow R+1+(\#\text{generators of }g)K_g$.
+\end{itemize}
+Let $M$ be the final total mass, and give the terminal the weight $c_0=M-\sum_{g}c_g$. Each gate adds
+$1+(\#\text{generators}-1)K_g>0$ to $M-\sum_gc_g$, so $c_0>0$ and $\sum_jc_j=M$. The prior of a type is
+its mass divided by $M$. At target $j$ the defender gets $0$ if it is attacked uncovered and $d_j=M/c_j$
+if it is attacked covered. The budget is $r=1$.
+
+\subsection{Proof of the main result}\label{artlck:sec:proof}
+
+Let $P(y)$ be the vector of reference values $(P_S(y))_S$, read as a coverage vector. By
+Lemma~\ref{artlck:lem:fold}(b) the signals at each level sum to $3y$, and $\sum_SS(0)=0$. Hence
+\[
+ q(y):=\sum_jP_j(y)=3(h+1)y,\qquad q(D)=\tfrac38,\qquad q(y_1)=1\ \text{ for } y_1=\frac1{3(h+1)} .
+\]
+For $0\le y\le y_1$, Lemma~\ref{artlck:lem:fold}(a) puts every coordinate in $[0,2y_1]\subset[0,1)$.
+
+\begin{lemma}[A balanced equilibrium with connected support]\label{artlck:lem:balanced}
+\statusrefereed
+For every $0\le y\le y_1$ there is an attack allocation $f$ such that $(P(y),f)$ is a partial-budget
+equilibrium of $\Gamma_h$ with budget $q(y)$, in which every target has load $c_j/M$ and score exactly
+$1$. For $y>0$ the bipartite graph of types and targets joined by positive $f$-mass is connected.
+\end{lemma}
+
+\paragraph{Proof roadmap.} (1) Route masses gate by gate in reverse topological order, giving each
+output exactly its weight; (2) check that every choice is a best response; (3) normalize, so every score
+is $1$; (4) follow the routing forward from the terminal to see that the support is connected.
+
+\begin{proof}
+Work with unnormalized masses and treat gates in reverse topological order, as in the definition of the
+masses. Let $z$ be the mass already routed to output $g$ by generators of later gates. Those downstream
+gates were processed earlier, so all generators that can contribute to $z$ are included in the running
+mass $R$ used to define $K_g=R+2$; hence $z\le R$.
+Give $g$ its dedicated type's unit. The residual $K_g-z-1$ then lies in $[1,K_g-1]$.
+
+Next pick a generator whose output payoff ties with a best listed input. For a min gate, the single
+generator's best input is the one with the smallest threshold, and its payoff $4-\min_\ell T_{g\ell}$
+equals the output payoff $4-P_g$. For a max gate, the generator of a maximizing input ties with the
+output, and every other generator weakly prefers its own input to the output. Give the chosen
+generator's residual to $g$, and send the rest of its mass, which is positive, to its tied input. Every
+other generator sends its whole mass to a best listed input.
+
+All these choices are best responses. The output pays $4-x_g>3$, which beats every unlisted target
+(payoff at most $-1$). The listed inputs used are at least as good as the output. The dedicated type
+strictly prefers its output. Output $g$ receives exactly $c_g=K_g$. Mass conservation then gives the
+terminal exactly $c_0$.
+
+After normalizing by $M$, every load is $c_j/M$ and every score $d_jw_j$ equals $1$. With $\lambda=1$,
+condition~\eqref{artlck:eq:cutoff} holds, so $(P(y),f)$ is a partial-budget equilibrium with budget
+$q(y)$.
+
+\emph{Connectivity.} Go forward from the terminal. The unary generator has positive mass on the terminal
+and on $B_0$. At each later gate, every generator has positive mass on an input already in the component
+of the terminal. The chosen generator also has positive mass on the output, and the dedicated type is
+joined to the output. Ties between thresholds do not affect this.
+\end{proof}
+
+\begin{lemma}[Uniqueness of the intermediate coverage]\label{artlck:lem:unique}
+\statusrefereed
+Let $0<y\le D$. Every partial-budget equilibrium of $\Gamma_h$ with budget $q(y)$ has coverage $P(y)$. At
+budget $0$ the coverage is $0$.
+\end{lemma}
+
+\paragraph{Proof roadmap.} Suppose another equilibrium covers a nonempty proper set $K$ of targets more
+than $P(y)$. (1) Every target in $K$ then has the top score $\lambda\ge1$; (2) types attacking $K$ in the
+new equilibrium sent all their mass to $K$ in the balanced one; (3) counting mass forces $\lambda=1$ and
+cuts the support of the balanced allocation along $K$, contradicting connectivity.
+
+\begin{proof}
+The idea is an exchange argument: if another equilibrium covered a set $K$ of targets more, the types
+attacking $K$ would have to be isolated from the rest, contradicting connectivity.
+
+The case of budget $0$ is just feasibility. Let $f$ be the allocation of Lemma~\ref{artlck:lem:balanced}.
+Suppose $(x,f')$ is a partial-budget equilibrium with budget $q(y)$, normalized loads $w'$ and
+$x\ne P(y)$. Let $K=\{j:x_j>P_j(y)\}$. The two vectors have the same sum, so $K$ is nonempty and proper.
+
+Let $\lambda=\max_j(M/c_j)w'_j$ be the largest score. Its $c_j/M$-weighted average is $\sum_jw'_j=1$, so
+$\lambda\ge1$. Since $\sum_jx_j\le3/8<1$, every $x_j<1$, so every score is at most the cutoff. Some target
+has positive coverage, so the cutoff equals $\lambda$. Every $j\in K$ has $x_j>0$, so its score is
+$\lambda$.
+
+Now take a type with $f'$-mass on some $j\in K$. All its $f$-mass lies in $K$. Indeed, slopes are
+positive, so moving from $P(y)$ to $x$ strictly lowers the payoff of every target in $K$ and weakly raises
+that of every target outside $K$. If the type had an $f$-best target $k\notin K$, then at $x$ that target
+would pay at least its old payoff, which is at least the old payoff of $j$, which is more than the new
+payoff of $j$. This contradicts $j$ being a best response at $x$. Hence
+\[
+ \lambda\sum_{j\in K}\frac{c_j}{M}=\sum_{j\in K}w'_j\le\sum_{i:\ f'_i(K)>0}p_i\le\sum_{j\in K}\frac{c_j}{M}.
+\]
+So $\lambda=1$, and both inequalities are equalities. Equality on the right means that all $f$-mass
+entering $K$ comes from types whose whole $f$-mass lies in $K$. So no type has positive $f$-mass on both
+sides of the cut $(K,K^c)$. Every target has positive $f$-load, so $K$ and $K^c$ both meet the support
+graph of $f$, and it is disconnected. This contradicts Lemma~\ref{artlck:lem:balanced}.
+\end{proof}
+
+\paragraph{Proof roadmap for Theorem~\ref{artlck:thm:main}.} (1) By Lemma~\ref{artlck:lem:seg} the
+successful calls cover the budgets by straight fixed-allocation segments; (2) by
+Lemma~\ref{artlck:lem:unique} every point with budget in $(0,3/8]$ is $P(y)$; (3) so each segment follows
+one affine piece of $P_{A_h}$; (4) by Lemma~\ref{artlck:lem:fold}(d) there are $2^{h-1}$ pieces.
+
+\begin{proof}[Proof of Theorem~\ref{artlck:thm:main}]
+$\Gamma_h$ has positive defender gains and positive attacker slopes, so it is a valid input to the
+algorithm. Take any run. By Lemma~\ref{artlck:lem:seg}, the successful calls cover $[0,1]$, and hence
+$[0,3/8]=q([0,D])$, by closed straight segments with fixed allocations. On the part of a segment with
+budget in $(0,3/8]$, Lemma~\ref{artlck:lem:unique} says that every point equals $P(y)$ with
+$y=q^{-1}(\text{budget})$. The terminal coordinate of $P(y)$ is $y$ itself. So along a segment both $y$
+and the $A_h$-coordinate $P_{A_h}(y)$ are affine in the segment parameter, and $P_{A_h}$ is affine in $y$
+on the $y$-interval the segment covers. By Lemma~\ref{artlck:lem:fold}(d), that interval contains no
+interior breakpoint $jD/2^{h-1}$, so it lies in the closure of one of the $2^{h-1}$ affine pieces. These
+intervals together cover $(0,D]$, so at least $2^{h-1}$ distinct successful calls occur before the
+budget passes $3/8$. The argument does not depend on the initial tie choice or on any choice made by
+Algorithms~2--4.
+\end{proof}
+
+\begin{proof}[Proof of Corollary~\ref{artlck:cor:size}]
+The shifts $D/2^{s+1}=1/(4N2^{s+1})$ and the values $S(0)$ are multiples of $1/(4N2^{h+1})$, and their
+absolute values are at most $D$. So every intercept $4-C_{g\ell}$ has $O(h+\log N)=O(h)$ bits. At each
+gate, $R\leftarrow R+1+(\#\mathrm{gen})(R+2)\le3R+5$, so $R+c$ grows by at most a constant factor per gate
+for a suitable constant $c$. With $2h+1$ gates, $M=2^{O(h)}$. So masses, weights, priors $K_g/M$ and
+defender gains $M/c_j$ all have $O(h)$ bits. The table has $(5h+2)(2h+2)=O(h^2)$ entries, so $L=O(h^3)$
+and $2^{h-1}=2^{\Omega(L^{1/3})}$.
+\end{proof}
+
+\begin{proposition}[The endpoint is easy]\label{artlck:prop:easy}
+\statusrefereed
+An exact BNE of $\Gamma_h$ at budget $1$ can be computed in time polynomial in $h$. Evaluate the $O(h)$
+gates at $y_1=1/(3(h+1))$, take $x=P(y_1)$, and route the attack masses in reverse topological order as in
+Lemma~\ref{artlck:lem:balanced}.
+\end{proposition}
+
+\begin{proof}
+Lemma~\ref{artlck:lem:balanced} holds for every $y\le y_1$, and $q(y_1)=1$. All arithmetic is on numbers
+with $O(h)$ bits.
+\end{proof}
+
+So the lower bound is a lower bound against the path that the algorithm follows. It is not a lower bound
+against the instances, and not one for the problem.
+
+\begin{proposition}[Computational observation: the bound is attained]\label{artlck:prop:impl}
+\statusrefereed
+An exact rational implementation of the mathematical updates in Algorithms~1--4 of~\cite{lck16},
+replacing Algorithm~4's binary search by exact parametric maximization, was run on $\Gamma_h$ for
+$h=1,\dots,11$. Every run made exactly $2^{h-1}$ successful Algorithm~3 calls. There were six runs for
+each $h\le4$ (rules R1, R2, and R3 and R4 with two random seeds each), four runs (R1--R4) for each
+$5\le h\le8$, and two runs (R1, R2) for each of $h=9,10,11$. In every run:
+\begin{itemize}[nosep]
+\item at every call endpoint with budget at most $3/8$, the coverage equals $P(y)$ exactly;
+\item every successful call starts below budget $3/8$, so the last call goes from below $3/8$ directly to
+budget $1$;
+\item the output is an exact BNE.
+\end{itemize}
+\end{proposition}
+
+So Theorem~\ref{artlck:thm:main} is tight on these instances, with one successful call per affine piece.
+The tie-breaking rules R1--R4 and the implementation are described in Appendix~\ref{app:status}
+(Table~\ref{tab:lck-runs}); the ambiguities of the published pseudocode and how they were resolved are in
+Appendix~\ref{app:sources}.
+
+\section{A second family: the Disser--Skutella game \texorpdfstring{$G_n$}{G\_n}}\label{artlck:sec:gn}
+
+\paragraph{Idea.} The family $\Gamma_h$ bends the unique coverage path. The family $G_n$ instead forces
+the attack allocation through $2^n$ distinct values, by embedding a min-cost-flow network on which
+successive shortest paths take exponentially many steps. In this section $n$ denotes the depth of that
+network, not the number of targets; $G_n$ has $2n+2$ targets. The proof below is condensed and takes the
+next lemma from the literature.
+
+\begin{lemma}[Disser--Skutella counting network {\cite[\S3.1 and Lemma~1 with $a=0$, so $v=0$]{ds15}}]\label{artlck:lem:ds}
+\statuscited
+Let $N_n$ have nodes $s_0,t_0,\dots,s_n,t_n$ and the following arcs:
+\begin{itemize}[nosep]
+\item $(s_0,t_0)$ with cost $0$ and capacity $1$;
+\item for $i=1,\dots,n$, arcs $(s_i,s_{i-1})$ and $(t_{i-1},t_i)$ with cost $0$ and capacity $2^{i-1}$;
+\item for $i=1,\dots,n$, arcs $(s_i,t_{i-1})$ and $(s_{i-1},t_i)$ with cost $2^{i-1}-\frac12$ and capacity
+$2^{i-1}$.
+\end{itemize}
+Successive shortest paths from $s_n$ to $t_n$ augment one unit $2^n$ times, and the $j$-th augmentation,
+$j=0,\dots,2^n-1$, uses a path of cost $j$. Hence the minimum cost $C(v)$ of an $s_n$--$t_n$ flow of value
+$v$ is piecewise linear, with slope $j$ on $[j,j+1]$.
+\end{lemma}
+
+This is the original network of~\cite{ds15}; Chapter~\ref{ch:arrival} used a variant with costs $3^k$.
+
+\paragraph{The game $G_n$.} Add a return arc $\rho=(t_n,s_n)$ with capacity $2^n$. The node set $V$ has
+$|V|=2n+2$ nodes, and the arc set $\mathcal E$ has $4n+2$ arcs. The digraph $(V,\mathcal E)$ is strongly
+connected, and the gadget arcs form an acyclic graph with no arc from a $t$-node to an $s$-node. Write:
+\begin{itemize}[nosep]
+\item $c_e$ for capacities and $\kappa_e$ for gadget costs;
+\item $\bar c=\sum_ec_e=5\cdot2^n-3$ for the total capacity;
+\item $\sigma_u=\sum_{e:\,\mathrm{tail}(e)=u}c_e/\bar c$ for the normalized out-capacity of node $u$.
+\end{itemize}
+The game is defined as follows.
+\begin{itemize}[nosep]
+\item \emph{Types and targets.} The types are the arcs, with priors $c_e/\bar c$. The targets are the
+nodes. The defender gets $0$ at an uncovered target and $d_u=1/\sigma_u$ at a covered one.
+\item \emph{Allowed pairs.} Type $e$ may usefully attack $\mathrm{tail}(e)$ or $\mathrm{head}(e)$. Its
+transferable value is $\mathrm{val}(e,\mathrm{tail}\,e)=0$ at the tail. At the head it is $-\kappa_e$ for a
+gadget arc, and $\alpha=\tfrac12$ for $\rho$ at $s_n$.
+\item \emph{Payoffs on allowed pairs.} $a_{eu}=\mathrm{val}(e,u)+\beta K/2$ and slope $b_{eu}=\beta K$.
+Here $\beta=1$ except on the special pair $(\rho,s_n)$, where $\beta=1+\varepsilon$.
+\item \emph{Payoffs on other pairs.} $a_{eu}=-\Omega$ and $b_{eu}=K$, so these pairs are never best
+responses.
+\item \emph{Budget.} $r=n+1=|V|/2$.
+\item \emph{Parameters.}
+\[
+ \Lambda=2n+1,\quad \kappa_{\max}=2^{n-1}-\tfrac12,\quad \varepsilon=\frac1{\Lambda\,2^{n+4}},\quad K=4\Bigl(\frac{2^n}{\varepsilon}+\Lambda\,2^{n+1}\Bigr),\quad \Omega=2K+\kappa_{\max}+2 .
+\]
+\end{itemize}
+All numbers have $O(n)$ bits, and the input length is $\Theta(n^3)$ bits. Put $P_u=K(x_u-\frac12)$. On an
+allowed pair the payoff is then $\mathrm{val}(e,u)-\beta P_u$, and on the special pair it is
+$\mu-P_{s_n}$ with $\mu:=\alpha-\varepsilon P_{s_n}$. Let $T(s)=K(s-|V|/2)$, which equals $\sum_uP_u$ at
+budget $s$, and $\mu_c(s)=\alpha-\varepsilon T(s)/|V|$.
+
+\begin{theorem}[Forced attack classes on $G_n$]\label{artlck:thm:gn}
+\statusrefereed
+For $j=0,\dots,2^n-1$ let $I_j=\{s:|\mu_c(s)-(j+\frac12)|<\frac18\}$. These are $2^n$ pairwise disjoint
+open intervals of positive length, ordered $I_{2^n-1}<\dots<I_1<I_0$. For $j\ge1$, $I_j\subset[|V|/4,r)$,
+and $r\in I_0$. Every partial-budget equilibrium of $G_n$ with budget in $I_j$ puts attack mass exactly
+$(j+1)/\bar c$ on the special pair $(\rho,s_n)$. Consequently:
+\begin{enumerate}[label=(\alph*),nosep]
+\item any procedure that keeps a partial-budget equilibrium while the budget increases continuously from
+$0$ to $r$ passes through at least $2^n$ distinct attack allocations;
+\item every run of Algorithm~1 of~\cite{lck16} on $G_n$ that reaches budget $r$ (every run does if Algorithm~4 computes the exact largest $\Delta$, by~\cite[Theorem~5]{lck16}) makes at least $2^n$ successful calls to Algorithm~3, for
+every legal tie-breaking.
+\end{enumerate}
+Since $G_n$ has $4n+2$ types, $2n+2$ targets and input length $\Theta(n^3)$, the bound in (b) is again
+$2^{\Omega(L^{1/3})}$.
+\end{theorem}
+
+\begin{proof}[Proof (condensed)]
+The proof has five steps: bound the spread of the ``prices'' $P_u$; deduce that all coverages are
+interior; read the equilibrium as a min-cost circulation; use Lemma~\ref{artlck:lem:ds} to pin the flow
+on the return arc; and place the windows.
+
+\emph{Spread.} We claim that in every partial-budget equilibrium the spread $\max_uP_u-\min_uP_u$ is at
+most $\Lambda\max(\kappa_{\max},|\mu|)$. Let $\theta\in[0,1)$ and split $V$ into $S=\{u:x_u>\theta\}$ and
+$S^c$, both nonempty. Suppose every arc type with one end on each side strictly prefers its $S^c$ end.
+Then the load $w(S)$ is at most the prior mass of the arcs inside $S$. Some arc leaves $S$, so this is
+strictly less than $\sigma(S)$. Targets in $S$ have positive coverage, so $w_u\ge\lambda\sigma_u$ there,
+and $\lambda<1$. Targets in $S^c$ have coverage below $1$, so $w(S^c)\le\lambda\sigma(S^c)$. Since
+$\sum w=\sum\sigma=1$, $w(S^c)>\sigma(S^c)$, so $\lambda>1$. This is a contradiction.
+
+Hence some crossing
+type weakly prefers its $S$ end. This bounds the gap in $P$ across the cut by $\kappa_{\max}$ for a gadget
+arc, or by $|\mu|$ for $\rho$. Take $\theta$ equal to each value of $x$ except the largest. Each of the
+at most $\Lambda$ consecutive gaps in the sorted list of $P$-values is then bounded, which gives the
+claim.
+
+\emph{Localisation.} $T/|V|$ is the mean of $P$, so $|P_{s_n}-T/|V||$ is at most the spread. When
+$\varepsilon\Lambda\le\frac12$ this gives $|\mu-\mu_c(s)|\le\varepsilon\Lambda\max(\kappa_{\max},2|\mu_c(s)|)$.
+
+\emph{Interiority.} Suppose $\mu_c(s)\in[0,2^n]$. Then $|\mu-\mu_c|\le\varepsilon\Lambda2^{n+1}=\frac18$.
+So $|P_{s_n}|=|\alpha-\mu|/\varepsilon<2^{n+1}/\varepsilon$, and the spread is below $\Lambda2^{n+2}$.
+Hence $|P_u|<K/2$ for every $u$, that is, $0<x_u<1$. Every score then equals $\lambda$, and summing
+$w_u=\lambda\sigma_u$ gives $\lambda=1$ and $w=\sigma$.
+
+\emph{Flow equivalence.} In such an equilibrium put $F_e=\bar c f(e,\mathrm{head}\,e)\in[0,c_e]$. The
+load condition $w_u=\sigma_u$ reads $\sum_{\mathrm{head}(e)=u}F_e=\sum_{\mathrm{tail}(e)=u}F_e$, which is
+conservation. Take the node potentials $-P$. A type's best-response condition then says that the reduced
+cost of its arc is $\le0$ if $F_e>0$ and $\ge0$ if $F_e<c_e$. Here the costs are $\kappa_e$ on gadget arcs
+and $\kappa_\rho=-\mu$. So $F$ is a min-cost circulation.
+
+\emph{Conclusion.} Let $s\in I_j$. Then $\mu_c\in(j+\frac38,j+\frac58)\subset[0,2^n]$, and
+$\mu\in(j,j+1)$. The gadget is acyclic, so a circulation is an $s_n$--$t_n$ flow of value $v=F_\rho$ plus
+the return arc, and the cheapest circulation with $F_\rho=v$ costs $C(v)-\mu v$. By
+Lemma~\ref{artlck:lem:ds}, this function has slope $k-\mu$ on $[k,k+1]$, so its unique minimizer is
+$v=j+1$. Hence $F_\rho=j+1$, and the special-pair mass is $(j+1)/\bar c$.
+
+\emph{Windows.} The map $\mu_c$ is affine and decreasing in $s$, with $\mu_c(r)=\alpha=\frac12$, so
+$r\in I_0$. Also $s=|V|/2-|V|(\mu_c-\alpha)/(\varepsilon K)$ and $\varepsilon K\ge4\cdot2^n$, which places
+every $I_j$ with $j\ge1$ in $[|V|/4,r)$.
+
+(a) holds because the windows are disjoint and ordered, and they force distinct allocations. For (b):
+$G_n$ is a valid input to the algorithm, since $b>0$ and $d>0$. By Lemma~\ref{artlck:lem:seg} a
+successful call has one fixed attack allocation, so its budget segment meets at most one window. The
+segments cover $[0,r]$, so they meet all $2^n$ windows.
+\end{proof}
+
+\begin{remark}[A bisection method for $G_n$]\label{artlck:rem:gn-easy}
+We sketch an exact bisection method for $G_n$; a proof that it runs in polynomial time is not written out. At
+every budget $s$ with $\mu_c(s)\in[0,2^n]$, including $s=r$, interiority and flow equivalence reduce the
+equilibrium to a one-parameter problem in $\mu$. It is solved by bisection on $\mu$ with
+$O(\text{input bits})$ calls to an exact min-cost-circulation oracle, followed by rational reconstruction
+and a convex combination of two extreme optimal duals. With an exact capacity-scaling oracle it solved
+$n=10,20,40,60$ at budget $r$ in $32,53,97,137$ oracle calls. At $n=60$ the path has at least $2^{60}$
+pieces. At a mid-window budget it found the forced class $2^{n-1}+1$, and every output passed an exact
+equilibrium check.
+\end{remark}
+
+\section{What this does and does not imply}\label{artlck:sec:implies}
+
+The published algorithm has no polynomial worst-case bound on its number of iterations, even on Bayesian
+simple security games with one defender resource and a single slope different from $1$; the bound holds
+for every legal tie-breaking, and also when Algorithm~4 uses any positive feasible update that
+preserves exact equilibrium, provided the execution reaches budget $r$. More generally, any method
+that follows equilibria as the budget grows, using straight segments with a fixed attack allocation,
+needs $2^{h-1}$ segments on $\Gamma_h$, and by Theorem~\ref{artlck:thm:gn}(a) any continuous
+budget-increasing path follower passes through $2^n$ attack allocations on $G_n$.
+
+Nothing follows about the complexity of the problem: $\Gamma_h$ is solved exactly in polynomial time by other means (Proposition~\ref{artlck:prop:easy}), and the bisection sketch of Remark~\ref{artlck:rem:gn-easy} solved every tested $G_n$. Nothing follows
+either about pivoting methods on other formulations, such as a linear complementarity formulation whose
+path varies other data than the budget, or about the average or experimental behavior reported
+in~\cite{lck16}.

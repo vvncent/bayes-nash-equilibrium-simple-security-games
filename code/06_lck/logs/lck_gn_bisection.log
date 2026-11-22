@@ -1,0 +1,8 @@
+n= 10: path has >= 2^10 pieces; bisection found exact equilibrium at budget r=11: True (ok); oracle calls=32; mu*=2097149/4194304; return flow=1; coverage bits<=53; 0.46s
+        mid-window budget: exact equilibrium True; oracle calls=30; return flow=513 (expected near 2^(n-1)+1 = 513)
+n= 20: path has >= 2^20 pieces; bisection found exact equilibrium at budget r=21: True (ok); oracle calls=53; mu*=4294967293/8589934592; return flow=1; coverage bits<=85; 3.34s
+        mid-window budget: exact equilibrium True; oracle calls=55; return flow=524289 (expected near 2^(n-1)+1 = 524289)
+n= 40: path has >= 2^40 pieces; bisection found exact equilibrium at budget r=41: True (ok); oracle calls=97; mu*=72057594037927911/144115188075855872; return flow=1; coverage bits<=148; 25.08s
+        mid-window budget: exact equilibrium True; oracle calls=97; return flow=549755813889 (expected near 2^(n-1)+1 = 549755813889)
+n= 60: path has >= 2^60 pieces; bisection found exact equilibrium at budget r=61: True (ok); oracle calls=137; mu*=75557863725914323419119/151115727451828646838272; return flow=1; coverage bits<=207; 91.80s
+        mid-window budget: exact equilibrium True; oracle calls=138; return flow=576460752303423489 (expected near 2^(n-1)+1 = 576460752303423489)

@@ -1,0 +1,934 @@
+08:01:25 +      0s START   w0 zero#0 default 105085
+08:01:25 +      0s START   w1 zero#0 lexmin 105086
+08:01:25 +      0s START   w2 zero#0 lexmax 105087
+08:01:25 +      0s START   w3 zero#0 random 105088
+08:01:25 +      0s START   w4 zero#0 degen 105089
+08:01:25 +      0s START   w5 zero#3 default 105106
+08:01:25 +      0s START   w6 zero#3 lexmin 105107
+08:01:25 +      0s START   w7 zero#3 lexmax 105108
+08:01:25 +      0s START   w8 zero#3 random 105109
+08:01:25 +      0s START   w9 zero#3 degen 105110
+08:01:25 +      0s DONE    w0 zero#0 default 105085 result=True calls=2 t=0.1s [1/5130 done]
+08:01:25 +      0s START   w0 zero#9 default 105148
+08:01:25 +      0s DONE    w4 zero#0 degen 105089 result=True calls=2 t=0.1s [2/5130 done]
+08:01:25 +      0s START   w4 zero#9 lexmin 105149
+08:01:25 +      0s DONE    w2 zero#0 lexmax 105087 result=True calls=2 t=0.1s [3/5130 done]
+08:01:25 +      0s START   w2 zero#9 lexmax 105150
+08:01:25 +      0s DONE    w3 zero#0 random 105088 result=True calls=2 t=0.2s [4/5130 done]
+08:01:25 +      0s START   w3 zero#9 random 105151
+08:01:25 +      0s DONE    w1 zero#0 lexmin 105086 result=True calls=2 t=0.2s [5/5130 done]
+08:01:25 +      0s START   w1 zero#9 degen 105152
+08:01:25 +      0s DONE    w0 zero#9 default 105148 result=True calls=63 t=0.3s [6/5130 done]
+08:01:25 +      0s START   w0 zero#11 default 105162
+08:01:25 +      0s DONE    w0 zero#11 default 105162 result=True calls=1 t=0.0s [7/5130 done]
+08:01:25 +      0s START   w0 zero#11 lexmin 105163
+08:01:25 +      0s DONE    w0 zero#11 lexmin 105163 result=True calls=1 t=0.0s [8/5130 done]
+08:01:25 +      0s START   w0 zero#11 lexmax 105164
+08:01:25 +      0s DONE    w0 zero#11 lexmax 105164 result=True calls=1 t=0.0s [9/5130 done]
+08:01:25 +      0s START   w0 zero#11 random 105165
+08:01:25 +      0s DONE    w0 zero#11 random 105165 result=True calls=1 t=0.0s [10/5130 done]
+08:01:25 +      0s START   w0 zero#11 degen 105166
+08:01:25 +      1s DONE    w0 zero#11 degen 105166 result=True calls=1 t=0.0s [11/5130 done]
+08:01:25 +      1s START   w0 zero#15 default 105190
+08:01:25 +      1s DONE    w1 zero#9 degen 105152 result=True calls=63 t=0.4s [12/5130 done]
+08:01:25 +      1s START   w1 zero#15 lexmin 105191
+08:01:25 +      1s DONE    w4 zero#9 lexmin 105149 result=True calls=63 t=0.4s [13/5130 done]
+08:01:25 +      1s START   w4 zero#15 lexmax 105192
+08:01:25 +      1s DONE    w2 zero#9 lexmax 105150 result=True calls=63 t=0.4s [14/5130 done]
+08:01:25 +      1s START   w2 zero#15 random 105193
+08:01:26 +      1s DONE    w3 zero#9 random 105151 result=True calls=63 t=0.8s [15/5130 done]
+08:01:26 +      1s START   w3 zero#15 degen 105194
+08:01:33 +      9s DONE    w5 zero#3 default 105106 result=True calls=1476 t=8.7s [16/5130 done]
+08:01:33 +      9s START   w5 zero#17 default 105204
+08:01:33 +      9s DONE    w5 zero#17 default 105204 result=True calls=2 t=0.0s [17/5130 done]
+08:01:33 +      9s START   w5 zero#17 lexmin 105205
+08:01:33 +      9s DONE    w5 zero#17 lexmin 105205 result=True calls=2 t=0.0s [18/5130 done]
+08:01:33 +      9s START   w5 zero#17 lexmax 105206
+08:01:33 +      9s DONE    w5 zero#17 lexmax 105206 result=True calls=2 t=0.0s [19/5130 done]
+08:01:33 +      9s START   w5 zero#17 random 105207
+08:01:33 +      9s DONE    w5 zero#17 random 105207 result=True calls=2 t=0.0s [20/5130 done]
+08:01:33 +      9s START   w5 zero#17 degen 105208
+08:01:34 +      9s DONE    w5 zero#17 degen 105208 result=True calls=2 t=0.0s [21/5130 done]
+08:01:34 +      9s START   w5 zero#25 default 105260
+08:01:34 +      9s DONE    w0 zero#15 default 105190 result=True calls=1583 t=8.9s [22/5130 done]
+08:01:34 +      9s START   w0 zero#25 lexmin 105261
+08:01:39 +     15s DONE    w9 zero#3 degen 105110 result=True calls=1476 t=14.6s [23/5130 done]
+08:01:39 +     15s START   w9 zero#25 lexmax 105262
+08:01:41 +     17s DONE    w7 zero#3 lexmax 105108 result=True calls=1476 t=16.6s [24/5130 done]
+08:01:41 +     17s START   w7 zero#25 random 105263
+08:01:42 +     17s DONE    w3 zero#15 degen 105194 result=True calls=1583 t=16.2s [25/5130 done]
+08:01:42 +     17s START   w3 zero#25 degen 105264
+08:01:43 +     18s DONE    w1 zero#15 lexmin 105191 result=True calls=1583 t=17.4s [26/5130 done]
+08:01:43 +     18s START   w1 zero#30 default 105295
+08:01:43 +     18s DONE    w1 zero#30 default 105295 result=True calls=2 t=0.0s [27/5130 done]
+08:01:43 +     18s START   w1 zero#30 lexmin 105296
+08:01:43 +     18s DONE    w1 zero#30 lexmin 105296 result=True calls=2 t=0.0s [28/5130 done]
+08:01:43 +     18s START   w1 zero#30 lexmax 105297
+08:01:43 +     18s DONE    w1 zero#30 lexmax 105297 result=True calls=2 t=0.0s [29/5130 done]
+08:01:43 +     18s START   w1 zero#30 random 105298
+08:01:43 +     18s DONE    w1 zero#30 random 105298 result=True calls=2 t=0.0s [30/5130 done]
+08:01:43 +     18s START   w1 zero#30 degen 105299
+08:01:43 +     18s DONE    w1 zero#30 degen 105299 result=True calls=2 t=0.0s [31/5130 done]
+08:01:43 +     18s START   w1 zero#33 default 105316
+08:01:43 +     18s DONE    w1 zero#33 default 105316 result=True calls=1 t=0.0s [32/5130 done]
+08:01:43 +     18s START   w1 zero#33 lexmin 105317
+08:01:43 +     18s DONE    w1 zero#33 lexmin 105317 result=True calls=1 t=0.0s [33/5130 done]
+08:01:43 +     18s START   w1 zero#33 lexmax 105318
+08:01:43 +     18s DONE    w1 zero#33 lexmax 105318 result=True calls=1 t=0.0s [34/5130 done]
+08:01:43 +     18s START   w1 zero#33 random 105319
+08:01:43 +     18s DONE    w1 zero#33 random 105319 result=True calls=1 t=0.0s [35/5130 done]
+08:01:43 +     18s START   w1 zero#33 degen 105320
+08:01:43 +     18s DONE    w1 zero#33 degen 105320 result=True calls=1 t=0.0s [36/5130 done]
+08:01:43 +     18s START   w1 zero#40 default 105365
+08:01:43 +     18s DONE    w1 zero#40 default 105365 result=True calls=3 t=0.0s [37/5130 done]
+08:01:43 +     18s START   w1 zero#40 lexmin 105366
+08:01:43 +     18s DONE    w1 zero#40 lexmin 105366 result=True calls=3 t=0.0s [38/5130 done]
+08:01:43 +     18s START   w1 zero#40 lexmax 105367
+08:01:43 +     18s DONE    w1 zero#40 lexmax 105367 result=True calls=3 t=0.0s [39/5130 done]
+08:01:43 +     18s START   w1 zero#40 random 105368
+08:01:43 +     18s DONE    w1 zero#40 random 105368 result=True calls=3 t=0.1s [40/5130 done]
+08:01:43 +     18s START   w1 zero#40 degen 105369
+08:01:43 +     18s DONE    w1 zero#40 degen 105369 result=True calls=3 t=0.0s [41/5130 done]
+08:01:43 +     18s START   w1 zero#42 default 105379
+08:01:43 +     18s DONE    w1 zero#42 default 105379 result=True calls=4 t=0.0s [42/5130 done]
+08:01:43 +     18s START   w1 zero#42 lexmin 105380
+08:01:43 +     18s DONE    w1 zero#42 lexmin 105380 result=True calls=4 t=0.0s [43/5130 done]
+08:01:43 +     18s START   w1 zero#42 lexmax 105381
+08:01:43 +     18s DONE    w1 zero#42 lexmax 105381 result=True calls=4 t=0.0s [44/5130 done]
+08:01:43 +     18s START   w1 zero#42 random 105382
+08:01:43 +     19s DONE    w1 zero#42 random 105382 result=True calls=4 t=0.1s [45/5130 done]
+08:01:43 +     19s START   w1 zero#42 degen 105383
+08:01:43 +     19s DONE    w1 zero#42 degen 105383 result=True calls=4 t=0.0s [46/5130 done]
+08:01:43 +     19s START   w1 zero#48 default 105421
+08:01:44 +     19s DONE    w4 zero#15 lexmax 105192 result=True calls=1583 t=18.2s [47/5130 done]
+08:01:44 +     19s START   w4 zero#48 lexmin 105422
+08:01:44 +     19s DONE    w1 zero#48 default 105421 result=True calls=75 t=0.3s [48/5130 done]
+08:01:44 +     19s START   w1 zero#48 lexmax 105423
+08:01:44 +     19s DONE    w6 zero#3 lexmin 105107 result=True calls=1476 t=18.9s [49/5130 done]
+08:01:44 +     19s START   w6 zero#48 random 105424
+08:01:44 +     19s DONE    w4 zero#48 lexmin 105422 result=True calls=75 t=0.5s [50/5130 done]
+08:01:44 +     19s START   w4 zero#48 degen 105425
+08:01:44 +     19s DONE    w1 zero#48 lexmax 105423 result=True calls=75 t=0.5s [51/5130 done]
+08:01:44 +     19s START   w1 zero#49 default 105428
+08:01:44 +     20s DONE    w4 zero#48 degen 105425 result=True calls=75 t=0.5s [52/5130 done]
+08:01:44 +     20s START   w4 zero#49 lexmin 105429
+08:01:45 +     20s DONE    w6 zero#48 random 105424 result=True calls=75 t=0.9s [53/5130 done]
+08:01:45 +     20s START   w6 zero#49 lexmax 105430
+08:01:46 +     21s DONE    w5 zero#25 default 105260 result=True calls=1967 t=12.0s [54/5130 done]
+08:01:46 +     21s START   w5 zero#49 random 105431
+08:01:52 +     27s DONE    w1 zero#49 default 105428 result=True calls=1548 t=7.9s [55/5130 done]
+08:01:52 +     27s START   w1 zero#49 degen 105432
+08:01:57 +     33s DONE    w8 zero#3 random 105109 result=True calls=1476 t=32.7s [56/5130 done]
+08:01:57 +     33s START   w8 zero#53 default 105456
+08:01:58 +     33s DONE    w8 zero#53 default 105456 result=True calls=83 t=0.5s [57/5130 done]
+08:01:58 +     33s START   w8 zero#53 lexmin 105457
+08:01:59 +     34s DONE    w8 zero#53 lexmin 105457 result=True calls=83 t=0.8s [58/5130 done]
+08:01:59 +     34s START   w8 zero#53 lexmax 105458
+08:01:59 +     35s DONE    w8 zero#53 lexmax 105458 result=True calls=83 t=0.8s [59/5130 done]
+08:01:59 +     35s START   w8 zero#53 random 105459
+08:02:00 +     35s DONE    w6 zero#49 lexmax 105430 result=True calls=1548 t=15.0s [60/5130 done]
+08:02:00 +     35s START   w6 zero#53 degen 105460
+08:02:00 +     35s DONE    w2 zero#15 random 105193 result=True calls=1583 t=34.8s [61/5130 done]
+08:02:00 +     35s START   w2 zero#55 default 105470
+08:02:00 +     36s DONE    w6 zero#53 degen 105460 result=True calls=83 t=0.7s [62/5130 done]
+08:02:00 +     36s START   w6 zero#55 lexmin 105471
+08:02:00 +     36s DONE    w4 zero#49 lexmin 105429 result=True calls=1548 t=15.8s [63/5130 done]
+08:02:00 +     36s START   w4 zero#55 lexmax 105472
+08:02:01 +     36s DONE    w8 zero#53 random 105459 result=True calls=83 t=1.6s [64/5130 done]
+08:02:01 +     36s START   w8 zero#55 random 105473
+08:02:07 +     42s DONE    w1 zero#49 degen 105432 result=True calls=1548 t=14.8s [65/5130 done]
+08:02:07 +     42s START   w1 zero#55 degen 105474
+08:02:10 +     45s DONE    w9 zero#25 lexmax 105262 result=True calls=1967 t=30.2s [66/5130 done]
+08:02:10 +     45s START   w9 zero#56 default 105477
+08:02:10 +     45s DONE    w9 zero#56 default 105477 result=True calls=3 t=0.0s [67/5130 done]
+08:02:10 +     45s START   w9 zero#56 lexmin 105478
+08:02:10 +     45s DONE    w9 zero#56 lexmin 105478 result=True calls=3 t=0.0s [68/5130 done]
+08:02:10 +     45s START   w9 zero#56 lexmax 105479
+08:02:10 +     45s DONE    w9 zero#56 lexmax 105479 result=True calls=3 t=0.0s [69/5130 done]
+08:02:10 +     45s START   w9 zero#56 random 105480
+08:02:10 +     45s DONE    w9 zero#56 random 105480 result=True calls=3 t=0.1s [70/5130 done]
+08:02:10 +     45s START   w9 zero#56 degen 105481
+08:02:10 +     45s DONE    w9 zero#56 degen 105481 result=True calls=3 t=0.0s [71/5130 done]
+08:02:10 +     45s START   w9 zero#58 default 105491
+08:02:10 +     45s DONE    w9 zero#58 default 105491 result=True calls=2 t=0.0s [72/5130 done]
+08:02:10 +     45s START   w9 zero#58 lexmin 105492
+08:02:10 +     45s DONE    w9 zero#58 lexmin 105492 result=True calls=2 t=0.0s [73/5130 done]
+08:02:10 +     45s START   w9 zero#58 lexmax 105493
+08:02:10 +     45s DONE    w9 zero#58 lexmax 105493 result=True calls=2 t=0.0s [74/5130 done]
+08:02:10 +     45s START   w9 zero#58 random 105494
+08:02:10 +     45s DONE    w9 zero#58 random 105494 result=True calls=2 t=0.0s [75/5130 done]
+08:02:10 +     45s START   w9 zero#58 degen 105495
+08:02:10 +     45s DONE    w9 zero#58 degen 105495 result=True calls=2 t=0.0s [76/5130 done]
+08:02:10 +     45s START   w9 zero#59 default 105498
+08:02:10 +     45s DONE    w3 zero#25 degen 105264 result=True calls=1967 t=28.1s [77/5130 done]
+08:02:10 +     45s START   w3 zero#59 lexmin 105499
+08:02:10 +     46s DONE    w0 zero#25 lexmin 105261 result=True calls=1967 t=36.3s [78/5130 done]
+08:02:10 +     46s START   w0 zero#59 lexmax 105500
+08:02:10 +     46s DONE    w9 zero#59 default 105498 result=True calls=86 t=0.5s [79/5130 done]
+08:02:10 +     46s START   w9 zero#59 random 105501
+08:02:11 +     46s DONE    w3 zero#59 lexmin 105499 result=True calls=86 t=0.7s [80/5130 done]
+08:02:11 +     46s START   w3 zero#59 degen 105502
+08:02:11 +     46s DONE    w0 zero#59 lexmax 105500 result=True calls=86 t=0.7s [81/5130 done]
+08:02:11 +     46s START   w0 zero#60 default 105505
+08:02:11 +     46s DONE    w0 zero#60 default 105505 result=True calls=2 t=0.0s [82/5130 done]
+08:02:11 +     46s START   w0 zero#60 lexmin 105506
+08:02:11 +     46s DONE    w0 zero#60 lexmin 105506 result=True calls=2 t=0.0s [83/5130 done]
+08:02:11 +     46s START   w0 zero#60 lexmax 105507
+08:02:11 +     46s DONE    w0 zero#60 lexmax 105507 result=True calls=2 t=0.0s [84/5130 done]
+08:02:11 +     46s START   w0 zero#60 random 105508
+08:02:11 +     47s DONE    w0 zero#60 random 105508 result=True calls=2 t=0.1s [85/5130 done]
+08:02:11 +     47s START   w0 zero#60 degen 105509
+08:02:11 +     47s DONE    w0 zero#60 degen 105509 result=True calls=2 t=0.0s [86/5130 done]
+08:02:11 +     47s START   w0 zero#65 default 105540
+08:02:11 +     47s DONE    w2 zero#55 default 105470 result=True calls=1528 t=11.3s [87/5130 done]
+08:02:11 +     47s START   w2 zero#65 lexmin 105541
+08:02:11 +     47s DONE    w3 zero#59 degen 105502 result=True calls=86 t=0.7s [88/5130 done]
+08:02:11 +     47s START   w3 zero#65 lexmax 105542
+08:02:12 +     47s DONE    w9 zero#59 random 105501 result=True calls=86 t=1.5s [89/5130 done]
+08:02:12 +     47s START   w9 zero#65 random 105543
+08:02:20 +     55s DONE    w5 zero#49 random 105431 result=True calls=1548 t=34.0s [90/5130 done]
+08:02:20 +     55s START   w5 zero#65 degen 105544
+08:02:21 +     56s DONE    w6 zero#55 lexmin 105471 result=True calls=1528 t=20.5s [91/5130 done]
+08:02:21 +     56s START   w6 zero#70 default 105575
+08:02:21 +     56s DONE    w6 zero#70 default 105575 result=True calls=3 t=0.0s [92/5130 done]
+08:02:21 +     56s START   w6 zero#70 lexmin 105576
+08:02:21 +     56s DONE    w6 zero#70 lexmin 105576 result=True calls=3 t=0.0s [93/5130 done]
+08:02:21 +     56s START   w6 zero#70 lexmax 105577
+08:02:21 +     56s DONE    w6 zero#70 lexmax 105577 result=True calls=3 t=0.0s [94/5130 done]
+08:02:21 +     56s START   w6 zero#70 random 105578
+08:02:21 +     56s DONE    w6 zero#70 random 105578 result=True calls=3 t=0.1s [95/5130 done]
+08:02:21 +     56s START   w6 zero#70 degen 105579
+08:02:21 +     56s DONE    w6 zero#70 degen 105579 result=True calls=3 t=0.0s [96/5130 done]
+08:02:21 +     56s START   w6 zero#72 default 105589
+08:02:21 +     56s DONE    w0 zero#65 default 105540 result=True calls=1439 t=9.8s [97/5130 done]
+08:02:21 +     56s START   w0 zero#72 lexmin 105590
+08:02:22 +     57s DONE    w4 zero#55 lexmax 105472 result=True calls=1528 t=21.4s [98/5130 done]
+08:02:22 +     57s START   w4 zero#72 lexmax 105591
+08:02:24 +     59s DONE    w1 zero#55 degen 105474 result=True calls=1528 t=17.4s [99/5130 done]
+08:02:24 +     59s START   w1 zero#72 random 105592
+08:02:26 +     61s HEARTBEAT 99/5130 done, 5021 queued, running:
+    w0      5s zero#72 lexmin 105590 | in oracle call 454 (lexmin), current oracle call running 0s | slowest call 0.027s (#97)
+    w1      2s zero#72 random 105592 | in oracle call 102 (random), current oracle call running 0s | slowest call 0.028s (#96)
+    w2     15s zero#65 lexmin 105541 | in oracle call 1153 (lexmin), current oracle call running 0s | slowest call 0.026s (#169)
+    w3     15s zero#65 lexmax 105542 | in oracle call 1195 (lexmax), current oracle call running 0s | slowest call 0.024s (#940)
+    w4      4s zero#72 lexmax 105591 | in oracle call 388 (lexmax), current oracle call running 0s | slowest call 0.024s (#97)
+    w5      7s zero#65 degen 105544 | in oracle call 653 (degen), current oracle call running 0s | slowest call 0.023s (#336)
+    w6      5s zero#72 default 105589 | in oracle call 901 (default), current oracle call running 0s | slowest call 0.011s (#215)
+    w7     45s zero#25 random 105263 | in oracle call 1510 (random), current oracle call running 0s | slowest call 0.075s (#1400)
+    w8     25s zero#55 random 105473 | in oracle call 965 (random), current oracle call running 0s | slowest call 0.061s (#817)
+    w9     14s zero#65 random 105543 | in oracle call 556 (random), current oracle call running 0s | slowest call 0.058s (#19)
+08:02:29 +     64s DONE    w3 zero#65 lexmax 105542 result=True calls=1439 t=17.4s [100/5130 done]
+08:02:29 +     64s START   w3 zero#72 degen 105593
+08:02:30 +     65s DONE    w2 zero#65 lexmin 105541 result=True calls=1439 t=18.3s [101/5130 done]
+08:02:30 +     65s START   w2 zero#81 default 105652
+08:02:30 +     65s DONE    w2 zero#81 default 105652 result=True calls=3 t=0.0s [102/5130 done]
+08:02:30 +     65s START   w2 zero#81 lexmin 105653
+08:02:30 +     65s DONE    w2 zero#81 lexmin 105653 result=True calls=3 t=0.0s [103/5130 done]
+08:02:30 +     65s START   w2 zero#81 lexmax 105654
+08:02:30 +     65s DONE    w2 zero#81 lexmax 105654 result=True calls=3 t=0.0s [104/5130 done]
+08:02:30 +     65s START   w2 zero#81 random 105655
+08:02:30 +     65s DONE    w2 zero#81 random 105655 result=True calls=3 t=0.1s [105/5130 done]
+08:02:30 +     65s START   w2 zero#81 degen 105656
+08:02:30 +     65s DONE    w2 zero#81 degen 105656 result=True calls=3 t=0.0s [106/5130 done]
+08:02:30 +     65s START   w2 zero#82 default 105659
+08:02:30 +     65s DONE    w2 zero#82 default 105659 result=True calls=3 t=0.0s [107/5130 done]
+08:02:30 +     65s START   w2 zero#82 lexmin 105660
+08:02:30 +     65s DONE    w2 zero#82 lexmin 105660 result=True calls=3 t=0.0s [108/5130 done]
+08:02:30 +     65s START   w2 zero#82 lexmax 105661
+08:02:30 +     65s DONE    w2 zero#82 lexmax 105661 result=True calls=3 t=0.0s [109/5130 done]
+08:02:30 +     65s START   w2 zero#82 random 105662
+08:02:30 +     65s DONE    w2 zero#82 random 105662 result=True calls=3 t=0.1s [110/5130 done]
+08:02:30 +     65s START   w2 zero#82 degen 105663
+08:02:30 +     65s DONE    w2 zero#82 degen 105663 result=True calls=3 t=0.0s [111/5130 done]
+08:02:30 +     65s START   w2 zero#89 default 105708
+08:02:30 +     65s DONE    w2 zero#89 default 105708 result=True calls=6 t=0.0s [112/5130 done]
+08:02:30 +     65s START   w2 zero#89 lexmin 105709
+08:02:30 +     65s DONE    w2 zero#89 lexmin 105709 result=True calls=6 t=0.1s [113/5130 done]
+08:02:30 +     65s START   w2 zero#89 lexmax 105710
+08:02:30 +     65s DONE    w6 zero#72 default 105589 result=True calls=1515 t=9.2s [114/5130 done]
+08:02:30 +     65s START   w6 zero#89 random 105711
+08:02:30 +     65s DONE    w2 zero#89 lexmax 105710 result=True calls=6 t=0.1s [115/5130 done]
+08:02:30 +     65s START   w2 zero#89 degen 105712
+08:02:30 +     66s DONE    w2 zero#89 degen 105712 result=True calls=6 t=0.1s [116/5130 done]
+08:02:30 +     66s START   w2 zero#102 default 105799
+08:02:30 +     66s DONE    w6 zero#89 random 105711 result=True calls=6 t=0.1s [117/5130 done]
+08:02:30 +     66s START   w6 zero#102 lexmin 105800
+08:02:35 +     70s DONE    w5 zero#65 degen 105544 result=True calls=1439 t=15.4s [118/5130 done]
+08:02:35 +     70s START   w5 zero#102 lexmax 105801
+08:02:38 +     74s DONE    w0 zero#72 lexmin 105590 result=True calls=1515 t=17.1s [119/5130 done]
+08:02:38 +     74s START   w0 zero#102 random 105802
+08:02:39 +     75s DONE    w2 zero#102 default 105799 result=True calls=1528 t=9.0s [120/5130 done]
+08:02:39 +     75s START   w2 zero#102 degen 105803
+08:02:39 +     75s DONE    w7 zero#25 random 105263 result=True calls=1967 t=58.2s [121/5130 done]
+08:02:39 +     75s START   w7 zero#109 default 105848
+08:02:39 +     75s DONE    w7 zero#109 default 105848 result=True calls=3 t=0.0s [122/5130 done]
+08:02:39 +     75s START   w7 zero#109 lexmin 105849
+08:02:40 +     75s DONE    w7 zero#109 lexmin 105849 result=True calls=3 t=0.0s [123/5130 done]
+08:02:40 +     75s START   w7 zero#109 lexmax 105850
+08:02:40 +     75s DONE    w7 zero#109 lexmax 105850 result=True calls=3 t=0.0s [124/5130 done]
+08:02:40 +     75s START   w7 zero#109 random 105851
+08:02:40 +     75s DONE    w7 zero#109 random 105851 result=True calls=3 t=0.1s [125/5130 done]
+08:02:40 +     75s START   w7 zero#109 degen 105852
+08:02:40 +     75s DONE    w7 zero#109 degen 105852 result=True calls=3 t=0.0s [126/5130 done]
+08:02:40 +     75s START   w7 zero#110 default 105855
+08:02:40 +     75s DONE    w8 zero#55 random 105473 result=True calls=1528 t=38.6s [127/5130 done]
+08:02:40 +     75s START   w8 zero#110 lexmin 105856
+08:02:40 +     75s DONE    w7 zero#110 default 105855 result=True calls=4 t=0.0s [128/5130 done]
+08:02:40 +     75s START   w7 zero#110 lexmax 105857
+08:02:40 +     75s DONE    w8 zero#110 lexmin 105856 result=True calls=4 t=0.0s [129/5130 done]
+08:02:40 +     75s START   w8 zero#110 random 105858
+08:02:40 +     75s DONE    w7 zero#110 lexmax 105857 result=True calls=4 t=0.0s [130/5130 done]
+08:02:40 +     75s START   w7 zero#110 degen 105859
+08:02:40 +     75s DONE    w7 zero#110 degen 105859 result=True calls=4 t=0.0s [131/5130 done]
+08:02:40 +     75s START   w7 zero#117 default 105904
+08:02:40 +     75s DONE    w8 zero#110 random 105858 result=True calls=4 t=0.1s [132/5130 done]
+08:02:40 +     75s START   w8 zero#117 lexmin 105905
+08:02:40 +     75s DONE    w4 zero#72 lexmax 105591 result=True calls=1559 t=18.1s [133/5130 done]
+08:02:40 +     75s START   w4 zero#117 lexmax 105906
+08:02:40 +     75s DONE    w7 zero#117 default 105904 result=True calls=74 t=0.3s [134/5130 done]
+08:02:40 +     75s START   w7 zero#117 random 105907
+08:02:40 +     76s DONE    w8 zero#117 lexmin 105905 result=True calls=74 t=0.6s [135/5130 done]
+08:02:40 +     76s START   w8 zero#117 degen 105908
+08:02:40 +     76s DONE    w4 zero#117 lexmax 105906 result=True calls=74 t=0.6s [136/5130 done]
+08:02:40 +     76s START   w4 zero#1 default 105092
+08:02:40 +     76s DONE    w4 zero#1 default 105092 result=True calls=2 t=0.0s [137/5130 done]
+08:02:40 +     76s START   w4 zero#1 lexmin 105093
+08:02:40 +     76s DONE    w4 zero#1 lexmin 105093 result=True calls=2 t=0.0s [138/5130 done]
+08:02:40 +     76s START   w4 zero#1 lexmax 105094
+08:02:40 +     76s DONE    w4 zero#1 lexmax 105094 result=True calls=2 t=0.0s [139/5130 done]
+08:02:40 +     76s START   w4 zero#1 random 105095
+08:02:40 +     76s DONE    w4 zero#1 random 105095 result=True calls=2 t=0.0s [140/5130 done]
+08:02:40 +     76s START   w4 zero#1 degen 105096
+08:02:40 +     76s DONE    w4 zero#1 degen 105096 result=True calls=2 t=0.0s [141/5130 done]
+08:02:40 +     76s START   w4 zero#5 default 105120
+08:02:41 +     76s DONE    w8 zero#117 degen 105908 result=True calls=74 t=0.5s [142/5130 done]
+08:02:41 +     76s START   w8 zero#5 lexmin 105121
+08:02:41 +     76s DONE    w7 zero#117 random 105907 result=True calls=74 t=1.1s [143/5130 done]
+08:02:41 +     76s START   w7 zero#5 lexmax 105122
+08:02:44 +     79s DONE    w3 zero#72 degen 105593 result=True calls=1515 t=14.7s [144/5130 done]
+08:02:44 +     79s START   w3 zero#5 random 105123
+08:02:44 +     79s DONE    w4 zero#5 default 105120 result=True calls=765 t=3.7s [145/5130 done]
+08:02:44 +     79s START   w4 zero#5 degen 105124
+08:02:47 +     82s DONE    w8 zero#5 lexmin 105121 result=True calls=765 t=5.9s [146/5130 done]
+08:02:47 +     82s START   w8 zero#6 default 105127
+08:02:47 +     82s DONE    w8 zero#6 default 105127 result=True calls=49 t=0.2s [147/5130 done]
+08:02:47 +     82s START   w8 zero#6 lexmin 105128
+08:02:47 +     82s DONE    w7 zero#5 lexmax 105122 result=True calls=765 t=5.9s [148/5130 done]
+08:02:47 +     82s START   w7 zero#6 lexmax 105129
+08:02:47 +     83s DONE    w8 zero#6 lexmin 105128 result=True calls=49 t=0.3s [149/5130 done]
+08:02:47 +     83s START   w8 zero#6 random 105130
+08:02:47 +     83s DONE    w7 zero#6 lexmax 105129 result=True calls=49 t=0.3s [150/5130 done]
+08:02:47 +     83s START   w7 zero#6 degen 105131
+08:02:48 +     83s DONE    w7 zero#6 degen 105131 result=True calls=49 t=0.3s [151/5130 done]
+08:02:48 +     83s START   w7 zero#8 default 105141
+08:02:48 +     83s DONE    w9 zero#65 random 105543 result=True calls=1439 t=35.9s [152/5130 done]
+08:02:48 +     83s START   w9 zero#8 lexmin 105142
+08:02:48 +     83s DONE    w8 zero#6 random 105130 result=True calls=49 t=0.6s [153/5130 done]
+08:02:48 +     83s START   w8 zero#8 lexmax 105143
+08:02:50 +     85s DONE    w4 zero#5 degen 105124 result=True calls=765 t=5.6s [154/5130 done]
+08:02:50 +     85s START   w4 zero#8 random 105144
+08:02:50 +     85s DONE    w6 zero#102 lexmin 105800 result=True calls=1528 t=19.6s [155/5130 done]
+08:02:50 +     85s START   w6 zero#8 degen 105145
+08:02:52 +     87s DONE    w7 zero#8 default 105141 result=True calls=894 t=4.4s [156/5130 done]
+08:02:52 +     87s START   w7 zero#13 default 105176
+08:02:52 +     87s DONE    w7 zero#13 default 105176 result=True calls=2 t=0.0s [157/5130 done]
+08:02:52 +     87s START   w7 zero#13 lexmin 105177
+08:02:52 +     87s DONE    w7 zero#13 lexmin 105177 result=True calls=2 t=0.0s [158/5130 done]
+08:02:52 +     87s START   w7 zero#13 lexmax 105178
+08:02:52 +     87s DONE    w7 zero#13 lexmax 105178 result=True calls=2 t=0.0s [159/5130 done]
+08:02:52 +     87s START   w7 zero#13 random 105179
+08:02:52 +     87s DONE    w7 zero#13 random 105179 result=True calls=2 t=0.0s [160/5130 done]
+08:02:52 +     87s START   w7 zero#13 degen 105180
+08:02:52 +     87s DONE    w7 zero#13 degen 105180 result=True calls=2 t=0.0s [161/5130 done]
+08:02:52 +     87s START   w7 zero#16 default 105197
+08:02:52 +     88s DONE    w5 zero#102 lexmax 105801 result=True calls=1528 t=17.5s [162/5130 done]
+08:02:52 +     88s START   w5 zero#16 lexmin 105198
+08:02:54 +     89s DONE    w2 zero#102 degen 105803 result=True calls=1528 t=14.6s [163/5130 done]
+08:02:54 +     89s START   w2 zero#16 lexmax 105199
+08:02:55 +     90s DONE    w9 zero#8 lexmin 105142 result=True calls=894 t=6.7s [164/5130 done]
+08:02:55 +     90s START   w9 zero#16 random 105200
+08:02:55 +     90s DONE    w8 zero#8 lexmax 105143 result=True calls=894 t=6.8s [165/5130 done]
+08:02:55 +     90s START   w8 zero#16 degen 105201
+08:02:55 +     90s DONE    w3 zero#5 random 105123 result=True calls=765 t=11.6s [166/5130 done]
+08:02:55 +     90s START   w3 zero#18 default 105211
+08:02:55 +     91s DONE    w3 zero#18 default 105211 result=True calls=2 t=0.0s [167/5130 done]
+08:02:55 +     91s START   w3 zero#18 lexmin 105212
+08:02:55 +     91s DONE    w3 zero#18 lexmin 105212 result=True calls=2 t=0.0s [168/5130 done]
+08:02:55 +     91s START   w3 zero#18 lexmax 105213
+08:02:55 +     91s DONE    w3 zero#18 lexmax 105213 result=True calls=2 t=0.0s [169/5130 done]
+08:02:55 +     91s START   w3 zero#18 random 105214
+08:02:55 +     91s DONE    w3 zero#18 random 105214 result=True calls=2 t=0.0s [170/5130 done]
+08:02:55 +     91s START   w3 zero#18 degen 105215
+08:02:55 +     91s DONE    w3 zero#18 degen 105215 result=True calls=2 t=0.0s [171/5130 done]
+08:02:55 +     91s START   w3 zero#26 default 105267
+08:02:55 +     91s DONE    w3 zero#26 default 105267 result=True calls=1 t=0.0s [172/5130 done]
+08:02:55 +     91s START   w3 zero#26 lexmin 105268
+08:02:55 +     91s DONE    w3 zero#26 lexmin 105268 result=True calls=1 t=0.0s [173/5130 done]
+08:02:55 +     91s START   w3 zero#26 lexmax 105269
+08:02:55 +     91s DONE    w3 zero#26 lexmax 105269 result=True calls=1 t=0.0s [174/5130 done]
+08:02:55 +     91s START   w3 zero#26 random 105270
+08:02:55 +     91s DONE    w3 zero#26 random 105270 result=True calls=1 t=0.0s [175/5130 done]
+08:02:55 +     91s START   w3 zero#26 degen 105271
+08:02:55 +     91s DONE    w3 zero#26 degen 105271 result=True calls=1 t=0.0s [176/5130 done]
+08:02:55 +     91s START   w3 zero#28 default 105281
+08:02:55 +     91s DONE    w3 zero#28 default 105281 result=True calls=1 t=0.0s [177/5130 done]
+08:02:55 +     91s START   w3 zero#28 lexmin 105282
+08:02:55 +     91s DONE    w3 zero#28 lexmin 105282 result=True calls=1 t=0.0s [178/5130 done]
+08:02:55 +     91s START   w3 zero#28 lexmax 105283
+08:02:55 +     91s DONE    w3 zero#28 lexmax 105283 result=True calls=1 t=0.0s [179/5130 done]
+08:02:55 +     91s START   w3 zero#28 random 105284
+08:02:55 +     91s DONE    w3 zero#28 random 105284 result=True calls=1 t=0.0s [180/5130 done]
+08:02:55 +     91s START   w3 zero#28 degen 105285
+08:02:55 +     91s DONE    w3 zero#28 degen 105285 result=True calls=1 t=0.0s [181/5130 done]
+08:02:55 +     91s START   w3 zero#31 default 105302
+08:02:56 +     91s DONE    w3 zero#31 default 105302 result=True calls=3 t=0.0s [182/5130 done]
+08:02:56 +     91s START   w3 zero#31 lexmin 105303
+08:02:56 +     91s DONE    w3 zero#31 lexmin 105303 result=True calls=3 t=0.0s [183/5130 done]
+08:02:56 +     91s START   w3 zero#31 lexmax 105304
+08:02:56 +     91s DONE    w3 zero#31 lexmax 105304 result=True calls=3 t=0.0s [184/5130 done]
+08:02:56 +     91s START   w3 zero#31 random 105305
+08:02:56 +     91s DONE    w3 zero#31 random 105305 result=True calls=3 t=0.0s [185/5130 done]
+08:02:56 +     91s START   w3 zero#31 degen 105306
+08:02:56 +     91s DONE    w3 zero#31 degen 105306 result=True calls=3 t=0.0s [186/5130 done]
+08:02:56 +     91s START   w3 zero#34 default 105323
+08:02:57 +     92s DONE    w6 zero#8 degen 105145 result=True calls=894 t=6.8s [187/5130 done]
+08:02:57 +     92s START   w6 zero#34 lexmin 105324
+08:02:57 +     92s DONE    w1 zero#72 random 105592 result=True calls=1515 t=32.5s [188/5130 done]
+08:02:57 +     92s START   w1 zero#34 lexmax 105325
+08:02:57 +     92s DONE    w7 zero#16 default 105197 result=True calls=928 t=4.6s [189/5130 done]
+08:02:57 +     92s START   w7 zero#34 random 105326
+08:03:00 +     95s DONE    w5 zero#16 lexmin 105198 result=True calls=928 t=7.4s [190/5130 done]
+08:03:00 +     95s START   w5 zero#34 degen 105327
+08:03:01 +     96s DONE    w3 zero#34 default 105323 result=True calls=961 t=4.9s [191/5130 done]
+08:03:01 +     96s START   w3 zero#35 default 105330
+08:03:01 +     97s DONE    w2 zero#16 lexmax 105199 result=True calls=928 t=7.4s [192/5130 done]
+08:03:01 +     97s START   w2 zero#35 lexmin 105331
+08:03:02 +     97s DONE    w8 zero#16 degen 105201 result=True calls=928 t=7.2s [193/5130 done]
+08:03:02 +     97s START   w8 zero#35 lexmax 105332
+08:03:03 +     99s DONE    w4 zero#8 random 105144 result=True calls=894 t=13.5s [194/5130 done]
+08:03:03 +     99s START   w4 zero#35 random 105333
+08:03:04 +     99s DONE    w1 zero#34 lexmax 105325 result=True calls=961 t=7.1s [195/5130 done]
+08:03:04 +     99s START   w1 zero#35 degen 105334
+08:03:04 +     99s DONE    w6 zero#34 lexmin 105324 result=True calls=961 t=7.4s [196/5130 done]
+08:03:04 +     99s START   w6 zero#38 default 105351
+08:03:04 +     99s DONE    w6 zero#38 default 105351 result=True calls=3 t=0.0s [197/5130 done]
+08:03:04 +     99s START   w6 zero#38 lexmin 105352
+08:03:04 +     99s DONE    w6 zero#38 lexmin 105352 result=True calls=3 t=0.0s [198/5130 done]
+08:03:04 +     99s START   w6 zero#38 lexmax 105353
+08:03:04 +     99s DONE    w6 zero#38 lexmax 105353 result=True calls=3 t=0.0s [199/5130 done]
+08:03:04 +     99s START   w6 zero#38 random 105354
+08:03:04 +     99s DONE    w6 zero#38 random 105354 result=True calls=3 t=0.0s [200/5130 done]
+08:03:04 +     99s START   w6 zero#38 degen 105355
+08:03:04 +     99s DONE    w6 zero#38 degen 105355 result=True calls=3 t=0.0s [201/5130 done]
+08:03:04 +     99s START   w6 zero#43 default 105386
+08:03:05 +    101s DONE    w3 zero#35 default 105330 result=True calls=945 t=4.7s [202/5130 done]
+08:03:05 +    101s START   w3 zero#43 lexmin 105387
+08:03:07 +    103s DONE    w5 zero#34 degen 105327 result=True calls=961 t=7.8s [203/5130 done]
+08:03:07 +    103s START   w5 zero#43 lexmax 105388
+08:03:09 +    104s DONE    w2 zero#35 lexmin 105331 result=True calls=945 t=7.7s [204/5130 done]
+08:03:09 +    104s START   w2 zero#43 random 105389
+08:03:09 +    104s DONE    w9 zero#16 random 105200 result=True calls=928 t=14.5s [205/5130 done]
+08:03:09 +    104s START   w9 zero#43 degen 105390
+08:03:09 +    105s DONE    w8 zero#35 lexmax 105332 result=True calls=945 t=7.5s [206/5130 done]
+08:03:09 +    105s START   w8 zero#46 default 105407
+08:03:09 +    105s DONE    w8 zero#46 default 105407 result=True calls=2 t=0.0s [207/5130 done]
+08:03:09 +    105s START   w8 zero#46 lexmin 105408
+08:03:09 +    105s DONE    w8 zero#46 lexmin 105408 result=True calls=2 t=0.0s [208/5130 done]
+08:03:09 +    105s START   w8 zero#46 lexmax 105409
+08:03:09 +    105s DONE    w8 zero#46 lexmax 105409 result=True calls=2 t=0.0s [209/5130 done]
+08:03:09 +    105s START   w8 zero#46 random 105410
+08:03:09 +    105s DONE    w8 zero#46 random 105410 result=True calls=2 t=0.0s [210/5130 done]
+08:03:09 +    105s START   w8 zero#46 degen 105411
+08:03:09 +    105s DONE    w8 zero#46 degen 105411 result=True calls=2 t=0.0s [211/5130 done]
+08:03:09 +    105s START   w8 zero#47 default 105414
+08:03:11 +    106s DONE    w1 zero#35 degen 105334 result=True calls=945 t=7.0s [212/5130 done]
+08:03:11 +    106s START   w1 zero#47 lexmin 105415
+08:03:11 +    106s DONE    w6 zero#43 default 105386 result=True calls=1259 t=6.7s [213/5130 done]
+08:03:11 +    106s START   w6 zero#47 lexmax 105416
+08:03:11 +    107s DONE    w7 zero#34 random 105326 result=True calls=961 t=14.6s [214/5130 done]
+08:03:11 +    107s START   w7 zero#47 random 105417
+08:03:12 +    108s DONE    w0 zero#102 random 105802 result=True calls=1528 t=34.2s [215/5130 done]
+08:03:12 +    108s START   w0 zero#47 degen 105418
+08:03:14 +    109s DONE    w8 zero#47 default 105414 result=True calls=922 t=4.7s [216/5130 done]
+08:03:14 +    109s START   w8 zero#51 default 105442
+08:03:14 +    110s DONE    w8 zero#51 default 105442 result=True calls=46 t=0.2s [217/5130 done]
+08:03:14 +    110s START   w8 zero#51 lexmin 105443
+08:03:15 +    110s DONE    w8 zero#51 lexmin 105443 result=True calls=46 t=0.3s [218/5130 done]
+08:03:15 +    110s START   w8 zero#51 lexmax 105444
+08:03:15 +    110s DONE    w8 zero#51 lexmax 105444 result=True calls=46 t=0.4s [219/5130 done]
+08:03:15 +    110s START   w8 zero#51 random 105445
+08:03:16 +    111s DONE    w8 zero#51 random 105445 result=True calls=46 t=0.8s [220/5130 done]
+08:03:16 +    111s START   w8 zero#51 degen 105446
+08:03:16 +    111s DONE    w8 zero#51 degen 105446 result=True calls=46 t=0.4s [221/5130 done]
+08:03:16 +    111s START   w8 zero#54 default 105463
+08:03:17 +    112s DONE    w3 zero#43 lexmin 105387 result=True calls=1259 t=11.6s [222/5130 done]
+08:03:17 +    112s START   w3 zero#54 lexmin 105464
+08:03:18 +    114s DONE    w6 zero#47 lexmax 105416 result=True calls=922 t=7.4s [223/5130 done]
+08:03:18 +    114s START   w6 zero#54 lexmax 105465
+08:03:19 +    114s DONE    w1 zero#47 lexmin 105415 result=True calls=922 t=7.8s [224/5130 done]
+08:03:19 +    114s START   w1 zero#54 random 105466
+08:03:19 +    114s DONE    w5 zero#43 lexmax 105388 result=True calls=1259 t=11.3s [225/5130 done]
+08:03:19 +    114s START   w5 zero#54 degen 105467
+08:03:19 +    114s DONE    w4 zero#35 random 105333 result=True calls=945 t=15.7s [226/5130 done]
+08:03:19 +    114s START   w4 zero#61 default 105512
+08:03:19 +    114s DONE    w4 zero#61 default 105512 result=True calls=2 t=0.0s [227/5130 done]
+08:03:19 +    114s START   w4 zero#61 lexmin 105513
+08:03:19 +    114s DONE    w4 zero#61 lexmin 105513 result=True calls=2 t=0.0s [228/5130 done]
+08:03:19 +    114s START   w4 zero#61 lexmax 105514
+08:03:19 +    114s DONE    w4 zero#61 lexmax 105514 result=True calls=2 t=0.0s [229/5130 done]
+08:03:19 +    114s START   w4 zero#61 random 105515
+08:03:19 +    114s DONE    w4 zero#61 random 105515 result=True calls=2 t=0.0s [230/5130 done]
+08:03:19 +    114s START   w4 zero#61 degen 105516
+08:03:19 +    114s DONE    w4 zero#61 degen 105516 result=True calls=2 t=0.0s [231/5130 done]
+08:03:19 +    114s START   w4 zero#63 default 105526
+08:03:20 +    115s DONE    w9 zero#43 degen 105390 result=True calls=1259 t=10.6s [232/5130 done]
+08:03:20 +    115s START   w9 zero#63 lexmin 105527
+08:03:21 +    116s DONE    w0 zero#47 degen 105418 result=True calls=922 t=8.4s [233/5130 done]
+08:03:21 +    116s START   w0 zero#63 lexmax 105528
+08:03:25 +    120s DONE    w8 zero#54 default 105463 result=True calls=1351 t=8.3s [234/5130 done]
+08:03:25 +    120s START   w8 zero#63 random 105529
+08:03:26 +    121s DONE    w4 zero#63 default 105526 result=True calls=1172 t=6.8s [235/5130 done]
+08:03:26 +    121s START   w4 zero#63 degen 105530
+08:03:28 +    123s HEARTBEAT 235/5130 done, 4885 queued, running:
+    w0      7s zero#63 lexmax 105528 | in oracle call 886 (lexmax), current oracle call running 0s | slowest call 0.02s (#758)
+    w1      9s zero#54 random 105466 | in oracle call 567 (random), current oracle call running 0s | slowest call 0.031s (#16)
+    w2     19s zero#43 random 105389 | in oracle call 1086 (random), current oracle call running 0s | slowest call 0.05s (#449)
+    w3     11s zero#54 lexmin 105464 | in oracle call 1336 (lexmin), current oracle call running -0s | slowest call 0.018s (#830)
+    w4      2s zero#63 degen 105530 | in oracle call 275 (degen), current oracle call running 0s | slowest call 0.017s (#239)
+    w5      9s zero#54 degen 105467 | in oracle call 1138 (degen), current oracle call running 0s | slowest call 0.016s (#375)
+    w6     10s zero#54 lexmax 105465 | procedure step (LP / decoding) after oracle call 1200 | slowest call 0.018s (#690)
+    w7     17s zero#47 random 105417 | in oracle call 922 (random), current oracle call running 0s | slowest call 0.07s (#284)
+    w8      3s zero#63 random 105529 | in oracle call 217 (random), current oracle call running 0s | slowest call 0.035s (#6)
+    w9      8s zero#63 lexmin 105527 | procedure step (LP / decoding) after oracle call 1041 | slowest call 0.017s (#1009)
+08:03:28 +    123s DONE    w7 zero#47 random 105417 result=True calls=922 t=16.6s [236/5130 done]
+08:03:28 +    123s START   w7 zero#64 default 105533
+08:03:28 +    123s DONE    w7 zero#64 default 105533 result=True calls=3 t=0.0s [237/5130 done]
+08:03:28 +    123s START   w7 zero#64 lexmin 105534
+08:03:28 +    123s DONE    w7 zero#64 lexmin 105534 result=True calls=3 t=0.0s [238/5130 done]
+08:03:28 +    123s START   w7 zero#64 lexmax 105535
+08:03:28 +    123s DONE    w7 zero#64 lexmax 105535 result=True calls=3 t=0.0s [239/5130 done]
+08:03:28 +    123s START   w7 zero#64 random 105536
+08:03:28 +    123s DONE    w7 zero#64 random 105536 result=True calls=3 t=0.0s [240/5130 done]
+08:03:28 +    123s START   w7 zero#64 degen 105537
+08:03:28 +    123s DONE    w7 zero#64 degen 105537 result=True calls=3 t=0.0s [241/5130 done]
+08:03:28 +    123s START   w7 zero#67 default 105554
+08:03:28 +    123s DONE    w7 zero#67 default 105554 result=True calls=1 t=0.0s [242/5130 done]
+08:03:28 +    123s START   w7 zero#67 lexmin 105555
+08:03:28 +    123s DONE    w7 zero#67 lexmin 105555 result=True calls=1 t=0.0s [243/5130 done]
+08:03:28 +    123s START   w7 zero#67 lexmax 105556
+08:03:28 +    123s DONE    w7 zero#67 lexmax 105556 result=True calls=1 t=0.0s [244/5130 done]
+08:03:28 +    123s START   w7 zero#67 random 105557
+08:03:28 +    123s DONE    w7 zero#67 random 105557 result=True calls=1 t=0.0s [245/5130 done]
+08:03:28 +    123s START   w7 zero#67 degen 105558
+08:03:28 +    123s DONE    w7 zero#67 degen 105558 result=True calls=1 t=0.0s [246/5130 done]
+08:03:28 +    123s START   w7 zero#74 default 105603
+08:03:28 +    123s DONE    w7 zero#74 default 105603 result=True calls=1 t=0.0s [247/5130 done]
+08:03:28 +    123s START   w7 zero#74 lexmin 105604
+08:03:28 +    124s DONE    w7 zero#74 lexmin 105604 result=True calls=1 t=0.0s [248/5130 done]
+08:03:28 +    124s START   w7 zero#74 lexmax 105605
+08:03:28 +    124s DONE    w7 zero#74 lexmax 105605 result=True calls=1 t=0.0s [249/5130 done]
+08:03:28 +    124s START   w7 zero#74 random 105606
+08:03:28 +    124s DONE    w7 zero#74 random 105606 result=True calls=1 t=0.0s [250/5130 done]
+08:03:28 +    124s START   w7 zero#74 degen 105607
+08:03:28 +    124s DONE    w7 zero#74 degen 105607 result=True calls=1 t=0.0s [251/5130 done]
+08:03:28 +    124s START   w7 zero#76 default 105617
+08:03:28 +    124s DONE    w7 zero#76 default 105617 result=True calls=1 t=0.0s [252/5130 done]
+08:03:28 +    124s START   w7 zero#76 lexmin 105618
+08:03:28 +    124s DONE    w7 zero#76 lexmin 105618 result=True calls=1 t=0.0s [253/5130 done]
+08:03:28 +    124s START   w7 zero#76 lexmax 105619
+08:03:28 +    124s DONE    w7 zero#76 lexmax 105619 result=True calls=1 t=0.0s [254/5130 done]
+08:03:28 +    124s START   w7 zero#76 random 105620
+08:03:28 +    124s DONE    w7 zero#76 random 105620 result=True calls=1 t=0.0s [255/5130 done]
+08:03:28 +    124s START   w7 zero#76 degen 105621
+08:03:28 +    124s DONE    w7 zero#76 degen 105621 result=True calls=1 t=0.0s [256/5130 done]
+08:03:28 +    124s START   w7 zero#77 default 105624
+08:03:28 +    124s DONE    w7 zero#77 default 105624 result=True calls=1 t=0.0s [257/5130 done]
+08:03:28 +    124s START   w7 zero#77 lexmin 105625
+08:03:28 +    124s DONE    w7 zero#77 lexmin 105625 result=True calls=1 t=0.0s [258/5130 done]
+08:03:28 +    124s START   w7 zero#77 lexmax 105626
+08:03:28 +    124s DONE    w7 zero#77 lexmax 105626 result=True calls=1 t=0.0s [259/5130 done]
+08:03:28 +    124s START   w7 zero#77 random 105627
+08:03:28 +    124s DONE    w7 zero#77 random 105627 result=True calls=1 t=0.0s [260/5130 done]
+08:03:28 +    124s START   w7 zero#77 degen 105628
+08:03:28 +    124s DONE    w7 zero#77 degen 105628 result=True calls=1 t=0.0s [261/5130 done]
+08:03:28 +    124s START   w7 zero#78 default 105631
+08:03:29 +    124s DONE    w3 zero#54 lexmin 105464 result=True calls=1351 t=12.2s [262/5130 done]
+08:03:29 +    124s START   w3 zero#78 lexmin 105632
+08:03:30 +    125s DONE    w9 zero#63 lexmin 105527 result=True calls=1172 t=9.9s [263/5130 done]
+08:03:30 +    125s START   w9 zero#78 lexmax 105633
+08:03:30 +    125s DONE    w6 zero#54 lexmax 105465 result=True calls=1351 t=11.8s [264/5130 done]
+08:03:30 +    125s START   w6 zero#78 random 105634
+08:03:31 +    126s DONE    w5 zero#54 degen 105467 result=True calls=1351 t=11.9s [265/5130 done]
+08:03:31 +    126s START   w5 zero#78 degen 105635
+08:03:31 +    126s DONE    w0 zero#63 lexmax 105528 result=True calls=1172 t=9.9s [266/5130 done]
+08:03:31 +    126s START   w0 zero#84 default 105673
+08:03:32 +    127s DONE    w2 zero#43 random 105389 result=True calls=1259 t=22.9s [267/5130 done]
+08:03:32 +    127s START   w2 zero#84 lexmin 105674
+08:03:35 +    131s DONE    w0 zero#84 default 105673 result=True calls=836 t=4.5s [268/5130 done]
+08:03:35 +    131s START   w0 zero#84 lexmax 105675
+08:03:36 +    131s DONE    w4 zero#63 degen 105530 result=True calls=1172 t=9.7s [269/5130 done]
+08:03:36 +    131s START   w4 zero#84 random 105676
+08:03:37 +    132s DONE    w7 zero#78 default 105631 result=True calls=1410 t=8.4s [270/5130 done]
+08:03:37 +    132s START   w7 zero#84 degen 105677
+08:03:38 +    134s DONE    w2 zero#84 lexmin 105674 result=True calls=802 t=6.5s [271/5130 done]
+08:03:38 +    134s START   w2 zero#85 default 105680
+08:03:38 +    134s DONE    w2 zero#85 default 105680 result=True calls=2 t=0.0s [272/5130 done]
+08:03:38 +    134s START   w2 zero#85 lexmin 105681
+08:03:38 +    134s DONE    w2 zero#85 lexmin 105681 result=True calls=2 t=0.0s [273/5130 done]
+08:03:38 +    134s START   w2 zero#85 lexmax 105682
+08:03:38 +    134s DONE    w2 zero#85 lexmax 105682 result=True calls=2 t=0.0s [274/5130 done]
+08:03:38 +    134s START   w2 zero#85 random 105683
+08:03:38 +    134s DONE    w2 zero#85 random 105683 result=True calls=2 t=0.0s [275/5130 done]
+08:03:38 +    134s START   w2 zero#85 degen 105684
+08:03:38 +    134s DONE    w2 zero#85 degen 105684 result=True calls=2 t=0.0s [276/5130 done]
+08:03:38 +    134s START   w2 zero#86 default 105687
+08:03:42 +    137s DONE    w3 zero#78 lexmin 105632 result=True calls=1410 t=12.6s [277/5130 done]
+08:03:42 +    137s START   w3 zero#86 lexmin 105688
+08:03:42 +    137s DONE    w9 zero#78 lexmax 105633 result=True calls=1410 t=12.4s [278/5130 done]
+08:03:42 +    137s START   w9 zero#86 lexmax 105689
+08:03:42 +    137s DONE    w0 zero#84 lexmax 105675 result=True calls=838 t=6.9s [279/5130 done]
+08:03:42 +    137s START   w0 zero#86 random 105690
+08:03:42 +    138s DONE    w1 zero#54 random 105466 result=True calls=1351 t=23.7s [280/5130 done]
+08:03:42 +    138s START   w1 zero#86 degen 105691
+08:03:43 +    138s DONE    w2 zero#86 default 105687 result=True calls=800 t=4.7s [281/5130 done]
+08:03:43 +    138s START   w2 zero#87 default 105694
+08:03:43 +    139s DONE    w5 zero#78 degen 105635 result=True calls=1410 t=12.8s [282/5130 done]
+08:03:43 +    139s START   w5 zero#87 lexmin 105695
+08:03:44 +    139s DONE    w7 zero#84 degen 105677 result=True calls=802 t=6.8s [283/5130 done]
+08:03:44 +    139s START   w7 zero#87 lexmax 105696
+08:03:45 +    140s DONE    w8 zero#63 random 105529 result=True calls=1172 t=20.0s [284/5130 done]
+08:03:45 +    140s START   w8 zero#87 random 105697
+08:03:48 +    143s DONE    w2 zero#87 default 105694 result=True calls=829 t=4.7s [285/5130 done]
+08:03:48 +    143s START   w2 zero#87 degen 105698
+08:03:49 +    144s DONE    w3 zero#86 lexmin 105688 result=True calls=800 t=7.2s [286/5130 done]
+08:03:49 +    144s START   w3 zero#88 default 105701
+08:03:49 +    144s DONE    w3 zero#88 default 105701 result=True calls=70 t=0.4s [287/5130 done]
+08:03:49 +    144s START   w3 zero#88 lexmin 105702
+08:03:49 +    145s DONE    w9 zero#86 lexmax 105689 result=True calls=800 t=7.3s [288/5130 done]
+08:03:49 +    145s START   w9 zero#88 lexmax 105703
+08:03:49 +    145s DONE    w4 zero#84 random 105676 result=True calls=808 t=13.8s [289/5130 done]
+08:03:49 +    145s START   w4 zero#88 random 105704
+08:03:50 +    145s DONE    w1 zero#86 degen 105691 result=True calls=800 t=7.2s [290/5130 done]
+08:03:50 +    145s START   w1 zero#88 degen 105705
+08:03:50 +    145s DONE    w3 zero#88 lexmin 105702 result=True calls=70 t=0.5s [291/5130 done]
+08:03:50 +    145s START   w3 zero#90 default 105715
+08:03:50 +    145s DONE    w3 zero#90 default 105715 result=True calls=4 t=0.0s [292/5130 done]
+08:03:50 +    145s START   w3 zero#90 lexmin 105716
+08:03:50 +    145s DONE    w9 zero#88 lexmax 105703 result=True calls=70 t=0.5s [293/5130 done]
+08:03:50 +    145s START   w9 zero#90 lexmax 105717
+08:03:50 +    145s DONE    w3 zero#90 lexmin 105716 result=True calls=4 t=0.0s [294/5130 done]
+08:03:50 +    145s START   w3 zero#90 random 105718
+08:03:50 +    145s DONE    w9 zero#90 lexmax 105717 result=True calls=4 t=0.0s [295/5130 done]
+08:03:50 +    145s START   w9 zero#90 degen 105719
+08:03:50 +    145s DONE    w9 zero#90 degen 105719 result=True calls=4 t=0.0s [296/5130 done]
+08:03:50 +    145s START   w9 zero#91 default 105722
+08:03:50 +    145s DONE    w3 zero#90 random 105718 result=True calls=4 t=0.1s [297/5130 done]
+08:03:50 +    145s START   w3 zero#91 lexmin 105723
+08:03:50 +    145s DONE    w9 zero#91 default 105722 result=True calls=2 t=0.0s [298/5130 done]
+08:03:50 +    145s START   w9 zero#91 lexmax 105724
+08:03:50 +    145s DONE    w3 zero#91 lexmin 105723 result=True calls=2 t=0.0s [299/5130 done]
+08:03:50 +    145s START   w3 zero#91 random 105725
+08:03:50 +    145s DONE    w9 zero#91 lexmax 105724 result=True calls=2 t=0.0s [300/5130 done]
+08:03:50 +    145s START   w9 zero#91 degen 105726
+08:03:50 +    145s DONE    w9 zero#91 degen 105726 result=True calls=2 t=0.0s [301/5130 done]
+08:03:50 +    145s START   w9 zero#94 default 105743
+08:03:50 +    145s DONE    w3 zero#91 random 105725 result=True calls=2 t=0.0s [302/5130 done]
+08:03:50 +    145s START   w3 zero#94 lexmin 105744
+08:03:50 +    145s DONE    w1 zero#88 degen 105705 result=True calls=70 t=0.6s [303/5130 done]
+08:03:50 +    145s START   w1 zero#94 lexmax 105745
+08:03:50 +    146s DONE    w4 zero#88 random 105704 result=True calls=70 t=1.0s [304/5130 done]
+08:03:50 +    146s START   w4 zero#94 random 105746
+08:03:50 +    146s DONE    w7 zero#87 lexmax 105696 result=True calls=829 t=6.8s [305/5130 done]
+08:03:50 +    146s START   w7 zero#94 degen 105747
+08:03:51 +    146s DONE    w5 zero#87 lexmin 105695 result=True calls=829 t=7.2s [306/5130 done]
+08:03:51 +    146s START   w5 zero#95 default 105750
+08:03:51 +    146s DONE    w5 zero#95 default 105750 result=True calls=3 t=0.0s [307/5130 done]
+08:03:51 +    146s START   w5 zero#95 lexmin 105751
+08:03:51 +    146s DONE    w5 zero#95 lexmin 105751 result=True calls=3 t=0.0s [308/5130 done]
+08:03:51 +    146s START   w5 zero#95 lexmax 105752
+08:03:51 +    146s DONE    w5 zero#95 lexmax 105752 result=True calls=3 t=0.0s [309/5130 done]
+08:03:51 +    146s START   w5 zero#95 random 105753
+08:03:51 +    146s DONE    w5 zero#95 random 105753 result=True calls=3 t=0.0s [310/5130 done]
+08:03:51 +    146s START   w5 zero#95 degen 105754
+08:03:51 +    146s DONE    w5 zero#95 degen 105754 result=True calls=3 t=0.0s [311/5130 done]
+08:03:51 +    146s START   w5 zero#96 default 105757
+08:03:55 +    150s DONE    w6 zero#78 random 105634 result=True calls=1410 t=24.6s [312/5130 done]
+08:03:55 +    150s START   w6 zero#96 lexmin 105758
+08:03:55 +    150s DONE    w2 zero#87 degen 105698 result=True calls=829 t=7.2s [313/5130 done]
+08:03:55 +    150s START   w2 zero#96 lexmax 105759
+08:03:56 +    151s DONE    w0 zero#86 random 105690 result=True calls=800 t=14.0s [314/5130 done]
+08:03:56 +    151s START   w0 zero#96 random 105760
+08:03:56 +    152s DONE    w9 zero#94 default 105743 result=True calls=1107 t=6.5s [315/5130 done]
+08:03:56 +    152s START   w9 zero#96 degen 105761
+08:03:58 +    153s DONE    w8 zero#87 random 105697 result=True calls=829 t=13.5s [316/5130 done]
+08:03:58 +    153s START   w8 zero#97 default 105764
+08:03:58 +    153s DONE    w8 zero#97 default 105764 result=True calls=2 t=0.0s [317/5130 done]
+08:03:58 +    153s START   w8 zero#97 lexmin 105765
+08:03:58 +    153s DONE    w8 zero#97 lexmin 105765 result=True calls=2 t=0.0s [318/5130 done]
+08:03:58 +    153s START   w8 zero#97 lexmax 105766
+08:03:58 +    153s DONE    w8 zero#97 lexmax 105766 result=True calls=2 t=0.0s [319/5130 done]
+08:03:58 +    153s START   w8 zero#97 random 105767
+08:03:58 +    153s DONE    w8 zero#97 random 105767 result=True calls=2 t=0.0s [320/5130 done]
+08:03:58 +    153s START   w8 zero#97 degen 105768
+08:03:58 +    153s DONE    w8 zero#97 degen 105768 result=True calls=2 t=0.0s [321/5130 done]
+08:03:58 +    153s START   w8 zero#101 default 105792
+08:03:58 +    153s DONE    w8 zero#101 default 105792 result=True calls=1 t=0.0s [322/5130 done]
+08:03:58 +    153s START   w8 zero#101 lexmin 105793
+08:03:58 +    153s DONE    w8 zero#101 lexmin 105793 result=True calls=1 t=0.0s [323/5130 done]
+08:03:58 +    153s START   w8 zero#101 lexmax 105794
+08:03:58 +    154s DONE    w8 zero#101 lexmax 105794 result=True calls=1 t=0.0s [324/5130 done]
+08:03:58 +    154s START   w8 zero#101 random 105795
+08:03:58 +    154s DONE    w8 zero#101 random 105795 result=True calls=1 t=0.0s [325/5130 done]
+08:03:58 +    154s START   w8 zero#101 degen 105796
+08:03:58 +    154s DONE    w8 zero#101 degen 105796 result=True calls=1 t=0.0s [326/5130 done]
+08:03:58 +    154s START   w8 zero#104 default 105813
+08:03:59 +    154s DONE    w5 zero#96 default 105757 result=True calls=1352 t=7.8s [327/5130 done]
+08:03:59 +    154s START   w5 zero#104 lexmin 105814
+08:04:00 +    155s DONE    w7 zero#94 degen 105747 result=True calls=1107 t=9.0s [328/5130 done]
+08:04:00 +    155s START   w7 zero#104 lexmax 105815
+08:04:00 +    155s DONE    w1 zero#94 lexmax 105745 result=True calls=1107 t=10.0s [329/5130 done]
+08:04:00 +    155s START   w1 zero#104 random 105816
+08:04:00 +    156s DONE    w3 zero#94 lexmin 105744 result=True calls=1107 t=10.4s [330/5130 done]
+08:04:00 +    156s START   w3 zero#104 degen 105817
+08:04:07 +    162s DONE    w9 zero#96 degen 105761 result=True calls=1352 t=10.7s [331/5130 done]
+08:04:07 +    162s START   w9 zero#105 default 105820
+08:04:07 +    163s DONE    w6 zero#96 lexmin 105758 result=True calls=1352 t=12.6s [332/5130 done]
+08:04:07 +    163s START   w6 zero#105 lexmin 105821
+08:04:07 +    163s DONE    w2 zero#96 lexmax 105759 result=True calls=1352 t=12.3s [333/5130 done]
+08:04:07 +    163s START   w2 zero#105 lexmax 105822
+08:04:08 +    163s DONE    w8 zero#104 default 105813 result=True calls=1672 t=9.3s [334/5130 done]
+08:04:08 +    163s START   w8 zero#105 random 105823
+08:04:08 +    164s DONE    w4 zero#94 random 105746 result=True calls=1107 t=17.9s [335/5130 done]
+08:04:08 +    164s START   w4 zero#105 degen 105824
+08:04:12 +    167s DONE    w5 zero#104 lexmin 105814 result=True calls=1672 t=13.2s [336/5130 done]
+08:04:12 +    167s START   w5 zero#108 default 105841
+08:04:12 +    167s DONE    w5 zero#108 default 105841 result=True calls=3 t=0.0s [337/5130 done]
+08:04:12 +    167s START   w5 zero#108 lexmin 105842
+08:04:12 +    167s DONE    w5 zero#108 lexmin 105842 result=True calls=3 t=0.0s [338/5130 done]
+08:04:12 +    167s START   w5 zero#108 lexmax 105843
+08:04:12 +    167s DONE    w5 zero#108 lexmax 105843 result=True calls=3 t=0.0s [339/5130 done]
+08:04:12 +    167s START   w5 zero#108 random 105844
+08:04:12 +    167s DONE    w5 zero#108 random 105844 result=True calls=3 t=0.0s [340/5130 done]
+08:04:12 +    167s START   w5 zero#108 degen 105845
+08:04:12 +    167s DONE    w5 zero#108 degen 105845 result=True calls=3 t=0.0s [341/5130 done]
+08:04:12 +    167s START   w5 zero#112 default 105869
+08:04:13 +    168s DONE    w7 zero#104 lexmax 105815 result=True calls=1672 t=13.2s [342/5130 done]
+08:04:13 +    168s START   w7 zero#112 lexmin 105870
+08:04:14 +    169s DONE    w9 zero#105 default 105820 result=True calls=1249 t=6.6s [343/5130 done]
+08:04:14 +    169s START   w9 zero#112 lexmax 105871
+08:04:15 +    170s DONE    w3 zero#104 degen 105817 result=True calls=1672 t=14.5s [344/5130 done]
+08:04:15 +    170s START   w3 zero#112 random 105872
+08:04:16 +    171s DONE    w5 zero#112 default 105869 result=True calls=873 t=4.3s [345/5130 done]
+08:04:16 +    171s START   w5 zero#112 degen 105873
+08:04:18 +    173s DONE    w4 zero#105 degen 105824 result=True calls=1249 t=9.5s [346/5130 done]
+08:04:18 +    173s START   w4 zero#115 default 105890
+08:04:18 +    173s DONE    w4 zero#115 default 105890 result=True calls=2 t=0.0s [347/5130 done]
+08:04:18 +    173s START   w4 zero#115 lexmin 105891
+08:04:18 +    173s DONE    w4 zero#115 lexmin 105891 result=True calls=2 t=0.0s [348/5130 done]
+08:04:18 +    173s START   w4 zero#115 lexmax 105892
+08:04:18 +    173s DONE    w4 zero#115 lexmax 105892 result=True calls=2 t=0.0s [349/5130 done]
+08:04:18 +    173s START   w4 zero#115 random 105893
+08:04:18 +    173s DONE    w4 zero#115 random 105893 result=True calls=2 t=0.0s [350/5130 done]
+08:04:18 +    173s START   w4 zero#115 degen 105894
+08:04:18 +    173s DONE    w4 zero#115 degen 105894 result=True calls=2 t=0.0s [351/5130 done]
+08:04:18 +    173s START   w4 zero#118 default 105911
+08:04:18 +    173s DONE    w4 zero#118 default 105911 result=True calls=49 t=0.2s [352/5130 done]
+08:04:18 +    173s START   w4 zero#118 lexmin 105912
+08:04:18 +    173s DONE    w2 zero#105 lexmax 105822 result=True calls=1249 t=10.8s [353/5130 done]
+08:04:18 +    173s START   w2 zero#118 lexmax 105913
+08:04:18 +    173s DONE    w0 zero#96 random 105760 result=True calls=1352 t=22.0s [354/5130 done]
+08:04:18 +    173s START   w0 zero#118 random 105914
+08:04:18 +    174s DONE    w4 zero#118 lexmin 105912 result=True calls=49 t=0.3s [355/5130 done]
+08:04:18 +    174s START   w4 zero#118 degen 105915
+08:04:18 +    174s DONE    w2 zero#118 lexmax 105913 result=True calls=49 t=0.3s [356/5130 done]
+08:04:18 +    174s START   w2 zero#119 default 105918
+08:04:18 +    174s DONE    w6 zero#105 lexmin 105821 result=True calls=1249 t=11.1s [357/5130 done]
+08:04:18 +    174s START   w6 zero#119 lexmin 105919
+08:04:19 +    174s DONE    w4 zero#118 degen 105915 result=True calls=49 t=0.3s [358/5130 done]
+08:04:19 +    174s START   w4 zero#119 lexmax 105920
+08:04:19 +    174s DONE    w0 zero#118 random 105914 result=True calls=49 t=0.6s [359/5130 done]
+08:04:19 +    174s START   w0 zero#119 random 105921
+08:04:19 +    175s DONE    w7 zero#112 lexmin 105870 result=True calls=873 t=6.7s [360/5130 done]
+08:04:19 +    175s START   w7 zero#119 degen 105922
+08:04:20 +    175s DONE    w9 zero#112 lexmax 105871 result=True calls=873 t=6.4s [361/5130 done]
+08:04:20 +    175s START   w9 pos#145 default 101060
+08:04:20 +    175s DONE    w9 pos#145 default 101060 result=True calls=3 t=0.1s [362/5130 done]
+08:04:20 +    175s START   w9 pos#145 lexmin 101061
+08:04:20 +    175s DONE    w9 pos#145 lexmin 101061 result=True calls=3 t=0.1s [363/5130 done]
+08:04:20 +    175s START   w9 pos#145 lexmax 101062
+08:04:20 +    176s DONE    w9 pos#145 lexmax 101062 result=True calls=3 t=0.1s [364/5130 done]
+08:04:20 +    176s START   w9 pos#145 random 101063
+08:04:20 +    176s DONE    w9 pos#145 random 101063 result=True calls=3 t=0.1s [365/5130 done]
+08:04:20 +    176s START   w9 pos#145 degen 101064
+08:04:20 +    176s DONE    w9 pos#145 degen 101064 result=True calls=3 t=0.1s [366/5130 done]
+08:04:20 +    176s START   w9 pos#261 default 101872
+08:04:23 +    178s DONE    w5 zero#112 degen 105873 result=True calls=873 t=6.7s [367/5130 done]
+08:04:23 +    178s START   w5 pos#261 lexmin 101873
+08:04:25 +    181s DONE    w2 zero#119 default 105918 result=True calls=1378 t=7.0s [368/5130 done]
+08:04:25 +    181s START   w2 pos#261 lexmax 101874
+08:04:27 +    182s DONE    w8 zero#105 random 105823 result=True calls=1249 t=19.3s [369/5130 done]
+08:04:27 +    182s START   w8 pos#261 random 101875
+08:04:27 +    183s DONE    w3 zero#112 random 105872 result=True calls=873 t=12.4s [370/5130 done]
+08:04:27 +    183s START   w3 pos#261 degen 101876
+08:04:28 +    183s DONE    w1 zero#104 random 105816 result=True calls=1672 t=27.8s [371/5130 done]
+08:04:28 +    183s START   w1 pos#402 default 102859
+08:04:28 +    183s HEARTBEAT 371/5130 done, 4749 queued, running:
+    w0      9s zero#119 random 105921 | in oracle call 713 (random), current oracle call running 0s | slowest call 0.023s (#693)
+    w1      0s pos#402 default 102859 | decode / final BNE checks | slowest call 0.037s (#808)
+    w2      3s pos#261 lexmax 101874 | in oracle call 121 (lexmax), current oracle call running 0s | slowest call 0.03s (#38)
+    w3      1s pos#261 degen 101876 | in oracle call 49 (degen), current oracle call running -0s | slowest call 0.019s (#39)
+    w4      9s zero#119 lexmax 105920 | in oracle call 1361 (lexmax), current oracle call running 0s | slowest call 0.015s (#537)
+    w5      5s pos#261 lexmin 101873 | in oracle call 226 (lexmin), current oracle call running 0s | slowest call 0.031s (#56)
+    w6     10s zero#119 lexmin 105919 | in oracle call 1373 (lexmin), current oracle call running 0s | slowest call 0.013s (#262)
+    w7      9s zero#119 degen 105922 | in oracle call 1258 (degen), current oracle call running 0s | slowest call 0.014s (#1003)
+    w8      1s pos#261 random 101875 | in oracle call 34 (random), current oracle call running 0s | slowest call 0.045s (#26)
+    w9      8s pos#261 default 101872 | in oracle call 776 (default), current oracle call running 0s | slowest call 0.018s (#615)
+08:04:28 +    184s DONE    w9 pos#261 default 101872 result=True calls=792 t=7.8s [372/5130 done]
+08:04:28 +    184s START   w9 pos#402 lexmin 102860
+08:04:29 +    184s DONE    w6 zero#119 lexmin 105919 result=True calls=1378 t=10.2s [373/5130 done]
+08:04:29 +    184s START   w6 pos#402 lexmax 102861
+08:04:29 +    184s DONE    w4 zero#119 lexmax 105920 result=True calls=1378 t=10.0s [374/5130 done]
+08:04:29 +    184s START   w4 pos#402 random 102862
+08:04:29 +    185s DONE    w7 zero#119 degen 105922 result=True calls=1378 t=10.0s [375/5130 done]
+08:04:29 +    185s START   w7 pos#402 degen 102863
+08:04:37 +    193s DONE    w1 pos#402 default 102859 result=True calls=824 t=9.3s [376/5130 done]
+08:04:37 +    193s START   w1 big#1 default 102992
+08:04:40 +    195s DONE    w0 zero#119 random 105921 result=True calls=1378 t=21.2s [377/5130 done]
+08:04:40 +    195s START   w0 big#1 lexmin 102993
+08:04:42 +    198s DONE    w3 pos#261 degen 101876 result=True calls=792 t=15.2s [378/5130 done]
+08:04:42 +    198s START   w3 big#1 lexmax 102994
+08:04:44 +    199s DONE    w5 pos#261 lexmin 101873 result=True calls=792 t=20.8s [379/5130 done]
+08:04:44 +    199s START   w5 big#1 random 102995
+08:04:46 +    202s DONE    w2 pos#261 lexmax 101874 result=True calls=792 t=21.0s [380/5130 done]
+08:04:46 +    202s START   w2 big#1 degen 102996
+08:04:46 +    202s DONE    w7 pos#402 degen 102863 result=True calls=824 t=17.0s [381/5130 done]
+08:04:46 +    202s START   w7 big#2 default 102999
+08:04:47 +    202s DONE    w7 big#2 default 102999 result=True calls=5 t=0.1s [382/5130 done]
+08:04:47 +    202s START   w7 big#2 lexmin 103000
+08:04:47 +    202s DONE    w7 big#2 lexmin 103000 result=True calls=5 t=0.1s [383/5130 done]
+08:04:47 +    202s START   w7 big#2 lexmax 103001
+08:04:47 +    202s DONE    w7 big#2 lexmax 103001 result=True calls=5 t=0.1s [384/5130 done]
+08:04:47 +    202s START   w7 big#2 random 103002
+08:04:47 +    202s DONE    w7 big#2 random 103002 result=True calls=5 t=0.2s [385/5130 done]
+08:04:47 +    202s START   w7 big#2 degen 103003
+08:04:47 +    202s DONE    w7 big#2 degen 103003 result=True calls=5 t=0.1s [386/5130 done]
+08:04:47 +    202s START   w7 big#4 default 103013
+08:04:47 +    203s DONE    w1 big#1 default 102992 result=True calls=836 t=10.2s [387/5130 done]
+08:04:47 +    203s START   w1 big#4 lexmin 103014
+08:04:53 +    208s DONE    w6 pos#402 lexmax 102861 result=True calls=824 t=24.0s [388/5130 done]
+08:04:53 +    208s START   w6 big#4 lexmax 103015
+08:04:54 +    209s DONE    w9 pos#402 lexmin 102860 result=True calls=824 t=25.6s [389/5130 done]
+08:04:54 +    209s START   w9 big#4 random 103016
+08:04:57 +    213s DONE    w7 big#4 default 103013 result=True calls=846 t=10.2s [390/5130 done]
+08:04:57 +    213s START   w7 big#4 degen 103017
+08:04:59 +    215s DONE    w8 pos#261 random 101875 result=True calls=792 t=32.6s [391/5130 done]
+08:04:59 +    215s START   w8 big#14 default 103083
+08:05:03 +    219s DONE    w4 pos#402 random 102862 result=True calls=824 t=34.7s [392/5130 done]
+08:05:03 +    219s START   w4 big#14 lexmin 103084
+08:05:09 +    225s DONE    w8 big#14 default 103083 result=True calls=870 t=10.0s [393/5130 done]
+08:05:09 +    225s START   w8 big#14 lexmax 103085
+08:05:11 +    226s DONE    w0 big#1 lexmin 102993 result=True calls=836 t=31.0s [394/5130 done]
+08:05:11 +    226s START   w0 big#14 random 103086
+08:05:11 +    226s DONE    w2 big#1 degen 102996 result=True calls=836 t=24.6s [395/5130 done]
+08:05:11 +    226s START   w2 big#14 degen 103087
+08:05:20 +    235s DONE    w1 big#4 lexmin 103014 result=True calls=846 t=32.5s [396/5130 done]
+08:05:20 +    235s START   w1 big#16 default 103097
+08:05:20 +    235s DONE    w1 big#16 default 103097 result=True calls=5 t=0.1s [397/5130 done]
+08:05:20 +    235s START   w1 big#16 lexmin 103098
+08:05:20 +    235s DONE    w1 big#16 lexmin 103098 result=True calls=5 t=0.1s [398/5130 done]
+08:05:20 +    235s START   w1 big#16 lexmax 103099
+08:05:20 +    236s DONE    w1 big#16 lexmax 103099 result=True calls=5 t=0.1s [399/5130 done]
+08:05:20 +    236s START   w1 big#16 random 103100
+08:05:20 +    236s DONE    w3 big#1 lexmax 102994 result=True calls=836 t=37.9s [400/5130 done]
+08:05:20 +    236s START   w3 big#16 degen 103101
+08:05:20 +    236s DONE    w1 big#16 random 103100 result=True calls=5 t=0.2s [401/5130 done]
+08:05:20 +    236s START   w1 big#21 default 103132
+08:05:20 +    236s DONE    w3 big#16 degen 103101 result=True calls=5 t=0.1s [402/5130 done]
+08:05:20 +    236s START   w3 big#21 lexmin 103133
+08:05:21 +    236s DONE    w7 big#4 degen 103017 result=True calls=846 t=23.6s [403/5130 done]
+08:05:21 +    236s START   w7 big#21 lexmax 103134
+08:05:28 +    243s DONE    w5 big#1 random 102995 result=True calls=836 t=44.1s [404/5130 done]
+08:05:28 +    243s START   w5 big#21 random 103135
+08:05:29 +    245s DONE    w1 big#21 default 103132 result=True calls=831 t=8.8s [405/5130 done]
+08:05:29 +    245s START   w1 big#21 degen 103136
+08:05:29 +    245s HEARTBEAT 405/5130 done, 4715 queued, running:
+    w0     18s big#14 random 103086 | in oracle call 416 (random), current oracle call running 0s | slowest call 0.106s (#72)
+    w1      0s big#21 degen 103136 | decode / final BNE checks | slowest call 0.02s (#30)
+    w2     18s big#14 degen 103087 | in oracle call 783 (degen), current oracle call running 0s | slowest call 0.048s (#144)
+    w3      9s big#21 lexmin 103133 | in oracle call 330 (lexmin), current oracle call running 0s | slowest call 0.039s (#269)
+    w4     26s big#14 lexmin 103084 | in oracle call 800 (lexmin), current oracle call running 0s | slowest call 0.059s (#333)
+    w5      1s big#21 random 103135 | in oracle call 45 (random), current oracle call running 0s | slowest call 0.044s (#29)
+    w6     37s big#4 lexmax 103015 | in oracle call 792 (lexmax), current oracle call running 0s | slowest call 0.078s (#553)
+    w7      8s big#21 lexmax 103134 | in oracle call 345 (lexmax), current oracle call running 0s | slowest call 0.04s (#5)
+    w8     20s big#14 lexmax 103085 | in oracle call 634 (lexmax), current oracle call running -0s | slowest call 0.057s (#132)
+    w9     35s big#4 random 103016 | in oracle call 663 (random), current oracle call running 0s | slowest call 0.104s (#393)
+08:05:31 +    246s DONE    w4 big#14 lexmin 103084 result=True calls=870 t=27.6s [406/5130 done]
+08:05:31 +    246s START   w4 big#22 default 103139
+08:05:31 +    246s DONE    w4 big#22 default 103139 result=True calls=2 t=0.0s [407/5130 done]
+08:05:31 +    246s START   w4 big#22 lexmin 103140
+08:05:31 +    246s DONE    w6 big#4 lexmax 103015 result=True calls=846 t=38.5s [408/5130 done]
+08:05:31 +    246s START   w6 big#22 lexmax 103141
+08:05:31 +    246s DONE    w4 big#22 lexmin 103140 result=True calls=2 t=0.1s [409/5130 done]
+08:05:31 +    246s START   w4 big#22 random 103142
+08:05:31 +    246s DONE    w6 big#22 lexmax 103141 result=True calls=2 t=0.1s [410/5130 done]
+08:05:31 +    246s START   w6 big#22 degen 103143
+08:05:31 +    246s DONE    w6 big#22 degen 103143 result=True calls=2 t=0.0s [411/5130 done]
+08:05:31 +    246s START   w6 big#23 default 103146
+08:05:31 +    246s DONE    w4 big#22 random 103142 result=True calls=2 t=0.1s [412/5130 done]
+08:05:31 +    246s START   w4 big#23 lexmin 103147
+08:05:31 +    246s DONE    w2 big#14 degen 103087 result=True calls=870 t=20.3s [413/5130 done]
+08:05:31 +    246s START   w2 big#23 lexmax 103148
+08:05:37 +    253s DONE    w8 big#14 lexmax 103085 result=True calls=870 t=27.8s [414/5130 done]
+08:05:37 +    253s START   w8 big#23 random 103149
+08:05:41 +    256s DONE    w6 big#23 default 103146 result=True calls=838 t=9.6s [415/5130 done]
+08:05:41 +    256s START   w6 big#23 degen 103150
+08:05:41 +    256s DONE    w9 big#4 random 103016 result=True calls=846 t=47.1s [416/5130 done]
+08:05:41 +    256s START   w9 big#24 default 103153
+08:05:42 +    258s DONE    w7 big#21 lexmax 103134 result=True calls=831 t=21.5s [417/5130 done]
+08:05:42 +    258s START   w7 big#24 lexmin 103154
+08:05:45 +    260s DONE    w3 big#21 lexmin 103133 result=True calls=854 t=24.5s [418/5130 done]
+08:05:45 +    260s START   w3 big#24 lexmax 103155
+08:05:46 +    261s DONE    w1 big#21 degen 103136 result=True calls=831 t=16.5s [419/5130 done]
+08:05:46 +    261s START   w1 big#24 random 103156
+08:05:50 +    265s DONE    w9 big#24 default 103153 result=True calls=884 t=9.0s [420/5130 done]
+08:05:50 +    265s START   w9 big#24 degen 103157
+08:05:51 +    266s DONE    w0 big#14 random 103086 result=True calls=870 t=40.0s [421/5130 done]
+08:05:51 +    266s START   w0 big#25 default 103160
+08:05:51 +    266s DONE    w0 big#25 default 103160 result=True calls=4 t=0.1s [422/5130 done]
+08:05:51 +    266s START   w0 big#25 lexmin 103161
+08:05:51 +    266s DONE    w0 big#25 lexmin 103161 result=True calls=4 t=0.1s [423/5130 done]
+08:05:51 +    266s START   w0 big#25 lexmax 103162
+08:05:51 +    267s DONE    w0 big#25 lexmax 103162 result=True calls=4 t=0.1s [424/5130 done]
+08:05:51 +    267s START   w0 big#25 random 103163
+08:05:51 +    267s DONE    w0 big#25 random 103163 result=True calls=4 t=0.1s [425/5130 done]
+08:05:51 +    267s START   w0 big#25 degen 103164
+08:05:51 +    267s DONE    w0 big#25 degen 103164 result=True calls=4 t=0.1s [426/5130 done]
+08:05:51 +    267s START   w0 big#27 default 103174
+08:05:54 +    269s DONE    w2 big#23 lexmax 103148 result=True calls=838 t=22.8s [427/5130 done]
+08:05:54 +    269s START   w2 big#27 lexmin 103175
+08:05:57 +    273s DONE    w4 big#23 lexmin 103147 result=True calls=838 t=26.1s [428/5130 done]
+08:05:57 +    273s START   w4 big#27 lexmax 103176
+08:05:57 +    273s DONE    w6 big#23 degen 103150 result=True calls=838 t=16.7s [429/5130 done]
+08:05:57 +    273s START   w6 big#27 random 103177
+08:05:58 +    274s DONE    w0 big#27 default 103174 result=True calls=771 t=6.8s [430/5130 done]
+08:05:58 +    274s START   w0 big#27 degen 103178
+08:06:00 +    275s DONE    w5 big#21 random 103135 result=True calls=831 t=32.0s [431/5130 done]
+08:06:00 +    275s START   w5 big#28 default 103181
+08:06:06 +    281s DONE    w9 big#24 degen 103157 result=True calls=884 t=16.1s [432/5130 done]
+08:06:06 +    281s START   w9 big#28 lexmin 103182
+08:06:08 +    283s DONE    w7 big#24 lexmin 103154 result=True calls=884 t=25.1s [433/5130 done]
+08:06:08 +    283s START   w7 big#28 lexmax 103183
+08:06:08 +    283s DONE    w5 big#28 default 103181 result=True calls=861 t=8.2s [434/5130 done]
+08:06:08 +    283s START   w5 big#28 random 103184
+08:06:09 +    284s DONE    w3 big#24 lexmax 103155 result=True calls=884 t=23.8s [435/5130 done]
+08:06:09 +    284s START   w3 big#28 degen 103185
+08:06:10 +    285s DONE    w0 big#27 degen 103178 result=True calls=771 t=11.9s [436/5130 done]
+08:06:10 +    285s START   w0 ties#22 default 103349
+08:06:11 +    287s DONE    w2 big#27 lexmin 103175 result=True calls=771 t=17.5s [437/5130 done]
+08:06:11 +    287s START   w2 ties#22 lexmin 103350
+08:06:14 +    289s DONE    w8 big#23 random 103149 result=True calls=838 t=36.5s [438/5130 done]
+08:06:14 +    289s START   w8 ties#22 lexmax 103351
+08:06:15 +    290s DONE    w4 big#27 lexmax 103176 result=True calls=771 t=17.7s [439/5130 done]
+08:06:15 +    290s START   w4 ties#22 random 103352
+08:06:16 +    292s DONE    w0 ties#22 default 103349 result=True calls=606 t=6.2s [440/5130 done]
+08:06:16 +    292s START   w0 ties#22 degen 103353

@@ -1,0 +1,24 @@
+ties#31 default BNE ok/ok calls 170 fallbacks 0 0.6s
+ties#31 lexmin BNE ok/ok calls 224 fallbacks 0 1.48s
+ties#31 lexmax BNE ok/ok calls 170 fallbacks 0 1.21s
+ties#31 degen BNE ok/ok calls 224 fallbacks 0 1.47s
+ties#31 random BNE ok/ok calls 169 fallbacks 0 2.26s
+identical#2 default BNE ok/ok calls 434 fallbacks 0 2.62s
+identical#2 lexmin BNE ok/ok calls 434 fallbacks 0 8.3s
+identical#2 lexmax BNE ok/ok calls 434 fallbacks 0 7.81s
+identical#2 degen BNE ok/ok calls 434 fallbacks 0 4.52s
+identical#45 default BNE ok/ok calls 318 fallbacks 0 1.51s
+identical#45 lexmin BNE ok/ok calls 318 fallbacks 0 3.2s
+identical#45 lexmax BNE ok/ok calls 318 fallbacks 0 2.67s
+identical#45 random BNE ok/ok calls 318 fallbacks 0 4.66s
+identical#45 degen BNE ok/ok calls 318 fallbacks 0 2.21s
+identical#2 random BNE ok/ok calls 434 fallbacks 1 118.29s
+size table (max over runs): m n degenerate | runs | max oracle calls | max query bits | max answer bits | max log2 Q1 | max input bits | max run s
+  3 3 - |    5 |   224 |   139 |   141 |     69 |   52 | 2.3
+  3 4 - |    5 |   318 |   321 |   324 |    158 |   98 | 4.7
+  4 5 - |    5 |   434 |   436 |   438 |    216 |  159 | 118.3
+exits: {'repair': 15}
+per oracle [runs, BNE ok, oracle calls, degenerate features in answers]: {'default': [3, 3, 922, 13881], 'lexmin': [3, 3, 976, 14050], 'lexmax': [3, 3, 922, 13803], 'degen': [3, 3, 976, 14293], 'random': [3, 3, 921, 13637]}
+audit bracket (Ex. mk-interp) outputs: []
+games_s1: 15 runs (3 games x 5 oracles + 0 audit-bracket), failures=0, timeouts=0, controls all caught, 130s
+rc=0

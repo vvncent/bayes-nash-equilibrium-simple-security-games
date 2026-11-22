@@ -1,0 +1,17 @@
+n=4: 370056 discriminating instances; testing the 15 longest
+succ=[(0, 1), (0, 2), (0, 3), ('yes', 'no')] run->yes in 15 steps | eps=3: OK (4.2s) | eps=-3: caught (0.2s) | eps=0: caught (4.5s)
+succ=[(0, 1), (0, 2), (0, 3), ('no', 'yes')] run->no in 15 steps | eps=3: OK (3.8s) | eps=-3: caught (0.3s) | eps=0: caught (3.7s)
+succ=[(0, 1), (0, 3), ('yes', 'no'), (0, 2)] run->yes in 15 steps | eps=3: OK (5.1s) | eps=-3: caught (0.3s) | eps=0: caught (4.5s)
+succ=[(0, 1), (0, 3), ('no', 'yes'), (0, 2)] run->no in 15 steps | eps=3: OK (3.4s) | eps=-3: caught (0.3s) | eps=0: caught (2.5s)
+succ=[(0, 2), (0, 3), (0, 1), ('yes', 'no')] run->yes in 15 steps | eps=3: OK (4.5s) | eps=-3: caught (0.4s) | eps=0: caught (5.9s)
+succ=[(0, 2), (0, 3), (0, 1), ('no', 'yes')] run->no in 15 steps | eps=3: OK (4.1s) | eps=-3: caught (0.3s) | eps=0: caught (2.6s)
+succ=[(0, 2), ('yes', 'no'), (0, 3), (0, 1)] run->yes in 15 steps | eps=3: OK (4.3s) | eps=-3: caught (0.2s) | eps=0: caught (5.8s)
+succ=[(0, 2), ('no', 'yes'), (0, 3), (0, 1)] run->no in 15 steps | eps=3: OK (3.5s) | eps=-3: caught (0.4s) | eps=0: caught (4.5s)
+succ=[(0, 3), (0, 2), ('yes', 'no'), (0, 1)] run->yes in 15 steps | eps=3: OK (6.5s) | eps=-3: caught (0.2s) | eps=0: caught (7.2s)
+succ=[(0, 3), (0, 2), ('no', 'yes'), (0, 1)] run->no in 15 steps | eps=3: OK (4.8s) | eps=-3: caught (0.3s) | eps=0: caught (3.7s)
+succ=[(0, 3), ('yes', 'no'), (0, 1), (0, 2)] run->yes in 15 steps | eps=3: OK (4.3s) | eps=-3: caught (0.1s) | eps=0: caught (7.0s)
+succ=[(0, 3), ('no', 'yes'), (0, 1), (0, 2)] run->no in 15 steps | eps=3: OK (2.5s) | eps=-3: caught (0.4s) | eps=0: caught (5.1s)
+succ=[(1, 'yes'), (1, 2), (1, 3), (1, 'no')] run->no in 15 steps | eps=3: OK (4.8s) | eps=-3: caught (0.2s) | eps=0: OK (6.8s)
+succ=[(1, 'yes'), (1, 3), (1, 'no'), (1, 2)] run->no in 15 steps | eps=3: OK (5.2s) | eps=-3: caught (0.1s) | eps=0: OK (7.6s)
+succ=[(1, 'no'), (1, 2), (1, 3), (1, 'yes')] run->yes in 15 steps | eps=3: OK (5.7s) | eps=-3: caught (0.3s) | eps=0: OK (7.5s)
+correct gadget all OK: True; swapped gadget all OK (should be False): False; tied gadget all OK: False

@@ -1,0 +1,6 @@
+halfspace formula/definition mismatches: 0
+protected-point violations: 0 of 349550 failed-test cuts
+continued-fraction recovery failures: 0
+pipeline d=2 exact recoveries: 12 {'calls': 313, 'tests': 10205, 'max_tests': 49, 'z_removed': 0}
+pipeline d=3 exact recoveries: 3 {'calls': 6077, 'tests': 544970, 'max_tests': 94, 'z_removed': 0}
+exit=0 runtime_s=144

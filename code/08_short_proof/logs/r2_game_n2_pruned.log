@@ -1,0 +1,13 @@
+[0] 0:(1,1) 1:(no,no) run->no types=62 targets=63 exist=sat wrong-decode=unsat 1.2s
+[1] 0:(1,yes) 1:(yes,0) run->yes types=62 targets=63 exist=sat wrong-decode=unsat 11.1s
+[2] 0:(yes,no) 1:(1,0) run->yes types=62 targets=63 exist=sat wrong-decode=unsat 8.6s
+[3] 0:(1,yes) 1:(no,no) run->no types=62 targets=63 exist=sat wrong-decode=unsat 2.8s
+[4] 0:(0,no) 1:(0,0) run->no types=62 targets=63 exist=sat wrong-decode=unsat 4.8s
+[5] 0:(0,no) 1:(1,yes) run->no types=62 targets=63 exist=sat wrong-decode=unsat 4.5s
+[6] 0:(no,1) 1:(0,no) run->no types=62 targets=63 exist=sat wrong-decode=unsat 1.4s
+[7] 0:(yes,no) 1:(0,1) run->yes types=62 targets=63 exist=sat wrong-decode=unsat 9.8s
+[8] 0:(yes,yes) 1:(yes,yes) run->yes types=62 targets=63 exist=sat wrong-decode=unsat 3.6s
+[9] 0:(0,no) 1:(0,1) run->no types=62 targets=63 exist=sat wrong-decode=unsat 1.2s
+[10] 0:(1,yes) 1:(0,1) run->yes types=62 targets=63 exist=sat wrong-decode=unsat 11.8s
+[11] 0:(no,1) 1:(1,yes) run->no types=62 targets=63 exist=sat wrong-decode=unsat 2.9s
+n=2 pruned: OK 12 of 12

@@ -1,0 +1,19 @@
+Part A: exact-search map, 200 random games x 200 pairs (g=1, tau=kappa=1/8)
+  game  0 m=4 n=2 delta=17/68849 worst ratio=68832/68849 (<= 1-delta: True) cube_ok=True kkt_ok=True
+  game  1 m=4 n=4 delta=33/3920833 worst ratio=3920800/3920833 (<= 1-delta: True) cube_ok=True kkt_ok=True
+  game  2 m=4 n=3 delta=99/4578707 worst ratio=4578608/4578707 (<= 1-delta: True) cube_ok=True kkt_ok=True
+  game  3 m=2 n=4 delta=561/25472209 worst ratio=25471648/25472209 (<= 1-delta: True) cube_ok=True kkt_ok=True
+  game  4 m=4 n=4 delta=11/487403 worst ratio=487392/487403 (<= 1-delta: True) cube_ok=True kkt_ok=True
+Part A PASS: l1 ratio <= 1-delta, F(cube) in cube, projection KKT on all sampled pairs
+
+Part B (control): same games with eta = 1; the test must find an l1 expansion somewhere
+  control game 0: worst ratio 36098477552/11154739375 > 1-delta=105616/105625 (expansion detected)
+Part B PASS: control violation detected
+
+Part C: exact-search.typ four-target example (fixed cutoff 1/4, tau=eta=1/100, d=1)
+  types with 2-point support: [(0, 1)] ; no clipping: True
+  J v (two step sizes) = ['97/24', '47/24', '-3', '-3']
+  (1-delta)^2 |Jv|^2 = 1219002777/32000000  vs |v|^2 = 38
+Part C PASS: reproduces J v = (4+1/24, 2-1/24, -3, -3) and l2 growth
+
+OVERALL PASS
