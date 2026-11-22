@@ -831,8 +831,10 @@ polynomial in $L$.
 \begin{proof}
 (a) A feasible point satisfies (i) and (ii) of Lemma~\ref{lem:cutoff}(b). Flows off the allowed
 edges are zero, and allowed edges are best responses whether or not their flow is positive.
-(b) The relaxed polyhedron is pointed, since all variables are boxed and $t\ge0$. So a minimum is
-attained at a vertex. By Cramer's rule, $t^*$ at a vertex is an integer divided by a basis determinant
+(b) The relaxed polyhedron contains no line, so it is pointed: every variable except $t$ is boxed, and
+$t$ is bounded below by $0$, so no direction can be followed both ways. It is nonempty (keep the outer
+boxes and take $t$ large), and $t\ge0$ bounds the objective, so a minimum is attained at a vertex.
+By Cramer's rule, $t^*$ at a vertex is an integer divided by a basis determinant
 of absolute value at most $N!\,H^N\le Q$. (c) The point gives a feasible relaxed solution with
 $t<g<1/Q$, so the optimum is $0$. Then (a) applies.
 \end{proof}
