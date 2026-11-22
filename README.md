@@ -19,6 +19,11 @@ polynomial time. The book does not settle this; it places the problem between tw
 **Where to start:** the preface and Chapter 1 of [main.pdf](main.pdf) (Section 1.4 explains the ideas without formulas), then
 Appendix C (the shortest complete hardness proof) and Section 5.2 (the main upper bound).
 
+**Read the proof of Theorem C.1 in `main.pdf` carefully before relying on the ARRIVAL-hardness claim.** In
+Section C.6, inspect the construction of `Red`, the definition of `Dec`, and the “Sizes” paragraph. Read
+these alongside the preprocessing in Section 2.3. These passages give the paper’s polynomial-time argument
+and explain why the decoder is correct for every equilibrium. [Theorem C.1 proof, printed p. 96](main.pdf#page=102) · [Section 2.3 preprocessing, printed p. 9](main.pdf#page=15)
+
 ## Contents
 
 - [main.pdf](main.pdf) -- the book. Appendix A gives, for every formal result, its verification status, the
@@ -55,12 +60,21 @@ lake exe cache get && lake build    # Lean v4.36.0 and Mathlib, pinned by lean-t
 The build ends by printing, for each main theorem, the axioms it uses; expect only `propext`, `Classical.choice`
 and `Quot.sound`. [lean/README.md](lean/README.md) records that output and maps each Lean theorem to the book.
 
-**What Lean does not show: polynomial running time.** Lean proves correctness (for example, every rational BNE of the
-constructed game decodes to the right ARRIVAL answer) and size and bit-length bounds. It does not prove that
-`Red` or `Dec` run in polynomial time. The Lean definitions of `Red` and `Dec` are specifications, not efficient code: as
-written, the preprocessing’s reachability test `liveWithin` explores both exits recursively and takes time
-exponential in `n` in the worst case. The book’s `Red` computes the same set of vertices by ordinary graph search in polynomial time;
-that this agrees with `liveWithin`, and all running-time claims, are checked only by AI referees.
+**Running time is proved on paper, not in Lean.** Lean does not assign a default computation cost to these
+definitions. Machine-checking a running-time bound would require a separate cost model and proof. The Lean
+development proves correctness and output-size bounds: each number in the constructed game has at most
+**`28(n+1)` bits**, and the whole game has at most **`8500(n+1)^5` bits**. The polynomial-time argument for
+`Red` and `Dec` is in the proof of Theorem C.1 (Section C.6, “Sizes”) and the preprocessing in Section 2.3,
+where one reverse graph search from the terminals suffices. AI referees checked these arguments. In Lean,
+the reachability specification `liveWithin` explores both exits recursively and can take exponential time
+in `n`. [Theorem C.1 proof](tex/chapters/appC-short-proof.tex#L382) · [Preprocessing](tex/chapters/ch2-prelim.tex#L191) · [Lean size bounds](lean/project/BssgProofs/Proofs/Size.lean)
+
+**Lean’s theorems cover rational equilibria. The book’s proof of Theorem C.1 covers all equilibria.**
+An exact BNE search algorithm for this reduction outputs rational coordinates, so the decoder only
+receives rational equilibria. Working over ℚ makes the Lean definitions and the decoder’s equality test
+exact and computable. Exact equality is not computable in general over arbitrary real inputs. The book’s
+correctness proof needs no rationality assumption: it shows that the load tested by the decoder is either
+0 or 1 for every equilibrium. [Theorem C.1 proof](tex/chapters/appC-short-proof.tex#L382)
 
 ## Scope (read before relying on anything here)
 
