@@ -16,7 +16,7 @@ then a fractional knapsack, which is described by one threshold, the \emph{cutof
 \begin{definition}[Bayesian simple security game~\cite{conitzer26}]\label{def:game}
 An instance is given, with all data explicitly listed as rationals written in binary, by
 \begin{itemize}[nosep]
-\item a finite set $T$ of targets and an integer number of resources $r$ with $0\le r\le|T|$;
+\item a nonempty finite set $T$ of targets and an integer number of resources $r$ with $0\le r\le|T|$;
 \item a finite set $\Theta$ of attacker types with a probability distribution $p$ on $\Theta$;
 \item for every target $t$, defender utilities $u_1^0(t)\le u_1^1(t)$;
 \item for every type $\theta$ and target $t$, attacker utilities $u_2^0(\theta,t)\ge u_2^1(\theta,t)$.
@@ -32,8 +32,11 @@ responses in expectation. \emph{Exact BNE search} asks for a BNE given by a rati
 the defender, written as an explicit support list of $r$-subsets with rational probabilities (by
 Lemma~\ref{lem:realize} a list of at most $n$ subsets suffices), and, for every type, a rational
 distribution over targets. As for (M1) below, a \emph{BNE oracle} is assumed to return a rational BNE
-of polynomial binary length in the length of its query; equivalently, running times are polynomial in
-the total length of the queries and answers. We write $L$ for the binary length of the input.
+with a fixed polynomial bound on its binary length in the query size. The
+bound includes a basic feasible equilibrium of every feasible support
+pattern followed by the realization of Lemma~\ref{lem:realize}. A
+reduction must run in polynomial time in its original input length on
+every admissible answer transcript. We write $L$ for that input length.
 
 \paragraph{Scope of the term.} Throughout, \emph{exact BNE} and \emph{exact BNE search} refer to Bayesian simple security games as in Definition~\ref{def:game}, never to general Bayesian games. General Bayesian games include two-player normal-form games (one type per player), so their equilibrium search is already $\mathsf{PPAD}$-hard. The model is simultaneous-move; it is not the Stackelberg (commitment) model that most of the security-games literature studies.
 
@@ -168,15 +171,15 @@ below together with Nash's theorem, and again from the P-matrix reduction of Cha
 
 \paragraph{Exact (M1) search.} This asks for one rational equilibrium. When we speak of an \emph{(M1)
 oracle} we assume, as usual for exact search problems, that it returns a rational equilibrium of
-polynomial binary length in the length of its query; equivalently, running times are polynomial in the
-total length of the queries and answers. Polynomial-length rational equilibria exist whenever an
-equilibrium exists, because each support pattern of (a)--(d) defines a rational polyhedron.
+bounded binary length under the same convention. Each feasible support
+pattern of (a)--(d) contains a basic feasible solution of polynomial
+encoding length by clearing denominators and applying Cramer's rule.
 
 \section{ARRIVAL and the continuous switch map}\label{sec:pre-arrival}
 
 \paragraph{Idea.} ARRIVAL is a deterministic walk on a graph whose vertices are switches that alternate
-between two exits. Asking where the walk ends is easy to state, and no polynomial algorithm for it is
-known. The walk can be relaxed to a continuous flow problem, in which each vertex splits its inflow
+between two exits. A terminating walk can take exponentially many steps.
+The walk can be relaxed to a continuous flow problem, in which each vertex splits its inflow
 between its two exits by the functions $h_0,h_1$ below; the fixed points of that relaxation still reveal
 the answer.
 
@@ -242,7 +245,7 @@ version is in $\mathrm{UP}\cap\mathrm{coUP}$, and its search version is in $\mat
 and in $\mathsf{UEOPL}$~\cite{ghhkms18,fgms18}. Haslebacher reduces it to computing an approximate fixed
 point of an $\ell_1$ contraction~\cite{haslebacher25}; it also reduces to Tarski fixed
 points~\cite{ghh21}. The known lower bounds are CC- and PL-hardness~\cite{manuell21}, which strengthen an earlier NL-hardness result. Known
-algorithms run in time $2^{O(\sqrt n\log n)}$~\cite{ghh21} and, fastest among published algorithms we know of,
+algorithms include the bounds $2^{O(\sqrt n\log n)}$~\cite{ghh21} and
 $2^{O(n^{1/3}\log^{2/3}n)}$~\cite{glm26}.
 
 \section{Reductions}\label{sec:pre-red}
@@ -318,7 +321,7 @@ solver may instead return a short certificate of that.
 
 \begin{theorem}[\cite{fgms18}, Theorem~34]\label{thm:fgms}
 \statuscited
-\textsc{PL-Contraction} is in $\mathsf{UEOPL}$ under promise-preserving reductions. In particular, an
+\textnormal{\textsc{PL-Contraction}} is in $\mathsf{UEOPL}$ under promise-preserving reductions. In particular, an
 instance with no violation solutions maps to a $\mathsf{UEOPL}$ instance with a unique line.
 \end{theorem}
 

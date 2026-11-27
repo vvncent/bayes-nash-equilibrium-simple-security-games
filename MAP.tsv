@@ -8,18 +8,20 @@ Example 3.8	ex:mk-interp	referee	01.run_tests,01.audit_cases	—
 Lemma 3.15 (rescaling)	lem:mk-rescale	Lean + referee		MarketGame.rescaleEquiv_proof, MarketGame.rescaleEquivBack_proof, MarketGame.nuSpec_proof
 Thm. 3.16 (embedding)	thm:mk-embed	referee	01.embed_n1_reduced,01.embed_n1_full,01.embed_n1_full_normalized,01.embed_n1_control,01.embed_n2_reduced,01.batch_n2,01.batch_n3,02.game_e2e_n2	MarketGame.decodeW_proof, MarketGame.omegaDecode_proof, MarketGame.composeBNE_proof (partly: decoding of every BNE; legality, prior bounds, lift and inverse maps for Γ_ω not formalized)
 Prop. 3.17	prop:mk-below-one	referee	01.slope_below_one	—
+Cor. 3.18	cor:mk-original-slopes	audited	—	—
 Thm. 4.1, Cor. 4.2	thm:A,cor:A	referee	01.embed_n1_full,01.embed_n1_reduced,01.embed_n2_reduced,01.batch_n2,01.batch_n3,02.game_e2e_n2,02.game_e2e_n2_swap,02.game_e2e_n2_epsm3,02.game_e2e_n3,02.game_e2e_n3_swap,02.verify_bits	— (the same hardness via the Appendix C reduction is Theorem C.1, main_proof)
 Lemma 4.3	lem:decoder	referee	08.floor_n2,08.floor	lemma1_proof (same statement, rational fixed points; different proof, using dohrau_lemma1_proof)
 Thm. 4.4, Thm. 4.11	thm:compose,thm:arrival-m1	referee	02.driver2_n2,02.driver2_n3,02.driver2_n4,02.random_n3,02.random_n4,02.market_e2e_n3,02.market_e2e_n4,02.eh_batch_n5,02.eh_batch_n6,02.eh_n5_selfloop_chain,02.eh_n5_coincident,02.eh_n5_bothterm_same,02.eh_n5_counter,02.eh_n5_unreach_cycle,02.eh_n5_deleted,02.eh_n6_counter,02.eh_n6_mixed,02.eh_swap_n2,02.eh_swap_n3	—
 Lemmas 4.5, 4.6	lem:incr,lem:alt	referee	02.ds_twocopy,02.incr_check,02.gadget_allK	lemma2_*_proof, lemma3_proof (Lemma 4.6: same statement for m ≥ 1, the case used; Lemma 4.5: all but "minimum gap exactly 6"; Lean proves gaps at least 6)
 Thm. 4.7, Lemmas 4.8-4.10	thm:gadget,lem:lp,lem:full,lem:flow	referee	02.gadget_allK,02.twocopy_gadget,02.twocopy_controls,02.gadget_cp_m1-3,02.gadget_cp_m4-6	—
-Remark 4.12	rem:ar-smallterm	audited	02.nocreation,02.nocreation_control	—
-Thm. 5.6, Cor. 5.8, Lemmas 5.1-5.5	plcp:thm:main,plcp:cor:ueopl	referee	plcp-check	MarketLCP.main_proof (Thm. 5.6 partly: for every solution of the perturbed LCP; existence, sizes and running time not formalized)
+Lemma 4.12	rem:ar-smallterm	audited	02.nocreation,02.nocreation_control	—
+Thm. 5.6, Cor. 5.8 (checks also cover Lemmas 5.1-5.5)	plcp:thm:main,plcp:cor:ueopl	referee	plcp-check	MarketLCP.main_proof (Thm. 5.6 partly: for every solution of the perturbed LCP; existence, sizes and running time not formalized)
 Lemmas 5.1-5.5	plcp:lem:formulation,plcp:lem:p0,plcp:lem:pmatrix,plcp:lem:bound,plcp:lem:gap	Lean + referee		MarketLCP.formulation_proof, MarketLCP.p0_proof, MarketLCP.pMatrix_proof, MarketLCP.uniformBound_proof, MarketLCP.gap_proof, MarketLCP.starSol_proof
 Example 5.7	plcp:ex:negative	Lean + referee	plcp-check	MarketLCP.negativeExample_proof
 Cor. 5.9	plcp:cor:arrival	referee	plcp-e2e-n1,plcp-e2e-side,plcp-e2e-sizes	—
+Switching-flow search decoder after Cor. 5.9	par:search-arrival	AI self-review 2026-11-26 UTC	08.floor_n2,08.floor	floor argument in lem:sh-decoder only
 Remark 5.10	plcp:cor:bne	referee		—
-Thm. 5.19 (game <=_m one P-matrix LCP, Section 5.2)	thm:direct-lcp,app-dl:thm:main	referee	07-source,07-referee	DirectLCP.main_proof (partly: via Section 5.2, 0<r<n, marginal coordinates; polynomial time, r in {0,n} and the decoder not formalized)
+Thm. 5.19 (game <=_m one P-matrix LCP, Section 5.2)	thm:direct-lcp,app-dl:thm:main	referee	07-source,07-referee	DirectLCP.main_proof (partly: 0<r<n, marginal coordinates; lean/README.md lists what is not formalized)
 Def. 5.13, Lemma 5.14	app-dl:def:bne,app-dl:lem:formulation	Lean + referee	07-source,07-referee	DirectLCP.formulationA_proof, DirectLCP.formulationB_proof
 Lemma 5.15 (P0)	app-dl:lem:p0	Lean + referee	07-source,07-referee	DirectLCP.p0_proof
 Lemma 5.16	app-dl:lem:pmatrix	Lean + referee	07-referee	DirectLCP.diagPerturbation_proof
@@ -29,6 +31,8 @@ Cor. 5.21	cor:direct-lcp	referee		—
 Prop. 5.11, Remark 5.12	plcp:prop:q0,plcp:rem:noray	referee	plcp-q0,plcp-lemke-rays	—
 Lemmas 5.22-5.26, Thm. 5.27, Thm. 5.28	lem:ueopl-pattern,lem:ueopl-proj,lem:ueopl-contraction,lem:ueopl-budget,lem:ueopl-decoding,thm:sx-game,thm:ueopl-main	referee	ueopl_seed1,ueopl_seed2,ueopl_seed3,ueopl_seed4,ueopl_seed5,ueopl_seed6,ueopl_seed7,ueopl_sanity,ueopl_teeth_s_column,ueopl_l1_contraction,subexp_sec6	Contraction.patternSoundness_proof, Contraction.repairThreshold_proof, Contraction.projectionLemma_proof, Contraction.constantsLemma_proof, Contraction.l1Contraction_proof, Contraction.fixedPointUnique_proof, Contraction.budgetAtFixedPoint_proof, Contraction.decodingResiduals_proof, Contraction.reduction_proof (partly: every fixed point decodes to an exact BNE in marginal coordinates; existence of a rational fixed point and the UEOPL step not formalized)
 Lemma 5.24, `All pairs' step	lem:ueopl-contraction	referee		—
+Remarks 5.29–5.31	rem:ueopl-cls,rem:ueopl-arrival,rem:ueopl-nopoly	AI self-review 2026-11-26 UTC	—	—
+Remark 5.32 (fixed target count)	rem:ueopl-fixeddim	AI self-review 2026-11-26 UTC	—	—
 Thm. 5.34, Thm. 5.33, Lemmas 5.35, 5.37, 5.38, 5.39	thm:sx-pl,thm:sx-main,lem:sx-sign,lem:sx-slice,lem:sx-protect,lem:sx-denom	referee	subexp_thm1,subexp_sec6,05.blocksearch_k2,05.blocksearch_k3,05.blocksearch_controls,05.blocksearch_quick	—
 Lemma 5.36	lem:sx-deep	cited		—
 Lemmas 5.40–5.45, Prop. 5.46	lem:sxm-interface,lem:sxm-vertex,lem:sxm-reserve,lem:sxm-transpose,lem:sxm-bounded,lem:sxm-game,prop:sx-min	referee		—
@@ -48,5 +52,4 @@ Lemmas C.6, C.7	lem:sh-cs,lem:sh-bigM	Lean + referee	08.lemmas	lemma4_proof, lem
 Lemma C.8	lem:sh-gadget	Lean + referee	08.gadget,08.gadget_smallM,08.gadget_eps1,08.gadget_eps55,08.gadget_Pbox2,08.r2_gadget	lemma6_proof
 Thm. C.9	thm:sh-compose	Lean + referee	08.composed_n1,08.composed_n2,08.composed_n2_eps0,08.composed_n2_lamM,08.composed_n3,08.composed_n4,08.r2_market_n1,08.r2_market_n2,08.r2_market_n3,08.r2_market_n3_300,08.r2_market_n4,08.r2_market_n4_60,08.r2_market_n5,08.r2_market_hard_n4,08.r2_market_hard_n5,08.r2_neg_n2_swap,08.r2_neg_n2_lam1_4,08.r2_neg_n2_eps0,08.r2_neg_n3_m1	theorem7_proof
 Lemma C.10	lem:sh-embed	Lean + referee	08.lemmas	lemma8_proof
-# unmapped
-01.balanced
+Balanced anchored market, end of Chapter 3	sec:mk-consequences	computational check	01.balanced	—

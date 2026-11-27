@@ -8,6 +8,14 @@ market \emph{gadget} that does exactly this. Inside the gadget, min-cost flow do
 of the Disser--Skutella counting network share a source, and the cheapest way to send $x$ units
 alternates between the copies, unit by unit, like a switch.
 
+The project's AI agents proposed the one-resource reduction and designed
+the switch using two copies of the counting network. In a later comment
+on the manuscript, quoted here from Lin's record, Conitzer wrote
+``Incidentally someone else suggested ARRIVAL here'' and linked to
+Jeonseong Kim's post~\cite{kim26}.
+Theorem~\ref{thm:A} specifies the transformation and proves correctness
+for every equilibrium of its output game.
+
 \begin{theorem}[ARRIVAL-hardness]\label{thm:A}
 \statusrefereed
 There are polynomial-time algorithms $\Red$ and $\Dec$ with the following properties. $\Red$ maps an
@@ -27,7 +35,7 @@ The same hardness result, for the shorter construction of Appendix~\ref{app:shor
 
 Theorem~\ref{thm:A} rules out a polynomial-time BNE algorithm only if ARRIVAL is not in $\mathsf P$, and
 it says nothing against subexponential algorithms. It is much weaker than $\mathsf{PPAD}$-hardness and does not imply it. It
-concerns \emph{exact} BNE: the decoder uses the exact equilibrium conditions. Since ARRIVAL is in
+concerns \emph{exact} BNE: the decoder uses the exact equilibrium conditions. Since the search version of ARRIVAL is in
 $\mathsf{UEOPL}$, every $\mathsf{UEOPL}$-hard problem is ARRIVAL-hard, and natural $\mathsf{UEOPL}$-hard problems are
 known~\cite{hmr26}, so this is not the first natural ARRIVAL-hard problem; it is a direct reduction
 from ARRIVAL to a problem that is not known to be $\mathsf{UEOPL}$-hard.
@@ -462,17 +470,16 @@ wide enough that the order survives every pair of port prices in the box.
 
 \begin{proof}
 A flow splits as $A+B=x$ with $0\le A,B\le2^m$, and its cost is at least
-$\Phi(A)=F_m(A)+F_m(x-A)+\theta(x-A)$, with equality exactly when both parts are min-cost. $\Phi$ is
-convex. Write $\delta_j$ for the $j$-th increment and $x=2z+\rho$.
-\begin{itemize}[nosep]
-\item For $\rho\in[0,1]$ take $A^*=z+\rho$. The right derivative of $\Phi$ at $A^*$ is at least
-$\delta_{z+1}-\delta_z-\theta\ge6-\theta>0$, or $A^*$ is the right end of the domain. The left derivative
-is $-\theta<0$ if $\rho>0$, and $\delta_z-\delta_{z+1}-\theta<0$ if $\rho=0$, or $A^*$ is the left end.
-\item For $\rho\in[1,2)$ take $A^*=z+1$. The right derivative is at least
-$\delta_{z+2}-\delta_{z+1}-\theta>0$, or $A^*$ is the right end. The left derivative is
-$\delta_{z+1}-\delta_{z+1}-\theta<0$.
-\end{itemize}
-So $A^*=h_0(x)$ is the unique minimizer, and $B=h_1(x)$.
+$F_m(A)+F_m(B)+\theta B$, attained by cheapest flows for both parts.
+Each copy offers $2^m$ unit intervals. If $\delta_j$ is the $j$-th
+marginal cost of copy A, the corresponding cost in B is $\delta_j+\theta$.
+The gap bound and $0<\theta<6$ strictly order the combined list as
+$\delta_1,\delta_1+\theta,\delta_2,\delta_2+\theta,\ldots$.
+Filling its cheapest $x$ units respects the interval order in each
+copy. Any different split uses some dearer interval while a cheaper
+one still has room, and transferring a positive amount lowers the cost.
+The unique split therefore gives $A=h_0(x)$ and $B=h_1(x)$, including
+$x=0$ and $x=K$.
 \end{proof}
 
 At $\theta=0$ or $\theta=6$ ties appear. For example, at $\theta=0$ every split is optimal for
@@ -574,7 +581,7 @@ it on its backward arcs, so its cost change is at most $\delta$ times the sum of
 forward arcs.
 
 \begin{lemma}[Flow structure]\label{lem:flow}
-Assume C3--C6, $x\in[0,c_p)$ and $(P_a,P_b)\in[0,\bar P]^2$. Substitute $\sigma_e=c_e-f_e$, which is
+Assume C3--C6, $\varepsilon\ge0$, $x\in[0,c_p)$ and $(P_a,P_b)\in[0,\bar P]^2$ (the construction uses $\varepsilon=3$). Substitute $\sigma_e=c_e-f_e$, which is
 valid by Lemma~\ref{lem:full}, and write $z_t$ for sink $t$'s port purchase and $y$ for $s$'s purchase
 of $p$. Up to a constant, (W) becomes the program (R):
 \[
@@ -698,8 +705,43 @@ by Theorem~\ref{thm:arrival-m1}. The game has one resource and defender payoffs 
 is as listed above.
 \end{proof}
 
-\begin{remark}[Smaller terminals]\label{rem:ar-smallterm}
-One can also show a ``no mass creation'' lemma: under S1 and S2, for $x\in[0,c_p)$, no gadget equilibrium
-at any port prices $\ge0$ has $A+B>x$. With it, $C_T>1$ suffices. This lemma has been checked exactly
-for small gadgets only, and the present proof does not use it.
-\end{remark}
+\begin{lemma}[No mass creation at arbitrary port prices]\label{rem:ar-smallterm}
+For the two-copy gadget of Section~\ref{sec:ar-gadget-market}, at any
+nonnegative port prices and any $0\le x<c_p$, its port purchases satisfy
+$A+B\le x$. Consequently any terminal capacity $C_T>1$ suffices in
+Theorem~\ref{thm:compose} for this construction, with the same terminal
+buyer and the same switch input capacities.
+The numerical choices in Section~\ref{sec:ar-gadget-market} give $M_p=M+1$.
+\end{lemma}
+\noindent{\small\itshape AI self-review, November 26, 2026 (UTC).
+Checked for arbitrary nonnegative port prices, including a negative net payoff at a port.}\par
+\begin{proof}
+Use the residual assignment LP of Lemma~\ref{lem:lp}. Lemma~\ref{lem:full}
+already applies at all nonnegative port prices. Substituting the head
+purchase $c_e-f_e$ therefore gives the objective and feasible inequalities
+of Lemma~\ref{lem:flow}, although the rewards $g_t=M-\varepsilon_t-P_t$
+can now be arbitrarily negative. We need only the upper bound $g_t\le M$.
+Let $y$ be the source's input purchase. If $y<c_p-x$ and the source has
+spare mass, increasing $y$ strictly improves the objective. Otherwise the
+source is full and has a positive outgoing flow. Follow positive arcs to
+the first internal vertex with surplus inflow or to a sink. All intermediate
+vertices can pass positive flow onward, and acyclicity makes the path finite.
+Remove a sufficiently small amount $\eta>0$ along it and add $\eta$ to $y$.
+If the path ends at a sink, decrease its port purchase only as far as needed
+to maintain $z_t\le\inflow(t)$. This costs at most $\eta\max(0,g_t)\le\eta M$,
+and all saved arc fees are nonnegative. The entry gains $\eta M_p>\eta M$.
+Optimality forces $y=c_p-x$. Thus the source outflow is at most $x$.
+Each internal outflow is at most its inflow and each sink purchase is at
+most its inflow. Summing yields $A+B\le x$.
+
+For the composition, $x_v<c_{p_v}$ follows from the switch input capacities
+regardless of any terminal price. A positive input price needs a source
+purchase, so it is at most $1$, and the single dispatch buyer spends its unit.
+Apply the inequality just proved at every switch and cancel all internal
+port purchases. The sum of external receipts at the terminals is at most
+$1$. If $P_T>1/2$, its dedicated buyer leaves and a terminal of capacity
+$C_T>1$ cannot fill. If $P_T<1/2$, that buyer alone demands more than $C_T$.
+Hence $P_T=1/2$, which puts every port in the required price box and
+completes the original proof. The earlier theorem's stated size bounds
+also follow using its original larger capacities.
+\end{proof}

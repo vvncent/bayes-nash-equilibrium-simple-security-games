@@ -164,6 +164,47 @@ def liveWithin : ℕ → Fin n → Bool
       | .inr _ => true
       | .inl w => liveWithin k w
 
+/-- `liveSetWithin k`: the switches with a path of at most `k` labelled edges to a terminal, computed
+stage by stage from stage `k - 1`, with `O(k · n²)` operations. Evaluating `liveWithin` by its own
+recursion can take `2^k` steps (both branches recurse when neither reaches a terminal). -/
+def liveSetWithin : ℕ → Finset (Fin n)
+  | 0 => ∅
+  | k + 1 =>
+    let prev := liveSetWithin k
+    univ.filter fun v => [false, true].any fun i =>
+      match I.succ v i with
+      | .inr _ => true
+      | .inl w => decide (w ∈ prev)
+
+/-- `liveWithin`, evaluated through `liveSetWithin`. -/
+def liveWithinFast (k : ℕ) (v : Fin n) : Bool := decide (v ∈ I.liveSetWithin k)
+
+theorem liveWithinFast_eq (k : ℕ) (v : Fin n) : I.liveWithinFast k v = I.liveWithin k v := by
+  induction k generalizing v with
+  | zero => simp [liveWithinFast, liveSetWithin, liveWithin]
+  | succ k ih =>
+    have key : ∀ i : Bool,
+        (match I.succ v i with
+          | .inr _ => true
+          | .inl w => decide (w ∈ I.liveSetWithin k)) =
+        (match I.succ v i with
+          | .inr _ => true
+          | .inl w => I.liveWithin k w) := by
+      intro i
+      rcases I.succ v i with w | t
+      · exact ih w
+      · rfl
+    simp only [liveWithinFast, liveSetWithin, liveWithin, Finset.mem_filter, Finset.mem_univ, true_and,
+      Bool.decide_eq_true]
+    exact congrArg (List.any [false, true]) (funext key)
+
+/-- Compiled code for `liveWithin` (and so for `redirect`, `preprocess`, `Red` and `Dec`) uses
+`liveWithinFast`; proofs still unfold the definition of `liveWithin`. -/
+@[csimp] theorem liveWithin_eq_liveWithinFast :
+    @ArrivalInstance.liveWithin = @ArrivalInstance.liveWithinFast := by
+  funext n I k v
+  exact (I.liveWithinFast_eq k v).symm
+
 /-- Preprocessed: every switch has a path of length `≤ n` to a terminal. -/
 def Preprocessed : Prop := ∀ v, I.liveWithin n v = true
 

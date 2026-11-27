@@ -31,8 +31,8 @@ source payoffs with an arbitrary positive slope and asserted the coverage bound 
 the hypothesis $b_{ij}\ge1$. The embedding referee refuted that restatement with the example of
 Proposition~\ref{prop:mk-below-one}. The book follows the referee.
 \item The embedding referee also suggested replacing $S$ by $(1+(m+n)A)/\min(1,\min_{ij}b_{ij})$, which
-would avoid the row rescaling, and re-traced both directions with that choice by hand. This is a proof
-sketch, not machine-checked, and nothing relies on it.
+would avoid the row rescaling, and re-traced both directions with that choice by hand.
+Corollary~\ref{cor:mk-original-slopes} gives the full argument for this alternative.
 \item The row rescaling (Lemma~\ref{lem:mk-rescale}) first appeared only in an internally audited source; review~5 checked it, so Theorem~\ref{thm:mk-main} and Corollary~\ref{cor:mk-one-resource} now carry the referee tag.
 \end{itemize}
 
@@ -178,6 +178,8 @@ from the log.
 \item The proof of Theorem~\ref{artlck:thm:gn} is condensed from the original write-up; in review~5 a referee re-derived every step of the condensed proof.
 \item Review~6 (an AI referee, fresh context, verdict ``correct with minor issues'') reread~\cite[\S6.2]{lck16} and~\cite[\S3.1, Lemma~1]{ds15} against the chapter and the implementation, and found no wrong step and no undocumented divergence. Applied: Theorems~\ref{artlck:thm:main} and~\ref{artlck:thm:gn}(b) now state the hypothesis that the run reaches the budget, which~\cite[Theorem~5]{lck16} guarantees only with the exact largest $\Delta$ in Algorithm~4; the coverage claim for Algorithm~4 is credited to its line~21 instead of~\cite[Lemma~5]{lck16}; Algorithm~2's min-cost flow saturates the source and sink edges; Lemma~\ref{artlck:lem:ds} cites~\cite{ds15} Lemma~1 with $a=0$. Its own checks ($\Gamma_h$ for $h\le5$ under four rules, $G_n$ for $n\le4$ window by window, the Disser--Skutella costs for $n\le9$, z3 uniqueness for $h\le3$ and $n\le3$) all passed. It did not check~\cite[Lemma~8, Theorem~5]{lck16}.
 \end{itemize}
+
+\paragraph{Feedback from V.~Conitzer (after release).} Three corrections, applied: in the proof of Lemma~\ref{lem:sx-denom}, $\log H$ (not $H$) and $M$ are polynomially bounded, which is all the proof uses; Lemma~\ref{lem:flow} now states the assumption $\varepsilon\ge0$ that its proof uses through Lemma~\ref{lem:full}; and Remark~\ref{rem:ueopl-arrival} and Chapter~\ref{ch:open} now describe the separation of~\cite{goos22} as relative to an oracle (decision-tree reductions), a barrier to black-box reductions rather than an unconditional obstacle.
 
 \section{Ambiguities in the published LCK pseudocode}
 

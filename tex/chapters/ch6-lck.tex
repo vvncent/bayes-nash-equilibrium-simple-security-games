@@ -452,8 +452,12 @@ one affine piece of $P_{A_h}$; (4) by Lemma~\ref{artlck:lem:fold}(d) there are $
 
 \begin{proof}[Proof of Theorem~\ref{artlck:thm:main}]
 $\Gamma_h$ has positive defender gains and positive attacker slopes, so it is a valid input to the
-algorithm. Take any run. By Lemma~\ref{artlck:lem:seg}, the successful calls cover $[0,1]$, and hence
-$[0,3/8]=q([0,D])$, by closed straight segments with fixed allocations. On the part of a segment with
+algorithm. Take any run reaching budget $3/8$ and stop it at the first
+successful call reaching or crossing that budget. Each successful call
+in this prefix traverses a closed straight segment with a fixed allocation
+by the segment argument of Lemma~\ref{artlck:lem:seg}. The other calls
+leave coverage fixed, so these segments cover $[0,3/8]=q([0,D])$.
+On the part of a segment with
 budget in $(0,3/8]$, Lemma~\ref{artlck:lem:unique} says that every point equals $P(y)$ with
 $y=q^{-1}(\text{budget})$. The terminal coordinate of $P(y)$ is $y$ itself. So along a segment both $y$
 and the $A_h$-coordinate $P_{A_h}(y)$ are affine in the segment parameter, and $P_{A_h}$ is affine in $y$
@@ -465,8 +469,9 @@ Algorithms~2--4.
 \end{proof}
 
 \begin{proof}[Proof of Corollary~\ref{artlck:cor:size}]
-The shifts $D/2^{s+1}=1/(4N2^{s+1})$ and the values $S(0)$ are multiples of $1/(4N2^{h+1})$, and their
-absolute values are at most $D$. So every intercept $4-C_{g\ell}$ has $O(h+\log N)=O(h)$ bits. At each
+Each shift $D/2^{s+1}=1/(4N2^{s+1})$ and each value $S(0)$ is an
+integer multiple of $1/(4N2^{h+1})$ with magnitude at most $D$.
+Thus every intercept $4-C_{g\ell}$ has $O(h+\log N)=O(h)$ bits. At each
 gate, $R\leftarrow R+1+(\#\mathrm{gen})(R+2)\le3R+5$, so $R+c$ grows by at most a constant factor per gate
 for a suitable constant $c$. With $2h+1$ gates, $M=2^{O(h)}$. So masses, weights, priors $K_g/M$ and
 defender gains $M/c_j$ all have $O(h)$ bits. The table has $(5h+2)(2h+2)=O(h^2)$ entries, so $L=O(h^3)$

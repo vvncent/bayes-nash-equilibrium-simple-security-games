@@ -12,7 +12,8 @@ game}.
 A \emph{Bayes--Nash equilibrium} (BNE) is a mixed strategy for the defender and one for every attacker
 type such that nobody can gain by deviating. Nash's theorem says that one exists. Conitzer's question
 is whether one can be \emph{computed} in time polynomial in the size of the explicitly listed
-payoff tables~\cite{conitzer26}. The question has been open since 2015.
+payoff tables. Conitzer posed the question for the Fall 2015 Simons Institute
+program on Economics and Computation~\cite{conitzer26}.
 
 \section{A small example}\label{sec:intro-example}
 
@@ -64,11 +65,13 @@ $\lambda=1/2$ and $d_j=1$ (Lemma~\ref{lem:mk-box-cutoff}).}
 \label{fig:example-market}
 \end{figure}
 
-The example shows the two forces of every equilibrium. The \emph{coverage} makes the attackers
-indifferent, and the \emph{attack loads} make the defender indifferent. Read coverage as a price and
-attack load as demand: target~$j$ is a good, each type is a buyer with a mass equal to its prior,
-covering a target makes it ``more expensive'' to attack, and the defender adjusts the prices until the
-demand for each partly covered good equals a common level (here $1/2$). This market reading is the
+At equilibrium each type attacks only targets of maximum payoff. A type
+that mixes must be indifferent among its chosen targets. The defender's
+marginal gain on target $j$ is its attack load $w_j$ times its payoff
+gain $d_j$. This product is the same on every partly covered target.
+In the example both $d_j$ equal one, so the loads themselves equal $1/2$.
+Read coverage as a price, attack load as demand, and each type as a buyer
+with mass equal to its prior. This market reading is the
 starting point of the whole book (Chapter~\ref{ch:market}).
 
 \section{Why the question is hard to settle}
@@ -84,9 +87,8 @@ equilibrium of the game (Example~\ref{ex:mk-interp}). On the other hand, the pro
 the coverage, and the defender's best response is a fractional knapsack.
 
 The results of this book place the problem between two known landmarks. From below it is at least as
-hard as ARRIVAL, a zero-player game whose complexity is itself open. From above it lies in
-$\mathsf{UEOPL}$, a class of total search problems that is also the best known class upper bound for
-ARRIVAL.
+hard as deciding ARRIVAL, a zero-player graph game. From above, exact
+equilibrium search lies in the total search class $\mathsf{UEOPL}$.
 Figure~\ref{fig:landscape} shows the picture.
 
 \begin{figure}[t]
@@ -106,10 +108,10 @@ Figure~\ref{fig:landscape} shows the picture.
   \draw[arr,vref,{Stealth[length=2.5mm]}-{Stealth[length=2.5mm]}] (bne) -- node[lab]{$\equiv_T$ (Ch.~\ref{ch:market})} (m1);
   \draw[arr,vpartial,line width=1.3pt,dashed] (m1) -- node[lab]{$\le_m$ (Ch.~\ref{ch:upper})} (plcp);
   \draw[arr,vpartial,line width=1.3pt,dashed] (bne) -- node[lab,pos=0.55]{$\le_m$, direct (Ch.~\ref{ch:upper})} (plcp);
-  \draw[arr,vref] (arr.north) |- node[lab,pos=0.75]{ARRIVAL $\le_m$ P-LCP, new (Cor.~\ref{plcp:cor:arrival})} (10.3,1.1) |- (plcp.east);
+  \draw[arr,vref] (arr.north) |- node[lab,pos=0.75]{ARRIVAL $\le_m$ P-LCP (Cor.~\ref{plcp:cor:arrival})} (10.3,1.1) |- (plcp.east);
   \draw[arr,vpartial,line width=1.3pt,dashed] (bne) -- node[lab,pos=0.45]{$\in$, one $\ell_1$ contraction (Ch.~\ref{ch:upper})} (ueopl);
   \draw[arr,gray] (plcp) to[out=-90,in=0] node[lab,pos=0.4]{$\in$ \cite{fgms18}} (ueopl);
-  \draw[arr,gray] (arr) to[out=-90,in=180] node[lab,pos=0.6]{$\in$ \cite{ghhkms18,fgms18}} (ueopl);
+  \draw[arr,gray] (arr) to[out=-90,in=180] node[lab,pos=0.6]{search version $\in$ \cite{ghhkms18,fgms18}} (ueopl);
   \draw[arr,gray] (ueopl) -- node[lab,right=2pt,fill=none]{$\subseteq$} (eopl);
   \node[draw,align=left,font=\small,anchor=north west] at (-1.2,-6.7) {%
     \textbf{Algorithms for exact BNE} ($n$ targets, $m$ types, input length $L$):\\
@@ -142,9 +144,9 @@ half of them each way, with the extra one on the first exit. Allowing $x$ to be 
 rule into a continuous ``splitting'' rule, and every flow that splits consistently at every switch, even
 a fractional one, still reveals where the token ends (Section~\ref{sec:pre-arrival},
 Lemma~\ref{lem:decoder}). Chapter~\ref{ch:arrival} builds, for each switch, a small market whose
-equilibria split the flow they receive by exactly this rule. The difficulty is that market equilibria
-are smooth and look convex, while alternation is a parity effect. The trick is a network of Disser and
-Skutella in which the cheapest way to send each further unit of flow costs more than the last. Two
+equilibria split the flow they receive by exactly this rule. To represent the parity of a visit
+count using affine market offers, we use a network of Disser and Skutella in which
+the cheapest way to send each further unit of flow costs more than the last. Two
 copies of it share one source; whichever copy is currently cheaper takes the next unit, and the two
 take turns, like a switch. Glued together along the graph, the gadgets give a market, and hence a game,
 in which every equilibrium is a consistent splitting flow. An exact equilibrium therefore answers the
@@ -154,18 +156,22 @@ ARRIVAL instance (Chapter~\ref{ch:arrival}).
 this quantity is zero or that constraint is tight'': a type attacks a target only if the target is best
 for it, a target is covered only if it draws enough attack, and the budget is used up. A system of such
 conditions is a linear complementarity problem. Attacks and coverage are coupled through one table of
-type--target pairs, read once from the attackers' side and once from the defender's. Because of this
-mirror structure every principal minor of the problem's matrix is a product of two determinants of the
-same sign, so none is negative. A tiny perturbation then makes every one positive: the matrix becomes a
-P-matrix, the problem has exactly one solution, and one linear program turns the pattern of that solution
-into an exact equilibrium. Problems with this kind of unique answer lie in $\mathsf{UEOPL}$
+type--target pairs, read once from the attackers' side and once from the defender's. The matrix has two
+off-diagonal blocks. A principal minor that selects unequal numbers of indices from the two blocks
+vanishes. For equal numbers it factors into two determinants whose product is nonnegative.
+A small positive diagonal perturbation makes every principal minor positive. The perturbed problem
+has a unique solution, and one linear program turns its support into an exact equilibrium of the
+original game. The reduction to P-LCP and the UEOPL
+membership theorem for P-LCP give the upper bound~\cite{fgms18}
 (Section~\ref{sec:direct-lcp}).
 
 \paragraph{Why it can be solved in $L^{O(\sqrt n)}$.} The game can also be written as an update rule
 that moves a candidate coverage toward the players' best responses, damped so that it brings any two
-points closer together. Its unique fixed point is the equilibrium. For such a rule, evaluating it at one
-point shows on which side of a hyperplane through that point the fixed point lies, so one can search by
-repeated cutting, a binary search in many dimensions. Doing this in blocks of about $\sqrt n$ coordinates
+points closer together. Its unique fixed point determines a support
+pattern on which a linear program recovers an equilibrium of the original
+game. Comparing a point with its update excludes regions using the
+$\ell_1$ distance inequalities of Section~\ref{sec:subexp}.
+Searching in blocks of about $\sqrt n$ coordinates
 with the deep-point method of Ghorbani, Lopes and Mnich gives the bound
 (Sections~\ref{sec:contraction} and~\ref{sec:subexp}).
 
@@ -176,10 +182,9 @@ paper folded in half again and again, so that the path has exponentially many be
 follows it in straight segments needs exponentially many steps, even though the final equilibrium of
 these particular games is easy to compute by other means (Proposition~\ref{artlck:prop:easy}).
 
-\paragraph{Why the question stays open.} The two bounds meet ARRIVAL from both sides: from below the
-problem is at least as hard as ARRIVAL, and from above it lies in $\mathsf{UEOPL}$, which is also the
-best known upper bound for ARRIVAL. A polynomial-time algorithm would therefore also solve ARRIVAL,
-which has resisted all attempts since it was introduced~\cite{dgkmw17}.
+\paragraph{What the two bounds imply.} An exact BNE solver decides
+ARRIVAL through the lower reduction. A P-LCP solver computes an exact
+BNE through the upper reduction. Each implication goes in one direction.
 
 \section{What each chapter does}
 
@@ -200,21 +205,26 @@ network, whose cheapest flows alternate between the two copies exactly like a sw
 
 \paragraph{Chapter~\ref{ch:upper}: Upper bounds.} The market's equilibrium conditions are a linear
 complementarity problem with a $P_0$ matrix; a tiny diagonal perturbation makes it a P-matrix, so (M1)
-and ARRIVAL reduce many-one to P-LCP. Separately, the game itself is encoded as the unique fixed point
-of one explicit piecewise-linear $\ell_1$ contraction. Read as a PL-Contraction instance this puts exact
+and ARRIVAL reduce many-one to P-LCP. Separately, the unique fixed point
+of one explicit piecewise-linear $\ell_1$ contraction supplies the support
+data for an equilibrium LP. Read as a PL-Contraction instance this puts exact
 BNE in $\mathsf{UEOPL}$; fed to the block search of Ghorbani, Lopes and Mnich it gives an
 $L^{O(\sqrt n)}$ algorithm.
 
 \paragraph{Chapter~\ref{ch:lck}: An exponential lower bound for the Li--Conitzer--Korzhyk algorithm.} That algorithm raises
 the defender's budget continuously and follows equilibria along straight segments. A folding circuit of
-min and max gates produces a game whose equilibrium path is unique for budgets up to $3/8$ and has $2^{h-1}$ affine pieces there, so the algorithm
+min and max gates produces a game with a unique equilibrium \emph{coverage}
+at each budget up to $3/8$. Its coverage path has $2^{h-1}$ affine pieces there, so the algorithm
 needs at least $2^{h-1}$ segments. A second family forces $2^n$ distinct attack patterns.
 
 \paragraph{Chapter~\ref{ch:open}: Open problems.} What the results do not show.
 
-\section{What remains open}
+\section{What the reductions settle}
 
-The main question remains open: polynomial time is neither proved nor ruled out. The lower bound
-matters only if ARRIVAL is not in $\mathsf P$, and the upper bound does not give a polynomial algorithm.
-It is not known whether exact BNE is $\mathsf{UEOPL}$-hard, whether it reduces to ARRIVAL, or whether
-P-LCP reduces back to the market. Chapter~\ref{ch:open} lists these and smaller questions.
+An exact BNE oracle decides ARRIVAL even when restricted to the one-resource
+games of Theorem~\ref{thm:A}. An oracle for P-LCP returns enough information
+to construct an exact BNE of the general game. A polynomial algorithm for
+affine matching would answer Conitzer's question through Chapter~\ref{ch:market}.
+Neither outer reduction supplies such an algorithm or identifies a complete
+problem for $\mathsf{UEOPL}$ that reduces to general BNE. Chapter~\ref{ch:open}
+identifies the directions beyond these results.

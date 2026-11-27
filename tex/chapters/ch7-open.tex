@@ -1,8 +1,8 @@
 \chapter{Open problems}\label{ch:open}
 
 \paragraph{Idea.} The results bracket exact BNE between ARRIVAL and $\mathsf{UEOPL}$ and give a
-subexponential algorithm. Each of them stops short of something. This chapter lists what is not known,
-using only what the preceding chapters establish.
+subexponential algorithm. This chapter asks what follows from these
+constructions and which directions would require an additional proof.
 
 \paragraph{1. Polynomial time.} Can an exact BNE of an explicit Bayesian simple security game be computed
 in polynomial time? By Theorem~\ref{thm:mk-main} this is the same question as for exact equilibria of
@@ -11,7 +11,7 @@ resource, defender payoffs $0$ and $1$, and nearly uniform priors. A positive an
 $\mathsf P$ (Corollary~\ref{cor:A}).
 
 \paragraph{2. The gap between ARRIVAL and UEOPL.} Exact BNE is ARRIVAL-hard (Theorem~\ref{thm:A}) and in
-$\mathsf{UEOPL}$ (Theorem~\ref{thm:ueopl-main}). It is not known to be $\mathsf{UEOPL}$-hard, and ARRIVAL's known lower bounds are CC- and PL-hardness~\cite{manuell21}; nothing in this book bounds BNE search from below beyond ARRIVAL. Hardness for $\mathsf{EOPL}$ ($=\mathsf{CLS}$) under many-one reductions is not a sensible target
+$\mathsf{UEOPL}$ (Theorem~\ref{thm:ueopl-main}). It is not known to be $\mathsf{UEOPL}$-hard, and ARRIVAL's known lower bounds are CC- and PL-hardness~\cite{manuell21}; nothing in this book bounds BNE search from below beyond ARRIVAL. Hardness for $\mathsf{EOPL}$ ($=\mathsf{CLS}$) under many-one reductions would give $\mathsf{EOPL}\subseteq\mathsf{UEOPL}$, which fails relative to an oracle; this is a barrier to black-box reductions, not an unconditional obstacle
 (Remark~\ref{rem:ueopl-arrival}).
 
 \paragraph{3. The market and P-LCP.} (M1) and ARRIVAL reduce many-one to P-LCP
@@ -21,10 +21,10 @@ so nothing here says that (M1) is $\mathsf{UEOPL}$-complete. For the game, the m
 but Section~\ref{sec:direct-lcp} gives a direct many-one reduction to one P-matrix LCP.
 
 \paragraph{4. Why the market is not an LP.} When slopes factor as $b_{ij}=\beta_i\gamma_j$, (M1) is one
-linear program (Section~\ref{sec:ar-gadget-market}). No reduction of general (M1) markets to an LP or to a
-concave generalized flow problem~\cite{vegh14} is known; such a reduction would imply that ARRIVAL is in
-$\mathsf P$, which would settle a long-open problem; it would also have to be reconciled with the reduction
-of Chapter~\ref{ch:arrival}.
+linear program (Section~\ref{sec:ar-gadget-market}). Extending this
+formulation to general slopes, or reducing the market to a
+polynomially solvable concave generalized flow problem~\cite{vegh14},
+would also provide an algorithm for ARRIVAL by Chapter~\ref{ch:arrival}.
 
 \paragraph{5. Pivoting.} Lemke's algorithm with lexicographic pivoting terminates at an equilibrium on
 the unperturbed LCP (Proposition~\ref{plcp:prop:q0}), but no polynomial bound on its number of pivots is
@@ -34,22 +34,22 @@ applies to budget-following methods only, not to pivoting on other formulations.
 \paragraph{6. Faster algorithms.} The exponent $\sqrt n$ of Theorem~\ref{thm:sx-main} comes from a generic
 block search; ARRIVAL itself is solvable in $2^{O(n^{1/3}\log^{2/3}n)}$~\cite{glm26} by a trade-off
 specific to its structure. A faster or polynomial algorithm for the contraction of
-Section~\ref{sec:contraction} would have to exploit its special structure: every Jacobian column comes
-from explicitly listed attacker rows, each a projection onto a simplex (Remark~\ref{rem:ueopl-nopoly}).
+Section~\ref{sec:contraction} could exploit its explicit attacker
+simplex projections and defender cutoff update (Remark~\ref{rem:ueopl-nopoly}).
 A generic polynomial $\ell_1$ solver would also put ARRIVAL in $\mathsf P$. Known polynomial methods for
 $\ell_p$-nonexpansive maps need even $p$~\cite{dfz26}.
 
-\paragraph{7. Smaller statements left open.}
-\begin{itemize}[nosep]
-\item The ``no mass creation'' lemma that would allow terminal capacities $C_T>1$
-(Remark~\ref{rem:ar-smallterm}) has been checked exactly for small gadgets only.
-\item The embedding of Theorem~\ref{thm:mk-embed} needs slopes $\ge1$
-(Proposition~\ref{prop:mk-below-one}); a direct variant for small slopes with a larger scaling constant
-$S$ exists only as a sketch that one referee checked by hand (Appendix~\ref{app:sources}).
-\item The fixed-dimension algorithm via~\cite[Theorem~40]{fgms18} (Remark~\ref{rem:ueopl-fixeddim})
-rests on a theorem whose proof was not checked.
-\end{itemize}
+\paragraph{7. Smaller questions from the first edition.}
+Lemma~\ref{rem:ar-smallterm} bounds switch outflow at arbitrary port
+prices. Corollary~\ref{cor:mk-original-slopes} retains original slopes
+below one in the market embedding. Remark~\ref{rem:ueopl-fixeddim} gives
+a direct algorithm for a fixed number of targets by enumerating coverage
+vertices and solving a flow LP at each. Its candidate count grows with
+the number of targets; the general polynomial-time question requires
+a uniform bound with a fixed exponent.
 
 \paragraph{8. Verification.} No human expert has checked any proof in this book. The steps most in need
-of expert review are listed in Appendix~\ref{app:status}. The new statement about $\mathsf{TFNP}$,
-ARRIVAL $\le_m$ P-LCP, in particular should be checked by an expert before it is used.
+of expert review are listed in Appendix~\ref{app:status}. For ARRIVAL
+$\le_m$ P-LCP the specific points to check are the market composition,
+the perturbation-and-repair LP, and the switching-flow decoder following
+Corollary~\ref{plcp:cor:arrival}.

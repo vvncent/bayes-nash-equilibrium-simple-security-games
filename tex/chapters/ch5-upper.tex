@@ -11,8 +11,8 @@ and with it ARRIVAL, reduce many-one to P-LCP.
 of the game itself, after a row shift, form one LCP whose matrix is $P_0$; a tiny diagonal perturbation
 makes it a P-matrix. This is a many-one reduction of exact BNE to P-LCP, and it puts the game in
 $\mathsf{UEOPL}$.
-\item \emph{Through one contraction} (Sections~\ref{sec:contraction}--\ref{sec:subexp}). The game itself
-is encoded as the unique fixed point of an explicit piecewise-linear map
+\item \emph{Through one contraction} (Sections~\ref{sec:contraction}--\ref{sec:subexp}). The support
+and coverage labels for an equilibrium LP are read from the unique fixed point of an explicit piecewise-linear map
 $F:[0,1]^{n+1}\to[0,1]^{n+1}$ that contracts the $\ell_1$ norm. The map is built once, in
 Section~\ref{sec:contraction}, and used twice: read as a PL-Contraction instance it puts exact BNE in
 $\mathsf{UEOPL}$ (Section~\ref{sec:ueopl}); handed to the block search of Ghorbani, Lopes and Mnich it
@@ -248,15 +248,38 @@ correct, because its conclusion holds for \emph{every} equilibrium. There is one
 solution map (an LP plus a readout), so the composite is many-one.
 \end{proof}
 
-Both ARRIVAL and P-LCP were known to lie in $\mathsf{UEOPL}$ (ARRIVAL by~\cite{ghhkms18,fgms18}, P-LCP
-by~\cite{fgms18}), but P-LCP is not known to be $\mathsf{UEOPL}$-hard, so membership alone does not give a
-reduction. Known reductions from ARRIVAL go to $\mathsf{EOPL}$/$\mathsf{UEOPL}$~\cite{ghhkms18,fgms18},
-to Tarski fixed points~\cite{ghh21}, and to $\ell_1$-contraction~\cite{haslebacher25}; known
-equivalences of P-LCP (with P-GLCP, P-Lin-Bellman and an $\alpha$-Ham-Sandwich
-variant~\cite{bfgssw24}) do not involve ARRIVAL. G\"artner et al.~\cite[Section~6]{ghhkms18} asked whether there is any reduction between ARRIVAL and
-P-LCP; Corollary~\ref{plcp:cor:arrival} gives one direction. A Google Scholar search, including the papers
-that cite~\cite{ghhkms18}, found no earlier reduction from ARRIVAL to P-LCP. If correct, Corollary~\ref{plcp:cor:arrival} is a new statement about $\mathsf{TFNP}$, and it
-should be checked by an expert before it is used as one.
+\paragraph{The search version.}\label{par:search-arrival}
+The same P-LCP answer gives the switching-flow certificate required by
+\textsc{S-Arrival} in \cite[Definition~13]{ghhkms18}. Form the specified
+graph $G'$ by adding $\bar d$, redirecting both exits of every original
+vertex with no path to $d$ to $\bar d$, and making $d,\bar d$ absorbing.
+Use these two vertices as the terminals in the market reduction. Every
+remaining switch can reach a terminal. If $o=d$, the zero flow solves the
+input and the decoder can ignore a fixed trivial P-LCP query.
+Otherwise read the incoming masses $x_v$ of Theorem~\ref{thm:compose}
+from the recovered market equilibrium. On each labeled exit $(v,i)$
+output $h_i(\lfloor x_v\rfloor)$, setting the terminal loops to zero.
+Parts (i)--(ii) of the proof of Lemma~\ref{lem:sh-decoder} show that flooring
+preserves the switch balances and both terminal inflows. The two
+labeled counts at each switch are $\lceil\lfloor x_v\rfloor/2\rceil$
+and $\lfloor\lfloor x_v\rfloor/2\rfloor$. If the output stores one
+edge per ordered vertex pair, add the two counts when the successors
+coincide. Conservation is unchanged and parity on a repeated edge
+holds automatically. These are the conservation and parity requirements for a
+switching flow to the reached terminal. All counts have $O(n)$ bits
+by Theorem~\ref{thm:compose}, and flooring and splitting take polynomial
+time. The certificate may contain extra circulations. Definition~14
+of the same paper asks instead for a run profile.
+
+G\"artner et al.~\cite[Section~6]{ghhkms18} asked about a reduction
+between ARRIVAL and P-LCP. Corollary~\ref{plcp:cor:arrival} supplies
+the decision direction, and the preceding decoder supplies the
+switching-flow search direction. Earlier reductions place the search
+problem in $\mathsf{UEOPL}$~\cite{ghhkms18,fgms18}. P-LCP also lies in
+that class~\cite{fgms18}. The construction through the market gives
+the instance map and witness map relating the two problems. Composing
+with the equivalence of P-LCP and P-Lin-Bellman
+from~\cite{bfgssw24} also gives a search reduction to P-Lin-Bellman.
 
 \begin{remark}[The market route]\label{plcp:cor:bne}
 By Proposition~\ref{prop:mk-g2m} and Theorem~\ref{plcp:thm:main}, exact BNE also has a polynomial-time Turing reduction to P-LCP through the market; the direct reduction of Section~\ref{sec:direct-lcp} is stronger.
@@ -833,8 +856,7 @@ polynomial in $L$.
 edges are zero, and allowed edges are best responses whether or not their flow is positive.
 (b) The relaxed polyhedron contains no line, so it is pointed: every variable except $t$ is boxed, and
 $t$ is bounded below by $0$, so no direction can be followed both ways. It is nonempty (keep the outer
-boxes and take $t$ large), and $t\ge0$ bounds the objective, so a minimum is attained at a vertex.
-By Cramer's rule, $t^*$ at a vertex is an integer divided by a basis determinant
+boxes and take $t$ large), and $t\ge0$ bounds the objective, so a minimum is attained at a vertex. By Cramer's rule, $t^*$ at a vertex is an integer divided by a basis determinant
 of absolute value at most $N!\,H^N\le Q$. (c) The point gives a feasible relaxed solution with
 $t<g<1/Q$, so the optimum is $0$. Then (a) applies.
 \end{proof}
@@ -910,7 +932,7 @@ $s=C_{0,\kappa}(q)$. Let $\lambda(s)$ equal $\bar d$ for $s\le\delta\kappa$, dec
 $s=(1-\delta)\kappa$, and equal $0$ for larger $s$. That is,
 $\lambda(s)=C_{0,\bar d}\bigl(\bar d\,((1-\delta)\kappa-s)/((1-2\delta)\kappa)\bigr)$. Define
 \begin{gather*}
-  T_j(x,s)=C_{0,1}\Bigl(x_j+\eta\bigl(w_j(x)-\lambda(s)/d'_j\bigr)\Bigr)\quad(j=1,\dots,n),\qquad
+  T_j(x,s)=C_{0,1}\Bigl(x_j+\eta\bigl(w_j(x)-\lambda(s)/d'_j\bigr)\Bigr)\quad(j=1,\dots,n),\\
   R(x,s)=C_{0,\kappa}\Bigl(s+\sum_jx_j-\sum_jT_j(x,s)\Bigr),\\
   F(x,q)=(1-\delta)\bigl(T(x,s),R(x,s)\bigr)+\delta\,(a^0,\kappa/2).
 \end{gather*}
@@ -1068,12 +1090,15 @@ Exact BNE search for Bayesian simple security games with rational data written i
 polynomial time to computing the unique fixed point of the LinearFIXP circuit map
 $F:[0,1]^{n+1}\to[0,1]^{n+1}$ constructed above. Zero slopes and zero gains are allowed. $F$ is a
 $(1-\delta)$-contraction in $\ell_1$ for the explicit rational $\delta>0$ of polynomial bit length.
-Read as the \textsc{PL-Contraction} instance $(F,\ c=1-\delta,\ p=1)$, it has no violation
+Read as the \textnormal{\textsc{PL-Contraction}} instance $(F,\ c=1-\delta,\ p=1)$, it has no violation
 solutions, so its only solution is the fixed point. Hence exact BNE search is in $\mathsf{UEOPL}$.
 \end{theorem}
 
 \begin{proof}
-Delete the zero-prior types. If $r\in\{0,n\}$, map the game to a fixed trivial instance; the decoder then returns $x=\mathbf 0$ or $x=\mathbf 1$. Every deleted type gets a best response.
+Delete the zero-prior types. If $r\in\{0,n\}$, map the game to a fixed
+trivial instance. The decoder returns the forced coverage $x=\mathbf 0$
+or $x=\mathbf 1$ and chooses a maximizing target for each type.
+At an interior budget restore each deleted type with a best response to the recovered coverage.
 The instance map $\Gamma\mapsto(F,1-\delta,1)$ runs in polynomial time: $Q$, the constants and the
 circuit all have polynomial size. Lemma~\ref{lem:ueopl-contraction} excludes CMV1, and CMV2 is excluded
 because $F$ maps the cube into itself. CMV3 is excluded because $F$ is contracting and has a fixed point
@@ -1089,32 +1114,64 @@ $\mathsf{CLS}=\mathsf{PPAD}\cap\mathsf{PLS}$~\cite{fghs23}.
 \end{remark}
 
 \begin{remark}[Comparison with ARRIVAL]\label{rem:ueopl-arrival}
-Theorem~\ref{thm:ueopl-main} gives exact BNE search the same $\mathsf{TFNP}$ class bound as ARRIVAL,
+Theorem~\ref{thm:ueopl-main} gives exact BNE search the same $\mathsf{TFNP}$ class bound as the search version of ARRIVAL,
 $\mathsf{UEOPL}$, hence $\mathsf{EOPL}$ and $\mathsf{CLS}$. It does so through an \emph{exact}
 piecewise-linear $\ell_1$ contraction in dimension $n+1$, whereas Haslebacher's reduction for ARRIVAL
 goes to an \emph{approximate} fixed point~\cite{haslebacher25}. Hardness for $\mathsf{CLS}$ or
-$\mathsf{EOPL}$ under many-one reductions would now give $\mathsf{EOPL}\subseteq\mathsf{UEOPL}$, which
-fails relative to decision-tree many-one reductions~\cite[Thm.~5]{goos22}. So such hardness is not a
-sensible target.
+$\mathsf{EOPL}$ under many-one reductions would now give $\mathsf{EOPL}\subseteq\mathsf{UEOPL}$. This
+inclusion fails relative to an oracle, that is, for decision-tree many-one reductions~\cite[Thm.~5]{goos22}.
+That is a real barrier to black-box reductions of that kind, but it does not rule out an ordinary
+polynomial-time hardness reduction.
 \end{remark}
 
 \begin{remark}[No polynomial algorithm follows]\label{rem:ueopl-nopoly}
-Plain fixed-point iteration needs a number of iterations that grows like $1/\delta$, which may be
-exponential in $L$. Within a known choice of affine pieces the fixed point solves a rational linear
+For initial error $E$, the generic contraction estimate bounds the error
+after $k$ iterations by $(1-\delta)^k E$. The iteration count obtained
+from this estimate can be exponential in $L$. Within a known choice of affine pieces the fixed point solves a rational linear
 system. The difficulty is identifying the pieces when the solution lies on or near changes in the
 attackers' choices. Daskalakis, Farina and Zhang compute $\varepsilon$-approximate fixed points of
 $\ell_p$-nonexpansive maps in time polynomial in $d$ and $\log(1/\varepsilon)$ for even integers
 $p$~\cite{dfz26}. This excludes $p=1$.  In the other direction, a generic polynomial-time $\ell_1$ solver would also put ARRIVAL in
 $\mathsf P$ by~\cite{haslebacher25}. A targeted algorithm would have to exploit the special structure
-here: every Jacobian column comes from explicitly listed attacker rows, each a projection onto a simplex.
+here, including the simplex projections in the attacker update and the
+separate cutoff coordinate in the defender update.
 \end{remark}
 
 \begin{remark}[Fixed dimension]\label{rem:ueopl-fixeddim}
-\cite[Theorem~40]{fgms18} solves \textsc{PL-Contraction} in time polynomial in the circuit size and
-exponential in $d$. Combined with Theorem~\ref{thm:ueopl-main}, this would give a polynomial-time exact
-algorithm for every fixed number of targets. We use only its statement. Theorem~\ref{thm:sx-main} below gives the same consequence
-independently.
+\cite[Theorem~40]{fgms18} and Theorem~\ref{thm:ueopl-main} imply a
+polynomial-time exact algorithm for each fixed number of targets.
+Here is a direct finite algorithm for this game. Write $n$ for the
+number of targets, $m$ for the number of types, and $L$ for the binary
+input length. In the affine hyperplane $\sum_jx_j=r$, list the
+$2n$ equations $x_j=0,1$ and the $m\binom n2$ equations
+$U_{ij}(x)=U_{ik}(x)$ for all types and unordered pairs of targets.
+For each choice of $n-1$ equations, solve them together with the budget
+equation. Keep a unique solution in $[0,1]^n$. At each retained
+coverage find the best attacks of each type by exact comparison.
+Solve the LP for attack flows and a cutoff on this menu: use full
+prior rows, put zero on other attacks, and impose the cutoff
+inequalities of Lemma~\ref{lem:cutoff} at the zero, interior and full
+coordinates. A feasible candidate gives a full equilibrium by
+Lemma~\ref{lem:realize}. Zero-prior types can choose any best attack.
+
+For completeness, choose an actual equilibrium $(x^*,f^*)$ and fix its
+flow and cutoff. Keep every coverage bound tight at $x^*$ as an
+equality and require every attack used by $f^*$ to remain a best
+response, using closed inequalities. Together with the budget and box
+these constraints give a nonempty bounded polytope. At every point of
+it the same flow and cutoff still work. An originally interior target
+has score exactly the cutoff, which is admissible even if the target
+reaches a bound. At a vertex the active equations contain the budget
+and $n-1$ other independent equations, all from the list. Thus the
+enumeration finds at least one feasible candidate. This includes ties
+and identically zero slopes. Even for $n=1$ the empty choice works.
+There are at most $\binom{2n+m\binom n2}{n-1}$ candidates and each
+requires polynomial bit work. For fixed $n$ this is polynomial in $L$.
+The candidate bound has an exponent depending on $n$.
 \end{remark}
+\noindent{\small\itshape AI self-review, November 26, 2026 (UTC).
+Checked the vertex enumeration and preservation of the fixed attack
+flow when an interior coordinate reaches a bound.}\par
 
 \section{A subexponential exact algorithm}\label{sec:subexp}
 
@@ -1397,8 +1454,8 @@ $S$.
 so that point is a vertex, and Cramer's rule bounds its denominators.
 
 \begin{proof}
-The menu of all possible rows has polynomial size, so $H$ and $M$ are polynomially bounded without
-enumerating branch choices. Choose a branch pattern that occurs at $u^*$, resolving ties arbitrarily. Its
+The menu of all possible rows has polynomial size, so $\log H$ and $M$ are polynomially bounded without
+enumerating branch choices ($H$ itself can be exponential). Choose a branch pattern that occurs at $u^*$, resolving ties arbitrarily. Its
 lifted polyhedron is a singleton: every feasible point projects to a fixed point of $F$, which is unique,
 and topological evaluation then fixes every gate value. The active rows at this point span all $M$
 coordinates; otherwise a nonzero common null vector could be followed a small distance in either

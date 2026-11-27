@@ -667,7 +667,40 @@ $100$.
 \end{proof}
 
 So the hypothesis $b_{ij}\ge1$ cannot be dropped from Theorem~\ref{thm:mk-embed}. We handle arbitrary
-positive slopes by the row rescaling of Lemma~\ref{lem:mk-rescale}.
+positive slopes by the row rescaling of Lemma~\ref{lem:mk-rescale}. One
+can also change the scale and keep the slopes in the original table.
+
+\begin{corollary}[Embedding without row rescaling]\label{cor:mk-original-slopes}
+For arbitrary listed $b_{ij}>0$, keep those slopes, all weights, and the
+offers of Table~\ref{tab:mk-types}, using throughout the scale
+$S'=(1+(|I|+|J|)A)/\gamma$ with $\gamma=\min(1,\min_{ij}b_{ij})$.
+Every equilibrium of the resulting one-resource game decodes to a
+market clearing, and every market clearing lifts to a game equilibrium.
+\end{corollary}
+\noindent{\small\itshape AI self-review, November 26, 2026 (UTC).
+Checked both directions with the original slope on every listed edge.}\par
+\begin{proof}
+If there are no listed pairs, the market answer is the zero allocation,
+prices and values. Otherwise $\gamma>0$. The control and dedicated types,
+the bound of $W$ from below on every private load, and zero outside coverage
+follow as in Theorem~\ref{thm:mk-embed}: at zero coverage the private
+offer $A/S'$ strictly exceeds every real offer, and outside receives
+at most $\sum_i\mu_i<W$. Thus each source's best utility is nonnegative.
+A covered real target needs a tight source offer, giving
+$\xi_j\le A/(\gamma S')$. A covered private target gives
+$\xi_{g_i}\le A/S'$. Their total is at most
+$(|I|+|J|)A/(\gamma S')<1$. The control has positive coverage, maximum
+load is exactly $W$, and every private target takes exactly $W$.
+Reading $P_j=S'\xi_j$, the offers and loads give the original market's
+clearing conditions. Conversely a positive market price requires a
+positive tight purchase, so $P_j\le A/\gamma$, and $0\le v_i<A$.
+The lift $\xi_j=P_j/S'$, $\xi_{g_i}=(A-v_i)/S'$, $\xi_o=0$ therefore
+leaves positive control coverage. Assign $W$ source units to the private
+target, the trades to the real targets, and spare mass outside.
+Positive spare mass has value zero, positive-price goods are full, and
+the control and all covered targets have load $W$. These are the two
+best-response conditions. Computing $S'$ takes polynomial bit work.
+\end{proof}
 
 \section{Proof of the main theorem and the corollary}\label{sec:mk-proof}
 
@@ -686,7 +719,7 @@ $\Gamma_\omega$ has one resource, defender payoffs $0$ and $1$ and the stated pr
 polynomial in the call and in the length of $\omega$. The reverse reduction is inclusion.
 \end{proof}
 
-\section{What the equivalence says}
+\section{What the equivalence says}\label{sec:mk-consequences}
 
 The equivalence is a reduction in both directions. By itself it is neither a polynomial algorithm nor
 a hardness result: it isolates the complexity of exact equilibrium search in general (M1) markets as the

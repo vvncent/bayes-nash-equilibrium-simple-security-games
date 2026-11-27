@@ -106,3 +106,8 @@ end
 #print axioms Bssg.Contraction.fixedPointUnique_proof
 #print axioms Bssg.Contraction.decoding_proof
 #print axioms Bssg.Contraction.reduction_proof
+
+/-! Preprocessing: compiled code for `liveWithin` (used by `redirect`, `preprocess`, `Red` and `Dec`) is
+the stage-by-stage `liveWithinFast`, proved equal to it and registered with `@[csimp]`. -/
+#print axioms Bssg.ArrivalInstance.liveWithinFast_eq
+#print axioms Bssg.ArrivalInstance.liveWithin_eq_liveWithinFast
